@@ -1,0 +1,25 @@
+{% if pagination.total > 1 %}
+<footer class="pagination">
+
+  <a {% if pagination.prev %} href="{{ pagination.prev.link }}" {% endif %}
+    class="page-button" title="Previous Page">
+    <i class="material-icons">chevron_left</i>
+  </a>
+
+  <select id="pagination">
+  {% for page in pagination.pages %}
+    {% if page.link %}
+      <option value="{{ page.link }}">Page {{ page.title }}</option>
+    {% else %}
+      <option selected disabled>Page {{ page.title }} of {{ pagination.total }}</option>
+    {% endif %}
+  {% endfor %}
+  </select>
+
+  <a {% if pagination.next %} href="{{ pagination.next.link }}" {% endif %}
+    class="page-button" title="Next Page">
+    <i class="material-icons">chevron_right</i>
+  </a>
+
+</footer>
+{% endif %}

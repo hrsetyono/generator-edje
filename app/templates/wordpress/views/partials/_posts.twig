@@ -1,0 +1,19 @@
+{% for post in posts %}
+  
+  <h1>
+    <a href="{{ post.link }}">
+      {{ post.title }}
+    </a>
+  </h1>
+
+  {{ post.get_preview }}
+
+{% endfor %}
+
+{% if not posts %}
+  <p>
+    No posts found
+  </p>
+{% endif %}
+
+{% include "partials/_pagination.twig" %}

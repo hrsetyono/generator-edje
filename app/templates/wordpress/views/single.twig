@@ -1,0 +1,40 @@
+{% extends "layout.twig" %}
+{% block content %}
+  
+<!-- Post Section -->
+<article>
+
+  <header>
+    <h1>{{ post.title }}</h1>
+    <time datetime="{{ post.post_date | date('Y F d') }}">
+      {{ post.post_date | date("d M y") }}
+    </time>
+  </header>
+
+  <section>
+    {{ post.content }}
+  </section>
+  
+  <footer>
+    <p>
+      By <a href="{{ post.author.path }}">{{ post.author.name }}</a>
+    </p>
+  </footer>
+
+</article>
+
+<!-- Comment Section -->
+<section>
+  {{ comment_form }}
+
+  <ul>
+    {% for comment in post.get_comments() %}
+      <li>
+        <h5> {{ comment.author.name }} says </h5>
+        {{ comment.comment_content | wpautop }}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% endblock %}

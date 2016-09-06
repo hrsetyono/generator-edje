@@ -1,0 +1,20 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- WEBSITE DETAIL -->
+  <title>
+    {{ meta_title }}
+  </title>
+  <meta name="description" content="{{ @blog.description }}">
+  
+  <!-- FAVICON -->
+  <link rel="icon" href={{asset "img/favicon.png" }}>
+  <link rel="apple-touch-icon-precomposed" href={{asset "img/favicon-big.png" }}>
+  
+  <!-- STYLESHEET -->
+  <link rel="stylesheet" href={{asset "css/framework.css" }}>
+  <link rel="stylesheet" href={{asset "css/app.css" }}>
+
+  {{ ghost_head }}
+</head>

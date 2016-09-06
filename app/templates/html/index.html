@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- WEBSITE DETAIL -->
+  <title>My Website</title>
+  <meta name="theme-color" content=""> <!-- use Hex color -->
+  <meta name="description" content="This is a description of your website, only first 160 characters matters">
+
+  <!-- FAVICON -->
+  <link rel="icon" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-big.png">
+
+  <!-- STYLESHEET -->
+  <link rel="stylesheet" href="assets/css/framework.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+
+</head>
+<body>
+<div id="main-wrapper">
+
+  <!-- NAVIGATION -->
+  <section class="main-menu">
+    <h-row><h-column class="menu-col">
+
+      <div class="main-logo">
+        <a href="/">
+          <img src="assets/images/logo.png" alt="My Logo">
+        </a>
+      </div>
+
+      <div id="menu-toggle" class="menu-item">
+        <a>
+          <i class="icon">menu</i> <span>Menu</span>
+        </a>
+      </div>
+
+      <nav class="menu-wrapper">
+        <div class="menu-item current-menu-item">
+          <a href="">Home</a>
+        </div>
+        <div class="menu-item menu-item-has-children">
+          <a>About</a>
+
+          <div class="child-menu">
+            <a>Company History</a>
+            <a>Vision &amp; Mission</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Right menu -->
+      <div class="menu-extra">
+        <form class="menu-item search-form" method="get" action="">
+          <input type="search" name="s" placeholder="Search">
+
+          <button id="search-toggle">
+            <i class="icon">search</i>
+          </button>
+        </form>
+
+        <div class="menu-item">
+          <a href="">
+            <i class="icon">facebook_box</i>
+          </a>
+        </div>
+      </div>
+
+    </h-column></h-row>
+  </section>
+
+  <!-- CONTENT HERE -->
+
+  <div id="footer-push"></div>
+</div>
+<footer class="main-footer"></footer>
+
+<!-- JAVASCRIPT LIBRARY -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<script src="assets/js/vendor/jquery.min.js"></script>
+
+<script src="assets/js/vendor/fastclick.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

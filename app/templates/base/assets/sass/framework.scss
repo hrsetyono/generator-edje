@@ -1,0 +1,299 @@
+// Put styles that you might reuse in other projects here
+@import "setting";
+@import "edje-framework";
+
+// @import "fancybox";
+// @import "slick";
+// @import "woo";
+
+///// FONT /////
+
+@font-face {
+  src: font-url("material-icons-custom.woff") format("woff");
+  font-family: $font-family-icon;
+}
+
+// Usage: <i class="icon">icon_name</icon>
+// http://google.github.io/material-design-icons/
+.icon {
+  font-family: $font-family-icon;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5em;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+}
+
+///// BUTTON /////
+
+button,
+.button,
+[type="submit"] {
+  display: inline-block;
+  outline: none;
+  padding: 8px 15px;
+  background-color: $color-main;
+  color: white;
+  border: none;
+}
+
+///// INPUT /////
+
+[type="text"],
+[type="number"],
+[type="tel"],
+[type="password"],
+[type="email"],
+[type="search"],
+[type="url"],
+textarea,
+select {
+  display: block;
+  width: 100%;
+  border: 1px solid $color-passive;
+  border-top-color: darken($color-passive, 5%);
+
+  &:hover {
+    border-color: darken($color-passive, 10%);
+    box-shadow: inset 0 0 3px $color-passive;
+  }
+
+  &:focus {
+    border-color: $color-main;
+    box-shadow: inset 0 1px 2px rgba(black, .2);
+  }
+}
+
+///// NAVIGATION /////
+
+#wpadminbar {
+  @include below(600px) {
+    position: absolute;
+    top: -46px;
+  }
+}
+
+.main-menu {
+  position: relative;
+  z-index: z(menu);
+
+  background-color: $color-main;
+}
+
+.menu-col {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @include column(12);
+
+  .menu-wrapper { flex-grow: 1; }
+}
+
+.main-logo {
+  img { height: 50px; }
+}
+
+
+// MENU ITEM
+
+.menu-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.menu-item {
+  position: relative;
+
+  > a {
+    display: block;
+    cursor: pointer;
+    padding: 12px 18px;
+    color: white;
+    transition: $g-transition;
+  }
+
+  // current page
+  &.current-menu-item > a,
+  &.current-page-ancestor > a {
+    background-color: $color-main-dark
+  }
+
+  // Tips: reorder the CSS for overriding
+  &:hover > a {
+    background-color: $color-sub;
+  }
+
+  &:active > a {
+    background-color: darken($color-sub, 5%);
+    transition: none;
+  }
+}
+
+// CHILD MENU
+
+.child-menu {
+  visibility: hidden; opacity: 0;
+  position: absolute; z-index: z(child_menu);
+  top: 100%; left: 0;
+  padding: 5px;
+  min-width: 200px;
+
+  background-color: $color-sub;
+  white-space: nowrap;
+
+  border-radius: $g-radius;
+  transition: $g-transition;
+  box-shadow: $shadow-z1;
+  @include transform(translateY(10px) );
+
+  @include below(medium) {
+    top: 0;
+    left: 100%;
+    @include transform(translateX(10px) );
+  }
+
+  .menu-item:hover & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+
+  a {
+    display: block;
+    padding: 4px 12px;
+    color: white;
+
+    @include below(medium) {
+      padding: 9.5px 12px;
+    }
+  }
+
+  a:hover { background-color: lighten($color-sub, 5%); }
+}
+
+// MOBILE MENU
+
+body.menu-active {
+  cursor: pointer; // fix iOS untap-able bug
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+#menu-toggle {
+  display: none;
+
+  @include below(medium) {
+    display: block;
+  }
+
+  @include below(mini) {
+    span { display: none; }
+  }
+}
+
+.menu-wrapper {
+  @include below(medium) {
+    visibility: hidden;
+    opacity: 0;
+
+    flex-direction: column;
+
+    position: fixed;
+    z-index: z(menu);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 20px 0;
+    width: 180px;
+    background-color: $color-main-dark;
+
+    transition: $g-transition;
+    box-shadow: $shadow-z2;
+    @include transform(translateX(-100%) );
+  }
+
+  .menu-active & {
+    visibility: visible;
+    opacity: 1;
+
+    @include transform(none);
+  }
+
+  .admin-bar & { top: 32px;
+    @include below(small) { top: 46px; }
+  }
+}
+
+
+
+// MENU EXTRA
+
+.menu-extra {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  > * {
+    margin-right: 5px;
+  }
+
+  .menu-item > a {
+    padding: 5px;
+    line-height: 1;
+    border-radius: $g-radius;
+  }
+
+  button {
+    padding: 5px;
+    background-color: $color-sub;
+    border-radius: $g-radius;
+
+    &:hover { background-color: lighten($color-sub, 5%); }
+    &:active { background-color: lighten($color-sub, 10%); }
+  }
+}
+
+.search-form {
+  display: flex;
+  position: relative;
+  padding: 8px 0;
+  height: 100%;
+
+  input {
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    padding: 5px 10px;
+    width: 150px;
+    height: 30px;
+
+    transition: $g-transition;
+    border-radius: $g-radius 0 0 $g-radius;
+    @include transform(translateX(-100%) );
+  }
+
+  &.search-active {
+    input {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #search-toggle {
+      background-color: $color-passive;
+      border-radius: 0 $g-radius $g-radius 0;
+    }
+  }
+}

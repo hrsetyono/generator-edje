@@ -1,0 +1,29 @@
+{% extends "layout.twig" %}
+{% block content %}
+  {{ fn('the_post') }}
+
+  {% do action("woocommerce_before_single_product") %}
+
+  <article class="{{ post.class }}" itemscope itemtype="http://schema.org/Product">
+    <h-row>
+      {# THUMBNAIL and GALLERY #}
+      <h-column class="large-6">
+        <figure>
+          {% do action("woocommerce_before_single_product_summary") %}
+        </figure>
+      </h-column>
+
+      {# DESCRIPTION and BUY BUTTON #}
+      <h-column class="large-6">
+        {% do action("woocommerce_single_product_summary") %}
+
+        {% do action("woocommerce_after_single_product_summary") %}
+      </h-column>
+    </h-row>
+
+    <meta itemprop="url" content="{{ post.link }}">
+  </article>
+
+  {% do action("woocommerce_after_single_product") %}
+
+{% endblock %}

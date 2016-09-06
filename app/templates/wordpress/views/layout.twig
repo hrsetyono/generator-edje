@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }}>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ wp_title }}</title>
+  <meta name="theme-color" content=""> {# Use Hex Color #}
+
+  {{ wp_head }}
+</head>
+
+<body class="{{ body_class }}">
+
+<div id="main-wrapper">
+  {# MAIN MENU #}
+  <section class="main-menu">
+    <h-row><h-column class="menu-col">
+      <div class="main-logo">
+        <a href="{{ home_url }}">
+          <img src="{{ images }}/logo.png" alt="{{ site.name }}'s Logo">
+        </a>
+      </div>
+
+      <div id="menu-toggle" class="menu-item">
+        <a>
+          <i class="icon">menu</i> <span>Menu</span>
+        </a>
+      </div>
+
+      <nav class="menu-wrapper">
+      {% for item in menu.items %}
+        <div class="{{ item.classes | join(' ') }}">
+          <a href="{{ item.url }}">
+            {{ item.title }}
+          </a>
+
+          {# child menu #}
+          {% if item.children %}
+            <div class="child-menu">
+              {% for child in item.children %}
+                <a href="{{ child.url }}">{{ child.title }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+      </nav>
+
+      <div class="menu-extra">
+        {% include "partials/_menu-extra.twig" %}
+      </div>
+
+    </h-column></h-row>
+  </section>
+
+
+  {# MAIN CONTENT #}
+  {% block content %}{% endblock %}
+
+  {# Use mixin `@sticky-footer($height-px)` to push the footer when content is not high enough #}
+  <div id="footer-push"></div>
+</div>
+
+<footer class="main-footer">
+  {{ site.name }} &copy; {{ "now" | date("Y") }}
+</footer>
+
+{{ wp_footer }}
+
+</body>
+</html>
