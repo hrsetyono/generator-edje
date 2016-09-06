@@ -4,6 +4,8 @@ require_once 'code/timber.php';
 
 if(!has_required_plugins() ) { return false; }
 
+require_once 'code/addon.php';
+
 add_action('init', 'my_post_type', 1);
 add_action('after_setup_theme', 'my_theme_support');
 add_action('wp_enqueue_scripts', 'my_enqueue_script');

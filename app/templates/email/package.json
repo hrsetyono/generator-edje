@@ -1,13 +1,18 @@
 {
   "name": "my-app",
   "private": true,
-  "edje": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/username/my-app.git"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-juice-email": "^0.1.3",
+    "grunt-nodemailer": "^0.3.0",
+    "grunt-sass": "^1.0.0"
+  },
   "scripts": {
     "sass": "FOR /f \"delims=\" %v IN ('node -p \"require('edje').includePaths()[0]\"') DO node-sass -w assets/sass -o assets/css --output-style compact --include-path \"%v\" ",
     "sass-mac": "node-sass -w assets/sass -o assets/css --include-paths $(node -p \"require('edje').includePaths()\")"

@@ -1,13 +1,19 @@
 <?php // Requirement : WP 4.1 and PHP 5.3
 
 require_once 'code/timber.php';
-require_once 'code/woo.php';
 
 if(!has_required_plugins() ) { return false; }
+
+require_once 'code/addon.php';
+require_once 'code/woo.php';
 
 add_action('init', 'my_post_type');
 add_action('after_setup_theme', 'my_theme_support');
 add_action('wp_enqueue_scripts', 'my_enqueue_script');
+
+// Allow EDTIOR to edit Theme and Menu
+$role_object = get_role('editor');
+$role_object->add_cap('edit_theme_options');
 
 // ACF OPTION page
 // if( function_exists('acf_add_options_page') ) {
@@ -51,5 +57,7 @@ function my_enqueue_script() {
 
   // JavaScript
   wp_enqueue_script('my-fastclick', $js_dir . '/vendor/fastclick.min.js', array(), false, true);
+  wp_enqueue_script('my-fancybox', $js_dir . '/vendor/fancybox.min.js', array('jquery'), false, true);
+  wp_enqueue_script('my-slick', $js_dir . '/vendor/slick.min.js', array('jquery'), false, true);
   wp_enqueue_script('my-app', $js_dir . '/app.js', array('jquery'), false, true);
 }

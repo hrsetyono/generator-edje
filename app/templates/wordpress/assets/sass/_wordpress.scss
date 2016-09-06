@@ -1,0 +1,422 @@
+// Put WordPress styling that can be reused here
+
+///// EDITOR CONTENT
+
+.alignleft {
+  float: left;
+  margin-right: 1em;
+}
+
+.alignright {
+  float: right;
+  margin-left: 1em;
+}
+
+.aligncenter {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+}
+
+.wp-caption {
+  margin-bottom: 1em;
+
+  .wp-caption-text {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+
+///// MAIN MENU
+
+#wpadminbar {
+  @include below(600px) {
+    position: absolute;
+    top: -46px;
+  }
+}
+
+.main-menu {
+  position: relative;
+  z-index: z(menu);
+
+  background-color: $color-main;
+}
+
+.menu-col {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @include column(12);
+
+  .menu-wrapper { flex-grow: 1; }
+}
+
+.main-logo {
+  img { height: 50px; }
+}
+
+
+// MENU ITEM
+
+.menu-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.menu-item {
+  position: relative;
+
+  > a {
+    display: block;
+    padding: 12px 18px;
+    color: white;
+    transition: $g-transition;
+  }
+
+  // current page
+  &.current-menu-item > a,
+  &.current-page-ancestor > a {
+    background-color: $color-main-dark;
+  }
+
+  &:hover > a {
+    background-color: $color-sub;
+  }
+
+  &:active > a {
+    background-color: darken($color-sub, 5%);
+    transition: none;
+  }
+}
+
+// CHILD MENU
+
+.child-menu {
+  visibility: hidden; opacity: 0;
+  position: absolute;
+  z-index: z(child_menu);
+  top: 100%;
+  left: 0;
+  padding: 5px;
+  min-width: 200px;
+
+  background-color: $color-sub;
+  white-space: nowrap;
+
+  border-radius: $g-radius;
+  transition: $g-transition;
+  box-shadow: $shadow-z1;
+  @include transform(translateY(10px) );
+
+
+  .menu-item:hover & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+
+  a {
+    display: block;
+    padding: 4px 12px;
+    color: white;
+  }
+
+  a:hover {
+    background-color: lighten($color-sub, 5%);
+  }
+
+  /////
+
+  @include below(medium) {
+    top: 0;
+    left: 100%;
+    @include transform(translateX(10px) );
+
+    a {
+      padding: 9.5px 12px;
+    }
+  }
+}
+
+// MOBILE MENU
+
+body.menu-active {
+  cursor: pointer; // fix iOS untap-able bug
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+#menu-toggle {
+  @include above(medium) {
+    display: none;
+  }
+
+  @include below(mini) {
+    span { display: none; }
+  }
+}
+
+.menu-wrapper {
+  @include below(medium) {
+    visibility: hidden;
+    opacity: 0;
+
+    flex-direction: column;
+
+    position: fixed;
+    z-index: z(menu);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 20px 0;
+    width: 180px;
+    background-color: $color-main-dark;
+
+    transition: $g-transition;
+    box-shadow: $shadow-z2;
+    @include transform(translateX(-100%) );
+  }
+
+  .menu-active & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+
+  // adjust height when admin-bar is visible
+  .admin-bar & {
+    top: 32px;
+
+    @include below(small) { top: 46px; }
+  }
+}
+
+// MENU EXTRA
+
+.menu-extra {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  z-index: z(menu);
+  margin-left: auto;
+
+  > * {
+    margin-right: 5px;
+  }
+
+  .menu-item > a {
+    padding: 5px;
+    line-height: 1;
+    border-radius: $g-radius;
+  }
+
+  button {
+    padding: 5px;
+    background-color: $color-sub;
+    line-height: 1;
+    border-radius: $g-radius;
+
+    &:hover { background-color: lighten($color-sub, 5%); color: white; }
+    &:active { background-color: lighten($color-sub, 10%); }
+  }
+}
+
+.search-form {
+  display: flex;
+  position: relative;
+  z-index: z(menu);
+  height: 100%;
+
+  input, #search-toggle {
+    height: 100%;
+  }
+
+  input {
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    padding: 5px 10px;
+    width: 200px;
+
+    transition: $g-transition;
+    border-radius: $g-radius 0 0 $g-radius;
+    @include transform(translateX(-100%) );
+  }
+
+  &.search-active {
+    input {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #search-toggle {
+      background-color: $color-main-dark;
+      border-radius: 0 $g-radius $g-radius 0;
+    }
+  }
+}
+
+
+///// Contact Form 7
+
+.wpcf7-form {
+  span.wpcf7-not-valid-tip {
+    color: $color-main;
+    font-size: em(14px);
+  }
+
+  div.wpcf7-response-output {
+    margin: 1em 0 0;
+    border-width: 1px;
+    border-radius: $g-radius;
+    text-align: center;
+  }
+
+  .wpcf7-validation-errors {
+    border-color: $color-red;
+    color: $color-red;
+    background-color: rgba($color-red, .3);
+  }
+
+  .wpcf7-mail-sent-ok,
+  .wpcf7-mail-sent-ng {
+    border-color: $color-green;
+    color: $color-green;
+    background-color: rgba($color-green, .5);
+  }
+}
+
+form.wpcf7-form {
+  max-width: 570px;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: $shadow-z1;
+
+  br { display: none; }
+
+  label {
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    width: 200px;
+
+    font-size: em($font-size-small);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    vertical-align: top;
+
+    @include below(mini) {
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  h2 {
+    padding-top: 20px;
+    margin-bottom: 1.5em;
+    font-size: em($h4);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.wpcf7-form-control-wrap {
+  display: inline-block;
+  width: calc(100% - 205px);
+
+  @include below(small) {
+    width: 100%;
+  }
+}
+
+.submit-wrapper {
+  text-align: right;
+}
+
+///// 404 Page
+
+.content-404 {
+  padding: 100px 0;
+  text-align: center;
+
+  @include below(small) { padding: 30px 0; }
+
+  h1 {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  span {
+    display: block;
+    color: $font-color;
+    font-size: em($h2, $h1);
+  }
+
+  strong {
+    display: block;
+    font-weight: $header-weight;
+    color: $color-main;
+  }
+}
+
+///// Pagination
+
+.pagination {
+  margin-bottom: 1em;
+  text-align: center;
+  @include clearfix;
+
+  .page-button,
+  select {
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+    margin-left: -4px;
+    background-color: white;
+    border: 1px solid $color-main-light;
+    height: 40px;
+    vertical-align: middle;
+
+    transition: $g-transition;
+    -webkit-appearance: none;
+
+    &:hover { background-color: rgba($color-main, .3); }
+  }
+
+  .page-button {
+    padding: 6px;
+
+    &:first-child {
+      border-right: none;
+      border-radius: $g-radius 0 0 $g-radius;
+    }
+
+    &:last-child {
+      border-left: none;
+      border-radius: 0 $g-radius $g-radius 0;
+    }
+
+    // no href
+    &:not([href]) {
+      background-color: white;
+      color: rgba($font-color, .5);
+      opacity: .5;
+    }
+  }
+
+  select {
+    padding: 6px 12px;
+  }
+
+}

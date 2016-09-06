@@ -12,12 +12,20 @@ function start() {
 
 var app = {
   init: function() {
-    // sample jquery listener format
-    $('.something').on('click', this.doSomething);
-    $('.something-2').on('click', this.doSomething2);
+    this.searchMenu();
   },
-  doSomething: function(e) {},
-  doSomething2: function(e) {},
+
+  // Toggle Search field
+  searchMenu: function() {
+    $('#search-toggle').on('click', toggle);
+
+    function toggle(e) {
+      e.preventDefault();
+
+      var $form = $(this).closest('form');
+      $form.toggleClass('search-active');
+    }
+  },
 };
 
 // Browser compatibility, leave this untouched

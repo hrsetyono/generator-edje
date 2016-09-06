@@ -5,16 +5,19 @@ Template generator for [Edje framework](https://github.com/hrsetyono/edje), powe
 Currently available templates are:
 
 - HTML
-- WordPress (comes with the installation file)
-- WooCommerce
+- [WordPress](https://github.com/hrsetyono/generator-edje/wiki/WordPress) (comes with full WP installation)
+- WooCommerce (comes with full WP installation)
+- [Email](https://github.com/hrsetyono/generator-edje/wiki/Email)
 
-## Installation and Usage
+
+## Installation
 
 1. Install [Node JS](https://nodejs.org/en/)
 2. Run the command `npm install -g yo` then `npm install -g generator-edje`.
 3. Test whether it has been installed by typing the command `yo`.
 
-After installed, you can generate the template by following these steps:
+
+## Usage
 
 1. Create your project directory.
 2. Open command prompt in there (Read below for guide).
@@ -22,7 +25,7 @@ After installed, you can generate the template by following these steps:
 4. Done! Our template should now be in your project directory.
 
 
-## Opening Terminal in Directory
+## Opening Terminal inside Directory
 
 **Windows**: SHIFT + Right-click the directory > Open command here.
 

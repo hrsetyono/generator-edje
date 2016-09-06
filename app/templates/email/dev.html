@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edjemail Test</title>
+  <style>
+    /* Force Outlook to provide a "view in browser" menu link. */
+    #outlook a {
+      padding: 0;
+    }
+    
+    /* Force Hotmail to display emails at full width */
+    .ExternalClass {
+      width: 100%;
+    }
+
+      .ExternalClass,
+      .ExternalClass p,
+      .ExternalClass span,
+      .ExternalClass font,
+      .ExternalClass td,
+      .ExternalClass div {
+        line-height: 100%;
+      }
+  
+    /* Outlook 07, 10 Padding issue fix */
+    table td {
+      border-collapse: collapse;
+    }
+  </style>
+  
+  <link rel="stylesheet" href="assets/css/framework.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+
+  <!--[if IEMobile 7]>
+  <style type="text/css">
+
+  </style>
+  <![endif]-->
+
+  <!--[if gte mso 9]>
+    </style>
+  <![endif]-->
+</head>
+<body>
+<!-- Use this outer table to set background and width of your email -->
+<table id="background-table" border="0">
+<tr>
+  <td>
+    <!-- Use nested tables as a way to space effectively in your message -->
+    <table>
+      <tr>
+        <td><h1>Hello World</h1></td>
+      </tr>
+    </table>
+    
+    <table>
+      <tr>
+        <td><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, dolorum.</p></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+
+<!-- This JS is for debugging only and will be ignored after compilation -->
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

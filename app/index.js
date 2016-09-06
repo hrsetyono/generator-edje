@@ -3,8 +3,8 @@
 
   var generators = require('yeoman-generator');
   var path = require('path');
-  var unzip = require('gulp-unzip');
-  // var remote = require('yeoman-remote');
+  var fs = require('fs');
+  var adm_zip = require('adm-zip');
 
   module.exports = generators.Base.extend({
     constructor: function () {
@@ -12,6 +12,7 @@
 
       this.argument('template', { type: String, required: false });
       this.template = this.template;
+      this.appname = this.appname.toLowerCase().replace(' ', '-');
     },
 
     /*
@@ -23,6 +24,7 @@
         { name: 'HTML', value: 'html' },
         { name: 'WordPress', value: 'wordpress' },
         { name: 'WooCommerce', value: 'woocommerce' },
+        { name: 'Email', value: 'email' }
       ];
 
       var askTpl = {
@@ -67,21 +69,102 @@
       switch(self.template) {
         case 'wordpress':
         case 'woocommerce':
-          copy('wordpress-src-test');
-          self.registerTransformStream(unzip() );
+          self.log('Downloading WordPress...');
+
+          // copy installation file
+          self._copy('wordpress-src/wordpress.zip', 'wordpress.zip');
+          self.fs.commit([], afterWpCopy.bind(self) );
+          break;
+
+        case 'email':
+          self._copy(self.template);
           break;
 
         default:
-          copy('base');
-          copy(self.template);
+          self._copy('base');
+          self._copy(self.template);
       }
 
-      function copy(source, destination) {
-        source = self.templatePath(source);
-        destination = destination || self.destinationRoot();
+      function afterWpCopy() {
+        self._unzip('wordpress.zip'); // unzip install file
 
-        self.fs.copy(source, destination);
+        var dest = 'wp-content/themes/' + self.appname;
+
+        // setup theme and plugins
+        self._copy('wordpress', dest);
+        var plugins = ['edje-wp', 'timber-library'];
+
+        // if woocommerce, add extra
+        if(self.template === 'woocommerce') {
+          self._copy('woocommerce', dest);
+          plugins = plugins.concat(['edje-woo', 'woocommerce']);
+        }
+
+        self._addPlugins(plugins); // plugins
       }
     },
+
+    /*
+      Copy from a source to destination
+
+      @param source (str) - Relative path to a source dir
+      @param dest (str) - Relative path to a destination dir
+    */
+    _copy: function(source, dest) {
+      var self = this;
+
+      source = self.templatePath(source);
+      dest = dest ? self.destinationPath(dest) : self.destinationRoot();
+
+      self.fs.copy(source, dest);
+    },
+
+    /*
+      Unzip specified file
+
+      @param filePath (str) - Relative path to the zip file.
+      @param dest (str) - optional, Relative path to the extract destination.
+    */
+    _unzip: function(filePath, dest) {
+      var self = this;
+
+      var file = self.destinationPath(filePath);
+      var zip = new adm_zip(file);
+      dest = dest ? self.destinationPath(dest) : self.destinationRoot();
+
+      zip.extractAllTo(dest, true);
+      fs.unlink(file, function() { } );
+    },
+
+    /*
+      Add plugins to WP directory
+
+      @param names (mix) - String or array of plugin names.
+    */
+    _addPlugins: function(names) {
+      var self = this;
+      var dest = 'wp-content/plugins/';
+
+      // if not array, wrap it in array format
+      names = (Object.prototype.toString.call(names) === '[object Array]') ? names : [names];
+
+      for(var n in names) {
+        var name = names[n] + '.zip';
+        self._copy('wordpress-plugins/' + name, dest + name);
+      }
+
+      self.fs.commit([], afterCopy.bind(self) );
+
+      function afterCopy() {
+        self.log('Extracting plugins...');
+
+        for(var n in names) {
+          var source = dest + names[n] + '.zip';
+          self._unzip(source, dest);
+        }
+      }
+    }
+
+
   });
 })();
