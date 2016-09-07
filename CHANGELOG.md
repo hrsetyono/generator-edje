@@ -1,3 +1,7 @@
+## 0.2.1
+
+- [WP] Update plugins version
+
 ## 0.2.0
 
 - Initial release, migrated from [Edje](https://github.com/hrsetyono/edje)
