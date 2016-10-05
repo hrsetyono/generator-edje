@@ -1,9 +1,7 @@
 <?php // Requirement : WP 4.1 and PHP 5.3
 
 require_once 'code/timber.php';
-
 if(!has_required_plugins() ) { return false; }
-
 require_once 'code/addon.php';
 
 add_action('init', 'my_post_type', 1);
@@ -27,7 +25,6 @@ $role_object->add_cap('edit_theme_options');
 */
 function my_post_type() {
   // H::register_post_type('product');
-
   // H::remove_menu(array('Comments', 'Media') );
 }
 

@@ -91,6 +91,7 @@
         var dest = 'wp-content/themes/' + self.appname;
 
         // setup theme and plugins
+        self._copy('base', dest);
         self._copy('wordpress', dest);
         var plugins = ['edje-wp', 'timber-library'];
 

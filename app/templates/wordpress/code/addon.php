@@ -1,18 +1,14 @@
 <?php
 
 new My_Shortcode();
+new My_Filter();
 
 ///// SHORTCODE /////
 
 class My_Shortcode {
-
   function __construct() {
     add_shortcode('icon', array($this, 'icon') );
-
-    add_shortcode('row', array($this, 'row') );
-    add_shortcode('column', array($this, 'column') );
-
-    add_filter('the_content', array($this, 'grid_unautop'), 100);
+    add_shortcode('button', array($this, 'button') );
   }
 
   /*
@@ -26,54 +22,42 @@ class My_Shortcode {
   }
 
   /*
-    Wrap the content with Edje Row syntaxt, used together with [column] shortcode.
-    - Don't add line spacing between shortcode to avoid the <h-row> getting wrapped with <p>. See example below.
+    Add button class to the link inside
 
-    [row][column size="8"]
-      Content
-    [/column][column size="4"]
-      Content
-    [/column][/row]
+    [button] link [/button]
   */
-  function row($atts, $content = null) {
-    return '<h-row>' . do_shortcode($content) . '</h-row>';
+  function button($attr, $content = null) {
+    return '<span class="button">' . $content . '</span>';
+    return $content;
   }
+}
 
-  function column($atts, $content = null) {
-    $a = shortcode_atts( array(
-      'size' => '12', // default is 12
-    ), $atts);
+///// FILTER /////
 
-    return '<h-column class="column-shortcode large-' . $a['size'] . '">' . do_shortcode($content) . '</h-column>';
+class My_Filter {
+
+  function __construct() {
+    add_filter('comment_class', array($this, 'comment_class'), null, 4);
   }
 
   /*
-    Fix Paragraph tag wrapping the ROW and COLUMN shortcode
+    Modify the 'depth' in comment's classes
+
+    @param $classes (arr) - Array of all class
+    @param $class (str) - Comma separated string of all class
+    @param $comment_id (int)
+    @param $comment (obj) - WP_Comment object
+
+    @return arr - Array of all class
   */
-  function grid_unautop($content) {
-    $shortcodes = array('h-row', 'h-column');
-
-    // if no h-row
-    if(!strpos($content, $shortcodes[0]) ) {
-      return $content;
+  function comment_class($classes, $class, $comment_id, $comment) {
+    // change depth if has parent
+    if($comment->comment_parent > 0) {
+      $index = array_search('depth-1', $classes);
+      $classes[$index] = 'depth-2';
     }
 
-    // trim the extra <p>
-    foreach($shortcodes as $sc) {
-      $trim_list = array (
-        '<p><' . $sc => '<' .$sc,
-        '<p></' . $sc => '</' .$sc,
-        $sc . '></p>' => $sc . '>',
-        $sc . '><br />' => $sc . '>',
-      );
-
-      $content = strtr($content, $trim_list);
-
-      // remove the remaining </p> after <h-column class="...">
-      preg_match("/(<{$sc}[^<]+)/", $content, $matches); // get without p
-      $content = preg_replace("/<{$sc}[^<]+<\/p>/", $matches[0], $content);
-    }
-
-    return $content;
+    return $classes;
   }
+
 }

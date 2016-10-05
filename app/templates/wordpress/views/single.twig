@@ -1,40 +1,110 @@
 {% extends "layout.twig" %}
 {% block content %}
-  
-<!-- Post Section -->
-<article>
 
-  <header>
-    <h1>{{ post.title }}</h1>
-    <time datetime="{{ post.post_date | date('Y F d') }}">
-      {{ post.post_date | date("d M y") }}
-    </time>
+{# Large Banner #}
+{% if post.thumbnail.width >= 1280 %}
+  <section class="post-banner" style="background-image: url('{{ post.thumbnail.src }}');">
+    <h-row class="post-row"><h-column class="post-col">
+
+      <div class="post-tip">
+        <span>{{ post.categories[0] }}</span>
+      </div>
+
+      <h1>{{ post.title }}</h1>
+      <p>
+        <time datetime="{{ post.post_date | date('Y-m-d') }}">
+          {{ post.post_date | date }}
+        </time>
+      </p>
+
+    </h-column></h-row>
+  </section>
+{% endif %}
+
+<h-row class="post-row"><h-column class="post-col">
+
+<article class="post-content">
+
+  <header class="post-header">
+    {# Small Banner #}
+    {% if post.thumbnail is not null and post.thumbnail.width < 1280 %}
+      <figure class="post-banner-mini">
+        <img src="{{ post.thumbnail.src }}" alt="{{ post.title }}">
+      </figure>
+    {% endif %}
+
+    {% if post.thumbnail is null or post.thumbnail.width < 1280 %}
+      <h1>{{ post.title }}</h1>
+      <div class="post-info">
+        <time datetime="{{ post.post_date | date('Y-m-d') }}">
+          {{ post.post_date | date }}
+        </time>
+      </div>
+    {% endif %}
   </header>
 
-  <section>
+  <section class="post-body">
     {{ post.content }}
   </section>
-  
-  <footer>
-    <p>
-      By <a href="{{ post.author.path }}">{{ post.author.name }}</a>
-    </p>
+
+  <footer class="post-footer">
+    {# Author #}
+    <div class="post-author">
+
+      <figure class="author-image">
+        <img src="{{ post.author.avatar.src }}" alt="{{ post.author.display_name }}">
+      </figure>
+
+      <h-row>
+        <h-column class="large-8">
+          <h6>{{ post.author.display_name }}</h6>
+          <p> {{ post.author.description }} </p>
+        </h-column>
+        <h-column class="large-4">
+          <h6>Connect</h6>
+          <ul class="author-connect">
+            <li>
+              <i class="icon">link</i> <a href="{{ post.author.user_url }}" target="_blank">{{ post.author.user_url }}</a>
+            </li>
+          </ul>
+        </h-column>
+      </h-row>
+    </div>
+
+    {# Suggestion #}
+    <div class="post-suggest"><h-row>
+      {% if post.next %}
+        <h-column class="suggest-col">
+          <a href="{{ post.next.link }}">
+            <div class="suggest-item" style="background-image: url('{{ post.next.thumbnail.src | resize(600) }}');">
+              <div class="post-tip"><span>Read this next</span></div>
+              <article>
+                <h5>{{ post.next.title }}</h5>
+              </article>
+            </div>
+          </a>
+        </h-column>
+      {% endif %}
+
+      {% if post.prev %}
+        <h-column class="suggest-col">
+          <a href="{{ post.prev.link }}">
+            <div class="suggest-item" style="background-image: url('{{ post.prev.thumbnail.src | resize(600) }}');">
+              <div class="post-tip"><span>You might enjoy</span></div>
+              <article>
+                <h5>{{ post.prev.title }}</h5>
+              </article>
+            </div>
+          </a>
+        </h-column>
+      {% endif %}
+    </h-row></div>
   </footer>
 
 </article>
 
-<!-- Comment Section -->
-<section>
-  {{ comment_form }}
+{% include "partials/_comments.twig" %}
 
-  <ul>
-    {% for comment in post.get_comments() %}
-      <li>
-        <h5> {{ comment.author.name }} says </h5>
-        {{ comment.comment_content | wpautop }}
-      </li>
-    {% endfor %}
-  </ul>
-</section>
+</h-column></h-row>
 
 {% endblock %}

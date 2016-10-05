@@ -1,0 +1,803 @@
+/* ------
+  BLOG
+------ */
+
+///// EDITOR STYLE
+
+h1, h2, h3, h4, h5, h6 {
+  clear: both;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 1em;
+}
+
+.alignright {
+  float: right;
+  margin-left: 1em;
+}
+
+.alignleft,
+.alignright {
+  max-width: 300px;
+  margin-bottom: 1em;
+
+  @include below(small) {
+    float: none;
+    max-width: none;
+  }
+}
+
+.aligncenter {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+}
+
+.wp-caption {
+  position: relative;
+  margin-bottom: 1.5em;
+  width: auto !important;
+  text-align: center;
+
+  .wp-caption-text {
+    display: inline-block;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    padding: 0 2em 0.5em;
+    max-width: 70%;
+
+    border-bottom: 1px solid $color-passive;
+
+    text-align: center;
+    font-size: em($font-size-small);
+  }
+}
+
+// Reference only works above medium
+@include above(medium) {
+  .refleft .wp-caption-text {
+    left: -20px;
+    text-align: right;
+    @include transform(translateX(-100%) );
+  }
+
+  .refright .wp-caption-text {
+    right: -20px;
+    text-align: left;
+    @include transform(translateX(100%) );
+  }
+
+
+  .refleft .wp-caption-text,
+  .refright .wp-caption-text {
+    position: absolute;
+    top: 0;
+    border-top: 1px solid $color-passive;
+    margin-top: 0;
+    padding: 0.5em 0;
+    width: 150px;
+  }
+}
+
+///// GENERAL
+
+.post-row { @include row($width: 600px); }
+.post-col { @include column(12); }
+
+///// GENERIC ARTICLE
+
+.post-content {
+  letter-spacing: 0.01 * $font-size;
+
+  h1 { margin-bottom: 0.35em; }
+  h2 { margin-bottom: 0.4em; }
+  h3 { margin-bottom: 0.5em; }
+  h4 { margin-bottom: 0.6em; }
+  h5 { margin-bottom: 0.7em; }
+  h6 { margin-bottom: 1em; }
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  pre {
+    margin-bottom: 1.5em;
+  }
+
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: $color-passive 1px solid;
+    margin: 1.5em 0 2.5em 0;
+    padding: 0;
+  }
+
+  ul, ol {
+    padding-left: 1.5em;
+  }
+
+  ul ul,
+  ol ol {
+    margin-bottom: 0;
+  }
+
+  cite {
+    display: block;
+    text-align: right;
+  }
+
+  iframe {
+    margin-bottom: 1.5em;
+  }
+
+  img {
+    border-radius: 2px;
+  }
+
+  blockquote {
+    padding: 0.25em 1em;
+    margin-left: 1em;
+    border-left: 3px solid $color-passive;
+    font-style: italic;
+
+    p { margin-bottom: 0; }
+  }
+
+  blockquote.alignleft,
+  blockquote.alignright {
+    margin-left: 0;
+  }
+}
+
+.post-header {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+
+  h1 {
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+}
+
+.post-info {
+  font-size: em($font-size-small);
+  color: #bbc7cc;
+
+  time {
+    text-transform: uppercase;
+  }
+
+  .author-link {
+    padding-left: 10px;
+    margin-left: 10px;
+    border-left: 1px solid $color-passive;
+  }
+}
+
+///// SHARE (Jetpack) /////
+
+div.sharedaddy {
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+
+  .sd-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sd-content ul {
+    margin-bottom: 0 !important;
+  }
+
+  .sd-block h3.sd-title {
+    margin: 0 0 1em 0;
+    letter-spacing: 0.5px;
+    font-size: em($font-size-small);
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &::before { display: none; }
+  }
+}
+
+// button general (needs to override)
+div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
+  background-color: #fafafa;
+  color: #777 !important;
+  box-shadow: 0 1px 0 rgba(black, .08), inset 0 0 0 1px rgba(black, .2);
+
+  &:hover {
+    background-color: $font-color;
+    opacity: 1;
+    color: white !important;
+  }
+
+  $lists: (
+    twitter: ("_twitter", #28a9e0),
+    facebook: ("_facebook", #3b5998),
+    google-plus-1: ("_google_plus", #dd4b39),
+    pinterest: ("_pinterest", #bd081c),
+    jetpack-whatsapp: ("_whatsapp", #25d366),
+    skype: ("_skype", #0bbff2),
+    pocket: ("_pocket", #ed4054),
+    email: ("email", $font-color),
+    print: ("printer", $font-color),
+    linkedin: ("_linkedin", #0077b5),
+    reddit: ("_reddit", #f54b00),
+    tumblr: ("_tumblr", #324f6d),
+    telegram: ("_telegram", #34abe3),
+    press-this: ("_wordpress", #21759a)
+  );
+
+  @each $class, $value in $lists {
+    &.share-#{$class} {
+      // &::before { content: nth($value, 1); }
+      &:hover { background-color: nth($value, 2); }
+    }
+  }
+}
+
+// icon only
+div.sharedaddy .sd-social-icon {
+  flex-direction: row;
+
+  h3.sd-title {
+    align-self: center;
+    margin: 0 0.5em 0 0;
+  }
+
+  ul li {
+    margin-bottom: 0;
+  }
+}
+
+// icon-text and text only
+div.sharedaddy .sd-social-icon-text,
+div.sharedaddy .sd-social-text,
+div.sharedaddy .sd-social-official {
+  ul li a.sd-button {
+    padding: 1px 8px 0px 5px;
+    border: none;
+    border-radius: $g-radius;
+
+    &:hover { border: none; }
+  }
+}
+
+// share email popup
+div#sharing_email {
+  border-radius: $g-radius;
+  box-shadow: $shadow-z1, inset 0 3px $color-main;
+  @include transform(translateY(-1em) );
+
+  label {
+    font-size: em($font-size-small);
+    font-weight: $font-weight;
+  }
+}
+
+///// AUTHOR SECTION /////
+
+.post-footer {
+  clear: both;
+  position: relative;
+  border-top: 1px solid $color-passive;
+  margin-top: 3em;
+  margin-bottom: 2em;
+
+  @include below(small) {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: em($font-size-small);
+  }
+}
+
+
+///// AUTHOR /////
+
+.post-author {
+  padding-top: 1.5em;
+  margin-bottom: 3em;
+
+  @include below(mini) {
+    text-align: center;
+  }
+
+  h6 {
+    margin: 1em 0 0.5em;
+    letter-spacing: 0.5px;
+  }
+}
+
+.author-image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  overflow: hidden;
+  @include transform(translateY(-50%) translateX(-50%) );
+
+  img {
+    border: 1px solid $color-passive;
+    padding: 0.25em;
+    height: 4em;
+    width: 4em;
+    border-radius: 50%;
+  }
+}
+
+ul.author-connect {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  font-size: em($font-size-small);
+  color: $font-color-passive;
+
+  a { color: $font-color-passive;
+    &:hover { color: $color-link; }
+  }
+}
+
+
+///// COMMENT FORM /////
+
+.comment-form {
+  textarea {
+    height: 6em;
+  }
+}
+
+
+/* ----------------
+  FRONT ARTICLE
+---------------- */
+
+.front-article {
+  position: relative;
+  padding-bottom: 1.5em;
+  margin-bottom: 1.5em;
+  border-bottom: 1px solid $color-passive;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    background: $body-background;
+    width: 9px;
+    height: 9px;
+    border: 1px solid $color-passive;
+
+    border-radius: 100%;
+    box-shadow: 0 0 0 5px $body-background;
+    @include transform(translateX(-50%) );
+  }
+
+  @include below(mini) {
+    margin-bottom: 0.75em;
+  }
+
+  h2 {
+    margin-bottom: 0.5em;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .post-body {
+    margin-bottom: 0.75em;
+
+    p, ul, ol, blockquote, cite {
+      font-size: em($font-size-small);
+    }
+  }
+}
+
+
+///// POST BANNER /////
+
+.post-banner-mini {
+  margin-bottom: 1.5em;
+}
+
+.post-banner {
+  position: relative;
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+
+  @include below(small) {
+    height: 300px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, .4);
+  }
+
+  .post-row {
+    position: relative;
+    z-index: 5;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    @include transform(translateY(-50%) );
+  }
+}
+
+.post-banner {
+  h1, h2, p {
+    color: white;
+  }
+
+  h1, h2 {
+    font-size: em($h1);
+    margin-bottom: 15px;
+    line-height: 1.2;
+
+    @include below(small) {
+      font-size: em(map-get($h1-sizes, 'small') );
+    }
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    font-size: em($font-size-small);
+
+    @include below(small) {
+      margin-bottom: 1em;
+    }
+  }
+
+  a {
+    font-size: em($font-size-small);
+  }
+}
+
+///// PREV NEXT POST
+
+.post-tip {
+  margin-bottom: 15px;
+  font-size: em(12px);
+  text-align: center;
+
+  span {
+    display: inline-block;
+    border: 1px solid white;
+    color: white;
+    padding: 4px 8px;
+    line-height: 1;
+    text-transform: uppercase;
+    font-weight: 400;
+
+    border-radius: $g-radius;
+    transition: $g-transition;
+  }
+
+  .suggest-item & {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+
+    @include below(small) {
+      top: 10px;
+    }
+  }
+
+  .suggest-item:hover & {
+    span {
+      background-color: white;
+      color: $font-color;
+    }
+  }
+}
+
+.post-suggest {
+  margin-bottom: 3em;
+
+  .suggest-col {
+    @include column(6);
+
+    &:only-child {
+      @include column(12);
+    }
+  }
+
+  h5 {
+    text-transform: initial;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  h5, p {
+    color: white;
+  }
+}
+
+.suggest-item {
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  min-height: 145px;
+
+  border-radius: $g-radius;
+
+  @include below(small) {
+    margin-bottom: 1.5em;
+  }
+
+  &:hover {
+    &::before {
+      background-color: rgba(black, .7);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, .5);
+
+    transition: $g-transition;
+  }
+
+  article {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    padding: 20px;
+    background-size: auto 100%;
+
+    text-align: center;
+
+    @include transform(translateY(-50%) );
+  }
+}
+
+///// CATEGORIES /////
+
+.categories {
+  margin-top: 15px;
+  margin-bottom: 20px;
+
+  a {
+    display: inline-block;
+    padding: 5px 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: $color-passive;
+    border: 1px solid transparent;
+
+    color: $font-color;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: em($font-size-small);
+    line-height: 1;
+    letter-spacing: 1px;
+
+    border-radius: $g-radius;
+    transition: $g-transition;
+
+    &:hover {
+      background-color: darken($color-passive, 10%);
+    }
+
+    &.active {
+      background-color: $color-main;
+      color: white;
+    }
+  }
+}
+
+///// COMMENTS /////
+
+.post-comments {
+  h3, h4 {
+    margin-bottom: 0.75em;
+    font-size: em($h4);
+    font-weight: $font-weight;
+
+    @include below(small) {
+      font-size: em(map-get($h4-sizes, small) );
+    }
+  }
+
+  .comments-list,
+  .replies-list {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  .replies-list {
+    padding-left: 4.5em;
+    margin-bottom: 1.5em;
+    border-left: 1px solid $color-passive;
+    font-size: em($font-size-small);
+  }
+}
+
+.comment {
+  position: relative;
+  padding: 1.5em 0;
+  border-top: 1px solid $color-passive;
+  color: $font-color-passive;
+
+  &.bypostauthor {
+    b::after {
+      @include icon;
+      content: "account_box";
+      margin-left: 5px;
+      font-size: 1.25em;
+      color: rgba($font-color-passive, .5);
+    }
+  }
+
+  &.depth-1 {
+    padding: 1.5em 0;
+
+    .comment-avatar { margin-right: 1em; }
+    p { margin-bottom: 1em; }
+    b, time { display: block; }
+  }
+
+  &.depth-2 {
+    padding: 0.5em 0;
+    border-top: none;
+
+    .comment-avatar {
+      position: absolute;
+      top: 0.75em; left: -1em;
+      @include transform(translateX(-100%) );
+    }
+    p { margin-bottom: 0.5em; }
+    time { margin-left: 1em; }
+  }
+
+  b {
+    display: inline-block;
+    color: $font-color;
+  }
+
+  time {
+    display: inline-block;
+    margin-bottom: 0.5em;
+    font-size: em($font-size-small);
+    line-height: 1;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .comment-avatar {
+    float: left;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+  }
+}
+
+.comment-reply-link {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0;
+  transition: $g-transition;
+
+  .comment:hover & {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &::before {
+    @include icon;
+    content: "reply";
+    font-size: 1.5rem;
+    color: rgba($font-color-passive , .5);
+  }
+
+  &:hover::before { color: $color-link; }
+}
+
+///// COMMENT FORM /////
+
+.comment-respond {
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+  border-top: 2px solid $font-color;
+}
+
+.comment-form {
+  label {
+    margin-bottom: 0.5em;
+  }
+
+  .comment-notes,
+  .logged-in-as {
+    margin-bottom: 1em;
+    font-size: em($font-size-small);
+  }
+}
+
+.comment-reply-title {
+  position: relative;
+
+  #cancel-comment-reply-link {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: transparent;
+    font-size: 0;
+
+    &::before {
+      @include icon;
+      content: "cancel";
+      color: $font-color-passive;
+      font-size: 1.5rem;
+    }
+
+    &:hover::before { color: $color-red; }
+  }
+}
+
+// Field and Submit
+
+.comment-form-author {
+  padding-right: 0.5em;
+}
+
+.comment-form-email {
+  padding-left: 0.5em;
+}
+
+.comment-form-author,
+.comment-form-email {
+  float: left;
+  width: 50%;
+
+  @include below(small) {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.comment-form-url {
+  display: none;
+}
+
+.form-submit {
+  clear: both;
+}

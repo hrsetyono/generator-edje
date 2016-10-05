@@ -1,3 +1,7 @@
+## 0.3.0
+
+- [WP] Added default blog style
+
 ## 0.2.1
 
 - [WP] Update plugins version

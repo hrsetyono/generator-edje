@@ -6,35 +6,44 @@
 // @import "slick";
 // @import "wordpress";
 // @import "woo";
+// @improt "blog";
 
 ///// FONT /////
 
 @font-face {
-  src: font-url("material-icons-custom.woff") format("woff");
+  src: font-url("material-icons.woff") format("woff");
   font-family: $font-family-icon;
 }
 
+@font-face {
+  src: font-url("material-icons-custom.woff") format("woff");
+  font-family: "Material Icons Custom";
+}
+
 // Usage: <i class="icon">icon_name</icon>
-// http://google.github.io/material-design-icons/
+//   http://google.github.io/material-design-icons/
 .icon {
-  font-family: $font-family-icon;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1.5em;
   display: inline-block;
-  line-height: 1;
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-  vertical-align: top;
+
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5em;
 
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "liga";
+  @include icon;
+
+  &.icon-custom {
+    font-family: "Material Icons Custom";
+    font-size: 1em;
+  }
 }
 
 ///// BUTTON /////
@@ -63,6 +72,7 @@ textarea,
 select {
   display: block;
   width: 100%;
+  padding: 0.5em;
   border: 1px solid $color-passive;
   border-top-color: darken($color-passive, 5%);
 

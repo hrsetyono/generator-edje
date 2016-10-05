@@ -9,4 +9,4 @@ Brief project's description.
 3. Restart your PC.
 4. Open a command prompt in your project directory and type `npm run sass` (PC) or `npm run sass-mac` (Mac).
 
-Compiled with Edje 1.0.
+Compiled with Edje 1.2

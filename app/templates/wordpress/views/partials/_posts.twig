@@ -1,19 +1,59 @@
-{% for post in posts %}
-  
-  <h1>
-    <a href="{{ post.link }}">
-      {{ post.title }}
-    </a>
-  </h1>
+<section class="post-banner" style="background-image: url('{{ posts[0].thumbnail.src }}');">
+  <h-row class="post-row"><h-column class="post-col">
 
-  {{ post.get_preview }}
+    <div class="post-tip">
+      <span>Latest {{ term.title }} Post</span>
+    </div>
 
-{% endfor %}
+    <h2>{{ posts[0].title }}</h2>
+    <p> {{ posts[0].get_preview(25, false, "") }} </p>
 
-{% if not posts %}
-  <p>
-    No posts found
-  </p>
-{% endif %}
+    <a href="{{ posts[0].link }}" class="button">Read More</a>
 
-{% include "partials/_pagination.twig" %}
+  </h-column></h-row>
+</section>
+
+<h-row class="post-row"><h-column class="post-col">
+  {# CATEGORIES #}
+  {% if categories %}
+  <div class="categories">
+    <a href="{{ blog_url }}" {% if not term %} class="active" {% endif %}>All</a>
+
+    {% for c in categories %}
+      <a href="{{ c.link }}" {% if c.title == term.name %} class="active" {% endif %}>{{ c.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# POSTS #}
+  {% for p in posts %}
+  {% if not loop.first %}
+    <article class="article front-article">
+
+      <h2>
+        <a href="{{ p.link }}">{{ p.title }}</a>
+      </h2>
+
+      <section class="post-body">
+        <p> {{ p.get_preview(25, false, "Read More") }} </p>
+      </section>
+
+      <footer class="post-info">
+        <time datetime="{{ p.post_date | date('Y-m-d') }}">
+          {{ p.post_date | date }}
+        </time>
+        {% if not term %}
+          on {{ p.categories | join(", ") }}
+        {% endif %}
+      </footer>
+
+    </article>
+  {% endif %}
+
+  {% else %}
+    <p>No posts found</p>
+  {% endfor %}
+
+  {% include "partials/_pagination.twig" %}
+
+</h-column></h-row>

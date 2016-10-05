@@ -1,0 +1,43 @@
+{% if post.comment_status != "closed" %}
+<section class="post-comments post-content">
+
+  <h4>{{ post.comment_count }} comments</h4>
+
+  <ul class="comments-list">
+    {% for c in post.comments %}
+    <li>
+      <article {{ fn('comment_class', '', c.id) }}>
+        <img class="comment-avatar" src="{{ c.author.avatar }}" alt="{{ c.author.name }} Avatar">
+        <b>{{ c.author.name }}</b>
+        <time>{{ c.comment_date | date_ago }}</time>
+
+        {{ c.comment_content | wpautop }}
+
+        {{ c.reply_link }}
+      </article>
+
+      {# Replies #}
+      {% if c.children %}
+      <ul class="replies-list">
+        {% for r in c.children %}
+        <li>
+          <article {{ fn('comment_class', '', r.id) }}>
+            <img class="comment-avatar" src="{{ r.author.avatar }}" alt="{{ r.author.name }} Avatar">
+            <b>{{ r.author.name }}</b>
+            <time>{{ r.comment_date | date_ago }}</time>
+
+            {{ r.comment_content | wpautop }}
+          </article>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+    </li>
+    {% endfor %}
+  </ul>
+
+  {{ post.comment_form }}
+
+</section>
+{% endif %} {# if open #}

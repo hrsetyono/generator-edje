@@ -46,6 +46,7 @@ class TimberH extends TimberSite {
     $context['menu'] = new TimberMenu();
     $context['site'] = $this;
     $context['home_url'] = home_url();
+    $context['blog_url'] = get_permalink(get_option('page_for_posts') );
 
     // $context['options'] = get_fields('options');
 
@@ -60,20 +61,14 @@ class TimberH extends TimberSite {
   }
 
   /*
-    Extension for Twig
+    Custom Filter for Twig
   */
   function add_to_twig($twig) {
     $twig->addExtension(new Twig_Extension_StringLoader() );
 
-    // Parse Markdown
-    $twig->addFilter('markdown', new Twig_Filter_Function(function($text) {
-      $pd = new Parsedown();
-      return $pd->text($text);
-    }) );
-
-    // Show all methods available in the object
-    $twig->addFilter('methods', new Twig_Filter_Function(function($object) {
-      return get_class_methods($object);
+    // Example
+    $twig->addFilter('myfilter', new Twig_Filter_Function(function($text) {
+      return $text;
     }) );
 
     return $twig;
