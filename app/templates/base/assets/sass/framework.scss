@@ -15,11 +15,6 @@
   font-family: $font-family-icon;
 }
 
-@font-face {
-  src: font-url("material-icons-custom.woff") format("woff");
-  font-family: "Material Icons Custom";
-}
-
 // Usage: <i class="icon">icon_name</icon>
 //   http://google.github.io/material-design-icons/
 .icon {
@@ -32,18 +27,13 @@
 
   font-weight: normal;
   font-style: normal;
-  font-size: 1.5em;
+  font-size: 1.25em;
 
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 
   -moz-osx-font-smoothing: grayscale;
   @include icon;
-
-  &.icon-custom {
-    font-family: "Material Icons Custom";
-    font-size: 1em;
-  }
 }
 
 ///// BUTTON /////

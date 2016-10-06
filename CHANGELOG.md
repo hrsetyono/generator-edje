@@ -1,3 +1,7 @@
+## 0.3.1
+
+- [Base] Add material icons
+
 ## 0.3.0
 
 - [WP] Added default blog style

@@ -11,8 +11,8 @@ $font-family-icon : "Material Icons";
 $color-main : #2196f3;
 $color-sub  : #607d8b;
 
-$color-main-dark : darken($color-main, 10%);
-$color-main-light : lighten($color-main, 10%);
+// $color-main-dark : darken($color-main, 10%);
+// $color-main-light : lighten($color-main, 10%);
 
 $color-link : $color-main;
 // $color-link-hover : lighten($color-main, 10%);
@@ -39,7 +39,7 @@ $color-link : $color-main;
 // $adaptive-breakpoints : large, medium, small, mini;
 
 // ----- Z INDEX -----
-//  z-index: z(menu);
+// .sample-usage { z-index: z(menu); }
 
 $z-indexes: (
   menu: 1010,
@@ -65,7 +65,7 @@ $z-indexes: (
 
 // ----- TYPOGRAPHY -----
 // $font-color  : #222;
-$font-color-passive : #888;
+// $font-color-passive : #888;
 
 // $font-weight : 400;
 // $font-line : 1.65;
@@ -105,7 +105,7 @@ $h6 : $font-size;
 
 
 // ----- PRINT -----
-// $include-print  : false;
+// $include-print  : true;
 // $override-color : true;   // Override all text color to #000 black
 
 
@@ -118,7 +118,7 @@ $h6 : $font-size;
 @mixin icon($ff: $font-family-icon) {
   font-family: $ff;
   font-feature-settings: "liga";
-  vertical-align: middle;
+  vertical-align: text-bottom;
   line-height: 1;
 }
 
