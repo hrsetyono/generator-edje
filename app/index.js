@@ -15,6 +15,10 @@
       this.appname = this.appname.toLowerCase().replace(' ', '-');
     },
 
+    paths: function() {
+      this.sourceRoot(path.join(__dirname, '../templates') );
+    },
+
     /*
       Prompt question to get missing template and project's name
     */

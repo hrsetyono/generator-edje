@@ -1,3 +1,8 @@
+## 0.3.2
+
+- [WP] Added support for **custom_logo**
+- Move template directory to root.
+
 ## 0.3.1
 
 - [Base] Add material icons

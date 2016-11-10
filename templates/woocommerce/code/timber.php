@@ -48,6 +48,7 @@ class TimberH extends TimberSite {
     $context['woo'] = $woocommerce;
 
     $context['menu'] = new TimberMenu();
+    $context['logo'] = new TimberImage(get_theme_mod('custom_logo') );
     $context['site'] = $this;
     $context['home_url'] = home_url();
 

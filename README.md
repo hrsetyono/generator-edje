@@ -1,12 +1,12 @@
-# Edje Generator
+![Edje Generator Yeoman Banner](http://cdn.setyono.net/edje-generator/banner.jpg)
 
-Template generator for [Edje framework](https://github.com/hrsetyono/edje), powered by Yeoman.
+Template boilerplate for [EDJE Sass framework](https://github.com/hrsetyono/edje).
 
 Available templates are:
 
 - HTML
 - [WordPress](https://github.com/hrsetyono/generator-edje/wiki/WordPress) (comes with full WP installation)
-- WooCommerce (comes with full WP installation)
+- [WooCommerce](https://github.com/hrsetyono/generator-edje/wiki/WooCommerce) (comes with full WP installation)
 - [Email](https://github.com/hrsetyono/generator-edje/wiki/Email)
 
 Visit our [WIKI](https://github.com/hrsetyono/generator-edje/wiki/) for full documentation.
@@ -25,9 +25,9 @@ Visit our [WIKI](https://github.com/hrsetyono/generator-edje/wiki/) for full doc
 ## Getting Started
 
 1. Create your project directory.
-2. Open command prompt inside the directory (Read below for guide).
+2. Open terminal in that directory (Read below for guide).
 3. Type in `yo edje` and select the template you need.
-4. Done! Our template should now be in your project directory.
+4. Done! All the files are now in your project directory.
 
 The Sass files in our template are compiled using [Edje](https://github.com/hrsetyono/edje), a lightweight framework.
 

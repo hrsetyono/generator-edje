@@ -1,21 +1,24 @@
 <?php // Requirement : WP 4.1 and PHP 5.3
 
 require_once 'code/timber.php';
-if(!has_required_plugins() ) { return false; }
-require_once 'code/addon.php';
 
-add_action('init', 'my_post_type', 1);
+if(!has_required_plugins() ) { return false; }
+
+require_once 'code/addon.php';
+require_once 'code/woo.php';
+
+add_action('init', 'my_post_type');
 add_action('after_setup_theme', 'my_theme_support');
 add_action('wp_enqueue_scripts', 'my_enqueue_script');
+
+// Allow EDTIOR to edit Theme and Menu
+$role_object = get_role('editor');
+$role_object->add_cap('edit_theme_options');
 
 // ACF OPTION page
 // if( function_exists('acf_add_options_page') ) {
 //   acf_add_options_page();
 // }
-
-// Allow EDTIOR to edit Theme and Menu
-$role_object = get_role('editor');
-$role_object->add_cap('edit_theme_options');
 
 /////
 
@@ -25,7 +28,6 @@ $role_object->add_cap('edit_theme_options');
 */
 function my_post_type() {
   // H::register_post_type('product');
-  // H::remove_menu(array('Comments', 'Media') );
 }
 
 /*
@@ -35,9 +37,13 @@ function my_theme_support() {
   add_theme_support('post-thumbnails');
   add_theme_support('menus');
 
+  add_theme_support('custom-logo');
+
   add_theme_support('html5');
   add_theme_support('title_tag');
   add_post_type_support('page', 'excerpt');
+
+  add_theme_support('woocommerce');
 }
 
 /*

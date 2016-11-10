@@ -44,6 +44,8 @@ class TimberH extends TimberSite {
   */
   function add_to_context($context) {
     $context['menu'] = new TimberMenu();
+    $context['logo'] = new TimberImage(get_theme_mod('custom_logo') );
+    
     $context['site'] = $this;
     $context['home_url'] = home_url();
     $context['blog_url'] = get_permalink(get_option('page_for_posts') );
