@@ -1,6 +1,23 @@
 {% extends "layout.twig" %}
 {% block content %}
 
+{% include "partials/_post-banner.twig" %}
+
+<h-row class="post-row"><h-column class="post-col">
+  {# CATEGORIES #}
+  {% if categories %}
+  <div class="categories">
+    <a href="{{ blog_url }}" {% if not term %} class="active" {% endif %}>All</a>
+
+    {% for c in categories %}
+      <a href="{{ c.link }}" {% if c.title == term.name %} class="active" {% endif %}>{{ c.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   {% include "partials/_posts.twig" %}
+  {% include "partials/_pagination.twig" %}
+
+</h-column></h-row>
 
 {% endblock %}

@@ -1,59 +1,24 @@
-<section class="post-banner" style="background-image: url('{{ posts[0].thumbnail.src }}');">
-  <h-row class="post-row"><h-column class="post-col">
+{% for post in posts %}
+  <article class="article front-article">
+    <h2> <a href="{{ post.link }}">{{ post.title }}</a> </h2>
 
-    <div class="post-tip">
-      <span>Latest {{ term.title }} Post</span>
-    </div>
+    <section class="post-body">
+      <p> {{ post.get_preview(25, false, "Read More") }} </p>
+    </section>
 
-    <h2>{{ posts[0].title }}</h2>
-    <p> {{ posts[0].get_preview(25, false, "") }} </p>
+    <footer class="post-info">
+      <time datetime="{{ post.post_date | date('Y-m-d') }}">
+        {{ post.post_date | date }}
+      </time>
+      {% if not term %}
+        on {{ post.categories | join(", ") }}
+      {% endif %}
+    </footer>
+  </article>
 
-    <a href="{{ posts[0].link }}" class="button">Read More</a>
-
-  </h-column></h-row>
-</section>
-
-<h-row class="post-row"><h-column class="post-col">
-  {# CATEGORIES #}
-  {% if categories %}
-  <div class="categories">
-    <a href="{{ blog_url }}" {% if not term %} class="active" {% endif %}>All</a>
-
-    {% for c in categories %}
-      <a href="{{ c.link }}" {% if c.title == term.name %} class="active" {% endif %}>{{ c.title }}</a>
-    {% endfor %}
-  </div>
-  {% endif %}
-
-  {# POSTS #}
-  {% for p in posts %}
-  {% if not loop.first %}
-    <article class="article front-article">
-
-      <h2>
-        <a href="{{ p.link }}">{{ p.title }}</a>
-      </h2>
-
-      <section class="post-body">
-        <p> {{ p.get_preview(25, false, "Read More") }} </p>
-      </section>
-
-      <footer class="post-info">
-        <time datetime="{{ p.post_date | date('Y-m-d') }}">
-          {{ p.post_date | date }}
-        </time>
-        {% if not term %}
-          on {{ p.categories | join(", ") }}
-        {% endif %}
-      </footer>
-
-    </article>
-  {% endif %}
-
-  {% else %}
-    <p>No posts found</p>
-  {% endfor %}
-
-  {% include "partials/_pagination.twig" %}
-
-</h-column></h-row>
+{% else %}
+  <article class="post-content content-error">
+    <h1>Sorry</h1>
+    <p>We couldn’t find any posts.</p>
+  </article>
+{% endfor %}

@@ -1,13 +1,13 @@
 // Put WordPress styling that can be reused here
 
-///// MAIN MENU
-
 #wpadminbar {
   @include below(600px) {
     position: absolute;
     top: -46px;
   }
 }
+
+///// MAIN MENU
 
 .main-menu {
   position: relative;
@@ -232,6 +232,27 @@ body.menu-active {
   }
 }
 
+///// ERROR PAGE
+
+.content-error {
+  padding: 100px 0;
+  text-align: center;
+
+  @include below(small) { padding: 30px 0; }
+
+  h1 {
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    line-height: 1;
+    color: $color-main;
+  }
+
+  span {
+    display: block;
+    color: $font-color;
+    font-size: em($h2, $h1);
+  }
+}
 
 ///// Contact Form 7
 
@@ -310,82 +331,4 @@ form.wpcf7-form {
 
 .submit-wrapper {
   text-align: right;
-}
-
-///// 404 Page
-
-.content-404 {
-  padding: 100px 0;
-  text-align: center;
-
-  @include below(small) { padding: 30px 0; }
-
-  h1 {
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-  span {
-    display: block;
-    color: $font-color;
-    font-size: em($h2, $h1);
-  }
-
-  strong {
-    display: block;
-    font-weight: $header-weight;
-    color: $color-main;
-  }
-}
-
-///// Pagination
-
-.pagination {
-  margin-bottom: 1em;
-  text-align: center;
-  @include clearfix;
-
-  .page-button,
-  select {
-    cursor: pointer;
-    display: inline-block;
-    width: auto;
-    margin-left: -4px;
-    background-color: white;
-    border: 1px solid $color-main-light;
-    height: 40px;
-    vertical-align: middle;
-
-    transition: $g-transition;
-    -webkit-appearance: none;
-
-    &:hover { background-color: rgba($color-main, .3); }
-  }
-
-  .page-button {
-    padding: 6px;
-
-    &:first-child {
-      border-right: none;
-      border-radius: $g-radius 0 0 $g-radius;
-    }
-
-    &:last-child {
-      border-left: none;
-      border-radius: 0 $g-radius $g-radius 0;
-    }
-
-    // no href
-    &:not([href]) {
-      background-color: white;
-      color: rgba($font-color, .5);
-      opacity: .5;
-    }
-  }
-
-  select {
-    padding: 6px 12px;
-  }
-
 }
