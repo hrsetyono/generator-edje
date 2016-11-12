@@ -1,6 +1,6 @@
 ## 0.3.3
 
-- [WP] Major tweak to blog post
+- [WP] Major tweak to blog post layout
 
 ## 0.3.2
 

@@ -2,9 +2,11 @@
 {% block content %}
 
 {# Banner #}
+{% if post.thumbnail %}
 <section class="post-banner"
   style="width: {{ post.thumbnail.width }}px; background-image: url('{{ post.thumbnail.src('large') }}');">
 </section>
+{% endif %}
 
 {# Content #}
 <article class="post-content">
@@ -27,12 +29,12 @@
   <footer class="post-author">
 
     <figure class="author-image">
-      <img src="{{ post.author.avatar.src }}" alt="{{ post.author.display_name }}">
+      <img src="{{ post.author.avatar }}" alt="{{ post.author.display_name }}">
     </figure>
 
     <div class="author-bio">
-      <h6>{{ post.author.display_name ? post.author.display_name : gravatar.displayName }}</h6>
-      <p>{{ post.author.description ? post.author.description : gravatar.aboutMe }}</p>
+      <h6>{{ post.author.display_name }}</h6>
+      <p>{{ post.author.description }}</p>
     </div>
 
     {% if post.author.user_url %}
