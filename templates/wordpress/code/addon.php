@@ -35,29 +35,11 @@ class My_Shortcode {
 ///// FILTER /////
 
 class My_Filter {
-
   function __construct() {
-    add_filter('comment_class', array($this, 'comment_class'), null, 4);
+    add_filter('sample_filter', array($this, 'my_sample_filter') );
   }
 
-  /*
-    Modify the 'depth' in comment's classes
-
-    @param $classes (arr) - Array of all class
-    @param $class (str) - Comma separated string of all class
-    @param $comment_id (int)
-    @param $comment (obj) - WP_Comment object
-
-    @return arr - Array of all class
-  */
-  function comment_class($classes, $class, $comment_id, $comment) {
-    // change depth if has parent
-    if($comment->comment_parent > 0) {
-      $index = array_search('depth-1', $classes);
-      $classes[$index] = 'depth-2';
-    }
-
-    return $classes;
+  function my_sample_filter() {
+    // do something
   }
-
 }

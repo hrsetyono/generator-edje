@@ -1,110 +1,91 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-{# Large Banner #}
-{% if post.thumbnail.width >= 1280 %}
-  <section class="post-banner" style="background-image: url('{{ post.thumbnail.src }}');">
-    <h-row class="post-row"><h-column class="post-col">
-
-      <div class="post-tip">
-        <span>{{ post.categories[0] }}</span>
-      </div>
-
-      <h1>{{ post.title }}</h1>
-      <p>
-        <time datetime="{{ post.post_date | date('Y-m-d') }}">
-          {{ post.post_date | date }}
-        </time>
-      </p>
-
-    </h-column></h-row>
-  </section>
+{# Banner #}
+{% if post.thumbnail %}
+<section class="post-banner"
+  style="width: {{ post.thumbnail.width }}px; background-image: url('{{ post.thumbnail.src('large') }}');">
+</section>
 {% endif %}
 
+{# Content #}
+<article class="post-content">
 <h-row class="post-row"><h-column class="post-col">
 
-<article class="post-content">
-
   <header class="post-header">
-    {# Small Banner #}
-    {% if post.thumbnail is not null and post.thumbnail.width < 1280 %}
-      <figure class="post-banner-mini">
-        <img src="{{ post.thumbnail.src }}" alt="{{ post.title }}">
-      </figure>
-    {% endif %}
-
-    {% if post.thumbnail is null or post.thumbnail.width < 1280 %}
-      <h1>{{ post.title }}</h1>
-      <div class="post-info">
-        <time datetime="{{ post.post_date | date('Y-m-d') }}">
-          {{ post.post_date | date }}
-        </time>
-      </div>
-    {% endif %}
+    <h1>{{ post.title }}</h1>
+    <div class="post-info">
+      <time datetime="{{ post.post_date | date('Y-m-d') }}">
+        {{ post.post_date | date }}
+      </time>
+    </div>
   </header>
 
   <section class="post-body">
     {{ post.content }}
   </section>
 
-  <footer class="post-footer">
-    {# Author #}
-    <div class="post-author">
+  {# Author #}
+  <footer class="post-author">
 
-      <figure class="author-image">
-        <img src="{{ post.author.avatar.src }}" alt="{{ post.author.display_name }}">
-      </figure>
+    <figure class="author-image">
+      <img src="{{ post.author.avatar }}" alt="{{ post.author.display_name }}">
+    </figure>
 
-      <h-row>
-        <h-column class="large-8">
-          <h6>{{ post.author.display_name }}</h6>
-          <p> {{ post.author.description }} </p>
-        </h-column>
-        <h-column class="large-4">
-          <h6>Connect</h6>
-          <ul class="author-connect">
-            <li>
-              <i class="icon">link</i> <a href="{{ post.author.user_url }}" target="_blank">{{ post.author.user_url }}</a>
-            </li>
-          </ul>
-        </h-column>
-      </h-row>
+    <div class="author-bio">
+      <h6>{{ post.author.display_name }}</h6>
+      <p>{{ post.author.description }}</p>
     </div>
 
-    {# Suggestion #}
-    <div class="post-suggest"><h-row>
-      {% if post.next %}
-        <h-column class="suggest-col">
-          <a href="{{ post.next.link }}">
-            <div class="suggest-item" style="background-image: url('{{ post.next.thumbnail.src | resize(600) }}');">
-              <div class="post-tip"><span>Read this next</span></div>
-              <article>
-                <h5>{{ post.next.title }}</h5>
-              </article>
-            </div>
-          </a>
-        </h-column>
-      {% endif %}
+    {% if post.author.user_url %}
+      <a href="{{ post.author.user_url }}" class="post-button">Follow</a>
+    {% endif %}
 
-      {% if post.prev %}
-        <h-column class="suggest-col">
-          <a href="{{ post.prev.link }}">
-            <div class="suggest-item" style="background-image: url('{{ post.prev.thumbnail.src | resize(600) }}');">
-              <div class="post-tip"><span>You might enjoy</span></div>
-              <article>
-                <h5>{{ post.prev.title }}</h5>
-              </article>
-            </div>
-          </a>
-        </h-column>
-      {% endif %}
-    </h-row></div>
   </footer>
 
+</h-column></h-row>
 </article>
 
-{% include "partials/_comments.twig" %}
+
+<section class="post-footer">
+<h-row class="post-row"><h-column class="post-col">
+
+  {# Suggestion #}
+  <div class="post-suggest">
+  <h-row>
+    {% if post.next %}
+      <h-column class="suggest-col">
+        <a href="{{ post.next.link }}">
+          <div class="suggest-item" style="background-image: url('{{ post.next.thumbnail.src('medium') }}');">
+            <div class="post-tip"><span>Read this next</span></div>
+            <article>
+              <h5>{{ post.next.title }}</h5>
+            </article>
+          </div>
+        </a>
+      </h-column>
+    {% endif %}
+
+    {% if post.prev %}
+      <h-column class="suggest-col">
+        <a href="{{ post.prev.link }}">
+          <div class="suggest-item" style="background-image: url('{{ post.prev.thumbnail.src('medium') }}');">
+            <div class="post-tip"><span>You might enjoy</span></div>
+            <article>
+              <h5>{{ post.prev.title }}</h5>
+            </article>
+          </div>
+        </a>
+      </h-column>
+    {% endif %}
+  </h-row>
+  </div>
+
+  {# Comments #}
+  {% include "partials/_comments.twig" %}
 
 </h-column></h-row>
+</section>
+
 
 {% endblock %}

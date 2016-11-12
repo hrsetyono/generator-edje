@@ -1,3 +1,5 @@
+$blog-width: 600px;
+
 /* ------
   BLOG
 ------ */
@@ -6,27 +8,6 @@
 
 h1, h2, h3, h4, h5, h6 {
   clear: both;
-}
-
-
-.wp-caption {
-  position: relative;
-  margin-bottom: 1.5em;
-  width: auto;
-  text-align: center;
-
-  .wp-caption-text {
-    display: inline-block;
-    margin-top: 0.5em;
-    margin-bottom: 0;
-    padding: 0 1em 0.5em;
-    max-width: 70%;
-
-    border-bottom: 1px solid $color-passive;
-
-    text-align: center;
-    font-size: em($font-size-small);
-  }
 }
 
 .alignleft {
@@ -48,10 +29,6 @@ h1, h2, h3, h4, h5, h6 {
     float: none;
     max-width: none;
   }
-
-  .wp-caption-text {
-    max-width: 90%;
-  }
 }
 
 .aligncenter {
@@ -60,6 +37,24 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 }
 
+.wp-caption {
+  position: relative;
+  margin-bottom: 1.5em;
+  width: auto !important;
+  text-align: center;
+
+  .wp-caption-text {
+    display: inline-block;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    padding: 0 2em 0.5em;
+    max-width: 70%;
+    border-bottom: 1px solid $color-passive;
+
+    text-align: center;
+    font-size: em($font-size-small);
+  }
+}
 
 // Reference only works above medium
 @include above(medium) {
@@ -87,9 +82,34 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-///// GENERAL
+///// GALLERY
 
-.post-row { @include row($width: 600px); }
+.gallery {
+  margin: 0 -1px 1.5em !important;
+}
+
+.tiled-gallery {
+  margin-bottom: 1.5em;
+
+  .gallery-row {
+    margin: 0 auto;
+  }
+}
+
+.gallery-item {
+  margin-top: 0 !important;
+  padding: 0 1px;
+  margin-bottom: 2px;
+
+  img {
+    border: none !important;
+    border-radius: $g-radius;
+  }
+}
+
+///// GRID
+
+.post-row { @include row($width: $blog-width); margin: 0 auto; }
 .post-col { @include column(12); }
 
 ///// GENERIC ARTICLE
@@ -97,18 +117,22 @@ h1, h2, h3, h4, h5, h6 {
 .post-content {
   letter-spacing: 0.01 * $font-size;
 
-  h1 { margin-bottom: 0.35em; }
-  h2 { margin-bottom: 0.4em; }
-  h3 { margin-bottom: 0.5em; }
-  h4 { margin-bottom: 0.6em; }
-  h5 { margin-bottom: 0.7em; }
-  h6 { margin-bottom: 1em; }
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  a {
+    text-decoration: underline;
+  }
 
   p,
   ul,
   ol,
   blockquote,
-  pre {
+  pre,
+  table,
+  iframe, video, object, embed {
     margin-bottom: 1.5em;
   }
 
@@ -117,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 1px;
     border: 0;
     border-top: $color-passive 1px solid;
-    margin: 1.5em 0 2.5em 0;
+    margin: 2.5em 0;
     padding: 0;
   }
 
@@ -133,10 +157,6 @@ h1, h2, h3, h4, h5, h6 {
   cite {
     display: block;
     text-align: right;
-  }
-
-  iframe {
-    margin-bottom: 1.5em;
   }
 
   img {
@@ -158,23 +178,31 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.post-header {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+.post-content table {
+  width: 100%;
 
-  h1 {
-    margin-bottom: 0;
-    line-height: 1.2;
+  tr:nth-child(odd) {
+    background-color: #f6f6f6;
   }
+
+  th, td {
+    padding: 6px 8px;
+    border-top: 1px solid #efefef;
+    text-align: left;
+  }
+}
+
+.post-header {
+  margin: 2em 0;
+
+  h1 { margin-bottom: 0; }
 }
 
 .post-info {
   font-size: em($font-size-small);
   color: #bbc7cc;
 
-  time {
-    text-transform: uppercase;
-  }
+  time { text-transform: uppercase; }
 
   .author-link {
     padding-left: 10px;
@@ -183,11 +211,168 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
+///// GENERAL
+
+a.post-button {
+  display: inline-block;
+  border: 1px solid $color-main;
+  border-radius: 20px;
+  padding: 0 14px;
+
+  text-decoration: none;
+  font-size: $font-size-small;
+  line-height: 30px;
+  color: $color-main;
+
+  transition: $g-transition;
+
+  &:hover {
+    background-color: $color-main;
+    color: white;
+  }
+}
+
+
+///// POST BANNER /////
+
+.post-banner {
+  position: relative;
+  height: 400px;
+  max-width: 100%;
+  min-width: $blog-width;
+  width: $blog-width;
+  margin: 0 auto;
+
+  background-size: cover;
+  background-position: center center;
+
+  @include below(small) {
+    height: 300px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, .4);
+  }
+
+  .single & {
+    &::before {
+      display: none;
+    }
+  }
+
+
+  .post-row {
+    position: relative;
+    z-index: 5;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    @include transform(translateY(-50%) );
+  }
+}
+
+.post-banner {
+  h1, h2 {
+    font-size: em($h1);
+    line-height: 1;
+
+    @include below(small) {
+      font-size: em(map-get($h1-sizes, 'small') );
+    }
+  }
+
+  time {
+    display: block;
+    margin-bottom: 1.5em;
+  }
+
+  p {
+    margin-bottom: 1.5em;
+    font-size: em($font-size-small);
+
+    @include below(small) {
+      margin-bottom: 1em;
+    }
+  }
+
+  a {
+    font-size: em($font-size-small);
+  }
+}
+
+.post-banner.no-banner {
+  &::before {
+    display: none;
+  }
+
+  .post-tip span {
+    border-color: $font-color;
+    color: $font-color;
+  }
+}
+
+// avoid double override
+.post-banner:not(.no-banner) {
+
+  h1, h2, p, time {
+    color: white;
+  }
+
+  .post-button {
+    border-color: white;
+    color: white;
+
+    &:hover { border-color: $color-main; }
+  }
+}
+
+///// CATEGORIES /////
+
+.categories {
+  margin: 2em 0 1.5em;
+
+  a {
+    display: inline-block;
+    padding: 5px 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: $color-passive;
+    border: 1px solid transparent;
+
+    color: $font-color;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: em($font-size-small);
+    line-height: 1;
+    letter-spacing: 1px;
+
+    border-radius: $g-radius;
+    transition: $g-transition;
+
+    &:hover {
+      background-color: darken($color-passive, 10%);
+    }
+
+    &.active {
+      background-color: $color-main;
+      color: white;
+    }
+  }
+}
+
 ///// SHARE (Jetpack) /////
 
 div.sharedaddy {
-  margin-top: 2em;
-  margin-bottom: 1.5em;
+  margin: 3em 0 2em;
 
   .sd-block {
     display: flex;
@@ -285,49 +470,30 @@ div#sharing_email {
   }
 }
 
-///// AUTHOR SECTION /////
+///// AUTHOR /////
 
-.post-footer {
-  clear: both;
+.post-author {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+
   position: relative;
+  padding: 2em 0;
+  margin-top: 2em;
   border-top: 1px solid $color-passive;
-  margin-top: 3em;
-  margin-bottom: 2em;
 
   @include below(small) {
     margin-bottom: 0;
   }
 
-  p {
-    margin-bottom: 0;
-    font-size: em($font-size-small);
-  }
-}
-
-
-///// AUTHOR /////
-
-.post-author {
-  padding-top: 1.5em;
-  margin-bottom: 3em;
-
   @include below(mini) {
     text-align: center;
   }
-
-  h6 {
-    margin: 1em 0 0.5em;
-    letter-spacing: 0.5px;
-  }
 }
 
-.author-image {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  overflow: hidden;
-  @include transform(translateY(-50%) translateX(-50%) );
 
+.author-image {
+  margin-right: 10px;
   img {
     border: 1px solid $color-passive;
     padding: 0.25em;
@@ -337,142 +503,28 @@ div#sharing_email {
   }
 }
 
-ul.author-connect {
-  list-style-type: none;
-  padding-left: 0;
-  margin-bottom: 0;
+.author-bio {
+  flex: 1;
 
-  font-size: em($font-size-small);
-  color: $font-color-passive;
-
-  a { color: $font-color-passive;
-    &:hover { color: $color-link; }
-  }
-}
-
-
-///// COMMENT FORM /////
-
-.comment-form {
-  textarea {
-    height: 6em;
-  }
-}
-
-
-/* ----------------
-  FRONT ARTICLE
----------------- */
-
-.front-article {
-  position: relative;
-  padding-bottom: 1.5em;
-  margin-bottom: 1.5em;
-  border-bottom: 1px solid $color-passive;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    background: $body-background;
-    width: 9px;
-    height: 9px;
-    border: 1px solid $color-passive;
-
-    border-radius: 100%;
-    box-shadow: 0 0 0 5px $body-background;
-    @include transform(translateX(-50%) );
-  }
-
-  @include below(mini) {
-    margin-bottom: 0.75em;
-  }
-
-  h2 {
-    margin-bottom: 0.5em;
+  h6 {
+    margin: 0 0 0.5em;
+    letter-spacing: 0.5px;
   }
 
   p {
     margin-bottom: 0;
-  }
-
-  .post-body {
-    margin-bottom: 0.75em;
-
-    p, ul, ol, blockquote, cite {
-      font-size: em($font-size-small);
-    }
+    font-size: em($font-size-small);
   }
 }
 
+///// FOOTER /////
 
-///// POST BANNER /////
-
-.post-banner-mini {
-  margin-bottom: 1.5em;
-}
-
-.post-banner {
+.post-footer {
+  padding-top: 2em;
   position: relative;
-  height: 400px;
-  background-size: cover;
-  background-position: center center;
-
-  @include below(small) {
-    height: 300px;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(black, .4);
-  }
-
-  .post-row {
-    position: relative;
-    z-index: 5;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    @include transform(translateY(-50%) );
-  }
+  background-color: rgba(black, 0.03);
 }
 
-.post-banner {
-  h1, h2, p {
-    color: white;
-  }
-
-  h1, h2 {
-    font-size: em($h1);
-    margin-bottom: 15px;
-    line-height: 1.2;
-
-    @include below(small) {
-      font-size: em(map-get($h1-sizes, 'small') );
-    }
-  }
-
-  p {
-    margin-bottom: 1.5em;
-    font-size: em($font-size-small);
-
-    @include below(small) {
-      margin-bottom: 1em;
-    }
-  }
-
-  a {
-    font-size: em($font-size-small);
-  }
-}
 
 ///// PREV NEXT POST
 
@@ -515,7 +567,7 @@ ul.author-connect {
 }
 
 .post-suggest {
-  margin-bottom: 3em;
+  margin-bottom: 2em;
 
   .suggest-col {
     @include column(6);
@@ -541,6 +593,7 @@ ul.author-connect {
   position: relative;
   overflow: hidden;
   background-size: cover;
+  background-position: center center;
   min-height: 145px;
 
   border-radius: $g-radius;
@@ -582,37 +635,50 @@ ul.author-connect {
   }
 }
 
-///// CATEGORIES /////
 
-.categories {
-  margin-top: 15px;
-  margin-bottom: 20px;
 
-  a {
-    display: inline-block;
-    padding: 5px 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    background-color: $color-passive;
-    border: 1px solid transparent;
+/* ----------------
+  FRONT ARTICLE
+---------------- */
 
-    color: $font-color;
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: em($font-size-small);
-    line-height: 1;
-    letter-spacing: 1px;
+.front-article {
+  position: relative;
+  padding-bottom: 1.5em;
+  margin: 1.5em 0;
+  border-bottom: 1px solid $color-passive;
 
-    border-radius: $g-radius;
-    transition: $g-transition;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    background: $body-background;
+    width: 9px;
+    height: 9px;
+    border: 1px solid $color-passive;
 
-    &:hover {
-      background-color: darken($color-passive, 10%);
-    }
+    border-radius: 100%;
+    box-shadow: 0 0 0 5px $body-background;
+    @include transform(translateX(-50%) );
+  }
 
-    &.active {
-      background-color: $color-main;
-      color: white;
+  @include below(mini) {
+    margin-bottom: 0.75em;
+  }
+
+  h2 {
+    margin-bottom: 0.5em;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .post-body {
+    margin-bottom: 0.75em;
+
+    p, ul, ol, blockquote, cite {
+      font-size: em($font-size-small);
     }
   }
 }
@@ -622,8 +688,10 @@ ul.author-connect {
 .post-comments {
   h3, h4 {
     margin-bottom: 0.75em;
-    font-size: em($h4);
+    font-size: em($h5);
     font-weight: $font-weight;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 
     @include below(small) {
       font-size: em(map-get($h4-sizes, small) );
@@ -637,19 +705,44 @@ ul.author-connect {
     list-style-type: none;
   }
 
+
+  .comments-list {
+    > li {
+      padding: 1em;
+      margin-bottom: 1.5em;
+      background-color: $body-background;
+
+      border-radius: $g-radius;
+      box-shadow: $shadow-z0;
+    }
+  }
+
   .replies-list {
     padding-left: 4.5em;
-    margin-bottom: 1.5em;
-    border-left: 1px solid $color-passive;
     font-size: em($font-size-small);
+  }
+
+  .comment-title {
+    position: relative;
+    padding-top: 2rem;
+    margin: 2rem 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      border-top: 2px solid rgba(0,0,0,.44);
+      width: 75px;
+    }
   }
 }
 
+// Single Comment
+
 .comment {
   position: relative;
-  padding: 1.5em 0;
-  border-top: 1px solid $color-passive;
-  color: $font-color-passive;
+  color: rgba(black , .6);
 
   &.bypostauthor {
     b::after {
@@ -662,24 +755,24 @@ ul.author-connect {
   }
 
   &.depth-1 {
-    padding: 1.5em 0;
+    padding-bottom: 1.5em;
 
-    .comment-avatar { margin-right: 1em; }
+    .comment-avatar { margin-right: 10px; }
     p { margin-bottom: 1em; }
     b, time { display: block; }
   }
 
   &.depth-2 {
-    padding: 0.5em 0;
-    border-top: none;
+    padding-bottom: 1em;
 
     .comment-avatar {
       position: absolute;
-      top: 0.75em; left: -1em;
+      top: 0.25em; left: -1em;
       @include transform(translateX(-100%) );
     }
+
+    time { display: inline-block; margin-bottom: 1em; }
     p { margin-bottom: 0.5em; }
-    time { margin-left: 1em; }
   }
 
   b {
@@ -689,7 +782,7 @@ ul.author-connect {
 
   time {
     display: inline-block;
-    margin-bottom: 0.5em;
+    margin-bottom: 10px;
     font-size: em($font-size-small);
     line-height: 1;
   }
@@ -700,28 +793,32 @@ ul.author-connect {
 
   .comment-avatar {
     float: left;
-    width: 2.5em;
-    height: 2.5em;
+    width: 2.25em;
+    height: 2.25em;
     border-radius: 50%;
   }
 }
 
-.comment-reply-link {
+a.comment-reply-link {
   visibility: hidden;
   opacity: 0;
-
   position: absolute;
-  top: 1.5rem;
+  top: 0;
   right: 0;
 
   width: 1.5rem;
   height: 1.5rem;
   font-size: 0;
+  text-decoration: none;
   transition: $g-transition;
 
   .comment:hover & {
     visibility: visible;
     opacity: 1;
+  }
+
+  .depth-2 & {
+    display: none;
   }
 
   &::before {
@@ -737,14 +834,28 @@ ul.author-connect {
 ///// COMMENT FORM /////
 
 .comment-respond {
-  margin-top: 1.5em;
-  padding-top: 1.5em;
-  border-top: 2px solid $font-color;
+  margin-bottom: 2em;
 }
 
 .comment-form {
+  padding: 1em;
+  background-color: $body-background;
+  box-shadow: $shadow-z0;
+
   label {
     margin-bottom: 0.5em;
+  }
+
+  textarea {
+    height: 6em;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .form-submit {
+    margin-bottom: 0;
   }
 
   .comment-notes,
@@ -754,8 +865,9 @@ ul.author-connect {
   }
 }
 
-.comment-reply-title {
-  position: relative;
+h3.comment-reply-title {
+  margin: 0 0 2rem;
+  padding-top: 0;
 
   #cancel-comment-reply-link {
     display: inline-block;
@@ -766,6 +878,7 @@ ul.author-connect {
     height: 1.5rem;
     color: transparent;
     font-size: 0;
+    text-transform: initial;
 
     &::before {
       @include icon;
@@ -806,4 +919,58 @@ ul.author-connect {
 
 .form-submit {
   clear: both;
+}
+
+
+///// Pagination
+
+.pagination {
+  margin: 3em 0;
+  text-align: center;
+  @include clearfix;
+
+  .page-button,
+  select {
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+    margin-left: -4px;
+    background-color: white;
+    border: 1px solid $font-color;
+    height: 40px;
+
+    color: $font-color;
+    vertical-align: middle;
+
+    border-radius: 0;
+    transition: $g-transition;
+    -webkit-appearance: none;
+
+    &:hover { border-color: $font-color; background-color: rgba($color-main, .3); }
+  }
+
+  .page-button {
+    padding: 6px;
+
+    &:first-child {
+      border-right: none;
+      border-radius: $g-radius 0 0 $g-radius;
+    }
+
+    &:last-child {
+      border-left: none;
+      border-radius: 0 $g-radius $g-radius 0;
+    }
+
+    // no href
+    &:not([href]) {
+      background-color: white;
+      color: rgba($font-color, .5);
+      opacity: .5;
+    }
+  }
+
+  select {
+    padding: 6px 12px;
+  }
 }

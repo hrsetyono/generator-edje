@@ -5,6 +5,7 @@ if(!has_required_plugins() ) { return false; }
 require_once 'code/addon.php';
 
 add_action('init', 'my_post_type', 1);
+add_action('widgets_init', 'my_widgets');
 add_action('after_setup_theme', 'my_theme_support');
 add_action('wp_enqueue_scripts', 'my_enqueue_script');
 
@@ -29,6 +30,16 @@ function my_post_type() {
 }
 
 /*
+  Register widgets
+*/
+function my_widgets() {
+  register_sidebar(array(
+    'name' => 'Blog Sidebar',
+    'id' => 'my-sidebar'
+  ));
+}
+
+/*
   Feature supported by this theme
 */
 function my_theme_support() {
@@ -36,6 +47,7 @@ function my_theme_support() {
   add_theme_support('menus');
 
   add_theme_support('custom-logo');
+  add_theme_support('jetpack-responsive-videos');
 
   add_theme_support('html5');
   add_theme_support('title_tag');

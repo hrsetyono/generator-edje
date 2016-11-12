@@ -1,0 +1,14 @@
+<article class="comment
+  {{ post.post_author == comment.user_id ? 'bypostauthor' : '' }}
+  {{ comment.comment_parent ? 'depth-2' : 'depth-1' }}">
+
+
+  <img class="comment-avatar" src="{{ comment.avatar }}" alt="{{ comment.author.name }} Avatar">
+  <b>{{ comment.author.name }}</b>
+  <time>{{ comment.comment_date | date_ago }}</time>
+
+  {{ comment.comment_content | wpautop }}
+
+  {{ comment.reply_link }}
+
+</article>
