@@ -1,0 +1,31 @@
+{% extends "layout.twig" %}
+{% block content %}
+
+{# Banner #}
+<section class="post-banner no-banner">
+  <h-row class="post-row"><h-column class="post-col">
+
+    <figure class="author-image">
+      {{ fn('get_avatar', user.ID) }}
+    </figure>
+
+    <div class="post-tip">
+      <span>Posts written by</span>
+    </div>
+    <h1>{{ user.display_name }}</h1>
+    {{ user.description | wpautop }}
+    <a href="{{ user.user_url }}" class="post-button">Follow</a>
+
+  </h-column></h-row>
+</section>
+
+<h-row class="post-row">
+<h-column class="post-col" id="content">
+
+  {% include "partials/_posts.twig" %}
+  {% include "partials/_pagination.twig" %}
+
+</h-column>
+</h-row>
+
+{% endblock %}

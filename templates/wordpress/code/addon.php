@@ -27,8 +27,11 @@ class My_Shortcode {
     [button] link [/button]
   */
   function button($attr, $content = null) {
-    return '<span class="button">' . $content . '</span>';
-    return $content;
+    if(preg_match('/<a (.+?)>/', $content, $match) ) {
+      return "<span class='button-shortcode'>{$content}</span>";
+    } else {
+      return "<a class='button'>{$content}</a>";
+    }
   }
 }
 

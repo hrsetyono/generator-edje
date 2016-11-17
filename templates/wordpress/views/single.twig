@@ -3,8 +3,8 @@
 
 {# Banner #}
 {% if post.thumbnail %}
-<section class="post-banner"
-  style="width: {{ post.thumbnail.width }}px; background-image: url('{{ post.thumbnail.src('large') }}');">
+<section class="post-banner {{ post.thumbnail.width < 1280 ? 'post-banner-mini' : '' }}"
+  style="background-image: url('{{ post.thumbnail.src('large') }}');">
 </section>
 {% endif %}
 
@@ -14,10 +14,9 @@
 
   <header class="post-header">
     <h1>{{ post.title }}</h1>
-    <div class="post-info">
-      <time datetime="{{ post.post_date | date('Y-m-d') }}">
-        {{ post.post_date | date }}
-      </time>
+
+    <div class="post-meta">
+      {% include "partials/_post-meta.twig" %}
     </div>
   </header>
 
@@ -33,12 +32,14 @@
     </figure>
 
     <div class="author-bio">
-      <h6>{{ post.author.display_name }}</h6>
+      <h6><a href="{{ post.author.link }}" title="See all posts by {{ post.author.display_name }}">
+        {{ post.author.display_name }}
+      </a></h6>
       <p>{{ post.author.description }}</p>
     </div>
 
     {% if post.author.user_url %}
-      <a href="{{ post.author.user_url }}" class="post-button">Follow</a>
+      <a href="{{ post.author.user_url }}" target="_blank" class="post-button">Follow</a>
     {% endif %}
 
   </footer>

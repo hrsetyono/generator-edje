@@ -1,4 +1,8 @@
 $blog-width: 600px;
+$blog-font-passive: #bbc7cc;
+$blog-border: #c8d7e1;
+
+$share-bg: #444;
 
 /* ------
   BLOG
@@ -22,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .alignleft,
 .alignright {
-  max-width: 300px;
+  max-width: 50%;
   margin-bottom: 1em;
 
   @include below(small) {
@@ -45,13 +49,9 @@ h1, h2, h3, h4, h5, h6 {
 
   .wp-caption-text {
     display: inline-block;
-    margin-top: 0.5em;
-    margin-bottom: 0;
+    margin: 0.5em 0 0;
     padding: 0 2em 0.5em;
-    max-width: 70%;
     border-bottom: 1px solid $color-passive;
-
-    text-align: center;
     font-size: em($font-size-small);
   }
 }
@@ -70,7 +70,6 @@ h1, h2, h3, h4, h5, h6 {
     @include transform(translateX(100%) );
   }
 
-
   .refleft .wp-caption-text,
   .refright .wp-caption-text {
     position: absolute;
@@ -84,21 +83,19 @@ h1, h2, h3, h4, h5, h6 {
 
 ///// GALLERY
 
-.gallery {
-  margin: 0 -1px 1.5em !important;
-}
-
+.gallery,
 .tiled-gallery {
-  margin-bottom: 1.5em;
+  margin: 0 -1px 1.5em !important;
 
-  .gallery-row {
-    margin: 0 auto;
+  &[data-carousel-extra] {
+    img { cursor: pointer; transition: $g-transition; }
+    img:hover { opacity: 0.7; }
   }
 }
 
 .gallery-item {
-  margin-top: 0 !important;
   padding: 0 1px;
+  margin-top: 0 !important;
   margin-bottom: 2px;
 
   img {
@@ -112,10 +109,15 @@ h1, h2, h3, h4, h5, h6 {
 .post-row { @include row($width: $blog-width); margin: 0 auto; }
 .post-col { @include column(12); }
 
+
 ///// GENERIC ARTICLE
 
 .post-content {
   letter-spacing: 0.01 * $font-size;
+
+  h1 {
+    font-weight: $font-weight;
+  }
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
@@ -192,25 +194,97 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.dropcap-shortcode {
+  // float: left;
+  // margin-right: 10px;
+  // font-weight: 700;
+  // font-size: floor(($font-size * $font-line)) * 2 * 1.20;
+  // line-height: floor(($font-size * $font-line)) * 2;
+}
+
+///// SINGLE HEADER
+
 .post-header {
   margin: 2em 0;
 
   h1 { margin-bottom: 0; }
 }
 
-.post-info {
+.post-meta {
+  border-top: 1px solid $color-passive;
+  border-bottom: 2px solid $font-color;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+
   font-size: em($font-size-small);
-  color: #bbc7cc;
 
-  time { text-transform: uppercase; }
+  time {
+    margin-right: 1em;
+  }
+}
 
-  .author-link {
-    padding-left: 10px;
-    margin-left: 10px;
+.post-meta,
+.tease-meta {
+  font-size: em($font-size-small);
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  time {
+    display: inline-block;
+    margin-left: 1em;
+    padding-left: 1em;
     border-left: 1px solid $color-passive;
   }
 }
 
+///// POST TEASE /////
+
+.post-tease {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row-reverse;
+
+  position: relative;
+  padding-bottom: 2em;
+  margin: 2em 0;
+  border-bottom: 1px solid $color-passive;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @include below(mini) {
+    display: block;
+    padding-bottom: 1em;
+    margin: 1em 0;
+  }
+}
+
+.tease-body {
+  flex: 1;
+
+  > a:hover h2,
+  > a:hover h3 {
+    text-decoration: underline;
+  }
+
+  h2, h3 { margin: 0 0 0.5rem; }
+  p { margin-bottom: 1em; }
+  figure { margin-left: 10px; }
+
+  @include below(mini) {
+    h2, h3 { clear: none; }
+    figure { float: right; }
+    img { width: 100px; }
+  }
+}
+
+.tease-meta {
+  color: $blog-font-passive;
+}
 
 ///// GENERAL
 
@@ -239,9 +313,6 @@ a.post-button {
 .post-banner {
   position: relative;
   height: 400px;
-  max-width: 100%;
-  min-width: $blog-width;
-  width: $blog-width;
   margin: 0 auto;
 
   background-size: cover;
@@ -262,12 +333,12 @@ a.post-button {
     background-color: rgba(black, .4);
   }
 
+  // single page doesn't have the overlay
   .single & {
     &::before {
       display: none;
     }
   }
-
 
   .post-row {
     position: relative;
@@ -286,25 +357,21 @@ a.post-button {
     line-height: 1;
 
     @include below(small) {
-      font-size: em(map-get($h1-sizes, 'small') );
+      font-size: em(24px);
     }
   }
 
   time {
     display: block;
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  p, time, a {
+    font-size: em($font-size-small);
   }
 
   p {
-    margin-bottom: 1.5em;
-    font-size: em($font-size-small);
-
-    @include below(small) {
-      margin-bottom: 1em;
-    }
-  }
-
-  a {
+    margin: 1rem 0;
     font-size: em($font-size-small);
   }
 }
@@ -322,7 +389,6 @@ a.post-button {
 
 // avoid double override
 .post-banner:not(.no-banner) {
-
   h1, h2, p, time {
     color: white;
   }
@@ -335,31 +401,40 @@ a.post-button {
   }
 }
 
+.post-banner-mini {
+  width: $blog-width + 100px;
+
+  @include below($blog-width + 120px) {
+    width: 100%;
+  }
+}
+
 ///// CATEGORIES /////
 
 .categories {
-  margin: 2em 0 1.5em;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 2em 0 2em;
+  padding: 0.5em 0;
+  border-bottom: 2px solid $font-color;
+  border-top: 1px solid $color-passive;
 
   a {
     display: inline-block;
     padding: 5px 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    background-color: $color-passive;
-    border: 1px solid transparent;
 
     color: $font-color;
     text-transform: uppercase;
-    font-weight: 400;
     font-size: em($font-size-small);
-    line-height: 1;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 
     border-radius: $g-radius;
     transition: $g-transition;
 
     &:hover {
-      background-color: darken($color-passive, 10%);
+      color: $color-main;
     }
 
     &.active {
@@ -369,10 +444,87 @@ a.post-button {
   }
 }
 
+.category-menu {
+  position: relative;
+  margin-left: auto;
+  padding: 0 0.5em;
+
+  > a {
+    padding: 0;
+    color: inherit;
+  }
+
+  i {
+    font-size: 2em;
+    transition: all .15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &:hover i {
+    @include transform(rotate(90deg) );
+  }
+}
+
+.menu-tip {
+  display: none;
+
+  position: absolute;
+  z-index: z(menu);
+  top: 32px;
+  right: 0;
+
+  border: 1px solid $blog-border;
+  max-width: 260px;
+  width: 220px;
+  padding: 10px 0;
+  background-color: $body-background;
+
+  border-radius: $g-radius;
+  // box-shadow: 0 2px 5px rgba(black, 0.1), 0 0 56px rgba(black, 0.075);
+  box-shadow: $shadow-z0;
+
+  .category-menu:hover & {
+    display: block;
+  }
+
+  // arrow
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 10px;
+
+    @include transform(translateY(-10px) );
+  }
+
+  &::before {
+    top: -1px;
+    @include triangle($direction: top, $color: #c8d7e1, $width: 20px, $height: 10px);
+  }
+
+  &::after {
+    @include triangle($direction: top, $color: $body-background, $width: 20px, $height: 10px);
+  }
+
+  a {
+    display: block;
+    padding: 0.5em 1em;
+    text-transform: initial;
+    transition: none;
+
+    &:hover {
+      background-color: $color-main;
+      color: white;
+    }
+  }
+}
+
 ///// SHARE (Jetpack) /////
 
 div.sharedaddy {
-  margin: 3em 0 2em;
+  margin: 2em 0;
+  padding-top: 2em;
+  border-top: 1px solid $color-passive;
 
   .sd-block {
     display: flex;
@@ -396,14 +548,13 @@ div.sharedaddy {
 
 // button general (needs to override)
 div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
-  background-color: #fafafa;
-  color: #777 !important;
+  background-color: $share-bg;
+  color: white !important;
   box-shadow: 0 1px 0 rgba(black, .08), inset 0 0 0 1px rgba(black, .2);
 
   &:hover {
-    background-color: $font-color;
+    background-color: lighten($share-bg, 10%);
     opacity: 1;
-    color: white !important;
   }
 
   $lists: (
@@ -414,19 +565,21 @@ div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
     jetpack-whatsapp: ("_whatsapp", #25d366),
     skype: ("_skype", #0bbff2),
     pocket: ("_pocket", #ed4054),
-    email: ("email", $font-color),
-    print: ("printer", $font-color),
     linkedin: ("_linkedin", #0077b5),
     reddit: ("_reddit", #f54b00),
     tumblr: ("_tumblr", #324f6d),
     telegram: ("_telegram", #34abe3),
-    press-this: ("_wordpress", #21759a)
+    custom-line: ("_line", #03c302),
+    custom-weibo: ("_weibo", #e6162d),
+    custom-sina-weibo: ("_weibo", #e6162d),
+    custom-renren: ("_renren", #005eac)
   );
 
   @each $class, $value in $lists {
     &.share-#{$class} {
+      background-color: nth($value, 2);
       // &::before { content: nth($value, 1); }
-      &:hover { background-color: nth($value, 2); }
+      &:hover { background-color: darken(nth($value, 2), 10%); }
     }
   }
 }
@@ -450,9 +603,10 @@ div.sharedaddy .sd-social-icon-text,
 div.sharedaddy .sd-social-text,
 div.sharedaddy .sd-social-official {
   ul li a.sd-button {
-    padding: 1px 8px 0px 5px;
+    padding: 4px 12px 3px 9px;
     border: none;
     border-radius: $g-radius;
+    font-size: em($font-size-small);
 
     &:hover { border: none; }
   }
@@ -487,6 +641,7 @@ div#sharing_email {
   }
 
   @include below(mini) {
+    flex-direction: column;
     text-align: center;
   }
 }
@@ -494,12 +649,22 @@ div#sharing_email {
 
 .author-image {
   margin-right: 10px;
+
   img {
     border: 1px solid $color-passive;
     padding: 0.25em;
     height: 4em;
     width: 4em;
     border-radius: 50%;
+  }
+
+  @include below(mini) {
+    margin-right: 0;
+    margin-bottom: 1em;
+  }
+
+  .post-banner & {
+    margin-bottom: 1em;
   }
 }
 
@@ -511,9 +676,20 @@ div#sharing_email {
     letter-spacing: 0.5px;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
   p {
     margin-bottom: 0;
     font-size: em($font-size-small);
+  }
+
+  @include below(mini) {
+    margin-bottom: 1em;
   }
 }
 
@@ -529,7 +705,7 @@ div#sharing_email {
 ///// PREV NEXT POST
 
 .post-tip {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   font-size: em(12px);
   text-align: center;
 
@@ -636,53 +812,6 @@ div#sharing_email {
 }
 
 
-
-/* ----------------
-  FRONT ARTICLE
----------------- */
-
-.front-article {
-  position: relative;
-  padding-bottom: 1.5em;
-  margin: 1.5em 0;
-  border-bottom: 1px solid $color-passive;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    background: $body-background;
-    width: 9px;
-    height: 9px;
-    border: 1px solid $color-passive;
-
-    border-radius: 100%;
-    box-shadow: 0 0 0 5px $body-background;
-    @include transform(translateX(-50%) );
-  }
-
-  @include below(mini) {
-    margin-bottom: 0.75em;
-  }
-
-  h2 {
-    margin-bottom: 0.5em;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-
-  .post-body {
-    margin-bottom: 0.75em;
-
-    p, ul, ol, blockquote, cite {
-      font-size: em($font-size-small);
-    }
-  }
-}
-
 ///// COMMENTS /////
 
 .post-comments {
@@ -694,7 +823,7 @@ div#sharing_email {
     letter-spacing: 0.5px;
 
     @include below(small) {
-      font-size: em(map-get($h4-sizes, small) );
+      font-size: em(18px);
     }
   }
 
@@ -863,6 +992,10 @@ a.comment-reply-link {
     margin-bottom: 1em;
     font-size: em($font-size-small);
   }
+
+  .logged-in-as {
+    display: none;
+  }
 }
 
 h3.comment-reply-title {
@@ -892,6 +1025,10 @@ h3.comment-reply-title {
 }
 
 // Field and Submit
+
+.comment-form-comment {
+  label { display: none; }
+}
 
 .comment-form-author {
   padding-right: 0.5em;
@@ -925,52 +1062,57 @@ h3.comment-reply-title {
 ///// Pagination
 
 .pagination {
-  margin: 3em 0;
+  display: -webkit-flex;
+  display: flex;
+  margin: 4em 0;
+
+  font-size: em($font-size-small);
+  color: $font-color-passive;
   text-align: center;
-  @include clearfix;
 
   .page-button,
   select {
     cursor: pointer;
     display: inline-block;
     width: auto;
-    margin-left: -4px;
-    background-color: white;
-    border: 1px solid $font-color;
-    height: 40px;
+    border: 1px solid $font-color-passive;
+    padding: 5px 1em;
+    background-color: transparent;
 
-    color: $font-color;
-    vertical-align: middle;
+    color: inherit;
 
-    border-radius: 0;
+    border-radius: $g-radius;
     transition: $g-transition;
     -webkit-appearance: none;
 
-    &:hover { border-color: $font-color; background-color: rgba($color-main, .3); }
+    &:hover { border-color: $font-color; color: $font-color; }
   }
 
   .page-button {
-    padding: 6px;
+    align-self: center;
 
-    &:first-child {
-      border-right: none;
-      border-radius: $g-radius 0 0 $g-radius;
-    }
-
-    &:last-child {
-      border-left: none;
-      border-radius: 0 $g-radius $g-radius 0;
-    }
+    &:first-child { margin-right: auto; }
+    &:last-child { margin-left: auto; }
 
     // no href
     &:not([href]) {
-      background-color: white;
-      color: rgba($font-color, .5);
-      opacity: .5;
+      visibility: hidden;
+      opacity: 0;
     }
   }
 
   select {
-    padding: 6px 12px;
+    border-color: transparent;
+  }
+}
+
+///// INFINITE SCROLL (Jetpack)
+
+.infinite-loader {
+  margin: 2em 0;
+
+  .spinner {
+    left: 50% !important;
+    @include transform(translateX(-50%) );
   }
 }

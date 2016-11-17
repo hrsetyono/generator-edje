@@ -1,23 +1,35 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-{% include "partials/_post-banner.twig" %}
+{# Banner #}
+{% if post %}
+<section class="post-banner {{ not post.thumbnail ? 'no-banner' : '' }} {{ post.thumbnail.width < 1280 ? 'post-banner-mini' : '' }}"
+  style="background-image: url('{{ post.thumbnail.src('large') }}');">
+  <h-row class="post-row"><h-column class="post-col">
 
-<h-row class="post-row"><h-column class="post-col">
-  {# CATEGORIES #}
-  {% if categories %}
-  <div class="categories">
-    <a href="{{ blog_url }}" {% if not term %} class="active" {% endif %}>All</a>
+    <div class="post-tip">
+      <span>Latest {{ term ? term.name : 'Post' }}</span>
+    </div>
 
-    {% for c in categories %}
-      <a href="{{ c.link }}" {% if c.title == term.name %} class="active" {% endif %}>{{ c.title }}</a>
-    {% endfor %}
-  </div>
-  {% endif %}
+    <h1>{{ post.title }}</h1>
+    <time datetime="{{ post.post_date | date('Y-m-d') }}"> {{ post.post_date | date }} </time>
 
+    {{ post.get_preview(25, false, false) | wpautop }}
+
+    <a href="{{ post.link }}" class="post-button">Read More</a>
+
+  </h-column></h-row>
+</section>
+{% endif %}
+
+<h-row class="post-row">
+<h-column class="post-col" id="content">
+
+  {% include "partials/_categories.twig" %}
   {% include "partials/_posts.twig" %}
   {% include "partials/_pagination.twig" %}
 
-</h-column></h-row>
+</h-column>
+</h-row>
 
 {% endblock %}

@@ -1,9 +1,9 @@
 {% if pagination.total > 1 %}
-<footer class="pagination">
+<nav class="pagination">
 
   <a {% if pagination.prev %} href="{{ pagination.prev.link }}" {% endif %}
-    class="page-button" title="Previous Page">
-    <i class="icon">chevron_left</i>
+    class="page-button" title="Newer Posts">
+    ← Newer
   </a>
 
   <select id="pagination">
@@ -17,9 +17,9 @@
   </select>
 
   <a {% if pagination.next %} href="{{ pagination.next.link }}" {% endif %}
-    class="page-button" title="Next Page">
-    <i class="icon">chevron_right</i>
+    class="page-button" title="Older Posts">
+    Older →
   </a>
 
-</footer>
+</nav>
 {% endif %}

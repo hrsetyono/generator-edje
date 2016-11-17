@@ -40,13 +40,23 @@
 
 button,
 .button,
-[type="submit"] {
+a.button,
+[type="submit"],
+.button-shortcode > a {
   display: inline-block;
   outline: none;
   padding: 8px 15px;
+  border: none;
   background-color: $color-main;
   color: white;
-  border: none;
+  text-decoration: none;
+
+  border-radius: $g-radius;
+  transition: $g-transition;
+
+  &:hover {
+    background-color: darken($color-main, 10%);
+  }
 }
 
 ///// INPUT /////
