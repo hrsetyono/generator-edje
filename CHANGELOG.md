@@ -1,6 +1,6 @@
 ## 0.3.4
 
-- [WP] Further improvement on blog post layout
+- [WP] Further improvement on blog post layout. Support Jetpack's Related-Post and Infinite-Scroll.
 
 ## 0.3.3
 

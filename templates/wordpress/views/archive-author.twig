@@ -2,16 +2,15 @@
 {% block content %}
 
 {# Banner #}
-<section class="post-banner no-banner">
+<section class="post-banner banner-no-image">
   <h-row class="post-row"><h-column class="post-col">
 
     <figure class="author-image">
       {{ fn('get_avatar', user.ID) }}
     </figure>
 
-    <div class="post-tip">
-      <span>Posts written by</span>
-    </div>
+    <p class="tease-meta">Posts written by</p>
+
     <h1>{{ user.display_name }}</h1>
     {{ user.description | wpautop }}
     <a href="{{ user.user_url }}" class="post-button">Follow</a>

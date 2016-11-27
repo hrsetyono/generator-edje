@@ -30,22 +30,22 @@ function my_init() {
   $role_object->add_cap('edit_theme_options');
 
   // ACF Option page
-  // if(function_exists('acf_add_options_page') ) {
-  //   acf_add_options_sub_page(array(
-  // 		'page_title' 	=> 'Theme Options',
-  // 		'parent_slug' 	=> 'themes.php',
-  // 	));
-  // }
+  if(function_exists('acf_add_options_page') ) {
+    acf_add_options_sub_page(array(
+  		'page_title' 	=> 'Theme Options',
+  		'parent_slug' 	=> 'themes.php',
+  	));
+  }
 }
 
 /*
   Register widgets
 */
 function my_widgets() {
-  // register_sidebar(array(
-  //   'name' => 'My Sidebar',
-  //   'id' => 'my-sidebar'
-  // ));
+  register_sidebar(array(
+    'name' => 'My Sidebar',
+    'id' => 'my-sidebar'
+  ));
 }
 
 /*
@@ -79,11 +79,11 @@ function my_enqueue_script() {
   $css_dir = get_template_directory_uri() . '/assets/css';
   $js_dir = get_template_directory_uri() . '/assets/js';
 
-  // enqueue jQuery at footer
-  wp_deregister_script('jquery');
-  wp_deregister_script('jquery-migrate');
-  wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.js'), false, false, true);
-  wp_enqueue_script('jquery-migrate', includes_url('/js/jquery/jquery-migrate.min.js'), array('jquery'), false, true);
+  // // enqueue jQuery at footer, some plugins may not work correctly if you activate this
+  // wp_deregister_script('jquery');
+  // wp_deregister_script('jquery-migrate');
+  // wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.js'), false, false, true);
+  // wp_enqueue_script('jquery-migrate', includes_url('/js/jquery/jquery-migrate.min.js'), array('jquery'), false, true);
 
   // Stylesheet
   wp_enqueue_style('my-framework', $css_dir . '/framework.css');

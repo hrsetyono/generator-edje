@@ -1,4 +1,5 @@
 $blog-width: 600px;
+$related-bp: $blog-width + 270px; // breakpoint of related posts
 $blog-font-passive: #bbc7cc;
 $blog-border: #c8d7e1;
 
@@ -194,14 +195,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.dropcap-shortcode {
-  // float: left;
-  // margin-right: 10px;
-  // font-weight: 700;
-  // font-size: floor(($font-size * $font-line)) * 2 * 1.20;
-  // line-height: floor(($font-size * $font-line)) * 2;
-}
-
 ///// SINGLE HEADER
 
 .post-header {
@@ -256,10 +249,13 @@ h1, h2, h3, h4, h5, h6 {
     color: inherit;
   }
 
+  figure { margin-left: 10px; }
+
   @include below(mini) {
     display: block;
-    padding-bottom: 1em;
-    margin: 1em 0;
+
+    figure { float: right; }
+    img { width: 100px; }
   }
 }
 
@@ -273,12 +269,10 @@ h1, h2, h3, h4, h5, h6 {
 
   h2, h3 { margin: 0 0 0.5rem; }
   p { margin-bottom: 1em; }
-  figure { margin-left: 10px; }
 
   @include below(mini) {
     h2, h3 { clear: none; }
-    figure { float: right; }
-    img { width: 100px; }
+
   }
 }
 
@@ -288,10 +282,11 @@ h1, h2, h3, h4, h5, h6 {
 
 ///// GENERAL
 
-a.post-button {
+%post-button {
   display: inline-block;
   border: 1px solid $color-main;
   border-radius: 20px;
+  background-color: transparent;
   padding: 0 14px;
 
   text-decoration: none;
@@ -305,6 +300,11 @@ a.post-button {
     background-color: $color-main;
     color: white;
   }
+}
+
+a.post-button,
+span.post-button {
+  @extend %post-button;
 }
 
 
@@ -331,13 +331,9 @@ a.post-button {
     width: 100%;
     height: 100%;
     background-color: rgba(black, .4);
-  }
 
-  // single page doesn't have the overlay
-  .single & {
-    &::before {
-      display: none;
-    }
+    // single page doesn't have the overlay
+    .single & { display: none; }
   }
 
   .post-row {
@@ -351,9 +347,11 @@ a.post-button {
   }
 }
 
+// Banner content
 .post-banner {
   h1, h2 {
     font-size: em($h1);
+    color: white;
     line-height: 1;
 
     @include below(small) {
@@ -361,51 +359,53 @@ a.post-button {
     }
   }
 
-  time {
-    display: block;
-    margin-bottom: 1em;
-  }
-
-  p, time, a {
-    font-size: em($font-size-small);
-  }
-
   p {
     margin: 1rem 0;
     font-size: em($font-size-small);
-  }
-}
-
-.post-banner.no-banner {
-  &::before {
-    display: none;
-  }
-
-  .post-tip span {
-    border-color: $font-color;
-    color: $font-color;
-  }
-}
-
-// avoid double override
-.post-banner:not(.no-banner) {
-  h1, h2, p, time {
     color: white;
   }
 
   .post-button {
     border-color: white;
     color: white;
+  }
 
-    &:hover { border-color: $color-main; }
+  .banner-body {
+    display: block;
+
+    &:hover .post-button { background-color: $color-main; border-color: $color-main; }
   }
 }
 
+// Small Banner
 .post-banner-mini {
   width: $blog-width + 100px;
+  margin: 0 -50px;
+
+  .single & {
+    margin: 0 auto;
+  }
 
   @include below($blog-width + 120px) {
-    width: 100%;
+    width: auto;
+    margin: 0 (-1 * $grid-rim);
+  }
+}
+
+// Banner without image
+.post-banner.banner-no-image {
+  &::before { display: none; }
+
+  h1, h2, p {
+    color: $font-color;
+  }
+
+
+  .post-button {
+    border-color: $color-main;
+    color: $color-main;
+
+    &:hover { color: white; }
   }
 }
 
@@ -532,7 +532,12 @@ div.sharedaddy {
   }
 
   .sd-content ul {
-    margin-bottom: 0 !important;
+    margin: 0 -4px !important;
+  }
+
+  .sd-content ul li {
+    padding: 0 4px 8px;
+    margin: 0;
   }
 
   .sd-block h3.sd-title {
@@ -544,16 +549,19 @@ div.sharedaddy {
 
     &::before { display: none; }
   }
+
+  .share-end { display: none; }
 }
 
 // button general (needs to override)
-div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
-  background-color: $share-bg;
-  color: white !important;
-  box-shadow: 0 1px 0 rgba(black, .08), inset 0 0 0 1px rgba(black, .2);
+div.sharedaddy .sd-block .sd-content ul li a.sd-button {
+  display: block;
+  background-color: transparent;
+  border: 1px solid $font-color;
+  margin-top: 0;
 
   &:hover {
-    background-color: lighten($share-bg, 10%);
+    background-color: rgba($font-color, .3);
     opacity: 1;
   }
 
@@ -577,9 +585,10 @@ div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
 
   @each $class, $value in $lists {
     &.share-#{$class} {
-      background-color: nth($value, 2);
-      // &::before { content: nth($value, 1); }
-      &:hover { background-color: darken(nth($value, 2), 10%); }
+      color: nth($value, 2) !important;
+      border-color: nth($value, 2);
+
+      &:hover { background-color: rgba(nth($value, 2), .3); }
     }
   }
 }
@@ -587,6 +596,10 @@ div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
 // icon only
 div.sharedaddy .sd-social-icon {
   flex-direction: row;
+
+  .sd-content ul li[class*='share-'] a.sd-button:before {
+    top: 0;
+  }
 
   h3.sd-title {
     align-self: center;
@@ -602,13 +615,11 @@ div.sharedaddy .sd-social-icon {
 div.sharedaddy .sd-social-icon-text,
 div.sharedaddy .sd-social-text,
 div.sharedaddy .sd-social-official {
+
   ul li a.sd-button {
-    padding: 4px 12px 3px 9px;
-    border: none;
+    padding: 4px 10px 3px 8px;
     border-radius: $g-radius;
     font-size: em($font-size-small);
-
-    &:hover { border: none; }
   }
 }
 
@@ -623,6 +634,20 @@ div#sharing_email {
     font-weight: $font-weight;
   }
 }
+
+// hidden popup
+.sd-content .sharing-hidden {
+  .inner {
+    width: 260px;
+    padding: 8px 8px 0;
+  }
+
+  ul li {
+    width: 50%;
+    text-align: center;
+  }
+}
+
 
 ///// AUTHOR /////
 
@@ -695,137 +720,205 @@ div#sharing_email {
 
 ///// FOOTER /////
 
+%post-footer-header {
+  display: block;
+  float: none;
+
+  margin: 2rem 0;
+  font-size: em($h5);
+  font-weight: $font-weight;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  @include below(small) {
+    font-size: em(18px);
+  }
+}
+
 .post-footer {
   padding-top: 2em;
   position: relative;
   background-color: rgba(black, 0.03);
+
+  .comment-title,
+  .comment-reply-title {
+    @extend %post-footer-header;
+  }
 }
 
+///// RELATED POSTS (Jetpack)
 
-///// PREV NEXT POST
+div#jp-relatedposts {
+  display: block; // unhide
+  padding-top: 0;
+  margin: 0 0 3em;
 
-.post-tip {
-  margin-bottom: 1rem;
-  font-size: em(12px);
-  text-align: center;
+  // list
+  div.jp-relatedposts-items {
+    display: -webkit-flex;
+    display: flex;
+    margin: 0 -125px;
+    @include clearfix;
 
-  span {
-    display: inline-block;
-    border: 1px solid white;
-    color: white;
-    padding: 4px 8px;
-    line-height: 1;
-    text-transform: uppercase;
-    font-weight: 400;
-
-    border-radius: $g-radius;
-    transition: $g-transition;
+    @include below($related-bp) { margin: 0 -5px; }
+    @include below(small) { flex-direction: column; margin: 0; }
   }
 
-  .suggest-item & {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    right: 0;
-    margin-bottom: 0;
+  // main title
+  h3.jp-relatedposts-headline {
+    @extend %post-footer-header;
+
+    em {
+      font-style: normal; font-weight: $font-weight;
+      &::before { display: none; }
+    }
+  }
+
+  // single item
+  div.jp-relatedposts-items .jp-relatedposts-post {
+    overflow: hidden;
+    padding: 1em;
+    margin: 0 10px;
+    width: 33%;
+
+    opacity: 1;
+    background-color: white;
+
+    box-shadow: $shadow-z0;
+    border-radius: $g-radius;
+
+    // hide underline when hovering the whole box
+    &:hover .jp-relatedposts-post-title .jp-relatedposts-post-a { text-decoration: none; }
+
+    @include below($related-bp) {
+      margin: 0 5px;
+    }
 
     @include below(small) {
-      top: 10px;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 1em;
     }
   }
 
-  .suggest-item:hover & {
-    span {
-      background-color: white;
-      color: $font-color;
+
+  // single image
+  .jp-relatedposts-post > .jp-relatedposts-post-a {
+    overflow: hidden;
+    display: block;
+    max-height: 160px;
+    margin: -1em;
+    margin-bottom: 1em;
+
+    // underline title when hovering image
+    &:hover + .jp-relatedposts-post-title {
+      text-decoration: underline;
     }
   }
+
+  // single title
+  div.jp-relatedposts-items .jp-relatedposts-post .jp-relatedposts-post-title {
+    clear: none;
+    font-size: em(20px);
+    letter-spacing: normal;
+    line-height: $header-line;
+
+    &:hover { text-decoration: underline; }
+
+    a {
+      display: block;
+      font-weight: $header-weight;
+      color: inherit;
+    }
+  }
+
+  // meta
+  div.jp-relatedposts-items .jp-relatedposts-post {
+    p, span {
+      overflow: initial;
+      max-width: 100%;
+      font-size: em($font-size-small);
+    }
+
+    .jp-relatedposts-post-excerpt,
+    .jp-relatedposts-post-context { display: none; }
+
+    .jp-relatedposts-post-date {
+      display: inline-block;
+      opacity: 0.6;
+    }
+  }
+
+  /////
+
+  // visual layout
+  div.jp-relatedposts-items div.jp-relatedposts-post-thumbs {
+    @include below($related-bp) {
+      font-size: em($font-size-small);
+    }
+
+    @include below(small) {
+      padding-bottom: 0;
+
+      > .jp-relatedposts-post-a {
+        float: left;
+        max-width: 150px;
+        margin-right: 10px;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // next prev
+  &.jp-next-prev {
+    div.jp-relatedposts-items {
+      flex-direction: row;
+      margin: 0 -10px;
+    }
+
+    div.jp-relatedposts-items .jp-relatedposts-post {
+      margin: 0 10px;
+      width: 50%;
+
+      @include below(small) { padding: 0.5em; }
+    }
+
+    @include below(small) {
+      .jp-relatedposts-post > .jp-relatedposts-post-a {
+        margin: -0.5em;
+        margin-bottom: 0.5em;
+      }
+    }
+
+    // next prev no thumbnail
+    div.jp-relatedposts-items .jp-relatedposts-nothumb {
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      .jp-relatedposts-post-title {
+        font-size: em(24px);
+
+        @include below(small) {
+          font-size: em(20px);
+        }
+      }
+
+      .jp-relatedposts-nothumb-excerpt {
+        margin-top: 1em;
+
+        @include below(small) { display: none; }
+      }
+    }
+  }
+
 }
-
-.post-suggest {
-  margin-bottom: 2em;
-
-  .suggest-col {
-    @include column(6);
-
-    &:only-child {
-      @include column(12);
-    }
-  }
-
-  h5 {
-    text-transform: initial;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: 0;
-  }
-
-  h5, p {
-    color: white;
-  }
-}
-
-.suggest-item {
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center center;
-  min-height: 145px;
-
-  border-radius: $g-radius;
-
-  @include below(small) {
-    margin-bottom: 1.5em;
-  }
-
-  &:hover {
-    &::before {
-      background-color: rgba(black, .7);
-    }
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(black, .5);
-
-    transition: $g-transition;
-  }
-
-  article {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    z-index: 2;
-    padding: 20px;
-    background-size: auto 100%;
-
-    text-align: center;
-
-    @include transform(translateY(-50%) );
-  }
-}
-
 
 ///// COMMENTS /////
 
 .post-comments {
-  h3, h4 {
-    margin-bottom: 0.75em;
-    font-size: em($h5);
-    font-weight: $font-weight;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-
-    @include below(small) {
-      font-size: em(18px);
-    }
-  }
 
   .comments-list,
   .replies-list {
@@ -854,7 +947,6 @@ div#sharing_email {
   .comment-title {
     position: relative;
     padding-top: 2rem;
-    margin: 2rem 0;
 
     &::before {
       content: "";
@@ -999,8 +1091,6 @@ a.comment-reply-link {
 }
 
 h3.comment-reply-title {
-  margin: 0 0 2rem;
-  padding-top: 0;
 
   #cancel-comment-reply-link {
     display: inline-block;
@@ -1059,7 +1149,7 @@ h3.comment-reply-title {
 }
 
 
-///// Pagination
+///// PAGINATION /////
 
 .pagination {
   display: -webkit-flex;
@@ -1103,6 +1193,47 @@ h3.comment-reply-title {
 
   select {
     border-color: transparent;
+  }
+}
+
+///// POST PASSWORD FORM /////
+
+.post-password-form {
+  padding: 2em 4em;
+  background-color: rgba(black, 0.03);
+  border-radius: $g-radius;
+
+  p:last-child {
+    display: -webkit-flex;
+    display: flex;
+    border-bottom: 1px solid $color-passive;
+    padding-bottom: 0.5em;
+  }
+
+  label {
+    flex: 1;
+    color: $font-color-passive;
+  }
+
+  input[type="password"] {
+    background-color: transparent;
+    border: none;
+    margin-top: 1rem;
+    padding: 0;
+    font-size: em(28px);
+    color: $font-color;
+    letter-spacing: 2px;
+
+    &:hover,
+    &:focus { border: none; box-shadow: none; }
+  }
+
+  input[type="submit"] {
+    @extend %post-button;
+    align-self: flex-end;
+    background-color: white;
+    padding-right: 2em;
+    padding-left: 2em;
   }
 }
 

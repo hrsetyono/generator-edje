@@ -1,7 +1,6 @@
 <?php
 $context = Timber::get_context();
 $context['posts'] = Timber::get_posts();
-$context['post'] = array_shift($context['posts']); // latest post
 $query = get_queried_object();
 
 // if infinite scroll not active, add Pagination

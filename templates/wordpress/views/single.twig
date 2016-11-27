@@ -51,36 +51,23 @@
 <section class="post-footer">
 <h-row class="post-row"><h-column class="post-col">
 
-  {# Suggestion #}
-  <div class="post-suggest">
-  <h-row>
-    {% if post.next %}
-      <h-column class="suggest-col">
-        <a href="{{ post.next.link }}">
-          <div class="suggest-item" style="background-image: url('{{ post.next.thumbnail.src('medium') }}');">
-            <div class="post-tip"><span>Read this next</span></div>
-            <article>
-              <h5>{{ post.next.title }}</h5>
-            </article>
-          </div>
-        </a>
-      </h-column>
-    {% endif %}
+  {# Related #}
+  {% if fn('class_exists', 'Jetpack_RelatedPosts') %}
+    {% filter shortcodes %} [jetpack-related-posts] {% endfilter %}
+  {% else %}
+    <div id="jp-relatedposts" class="jp-relatedposts jp-next-prev">
+      <h3 class="jp-relatedposts-headline"><em>You May Like</em></h3>
+      <div class="jp-relatedposts-items jp-relatedposts-items-visual">
+        {% if post.prev %}
+          {% include "partials/_next-prev.twig" with { p: post.prev } %}
+        {% endif %}
 
-    {% if post.prev %}
-      <h-column class="suggest-col">
-        <a href="{{ post.prev.link }}">
-          <div class="suggest-item" style="background-image: url('{{ post.prev.thumbnail.src('medium') }}');">
-            <div class="post-tip"><span>You might enjoy</span></div>
-            <article>
-              <h5>{{ post.prev.title }}</h5>
-            </article>
-          </div>
-        </a>
-      </h-column>
-    {% endif %}
-  </h-row>
-  </div>
+        {% if post.next %}
+          {% include "partials/_next-prev.twig" with { p: post.next } %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
 
   {# Comments #}
   {% include "partials/_comments.twig" %}
