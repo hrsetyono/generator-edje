@@ -1,3 +1,7 @@
+## 0.3.5
+
+- [WP] WordPress 4.7 and plugins update
+
 ## 0.3.4
 
 - [WP] Further improvement on blog post layout. Support Jetpack's Related-Post and Infinite-Scroll.
