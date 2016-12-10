@@ -9,6 +9,8 @@ class My_Shortcode {
   function __construct() {
     add_shortcode('icon', array($this, 'icon') );
     add_shortcode('button', array($this, 'button') );
+
+    add_shortcode('dropcap', array($this, 'dropcap') );
   }
 
   /*
@@ -27,8 +29,15 @@ class My_Shortcode {
     [button] link [/button]
   */
   function button($attr, $content = null) {
-    return '<span class="button">' . $content . '</span>';
-    return $content;
+    if(preg_match('/<a (.+?)>/', $content, $match) ) {
+      return "<span class='button-shortcode'>{$content}</span>";
+    } else {
+      return "<a class='button'>{$content}</a>";
+    }
+  }
+
+  function dropcap($atts, $content = null) {
+    return '<span class="dropcap-shortcode">' . $content . '</span>';
   }
 }
 

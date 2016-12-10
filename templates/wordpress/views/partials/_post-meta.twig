@@ -1,0 +1,6 @@
+By <a href="{{ post.author.link }}">{{ post.author.display_name }}</a> on
+<a href="{{ post.categories[0].link }}">{{ post.categories[0].name }}</a>
+
+<time datetime="{{ post.post_date | date('Y-m-d') }}">
+  {{ post.post_date | date }}
+</time>

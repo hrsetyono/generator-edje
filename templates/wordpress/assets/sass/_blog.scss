@@ -1,4 +1,9 @@
 $blog-width: 600px;
+$related-bp: $blog-width + 270px; // breakpoint of related posts
+$blog-font-passive: #bbc7cc;
+$blog-border: #c8d7e1;
+
+$share-bg: #444;
 
 /* ------
   BLOG
@@ -22,7 +27,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .alignleft,
 .alignright {
-  max-width: 300px;
+  max-width: 50%;
   margin-bottom: 1em;
 
   @include below(small) {
@@ -45,13 +50,9 @@ h1, h2, h3, h4, h5, h6 {
 
   .wp-caption-text {
     display: inline-block;
-    margin-top: 0.5em;
-    margin-bottom: 0;
+    margin: 0.5em 0 0;
     padding: 0 2em 0.5em;
-    max-width: 70%;
     border-bottom: 1px solid $color-passive;
-
-    text-align: center;
     font-size: em($font-size-small);
   }
 }
@@ -70,7 +71,6 @@ h1, h2, h3, h4, h5, h6 {
     @include transform(translateX(100%) );
   }
 
-
   .refleft .wp-caption-text,
   .refright .wp-caption-text {
     position: absolute;
@@ -84,21 +84,19 @@ h1, h2, h3, h4, h5, h6 {
 
 ///// GALLERY
 
-.gallery {
-  margin: 0 -1px 1.5em !important;
-}
-
+.gallery,
 .tiled-gallery {
-  margin-bottom: 1.5em;
+  margin: 0 -1px 1.5em !important;
 
-  .gallery-row {
-    margin: 0 auto;
+  &[data-carousel-extra] {
+    img { cursor: pointer; transition: $g-transition; }
+    img:hover { opacity: 0.7; }
   }
 }
 
 .gallery-item {
-  margin-top: 0 !important;
   padding: 0 1px;
+  margin-top: 0 !important;
   margin-bottom: 2px;
 
   img {
@@ -112,10 +110,15 @@ h1, h2, h3, h4, h5, h6 {
 .post-row { @include row($width: $blog-width); margin: 0 auto; }
 .post-col { @include column(12); }
 
+
 ///// GENERIC ARTICLE
 
 .post-content {
   letter-spacing: 0.01 * $font-size;
+
+  h1 {
+    font-weight: $font-weight;
+  }
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
@@ -192,32 +195,98 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+///// SINGLE HEADER
+
 .post-header {
   margin: 2em 0;
 
   h1 { margin-bottom: 0; }
 }
 
-.post-info {
+.post-meta {
+  border-top: 1px solid $color-passive;
+  border-bottom: 2px solid $font-color;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+
   font-size: em($font-size-small);
-  color: #bbc7cc;
 
-  time { text-transform: uppercase; }
+  time {
+    margin-right: 1em;
+  }
+}
 
-  .author-link {
-    padding-left: 10px;
-    margin-left: 10px;
+.post-meta,
+.tease-meta {
+  font-size: em($font-size-small);
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  time {
+    display: inline-block;
+    margin-left: 1em;
+    padding-left: 1em;
     border-left: 1px solid $color-passive;
   }
 }
 
+///// POST TEASE /////
+
+.post-tease {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row-reverse;
+
+  position: relative;
+  padding-bottom: 2em;
+  margin: 2em 0;
+  border-bottom: 1px solid $color-passive;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  figure { margin-left: 10px; }
+
+  @include below(mini) {
+    display: block;
+
+    figure { float: right; }
+    img { width: 100px; }
+  }
+}
+
+.tease-body {
+  flex: 1;
+
+  > a:hover h2,
+  > a:hover h3 {
+    text-decoration: underline;
+  }
+
+  h2, h3 { margin: 0 0 0.5rem; }
+  p { margin-bottom: 1em; }
+
+  @include below(mini) {
+    h2, h3 { clear: none; }
+
+  }
+}
+
+.tease-meta {
+  color: $blog-font-passive;
+}
 
 ///// GENERAL
 
-a.post-button {
+%post-button {
   display: inline-block;
   border: 1px solid $color-main;
   border-radius: 20px;
+  background-color: transparent;
   padding: 0 14px;
 
   text-decoration: none;
@@ -233,15 +302,17 @@ a.post-button {
   }
 }
 
+a.post-button,
+span.post-button {
+  @extend %post-button;
+}
+
 
 ///// POST BANNER /////
 
 .post-banner {
   position: relative;
   height: 400px;
-  max-width: 100%;
-  min-width: $blog-width;
-  width: $blog-width;
   margin: 0 auto;
 
   background-size: cover;
@@ -260,14 +331,10 @@ a.post-button {
     width: 100%;
     height: 100%;
     background-color: rgba(black, .4);
-  }
 
-  .single & {
-    &::before {
-      display: none;
-    }
+    // single page doesn't have the overlay
+    .single & { display: none; }
   }
-
 
   .post-row {
     position: relative;
@@ -280,86 +347,94 @@ a.post-button {
   }
 }
 
+// Banner content
 .post-banner {
   h1, h2 {
     font-size: em($h1);
+    color: white;
     line-height: 1;
 
     @include below(small) {
-      font-size: em(map-get($h1-sizes, 'small') );
+      font-size: em(24px);
     }
-  }
-
-  time {
-    display: block;
-    margin-bottom: 1.5em;
   }
 
   p {
-    margin-bottom: 1.5em;
+    margin: 1rem 0;
     font-size: em($font-size-small);
-
-    @include below(small) {
-      margin-bottom: 1em;
-    }
-  }
-
-  a {
-    font-size: em($font-size-small);
-  }
-}
-
-.post-banner.no-banner {
-  &::before {
-    display: none;
-  }
-
-  .post-tip span {
-    border-color: $font-color;
-    color: $font-color;
-  }
-}
-
-// avoid double override
-.post-banner:not(.no-banner) {
-
-  h1, h2, p, time {
     color: white;
   }
 
   .post-button {
     border-color: white;
     color: white;
+  }
 
-    &:hover { border-color: $color-main; }
+  .banner-body {
+    display: block;
+
+    &:hover .post-button { background-color: $color-main; border-color: $color-main; }
+  }
+}
+
+// Small Banner
+.post-banner-mini {
+  width: $blog-width + 100px;
+  margin: 0 -50px;
+
+  .single & {
+    margin: 0 auto;
+  }
+
+  @include below($blog-width + 120px) {
+    width: auto;
+    margin: 0 (-1 * $grid-rim);
+  }
+}
+
+// Banner without image
+.post-banner.banner-no-image {
+  &::before { display: none; }
+
+  h1, h2, p {
+    color: $font-color;
+  }
+
+
+  .post-button {
+    border-color: $color-main;
+    color: $color-main;
+
+    &:hover { color: white; }
   }
 }
 
 ///// CATEGORIES /////
 
 .categories {
-  margin: 2em 0 1.5em;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 2em 0 2em;
+  padding: 0.5em 0;
+  border-bottom: 2px solid $font-color;
+  border-top: 1px solid $color-passive;
 
   a {
     display: inline-block;
     padding: 5px 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    background-color: $color-passive;
-    border: 1px solid transparent;
 
     color: $font-color;
     text-transform: uppercase;
-    font-weight: 400;
     font-size: em($font-size-small);
-    line-height: 1;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 
     border-radius: $g-radius;
     transition: $g-transition;
 
     &:hover {
-      background-color: darken($color-passive, 10%);
+      color: $color-main;
     }
 
     &.active {
@@ -369,10 +444,87 @@ a.post-button {
   }
 }
 
+.category-menu {
+  position: relative;
+  margin-left: auto;
+  padding: 0 0.5em;
+
+  > a {
+    padding: 0;
+    color: inherit;
+  }
+
+  i {
+    font-size: 2em;
+    transition: all .15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &:hover i {
+    @include transform(rotate(90deg) );
+  }
+}
+
+.menu-tip {
+  display: none;
+
+  position: absolute;
+  z-index: z(menu);
+  top: 32px;
+  right: 0;
+
+  border: 1px solid $blog-border;
+  max-width: 260px;
+  width: 220px;
+  padding: 10px 0;
+  background-color: $body-background;
+
+  border-radius: $g-radius;
+  // box-shadow: 0 2px 5px rgba(black, 0.1), 0 0 56px rgba(black, 0.075);
+  box-shadow: $shadow-z0;
+
+  .category-menu:hover & {
+    display: block;
+  }
+
+  // arrow
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 10px;
+
+    @include transform(translateY(-10px) );
+  }
+
+  &::before {
+    top: -1px;
+    @include triangle($direction: top, $color: #c8d7e1, $width: 20px, $height: 10px);
+  }
+
+  &::after {
+    @include triangle($direction: top, $color: $body-background, $width: 20px, $height: 10px);
+  }
+
+  a {
+    display: block;
+    padding: 0.5em 1em;
+    text-transform: initial;
+    transition: none;
+
+    &:hover {
+      background-color: $color-main;
+      color: white;
+    }
+  }
+}
+
 ///// SHARE (Jetpack) /////
 
 div.sharedaddy {
-  margin: 3em 0 2em;
+  margin: 2em 0;
+  padding-top: 2em;
+  border-top: 1px solid $color-passive;
 
   .sd-block {
     display: flex;
@@ -380,7 +532,12 @@ div.sharedaddy {
   }
 
   .sd-content ul {
-    margin-bottom: 0 !important;
+    margin: 0 -4px !important;
+  }
+
+  .sd-content ul li {
+    padding: 0 4px 8px;
+    margin: 0;
   }
 
   .sd-block h3.sd-title {
@@ -392,18 +549,20 @@ div.sharedaddy {
 
     &::before { display: none; }
   }
+
+  .share-end { display: none; }
 }
 
 // button general (needs to override)
-div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
-  background-color: #fafafa;
-  color: #777 !important;
-  box-shadow: 0 1px 0 rgba(black, .08), inset 0 0 0 1px rgba(black, .2);
+div.sharedaddy .sd-block .sd-content ul li a.sd-button {
+  display: block;
+  background-color: transparent;
+  border: 1px solid $font-color;
+  margin-top: 0;
 
   &:hover {
-    background-color: $font-color;
+    background-color: rgba($font-color, .3);
     opacity: 1;
-    color: white !important;
   }
 
   $lists: (
@@ -414,19 +573,22 @@ div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
     jetpack-whatsapp: ("_whatsapp", #25d366),
     skype: ("_skype", #0bbff2),
     pocket: ("_pocket", #ed4054),
-    email: ("email", $font-color),
-    print: ("printer", $font-color),
     linkedin: ("_linkedin", #0077b5),
     reddit: ("_reddit", #f54b00),
     tumblr: ("_tumblr", #324f6d),
     telegram: ("_telegram", #34abe3),
-    press-this: ("_wordpress", #21759a)
+    custom-line: ("_line", #03c302),
+    custom-weibo: ("_weibo", #e6162d),
+    custom-sina-weibo: ("_weibo", #e6162d),
+    custom-renren: ("_renren", #005eac)
   );
 
   @each $class, $value in $lists {
     &.share-#{$class} {
-      // &::before { content: nth($value, 1); }
-      &:hover { background-color: nth($value, 2); }
+      color: nth($value, 2) !important;
+      border-color: nth($value, 2);
+
+      &:hover { background-color: rgba(nth($value, 2), .3); }
     }
   }
 }
@@ -434,6 +596,10 @@ div.sharedaddy .sd-block .sd-content ul li[class*="share"] a.sd-button {
 // icon only
 div.sharedaddy .sd-social-icon {
   flex-direction: row;
+
+  .sd-content ul li[class*='share-'] a.sd-button:before {
+    top: 0;
+  }
 
   h3.sd-title {
     align-self: center;
@@ -449,12 +615,11 @@ div.sharedaddy .sd-social-icon {
 div.sharedaddy .sd-social-icon-text,
 div.sharedaddy .sd-social-text,
 div.sharedaddy .sd-social-official {
-  ul li a.sd-button {
-    padding: 1px 8px 0px 5px;
-    border: none;
-    border-radius: $g-radius;
 
-    &:hover { border: none; }
+  ul li a.sd-button {
+    padding: 4px 10px 3px 8px;
+    border-radius: $g-radius;
+    font-size: em($font-size-small);
   }
 }
 
@@ -469,6 +634,20 @@ div#sharing_email {
     font-weight: $font-weight;
   }
 }
+
+// hidden popup
+.sd-content .sharing-hidden {
+  .inner {
+    width: 260px;
+    padding: 8px 8px 0;
+  }
+
+  ul li {
+    width: 50%;
+    text-align: center;
+  }
+}
+
 
 ///// AUTHOR /////
 
@@ -487,6 +666,7 @@ div#sharing_email {
   }
 
   @include below(mini) {
+    flex-direction: column;
     text-align: center;
   }
 }
@@ -494,12 +674,22 @@ div#sharing_email {
 
 .author-image {
   margin-right: 10px;
+
   img {
     border: 1px solid $color-passive;
     padding: 0.25em;
     height: 4em;
     width: 4em;
     border-radius: 50%;
+  }
+
+  @include below(mini) {
+    margin-right: 0;
+    margin-bottom: 1em;
+  }
+
+  .post-banner & {
+    margin-bottom: 1em;
   }
 }
 
@@ -511,192 +701,224 @@ div#sharing_email {
     letter-spacing: 0.5px;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
   p {
     margin-bottom: 0;
     font-size: em($font-size-small);
+  }
+
+  @include below(mini) {
+    margin-bottom: 1em;
   }
 }
 
 ///// FOOTER /////
 
+%post-footer-header {
+  display: block;
+  float: none;
+
+  margin: 2rem 0;
+  font-size: em($h5);
+  font-weight: $font-weight;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  @include below(small) {
+    font-size: em(18px);
+  }
+}
+
 .post-footer {
   padding-top: 2em;
   position: relative;
   background-color: rgba(black, 0.03);
+
+  .comment-title,
+  .comment-reply-title {
+    @extend %post-footer-header;
+  }
 }
 
+///// RELATED POSTS (Jetpack)
 
-///// PREV NEXT POST
+div#jp-relatedposts {
+  display: block; // unhide
+  padding-top: 0;
+  margin: 0 0 3em;
 
-.post-tip {
-  margin-bottom: 15px;
-  font-size: em(12px);
-  text-align: center;
+  // list
+  div.jp-relatedposts-items {
+    display: -webkit-flex;
+    display: flex;
+    margin: 0 -125px;
+    @include clearfix;
 
-  span {
-    display: inline-block;
-    border: 1px solid white;
-    color: white;
-    padding: 4px 8px;
-    line-height: 1;
-    text-transform: uppercase;
-    font-weight: 400;
-
-    border-radius: $g-radius;
-    transition: $g-transition;
+    @include below($related-bp) { margin: 0 -5px; }
+    @include below(small) { flex-direction: column; margin: 0; }
   }
 
-  .suggest-item & {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    right: 0;
-    margin-bottom: 0;
+  // main title
+  h3.jp-relatedposts-headline {
+    @extend %post-footer-header;
+
+    em {
+      font-style: normal; font-weight: $font-weight;
+      &::before { display: none; }
+    }
+  }
+
+  // single item
+  div.jp-relatedposts-items .jp-relatedposts-post {
+    overflow: hidden;
+    padding: 1em;
+    margin: 0 10px;
+    width: 33%;
+
+    opacity: 1;
+    background-color: white;
+
+    box-shadow: $shadow-z0;
+    border-radius: $g-radius;
+
+    // hide underline when hovering the whole box
+    &:hover .jp-relatedposts-post-title .jp-relatedposts-post-a { text-decoration: none; }
+
+    @include below($related-bp) {
+      margin: 0 5px;
+    }
 
     @include below(small) {
-      top: 10px;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 1em;
     }
   }
 
-  .suggest-item:hover & {
-    span {
-      background-color: white;
-      color: $font-color;
-    }
-  }
-}
 
-.post-suggest {
-  margin-bottom: 2em;
+  // single image
+  .jp-relatedposts-post > .jp-relatedposts-post-a {
+    overflow: hidden;
+    display: block;
+    max-height: 160px;
+    margin: -1em;
+    margin-bottom: 1em;
 
-  .suggest-col {
-    @include column(6);
-
-    &:only-child {
-      @include column(12);
+    // underline title when hovering image
+    &:hover + .jp-relatedposts-post-title {
+      text-decoration: underline;
     }
   }
 
-  h5 {
-    text-transform: initial;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: 0;
-  }
+  // single title
+  div.jp-relatedposts-items .jp-relatedposts-post .jp-relatedposts-post-title {
+    clear: none;
+    font-size: em(20px);
+    letter-spacing: normal;
+    line-height: $header-line;
 
-  h5, p {
-    color: white;
-  }
-}
+    &:hover { text-decoration: underline; }
 
-.suggest-item {
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center center;
-  min-height: 145px;
-
-  border-radius: $g-radius;
-
-  @include below(small) {
-    margin-bottom: 1.5em;
-  }
-
-  &:hover {
-    &::before {
-      background-color: rgba(black, .7);
+    a {
+      display: block;
+      font-weight: $header-weight;
+      color: inherit;
     }
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(black, .5);
-
-    transition: $g-transition;
-  }
-
-  article {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    z-index: 2;
-    padding: 20px;
-    background-size: auto 100%;
-
-    text-align: center;
-
-    @include transform(translateY(-50%) );
-  }
-}
-
-
-
-/* ----------------
-  FRONT ARTICLE
----------------- */
-
-.front-article {
-  position: relative;
-  padding-bottom: 1.5em;
-  margin: 1.5em 0;
-  border-bottom: 1px solid $color-passive;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    background: $body-background;
-    width: 9px;
-    height: 9px;
-    border: 1px solid $color-passive;
-
-    border-radius: 100%;
-    box-shadow: 0 0 0 5px $body-background;
-    @include transform(translateX(-50%) );
-  }
-
-  @include below(mini) {
-    margin-bottom: 0.75em;
-  }
-
-  h2 {
-    margin-bottom: 0.5em;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-
-  .post-body {
-    margin-bottom: 0.75em;
-
-    p, ul, ol, blockquote, cite {
+  // meta
+  div.jp-relatedposts-items .jp-relatedposts-post {
+    p, span {
+      overflow: initial;
+      max-width: 100%;
       font-size: em($font-size-small);
     }
+
+    .jp-relatedposts-post-excerpt,
+    .jp-relatedposts-post-context { display: none; }
+
+    .jp-relatedposts-post-date {
+      display: inline-block;
+      opacity: 0.6;
+    }
   }
+
+  /////
+
+  // visual layout
+  div.jp-relatedposts-items div.jp-relatedposts-post-thumbs {
+    @include below($related-bp) {
+      font-size: em($font-size-small);
+    }
+
+    @include below(small) {
+      padding-bottom: 0;
+
+      > .jp-relatedposts-post-a {
+        float: left;
+        max-width: 150px;
+        margin-right: 10px;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // next prev
+  &.jp-next-prev {
+    div.jp-relatedposts-items {
+      flex-direction: row;
+      margin: 0 -10px;
+    }
+
+    div.jp-relatedposts-items .jp-relatedposts-post {
+      margin: 0 10px;
+      width: 50%;
+
+      @include below(small) { padding: 0.5em; }
+    }
+
+    @include below(small) {
+      .jp-relatedposts-post > .jp-relatedposts-post-a {
+        margin: -0.5em;
+        margin-bottom: 0.5em;
+      }
+    }
+
+    // next prev no thumbnail
+    div.jp-relatedposts-items .jp-relatedposts-nothumb {
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      .jp-relatedposts-post-title {
+        font-size: em(24px);
+
+        @include below(small) {
+          font-size: em(20px);
+        }
+      }
+
+      .jp-relatedposts-nothumb-excerpt {
+        margin-top: 1em;
+
+        @include below(small) { display: none; }
+      }
+    }
+  }
+
 }
 
 ///// COMMENTS /////
 
 .post-comments {
-  h3, h4 {
-    margin-bottom: 0.75em;
-    font-size: em($h5);
-    font-weight: $font-weight;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-
-    @include below(small) {
-      font-size: em(map-get($h4-sizes, small) );
-    }
-  }
 
   .comments-list,
   .replies-list {
@@ -725,7 +947,6 @@ div#sharing_email {
   .comment-title {
     position: relative;
     padding-top: 2rem;
-    margin: 2rem 0;
 
     &::before {
       content: "";
@@ -863,11 +1084,13 @@ a.comment-reply-link {
     margin-bottom: 1em;
     font-size: em($font-size-small);
   }
+
+  .logged-in-as {
+    display: none;
+  }
 }
 
 h3.comment-reply-title {
-  margin: 0 0 2rem;
-  padding-top: 0;
 
   #cancel-comment-reply-link {
     display: inline-block;
@@ -892,6 +1115,10 @@ h3.comment-reply-title {
 }
 
 // Field and Submit
+
+.comment-form-comment {
+  label { display: none; }
+}
 
 .comment-form-author {
   padding-right: 0.5em;
@@ -922,55 +1149,101 @@ h3.comment-reply-title {
 }
 
 
-///// Pagination
+///// PAGINATION /////
 
 .pagination {
-  margin: 3em 0;
+  display: -webkit-flex;
+  display: flex;
+  margin: 4em 0;
+
+  font-size: em($font-size-small);
+  color: $font-color-passive;
   text-align: center;
-  @include clearfix;
 
   .page-button,
   select {
     cursor: pointer;
     display: inline-block;
     width: auto;
-    margin-left: -4px;
-    background-color: white;
-    border: 1px solid $font-color;
-    height: 40px;
+    border: 1px solid $font-color-passive;
+    padding: 5px 1em;
+    background-color: transparent;
 
-    color: $font-color;
-    vertical-align: middle;
+    color: inherit;
 
-    border-radius: 0;
+    border-radius: $g-radius;
     transition: $g-transition;
     -webkit-appearance: none;
 
-    &:hover { border-color: $font-color; background-color: rgba($color-main, .3); }
+    &:hover { border-color: $font-color; color: $font-color; }
   }
 
   .page-button {
-    padding: 6px;
+    align-self: center;
 
-    &:first-child {
-      border-right: none;
-      border-radius: $g-radius 0 0 $g-radius;
-    }
-
-    &:last-child {
-      border-left: none;
-      border-radius: 0 $g-radius $g-radius 0;
-    }
+    &:first-child { margin-right: auto; }
+    &:last-child { margin-left: auto; }
 
     // no href
     &:not([href]) {
-      background-color: white;
-      color: rgba($font-color, .5);
-      opacity: .5;
+      visibility: hidden;
+      opacity: 0;
     }
   }
 
   select {
-    padding: 6px 12px;
+    border-color: transparent;
+  }
+}
+
+///// POST PASSWORD FORM /////
+
+.post-password-form {
+  padding: 2em 4em;
+  background-color: rgba(black, 0.03);
+  border-radius: $g-radius;
+
+  p:last-child {
+    display: -webkit-flex;
+    display: flex;
+    border-bottom: 1px solid $color-passive;
+    padding-bottom: 0.5em;
+  }
+
+  label {
+    flex: 1;
+    color: $font-color-passive;
+  }
+
+  input[type="password"] {
+    background-color: transparent;
+    border: none;
+    margin-top: 1rem;
+    padding: 0;
+    font-size: em(28px);
+    color: $font-color;
+    letter-spacing: 2px;
+
+    &:hover,
+    &:focus { border: none; box-shadow: none; }
+  }
+
+  input[type="submit"] {
+    @extend %post-button;
+    align-self: flex-end;
+    background-color: white;
+    padding-right: 2em;
+    padding-left: 2em;
+  }
+}
+
+///// INFINITE SCROLL (Jetpack)
+
+.infinite-loader {
+  margin: 2em 0;
+
+  .spinner {
+    left: 50% !important;
+    @include transform(translateX(-50%) );
   }
 }

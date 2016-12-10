@@ -3,8 +3,8 @@
 
 {# Banner #}
 {% if post.thumbnail %}
-<section class="post-banner"
-  style="width: {{ post.thumbnail.width }}px; background-image: url('{{ post.thumbnail.src('large') }}');">
+<section class="post-banner {{ post.thumbnail.width < 1280 ? 'post-banner-mini' : '' }}"
+  style="background-image: url('{{ post.thumbnail.src('large') }}');">
 </section>
 {% endif %}
 
@@ -14,10 +14,9 @@
 
   <header class="post-header">
     <h1>{{ post.title }}</h1>
-    <div class="post-info">
-      <time datetime="{{ post.post_date | date('Y-m-d') }}">
-        {{ post.post_date | date }}
-      </time>
+
+    <div class="post-meta">
+      {% include "partials/_post-meta.twig" %}
     </div>
   </header>
 
@@ -33,12 +32,14 @@
     </figure>
 
     <div class="author-bio">
-      <h6>{{ post.author.display_name }}</h6>
+      <h6><a href="{{ post.author.link }}" title="See all posts by {{ post.author.display_name }}">
+        {{ post.author.display_name }}
+      </a></h6>
       <p>{{ post.author.description }}</p>
     </div>
 
     {% if post.author.user_url %}
-      <a href="{{ post.author.user_url }}" class="post-button">Follow</a>
+      <a href="{{ post.author.user_url }}" target="_blank" class="post-button">Follow</a>
     {% endif %}
 
   </footer>
@@ -50,36 +51,23 @@
 <section class="post-footer">
 <h-row class="post-row"><h-column class="post-col">
 
-  {# Suggestion #}
-  <div class="post-suggest">
-  <h-row>
-    {% if post.next %}
-      <h-column class="suggest-col">
-        <a href="{{ post.next.link }}">
-          <div class="suggest-item" style="background-image: url('{{ post.next.thumbnail.src('medium') }}');">
-            <div class="post-tip"><span>Read this next</span></div>
-            <article>
-              <h5>{{ post.next.title }}</h5>
-            </article>
-          </div>
-        </a>
-      </h-column>
-    {% endif %}
+  {# Related #}
+  {% if fn('class_exists', 'Jetpack_RelatedPosts') %}
+    {% filter shortcodes %} [jetpack-related-posts] {% endfilter %}
+  {% else %}
+    <div id="jp-relatedposts" class="jp-relatedposts jp-next-prev">
+      <h3 class="jp-relatedposts-headline"><em>You May Like</em></h3>
+      <div class="jp-relatedposts-items jp-relatedposts-items-visual">
+        {% if post.prev %}
+          {% include "partials/_next-prev.twig" with { p: post.prev } %}
+        {% endif %}
 
-    {% if post.prev %}
-      <h-column class="suggest-col">
-        <a href="{{ post.prev.link }}">
-          <div class="suggest-item" style="background-image: url('{{ post.prev.thumbnail.src('medium') }}');">
-            <div class="post-tip"><span>You might enjoy</span></div>
-            <article>
-              <h5>{{ post.prev.title }}</h5>
-            </article>
-          </div>
-        </a>
-      </h-column>
-    {% endif %}
-  </h-row>
-  </div>
+        {% if post.next %}
+          {% include "partials/_next-prev.twig" with { p: post.next } %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
 
   {# Comments #}
   {% include "partials/_comments.twig" %}

@@ -1,20 +1,25 @@
 {% for post in posts %}
-  <article class="article front-article">
-    <h2> <a href="{{ post.link }}">{{ post.title }}</a> </h2>
+<article class="post-tease post-content">
 
-    <section class="post-body">
-      <p> {{ post.get_preview(25, false, "Read More") }} </p>
-    </section>
+  {% if post.thumbnail %}
+  <figure>
+    <img src="{{ post.thumbnail.src('thumbnail') }}" alt="{{ post.title }}">
+  </figure>
+  {% endif %}
 
-    <footer class="post-info">
-      <time datetime="{{ post.post_date | date('Y-m-d') }}">
-        {{ post.post_date | date }}
-      </time>
-      {% if not term %}
-        on {{ post.categories | join(", ") }}
-      {% endif %}
+  <div class="tease-body">
+    <a href="{{ post.link }}">
+      <h3>{{ post.title }}</h3>
+      <p> {{ post.get_preview(25, false, false) }} </p>
+    </a>
+
+    <footer class="tease-meta">
+      {% include "partials/_post-meta.twig" %}
     </footer>
-  </article>
+  </div>
+
+</article>
+
 
 {% else %}
   <article class="post-content content-error">
