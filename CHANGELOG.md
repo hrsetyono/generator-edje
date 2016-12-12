@@ -1,3 +1,8 @@
+## 0.3.6
+
+- Include missing files in package.json
+- Minor WP template fix
+
 ## 0.3.5
 
 - [WP] WordPress 4.7 and plugins update

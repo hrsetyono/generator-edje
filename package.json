@@ -1,10 +1,13 @@
 {
   "name": "generator-edje",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Yeoman Generator for project built with Edje Sass Framework",
   "files": [
-    "app"
+    "app",
+    "templates",
+    "plugin"
   ],
+  "repository": "hrsetyono/generator-edje",
   "keywords": [
     "yeoman-generator",
     "edje"
