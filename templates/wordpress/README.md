@@ -4,7 +4,7 @@ Write your project description here.
 
 **Development Specs**:
 - PHP 5.6
-- WordPress 4.5.2
+- WordPress 4.7.0
 - Timber 1.0
 - Edje 1.0
 
