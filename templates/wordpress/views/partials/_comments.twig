@@ -1,24 +1,26 @@
+{% import _self as macro %}
+
 {% if post.comment_status != "closed" %}
 <section class="post-comments post-content">
-
-  {# Form #}
-  {{ post.comment_form }}
 
   {% if post.comment_count %}
     <h4 class="comment-title">{{ post.comment_count }} comments</h4>
   {% endif %}
 
+  {# Form #}
+  {{ post.comment_form }}
+
   {# Comments #}
   <ul class="comments-list">
     {% for c in post.comments %}
     <li>
-      {% include "partials/_comment.twig" with { comment: c } %}
+      {{ macro.comment(c, post) }}
 
       {# Replies #}
       {% if c.children %}
       <ul class="replies-list">
         {% for r in c.children %}
-          <li> {% include "partials/_comment.twig" with { comment: r } %} </li>
+          <li> {{ macro.comment(r, post) }} </li>
         {% endfor %}
       </ul>
       {% endif %}
@@ -29,3 +31,20 @@
 
 </section>
 {% endif %} {# if open #}
+
+
+{# COMMENT #}
+
+{% macro comment(c, post) %}
+  <article class="comment depth-{{ c.depth }} {{ post.post_author == c.user_id ? 'bypostauthor' : '' }}">
+
+    <img class="comment-avatar" src="{{ c.avatar }}" alt="{{ c.author.name }} Avatar">
+    <b>{{ c.author.name }}</b>
+    <time>{{ c.comment_date | time_ago }}</time>
+
+    {{ c.comment_content | wpautop }}
+
+    {{ c.reply_link }}
+
+  </article>
+{% endmacro %}

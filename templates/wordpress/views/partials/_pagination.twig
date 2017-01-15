@@ -1,12 +1,11 @@
 {% if pagination.total > 1 %}
 <nav class="pagination">
-
   <a {% if pagination.prev %} href="{{ pagination.prev.link }}" {% endif %}
     class="page-button" title="Newer Posts">
     ← Newer
   </a>
 
-  <select id="pagination">
+  <select id="pagination" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
   {% for page in pagination.pages %}
     {% if page.link %}
       <option value="{{ page.link }}">Page {{ page.title }}</option>
@@ -20,6 +19,5 @@
     class="page-button" title="Older Posts">
     Older →
   </a>
-
 </nav>
 {% endif %}

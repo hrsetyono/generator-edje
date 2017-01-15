@@ -9,7 +9,7 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "sass": "FOR /f \"delims=\" %v IN ('node -p \"require('edje').includePaths()[0]\"') DO node-sass -w assets/sass -o assets/css --output-style compressed --include-path \"%v\" ",
-    "sass-mac": "node-sass -w assets/sass -o assets/css --include-paths $(node -p \"require('edje').includePaths()\")"
+    "sass": "FOR /f \"delims=\" %v IN ('node -p \"require('edje').includePaths()[0]\"') DO node-sass -w assets/sass -o assets/css --output-style compact --include-path \"%v\" ",
+    "sass-x": "node-sass -w assets/sass -o assets/css --output-style compact --include-path $(node -p \"require('edje').includePaths()[0]\")"
   }
 }

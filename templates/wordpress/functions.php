@@ -9,6 +9,10 @@ add_action('widgets_init', 'my_widgets');
 add_action('after_setup_theme', 'my_theme_support');
 add_action('wp_enqueue_scripts', 'my_enqueue_script', 100);
 
+// Blog post width, used by Jetpack's Gallery
+if(!isset($content_width)) {
+  $content_width = 600;
+}
 
 /////
 
@@ -42,10 +46,7 @@ function my_init() {
   Register widgets
 */
 function my_widgets() {
-  register_sidebar(array(
-    'name' => 'My Sidebar',
-    'id' => 'my-sidebar'
-  ));
+  register_sidebar(array('name' => 'My Sidebar', 'id' => 'my-sidebar'));
 }
 
 /*
@@ -57,6 +58,8 @@ function my_theme_support() {
   add_theme_support('custom-logo');
   add_theme_support('html5');
   add_theme_support('title_tag');
+
+  add_theme_support('widgets');
 
   add_post_type_support('page', 'excerpt');
   add_theme_support('jetpack-responsive-videos');

@@ -3,9 +3,9 @@
 
 {# Banner #}
 {% if post.thumbnail %}
-<section class="post-banner {{ post.thumbnail.width < 1280 ? 'post-banner-mini' : '' }}"
-  style="background-image: url('{{ post.thumbnail.src('large') }}');">
-</section>
+  <section class="post-banner {{ post.thumbnail.width < 1280 ? 'post-banner-mini' : '' }}"
+    style="background-image: url('{{ post.thumbnail.src('large') }}');">
+  </section>
 {% endif %}
 
 {# Content #}
@@ -14,10 +14,7 @@
 
   <header class="post-header">
     <h1>{{ post.title }}</h1>
-
-    <div class="post-meta">
-      {% include "partials/_post-meta.twig" %}
-    </div>
+    {% include "partials/_post-meta.twig" %}
   </header>
 
   <section class="post-body">
@@ -26,7 +23,6 @@
 
   {# Author #}
   <footer class="post-author">
-
     <figure class="author-image">
       <img src="{{ post.author.avatar }}" alt="{{ post.author.display_name }}">
     </figure>
@@ -41,7 +37,6 @@
     {% if post.author.user_url %}
       <a href="{{ post.author.user_url }}" target="_blank" class="post-button">Follow</a>
     {% endif %}
-
   </footer>
 
 </h-column></h-row>
@@ -49,30 +44,10 @@
 
 
 <section class="post-footer">
-<h-row class="post-row"><h-column class="post-col">
-
-  {# Related #}
-  {% if fn('class_exists', 'Jetpack_RelatedPosts') %}
-    {% filter shortcodes %} [jetpack-related-posts] {% endfilter %}
-  {% else %}
-    <div id="jp-relatedposts" class="jp-relatedposts jp-next-prev">
-      <h3 class="jp-relatedposts-headline"><em>You May Like</em></h3>
-      <div class="jp-relatedposts-items jp-relatedposts-items-visual">
-        {% if post.prev %}
-          {% include "partials/_next-prev.twig" with { p: post.prev } %}
-        {% endif %}
-
-        {% if post.next %}
-          {% include "partials/_next-prev.twig" with { p: post.next } %}
-        {% endif %}
-      </div>
-    </div>
-  {% endif %}
-
-  {# Comments #}
-  {% include "partials/_comments.twig" %}
-
-</h-column></h-row>
+  <h-row class="post-row"><h-column class="post-col">
+    {% include "partials/_related-posts.twig" %}
+    {% include "partials/_comments.twig" %}
+  </h-column></h-row>
 </section>
 
 

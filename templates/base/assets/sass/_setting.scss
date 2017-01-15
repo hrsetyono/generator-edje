@@ -79,7 +79,7 @@ $font-size-small : 14px;
 // $header-spacing : 0;
 // $header-transform : none;
 
-$h1 : 44px;
+$h1 : 42px;
 $h2 : 36px;
 $h3 : 30px;
 $h4 : 24px;
@@ -108,6 +108,9 @@ $h6 : $font-size;
 // $include-print  : true;
 // $override-color : true;   // Override all text color to #000 black
 
+
+// ----- ANIMATION -----
+$include-animate: true;
 
 // ----- TEXT DIRECTION -----
 // $text-direction   : ltr;  // Global text direction, 'rtl' or 'ltr'
