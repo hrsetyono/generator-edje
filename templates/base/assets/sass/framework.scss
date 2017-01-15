@@ -4,16 +4,15 @@
 
 // @import "fancybox";
 // @import "slick";
-// @import "wordpress";
+@import "wordpress";
 // @import "woo";
-// @import "blog";
+@import "blog";
 
 ///// FONT /////
 
-@font-face {
-  src: font-url("material-icons.woff") format("woff");
-  font-family: $font-family-icon;
-}
+@include font-faces($font-family-icon, (
+  ("material-icons.woff", 400),
+));
 
 // Usage: <i class="icon">icon_name</icon>
 //   http://google.github.io/material-design-icons/
@@ -39,23 +38,26 @@
 ///// BUTTON /////
 
 button,
-.button,
-a.button,
-[type="submit"],
-.button-shortcode > a {
+a.button, // more specific to override `.post-content a`
+[type="submit"] {
   display: inline-block;
   outline: none;
   padding: 8px 15px;
-  border: none;
+  border: 1px solid $color-main;
   background-color: $color-main;
   color: white;
   text-decoration: none;
 
   border-radius: $g-radius;
-  transition: $g-transition;
+  transition: none;
 
   &:hover {
-    background-color: darken($color-main, 10%);
+    box-shadow: $shadow-z1;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 0 1px white;
+    // background-color: darken($color-main, 10%);
   }
 }
 
@@ -72,9 +74,10 @@ textarea,
 select {
   display: block;
   width: 100%;
-  padding: 0.5em;
+  padding: 0.5em 0.75em;
   border: 1px solid $color-passive;
   border-top-color: darken($color-passive, 5%);
+  border-radius: $g-radius;
 
   &:hover {
     border-color: darken($color-passive, 10%);

@@ -51,7 +51,11 @@ class TimberH extends TimberSite {
     $context['site'] = $this;
     $context['home_url'] = home_url();
 
-    // $context['options'] = get_fields('options');
+    $context['sidebar'] = Timber::get_widgets('my-sidebar');
+
+    if(function_exists('acf_add_options_page') ) {
+      $context['options'] = get_fields('options');
+    }
 
     $root = get_template_directory_uri();
     $context['images'] = $root.'/assets/images';

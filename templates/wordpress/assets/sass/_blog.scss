@@ -1,8 +1,10 @@
 $blog-width: 600px;
 $related-bp: $blog-width + 270px; // breakpoint of related posts
+
 $blog-font-passive: #bbc7cc;
 $blog-border: #c8d7e1;
 
+$table-border: 1px solid #efefef;
 $share-bg: #444;
 
 /* ------
@@ -42,11 +44,15 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 }
 
-.wp-caption {
+///// CAPTION
+
+div.wp-caption {
   position: relative;
   margin-bottom: 1.5em;
   width: auto !important;
   text-align: center;
+
+  p { margin: 0; }
 
   .wp-caption-text {
     display: inline-block;
@@ -57,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-// Reference only works above medium
+// Referencing only allowed above medium
 @include above(medium) {
   .refleft .wp-caption-text {
     left: -20px;
@@ -82,7 +88,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-///// GALLERY
+///// GALLERY /////
 
 .gallery,
 .tiled-gallery {
@@ -143,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     height: 1px;
     border: 0;
-    border-top: $color-passive 1px solid;
+    border-top: 1px solid $color-passive;
     margin: 2.5em 0;
     padding: 0;
   }
@@ -157,26 +163,26 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
   }
 
+  img {
+    border-radius: 2px;
+  }
+}
+
+.post-content blockquote {
+  padding: 0.25em 1em;
+  margin-left: 1em;
+  border-left: 3px solid $color-passive;
+  font-style: italic;
+
+  p { margin-bottom: 0; }
+
   cite {
     display: block;
     text-align: right;
   }
 
-  img {
-    border-radius: 2px;
-  }
-
-  blockquote {
-    padding: 0.25em 1em;
-    margin-left: 1em;
-    border-left: 3px solid $color-passive;
-    font-style: italic;
-
-    p { margin-bottom: 0; }
-  }
-
-  blockquote.alignleft,
-  blockquote.alignright {
+  &.alignleft,
+  &.align-right {
     margin-left: 0;
   }
 }
@@ -184,13 +190,17 @@ h1, h2, h3, h4, h5, h6 {
 .post-content table {
   width: 100%;
 
+  tr {
+    background-color: $body-background;
+  }
+
   tr:nth-child(odd) {
     background-color: #f6f6f6;
   }
 
   th, td {
-    padding: 6px 8px;
-    border-top: 1px solid #efefef;
+    padding: em(6px 8px);
+    border: $table-border;
     text-align: left;
   }
 }
@@ -201,35 +211,33 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2em 0;
 
   h1 { margin-bottom: 0; }
-}
 
-.post-meta {
-  border-top: 1px solid $color-passive;
-  border-bottom: 2px solid $font-color;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  padding: 0.5rem 0;
-
-  font-size: em($font-size-small);
-
-  time {
-    margin-right: 1em;
+  .post-meta {
+    border-top: 1px solid $color-passive;
+    border-bottom: 2px solid $font-color;
+    margin: 0.5em 0 2em;
+    padding: 0.5em 0;
   }
 }
 
-.post-meta,
-.tease-meta {
+.post-meta {
   font-size: em($font-size-small);
-
-  a { color: inherit; text-decoration: none; }
-  a:hover { text-decoration: underline; }
 
   time {
     display: inline-block;
     margin-left: 1em;
     padding-left: 1em;
     border-left: 1px solid $color-passive;
+
+    @include below(small) {
+      margin-left: 0.5em;
+      padding-left: 0.5em;
+    }
   }
+
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
 }
 
 ///// POST TEASE /////
@@ -251,6 +259,10 @@ h1, h2, h3, h4, h5, h6 {
 
   figure { margin-left: 10px; }
 
+  .post-meta {
+    color: $blog-font-passive;
+  }
+
   @include below(mini) {
     display: block;
 
@@ -262,22 +274,16 @@ h1, h2, h3, h4, h5, h6 {
 .tease-body {
   flex: 1;
 
-  > a:hover h2,
   > a:hover h3 {
     text-decoration: underline;
   }
 
-  h2, h3 { margin: 0 0 0.5rem; }
+  h3 { margin: 0 0 0.5rem; }
   p { margin-bottom: 1em; }
 
   @include below(mini) {
-    h2, h3 { clear: none; }
-
+    h3 { clear: none; }
   }
-}
-
-.tease-meta {
-  color: $blog-font-passive;
 }
 
 ///// GENERAL
@@ -299,6 +305,7 @@ h1, h2, h3, h4, h5, h6 {
   &:hover {
     background-color: $color-main;
     color: white;
+    box-shadow: none;
   }
 }
 
@@ -521,6 +528,26 @@ span.post-button {
 
 ///// SHARE (Jetpack) /////
 
+// TODO: better arrangement so doesn't create unnecessary loop for Sharedaddy
+
+$social-logos: (
+  twitter: ("\f202", #28a9e0), twitter-alt: ("\f202", #28a9e0),
+  facebook: ("\f203", #3b5998),
+  google-plus-1: ("\f218", #dd4b39), google-plus: ("\f206", #dd4b39), google-plus-alt: ("\f218", #dd4b39),
+  pinterest: ("\f209", #bd081c), pinterest-alt: ("\f210", #bd081c),
+  jetpack-whatsapp: ("_whatsapp", #25d366),
+  skype: ("_skype", #0bbff2),
+  pocket: ("_pocket", #ed4054),
+  linkedin: ("_linkedin", #0077b5),
+  reddit: ("_reddit", #f54b00),
+  tumblr: ("_tumblr", #324f6d),
+  telegram: ("_telegram", #34abe3),
+  custom-line: ("_line", #03c302),
+  custom-weibo: ("_weibo", #e6162d),
+  custom-sina-weibo: ("_weibo", #e6162d),
+  custom-renren: ("_renren", #005eac)
+);
+
 div.sharedaddy {
   margin: 2em 0;
   padding-top: 2em;
@@ -565,25 +592,7 @@ div.sharedaddy .sd-block .sd-content ul li a.sd-button {
     opacity: 1;
   }
 
-  $lists: (
-    twitter: ("_twitter", #28a9e0),
-    facebook: ("_facebook", #3b5998),
-    google-plus-1: ("_google_plus", #dd4b39),
-    pinterest: ("_pinterest", #bd081c),
-    jetpack-whatsapp: ("_whatsapp", #25d366),
-    skype: ("_skype", #0bbff2),
-    pocket: ("_pocket", #ed4054),
-    linkedin: ("_linkedin", #0077b5),
-    reddit: ("_reddit", #f54b00),
-    tumblr: ("_tumblr", #324f6d),
-    telegram: ("_telegram", #34abe3),
-    custom-line: ("_line", #03c302),
-    custom-weibo: ("_weibo", #e6162d),
-    custom-sina-weibo: ("_weibo", #e6162d),
-    custom-renren: ("_renren", #005eac)
-  );
-
-  @each $class, $value in $lists {
+  @each $class, $value in $social-logos {
     &.share-#{$class} {
       color: nth($value, 2) !important;
       border-color: nth($value, 2);
@@ -642,9 +651,32 @@ div#sharing_email {
     padding: 8px 8px 0;
   }
 
+  ul {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   ul li {
     width: 50%;
     text-align: center;
+  }
+}
+
+///// JETPACK SOCIAL LOGOS /////
+
+.social-logo {
+  margin-left: 10px;
+  font-weight: normal;
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: top;
+  color: $font-color-passive;
+
+  @each $name, $values in $social_logos {
+    &.social-logo__#{ $name } {
+      &:hover::before { color: nth($values, 2); }
+    }
   }
 }
 
@@ -740,8 +772,7 @@ div#sharing_email {
   position: relative;
   background-color: rgba(black, 0.03);
 
-  .comment-title,
-  .comment-reply-title {
+  .comment-title {
     @extend %post-footer-header;
   }
 }
@@ -916,6 +947,105 @@ div#jp-relatedposts {
 
 }
 
+///// RESPONSIVE TABLE /////
+
+.table-large,
+.table-small {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.5em;
+
+  table {
+    margin-bottom: 0;
+  }
+}
+
+.table-large {
+  @include below(small) {
+    display: none;
+  }
+}
+
+.table-small {
+  margin-bottom: 1.5em;
+
+  @include above(small) {
+    display: none;
+  }
+
+  th, td { white-space: nowrap; }
+}
+
+%hidden-cell {
+  border-right: none;
+  border-left: none;
+  padding-right: 0;
+  padding-left: 0;
+  color: transparent;
+  letter-spacing: -1em;
+}
+
+.table-scrollable {
+  overflow-x: scroll;
+  border-right: $table-border;
+
+  // can't simply say "display: none" because might be multi-line with <br>
+  th:first-child:not(.spanned),
+  td:first-child:not(.spanned) {
+    @extend %hidden-cell;
+    width: 0.1px;
+    white-space: inherit;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2),
+  .spanned {
+    border-left: none;
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: none;
+  }
+
+  table {
+    margin-left: 35%;
+  }
+}
+
+.table-pinned {
+  overflow-x: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  border-right: $table-border;
+  border-left: $table-border;
+
+  // can't simply say "display: none" because might be multi-line with <br>
+  th:nth-child(n+2),
+  td:nth-child(n+2),
+  th.not-first,
+  td.not-first {
+    @extend %hidden-cell;
+    width: 0;
+  }
+
+  th:first-child,
+  td:first-child {
+    border-right: none;
+    border-left: none;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th[rowspan="2"] {
+    height: 51px;
+  }
+}
+
 ///// COMMENTS /////
 
 .post-comments {
@@ -975,7 +1105,7 @@ div#jp-relatedposts {
     }
   }
 
-  &.depth-1 {
+  &.depth-0 {
     padding-bottom: 1.5em;
 
     .comment-avatar { margin-right: 10px; }
@@ -983,7 +1113,7 @@ div#jp-relatedposts {
     b, time { display: block; }
   }
 
-  &.depth-2 {
+  &.depth-1 {
     padding-bottom: 1em;
 
     .comment-avatar {
@@ -1065,32 +1195,50 @@ a.comment-reply-link {
 
   label {
     margin-bottom: 0.5em;
-  }
-
-  textarea {
-    height: 6em;
+    text-transform: uppercase;
+    font-size: em($font-size-small);
+    letter-spacing: 1px;
   }
 
   p {
-    margin-bottom: 1em;
-  }
-
-  .form-submit {
     margin-bottom: 0;
   }
 
   .comment-notes,
   .logged-in-as {
+    display: none;
     margin-bottom: 1em;
+    color: $blog-font-passive;
     font-size: em($font-size-small);
+
+    a { color: inherit; }
   }
 
   .logged-in-as {
     display: none;
   }
+
+  /////
+
+  &.active {
+    p {
+      margin-bottom: 1em;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .comment-notes,
+    .logged-in-as {
+      display: block;
+    }
+  }
 }
 
 h3.comment-reply-title {
+  @extend %post-footer-header;
+  display: none;
 
   #cancel-comment-reply-link {
     display: inline-block;
@@ -1118,6 +1266,24 @@ h3.comment-reply-title {
 
 .comment-form-comment {
   label { display: none; }
+
+  textarea {
+    height: 9em;
+
+    .comment-form:not(.active) & {
+      height: 2.6em;
+      min-height: auto;
+      padding: 0.5em 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    .comment-form:not(.active):hover & {
+      @include placeholder {
+        color: $color-main;
+      }
+    }
+  }
 }
 
 .comment-form-author {
@@ -1130,8 +1296,13 @@ h3.comment-reply-title {
 
 .comment-form-author,
 .comment-form-email {
+  display: none;
   float: left;
   width: 50%;
+
+  .active & {
+    display: block;
+  }
 
   @include below(small) {
     display: block;
@@ -1145,7 +1316,16 @@ h3.comment-reply-title {
 }
 
 .form-submit {
+  display: none;
   clear: both;
+
+  input[type="submit"] {
+    @extend %post-button;
+  }
+
+  .active & {
+    display: block;
+  }
 }
 
 
@@ -1246,4 +1426,9 @@ h3.comment-reply-title {
     left: 50% !important;
     @include transform(translateX(-50%) );
   }
+}
+
+// if infinite-footer is turned on (in theme_support), hide it in paged list.
+body[class^="paged-"] #infinite-footer {
+  display: none;
 }

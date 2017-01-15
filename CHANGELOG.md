@@ -1,3 +1,9 @@
+## 0.3.7
+
+- [WP] Update core to 4.7.1.
+- [WP] Theme update to support Timber 1.2.
+- [WP] Added Animate on Scroll and Responsive Table script.
+
 ## 0.3.6
 
 - Include missing files in package.json

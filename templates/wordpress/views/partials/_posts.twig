@@ -1,25 +1,44 @@
 {% for post in posts %}
-<article class="post-tease post-content">
 
-  {% if post.thumbnail %}
-  <figure>
-    <img src="{{ post.thumbnail.src('thumbnail') }}" alt="{{ post.title }}">
-  </figure>
+  {# Featured Post #}
+  {% if loop.first and post.thumbnail %}
+    <article class="post-banner post-banner-mini" style="background-image: url('{{ post.thumbnail.src('large') }}');">
+      <h-row class="post-row"><h-column class="post-col">
+
+        <p class="tease-meta">{% include "partials/_post-meta.twig" %}</p>
+        <a href="{{ post.link }}" class="banner-body">
+          <h1>{{ post.title }}</h1>
+
+          {{ post.get_preview(25, false, false) | wpautop }}
+
+          <span class="post-button">Read More</span>
+        </a>
+
+      </h-column></h-row>
+    </article>
+
+  {# Standard List #}
+  {% else %}
+
+    <article class="post-tease post-content">
+
+      {% if post.thumbnail %}
+      <figure>
+        <img src="{{ post.thumbnail.src('thumbnail') }}" alt="{{ post.title }}">
+      </figure>
+      {% endif %}
+
+      <div class="tease-body">
+        <a href="{{ post.link }}">
+          <h3>{{ post.title }}</h3>
+          <p> {{ post.get_preview(25, false, false) }} </p>
+        </a>
+
+        {% include "partials/_post-meta.twig" %}
+      </div>
+
+    </article>
   {% endif %}
-
-  <div class="tease-body">
-    <a href="{{ post.link }}">
-      <h3>{{ post.title }}</h3>
-      <p> {{ post.get_preview(25, false, false) }} </p>
-    </a>
-
-    <footer class="tease-meta">
-      {% include "partials/_post-meta.twig" %}
-    </footer>
-  </div>
-
-</article>
-
 
 {% else %}
   <article class="post-content content-error">
