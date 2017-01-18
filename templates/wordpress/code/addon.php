@@ -30,12 +30,14 @@ class My_Shortcode {
     // if have anchor inside, add button class
     if(preg_match('/<a (.+?)>/', $content, $match) ) {
       $content = substr_replace($content, ' class="button" ', 3, 0);
-      return $content;
     }
     // else, make it into do-nothing button
     else {
-      return '<a class="button">' . $content . '</a>';
+      $content = '<a class="button">' . $content . '</a>';
     }
+
+    // return wpautop($content);
+    return wpautop($content);
   }
 }
 

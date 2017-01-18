@@ -3,18 +3,16 @@
   {% filter shortcodes %} [jetpack-related-posts] {% endfilter %}
 
 {# Else, create Next / Prev links #}
-{% else %}
-  {% import _self as macro %}
-
+{% elseif post.prev or post.next %}
   <div id="jp-relatedposts" class="jp-relatedposts jp-next-prev">
     <h3 class="jp-relatedposts-headline"><em>You May Like</em></h3>
     <div class="jp-relatedposts-items jp-relatedposts-items-visual">
       {% if post.prev %}
-        {{ macro.post_thumb(post.prev, post) }}
+        {{ _self.post_thumb(post.prev, post) }}
       {% endif %}
 
       {% if post.next %}
-        {{ macro.post_thumb(post.next, post) }}
+        {{ _self.post_thumb(post.next, post) }}
       {% endif %}
     </div>
   </div>
@@ -40,7 +38,7 @@
   <p class="jp-relatedposts-post-date">{{ np.post_date | date }}</p>
 
   {% if not np.thumbnail %}
-    <p class="jp-relatedposts-nothumb-excerpt">{{ np.get_preview(25, true) }}</p>
+    <p class="jp-relatedposts-nothumb-excerpt">{{ np.get_preview(12) }}</p>
   {% endif %}
 </div>
 {% endmacro %}

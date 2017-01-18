@@ -58,16 +58,21 @@ var app = {
   },
 
   commentFormToggle: function() {
+    if($('#reply-title').length <= 0) { return false; }
+
     var replyTitle = document.getElementById('reply-title').childNodes;
     var replyTo = replyTitle[1].childNodes[0].nodeValue;
     var placeholder = replyTitle[0].nodeValue + (replyTo ? replyTo : '') + '…';
 
-    $('.comment-form textarea')
-      .attr('placeholder', placeholder)
-      .on('focus', activateForm);
+    $('.comment-form textarea').attr('placeholder', placeholder);
+    $('.comment-form').on('click', activateForm);
+
+    $('.comment-reply-link').on('click', activateForm);
 
     function activateForm(e) {
-      $(this).closest('.comment-form').addClass('active');
+      var $form = $('.comment-form');
+      $form.addClass('active');
+      $form.off('click').find('textarea').focus();
     }
   }
 };

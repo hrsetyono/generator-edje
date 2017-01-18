@@ -4,9 +4,9 @@
 
 // @import "fancybox";
 // @import "slick";
-@import "wordpress";
+// @import "wordpress";
 // @import "woo";
-@import "blog";
+// @import "blog";
 
 ///// FONT /////
 
@@ -52,12 +52,11 @@ a.button, // more specific to override `.post-content a`
   transition: none;
 
   &:hover {
-    box-shadow: $shadow-z1;
+    background-color: $color-main-dark;
   }
 
   &:active {
     box-shadow: inset 0 0 0 1px white;
-    // background-color: darken($color-main, 10%);
   }
 }
 

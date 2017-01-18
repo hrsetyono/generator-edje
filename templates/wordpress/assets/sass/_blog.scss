@@ -11,106 +11,6 @@ $share-bg: #444;
   BLOG
 ------ */
 
-///// EDITOR STYLE
-
-h1, h2, h3, h4, h5, h6 {
-  clear: both;
-}
-
-.alignleft {
-  float: left;
-  margin-right: 1em;
-}
-
-.alignright {
-  float: right;
-  margin-left: 1em;
-}
-
-.alignleft,
-.alignright {
-  max-width: 50%;
-  margin-bottom: 1em;
-
-  @include below(small) {
-    float: none;
-    max-width: none;
-  }
-}
-
-.aligncenter {
-  display: block;
-  margin: 0 auto;
-  clear: both;
-}
-
-///// CAPTION
-
-div.wp-caption {
-  position: relative;
-  margin-bottom: 1.5em;
-  width: auto !important;
-  text-align: center;
-
-  p { margin: 0; }
-
-  .wp-caption-text {
-    display: inline-block;
-    margin: 0.5em 0 0;
-    padding: 0 2em 0.5em;
-    border-bottom: 1px solid $color-passive;
-    font-size: em($font-size-small);
-  }
-}
-
-// Referencing only allowed above medium
-@include above(medium) {
-  .refleft .wp-caption-text {
-    left: -20px;
-    text-align: right;
-    @include transform(translateX(-100%) );
-  }
-
-  .refright .wp-caption-text {
-    right: -20px;
-    text-align: left;
-    @include transform(translateX(100%) );
-  }
-
-  .refleft .wp-caption-text,
-  .refright .wp-caption-text {
-    position: absolute;
-    top: 0;
-    border-top: 1px solid $color-passive;
-    margin-top: 0;
-    padding: 0.5em 0;
-    width: 150px;
-  }
-}
-
-///// GALLERY /////
-
-.gallery,
-.tiled-gallery {
-  margin: 0 -1px 1.5em !important;
-
-  &[data-carousel-extra] {
-    img { cursor: pointer; transition: $g-transition; }
-    img:hover { opacity: 0.7; }
-  }
-}
-
-.gallery-item {
-  padding: 0 1px;
-  margin-top: 0 !important;
-  margin-bottom: 2px;
-
-  img {
-    border: none !important;
-    border-radius: $g-radius;
-  }
-}
-
 ///// GRID
 
 .post-row { @include row($width: $blog-width); margin: 0 auto; }
@@ -205,39 +105,159 @@ div.wp-caption {
   }
 }
 
+///// EDITOR STYLE
+
+h1, h2, h3, h4, h5, h6 {
+  clear: both;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 1em;
+}
+
+.alignright {
+  float: right;
+  margin-left: 1em;
+}
+
+.alignleft,
+.alignright {
+  max-width: 50%;
+  margin-bottom: 1em;
+
+  @include below(small) {
+    float: none;
+    max-width: none;
+  }
+}
+
+.aligncenter {
+  display: block;
+  margin: 0 auto;
+  clear: both;
+}
+
+///// CAPTION
+
+.wp-caption {
+  position: relative;
+  margin-bottom: 1.5em;
+  width: auto !important;
+  text-align: center;
+
+  .wp-caption-text {
+    display: inline-block;
+    margin: 0.5em 0 0;
+    padding: 0 2em 0.5em;
+    border-bottom: 1px solid $color-passive;
+    font-size: em($font-size-small);
+  }
+}
+
+// Referencing only allowed above medium
+@include above(medium) {
+  .refleft .wp-caption-text {
+    left: -20px;
+    text-align: right;
+    @include transform(translateX(-100%) );
+  }
+
+  .refright .wp-caption-text {
+    right: -20px;
+    text-align: left;
+    @include transform(translateX(100%) );
+  }
+
+  .refleft .wp-caption-text,
+  .refright .wp-caption-text {
+    position: absolute;
+    top: 0;
+    border-top: 1px solid $color-passive;
+    margin-top: 0;
+    padding: 0.5em 0;
+    width: 150px;
+  }
+}
+
+///// GALLERY /////
+
+.gallery,
+.tiled-gallery {
+  margin: 0 -1px 1.5em !important;
+
+  &[data-carousel-extra] {
+    img { cursor: pointer; transition: $g-transition; }
+    img:hover { opacity: 0.7; }
+  }
+}
+
+.gallery-item {
+  padding: 0 1px;
+  margin-top: 0 !important;
+  margin-bottom: 2px;
+
+  img {
+    border: none !important;
+    border-radius: $g-radius;
+  }
+}
+
+
 ///// SINGLE HEADER
 
 .post-header {
   margin: 2em 0;
 
   h1 { margin-bottom: 0; }
-
-  .post-meta {
-    border-top: 1px solid $color-passive;
-    border-bottom: 2px solid $font-color;
-    margin: 0.5em 0 2em;
-    padding: 0.5em 0;
-  }
 }
 
 .post-meta {
   font-size: em($font-size-small);
 
-  time {
-    display: inline-block;
-    margin-left: 1em;
-    padding-left: 1em;
-    border-left: 1px solid $color-passive;
+  @include below(mini) {
+    font-size: em(12px);
+  }
+
+  .meta-author {
+    margin-right: calc(1em - 4px);
+    padding-right: 1em;
+    border-right: 1px solid $color-passive;
+    font-weight: $header-weight;
 
     @include below(small) {
-      margin-left: 0.5em;
-      padding-left: 0.5em;
+      margin-right: calc(0.5em - 4px);
+      padding-right: 0.5em;
     }
   }
 
+  .meta-category {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  time {
+    display: inline-block;
+  }
 
   a { color: inherit; text-decoration: none; }
   a:hover { text-decoration: underline; }
+
+  .post-banner & {
+    margin-bottom: 1em;
+    color: white;
+  }
+
+  .post-tease & {
+    color: $blog-font-passive;
+  }
+
+  .post-header & {
+    border-top: 1px solid $color-passive;
+    border-bottom: 2px solid $font-color;
+    margin: 0.5em 0 2em;
+    padding: 0.5em 0;
+  }
 }
 
 ///// POST TEASE /////
@@ -257,16 +277,18 @@ div.wp-caption {
     color: inherit;
   }
 
-  figure { margin-left: 10px; }
-
-  .post-meta {
-    color: $blog-font-passive;
+  figure {
+    margin-left: 10px;
   }
 
-  @include below(mini) {
+  @include below(small) {
     display: block;
 
     figure { float: right; }
+    img { width: 150px; }
+  }
+
+  @include below(mini) {
     img { width: 100px; }
   }
 }
@@ -281,7 +303,7 @@ div.wp-caption {
   h3 { margin: 0 0 0.5rem; }
   p { margin-bottom: 1em; }
 
-  @include below(mini) {
+  @include below(small) {
     h3 { clear: none; }
   }
 }
@@ -344,13 +366,17 @@ span.post-button {
   }
 
   .post-row {
-    position: relative;
+    position: absolute;
     z-index: 5;
-    top: 50%;
+    right: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    text-align: center;
-    @include transform(translateY(-50%) );
+    margin: 0 auto;
+  }
+
+  .post-col {
+    padding-bottom: 2em;
   }
 }
 
@@ -752,7 +778,15 @@ div#sharing_email {
 
 ///// FOOTER /////
 
-%post-footer-header {
+.post-footer {
+  padding-top: 2em;
+  position: relative;
+  background-color: rgba(black, 0.03);
+}
+
+// heading
+div#jp-relatedposts h3.jp-relatedposts-headline,
+.post-comments h4 {
   display: block;
   float: none;
 
@@ -764,16 +798,6 @@ div#sharing_email {
 
   @include below(small) {
     font-size: em(18px);
-  }
-}
-
-.post-footer {
-  padding-top: 2em;
-  position: relative;
-  background-color: rgba(black, 0.03);
-
-  .comment-title {
-    @extend %post-footer-header;
   }
 }
 
@@ -797,8 +821,6 @@ div#jp-relatedposts {
 
   // main title
   h3.jp-relatedposts-headline {
-    @extend %post-footer-header;
-
     em {
       font-style: normal; font-weight: $font-weight;
       &::before { display: none; }
@@ -831,7 +853,6 @@ div#jp-relatedposts {
       margin-bottom: 1em;
     }
   }
-
 
   // single image
   .jp-relatedposts-post > .jp-relatedposts-post-a {
@@ -947,145 +968,26 @@ div#jp-relatedposts {
 
 }
 
-///// RESPONSIVE TABLE /////
 
-.table-large,
-.table-small {
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 1.5em;
-
-  table {
-    margin-bottom: 0;
-  }
-}
-
-.table-large {
-  @include below(small) {
-    display: none;
-  }
-}
-
-.table-small {
-  margin-bottom: 1.5em;
-
-  @include above(small) {
-    display: none;
-  }
-
-  th, td { white-space: nowrap; }
-}
-
-%hidden-cell {
-  border-right: none;
-  border-left: none;
-  padding-right: 0;
-  padding-left: 0;
-  color: transparent;
-  letter-spacing: -1em;
-}
-
-.table-scrollable {
-  overflow-x: scroll;
-  border-right: $table-border;
-
-  // can't simply say "display: none" because might be multi-line with <br>
-  th:first-child:not(.spanned),
-  td:first-child:not(.spanned) {
-    @extend %hidden-cell;
-    width: 0.1px;
-    white-space: inherit;
-  }
-
-  th:nth-child(2),
-  td:nth-child(2),
-  .spanned {
-    border-left: none;
-  }
-
-  th:last-child,
-  td:last-child {
-    border-right: none;
-  }
-
-  table {
-    margin-left: 35%;
-  }
-}
-
-.table-pinned {
-  overflow-x: scroll;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 35%;
-  border-right: $table-border;
-  border-left: $table-border;
-
-  // can't simply say "display: none" because might be multi-line with <br>
-  th:nth-child(n+2),
-  td:nth-child(n+2),
-  th.not-first,
-  td.not-first {
-    @extend %hidden-cell;
-    width: 0;
-  }
-
-  th:first-child,
-  td:first-child {
-    border-right: none;
-    border-left: none;
-  }
-
-  table {
-    width: 100%;
-  }
-
-  th[rowspan="2"] {
-    height: 51px;
-  }
-}
 
 ///// COMMENTS /////
 
 .post-comments {
-
-  .comments-list,
-  .replies-list {
-    margin-bottom: 0;
-    padding-left: 0;
+  ul {
     list-style-type: none;
   }
+}
 
+.comments-list {
+  margin-top: 2em;
 
-  .comments-list {
-    > li {
-      padding: 1em;
-      margin-bottom: 1.5em;
-      background-color: $body-background;
+  > li {
+    padding: 1.25em;
+    margin-bottom: 1.5em;
+    background-color: $body-background;
 
-      border-radius: $g-radius;
-      box-shadow: $shadow-z0;
-    }
-  }
-
-  .replies-list {
-    padding-left: 4.5em;
-    font-size: em($font-size-small);
-  }
-
-  .comment-title {
-    position: relative;
-    padding-top: 2rem;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 2px;
-      left: 0;
-      border-top: 2px solid rgba(0,0,0,.44);
-      width: 75px;
-    }
+    border-radius: $g-radius;
+    box-shadow: $shadow-z0;
   }
 }
 
@@ -1093,62 +995,85 @@ div#jp-relatedposts {
 
 .comment {
   position: relative;
-  color: rgba(black , .6);
+  color: $font-color;
 
   &.bypostauthor {
-    b::after {
-      @include icon;
-      content: "account_box";
-      margin-left: 5px;
-      font-size: 1.25em;
-      color: rgba($font-color-passive, .5);
-    }
-  }
-
-  &.depth-0 {
-    padding-bottom: 1.5em;
-
-    .comment-avatar { margin-right: 10px; }
-    p { margin-bottom: 1em; }
-    b, time { display: block; }
-  }
-
-  &.depth-1 {
-    padding-bottom: 1em;
-
     .comment-avatar {
-      position: absolute;
-      top: 0.25em; left: -1em;
-      @include transform(translateX(-100%) );
+      padding: 1px;
+      box-shadow: 0 0 0 1px $font-color;
     }
+  }
 
-    time { display: inline-block; margin-bottom: 1em; }
-    p { margin-bottom: 0.5em; }
+  .comment-avatar {
+    width: 2.25em;
+    height: 2.25em;
+    margin-right: 10px;
+    border-radius: 50%;
+    transition: $g-transition;
+  }
+
+  header {
+    margin-bottom: 1em;
+  }
+
+  b, time {
+    display: inline-block;
+    line-height: 1.25;
+    vertical-align: middle;
   }
 
   b {
-    display: inline-block;
     color: $font-color;
   }
 
   time {
-    display: inline-block;
-    margin-bottom: 10px;
+    margin-left: 0.5em;
     font-size: em($font-size-small);
-    line-height: 1;
+    color: $blog-font-passive;
+  }
+
+  p {
+    margin-bottom: 1em;
   }
 
   p:last-of-type {
     margin-bottom: 0;
   }
+}
+
+// Child comments
+
+.replies-list {
+  margin-top: 1.5em;
+  padding-left: 1.25em;
+  border-left: 1px solid rgba($font-color, .1);
+
+  .comment {
+    font-size: em($font-size-small);
+  }
 
   .comment-avatar {
-    float: left;
-    width: 2.25em;
-    height: 2.25em;
-    border-radius: 50%;
+    display: none;
+  }
+
+  > li + li {
+    margin-top: 1.5em;
+  }
+
+  header {
+    margin-bottom: 0.5em;
+  }
+
+  b {
+    color: $blog-font-passive;
+  }
+
+  p {
+    margin-bottom: 0.5em;
   }
 }
+
+// Reply link
 
 a.comment-reply-link {
   visibility: hidden;
@@ -1168,10 +1093,6 @@ a.comment-reply-link {
     opacity: 1;
   }
 
-  .depth-2 & {
-    display: none;
-  }
-
   &::before {
     @include icon;
     content: "reply";
@@ -1186,12 +1107,26 @@ a.comment-reply-link {
 
 .comment-respond {
   margin-bottom: 2em;
+
+  .comments-list & {
+    width: 110%;
+    margin: 0 -5%;
+  }
+}
+
+.comment-reply-title {
+  display: none;
 }
 
 .comment-form {
   padding: 1em;
   background-color: $body-background;
   box-shadow: $shadow-z0;
+
+  .comments-list & {
+    margin-top: 1.25em;
+    box-shadow: $shadow-z1;
+  }
 
   label {
     margin-bottom: 0.5em;
@@ -1201,12 +1136,17 @@ a.comment-reply-link {
   }
 
   p {
+    margin-bottom: 1em;
+  }
+
+  p:last-of-type {
     margin-bottom: 0;
   }
 
   .comment-notes,
   .logged-in-as {
-    display: none;
+    display: block;
+
     margin-bottom: 1em;
     color: $blog-font-passive;
     font-size: em($font-size-small);
@@ -1214,51 +1154,17 @@ a.comment-reply-link {
     a { color: inherit; }
   }
 
-  .logged-in-as {
-    display: none;
-  }
-
   /////
 
-  &.active {
+  &:not(.active) {
     p {
-      margin-bottom: 1em;
-    }
-
-    p:last-of-type {
       margin-bottom: 0;
     }
 
     .comment-notes,
     .logged-in-as {
-      display: block;
+      display: none;
     }
-  }
-}
-
-h3.comment-reply-title {
-  @extend %post-footer-header;
-  display: none;
-
-  #cancel-comment-reply-link {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    color: transparent;
-    font-size: 0;
-    text-transform: initial;
-
-    &::before {
-      @include icon;
-      content: "cancel";
-      color: $font-color-passive;
-      font-size: 1.5rem;
-    }
-
-    &:hover::before { color: $color-red; }
   }
 }
 
@@ -1431,4 +1337,103 @@ h3.comment-reply-title {
 // if infinite-footer is turned on (in theme_support), hide it in paged list.
 body[class^="paged-"] #infinite-footer {
   display: none;
+}
+
+///// RESPONSIVE TABLE /////
+
+.table-large,
+.table-small {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.5em;
+
+  table {
+    margin-bottom: 0;
+  }
+}
+
+.table-large {
+  @include below(small) {
+    display: none;
+  }
+}
+
+.table-small {
+  margin-bottom: 1.5em;
+
+  @include above(small) {
+    display: none;
+  }
+
+  th, td { white-space: nowrap; }
+}
+
+%hidden-cell {
+  border-right: none;
+  border-left: none;
+  padding-right: 0;
+  padding-left: 0;
+  color: transparent;
+  letter-spacing: -1em;
+}
+
+.table-scrollable {
+  overflow-x: scroll;
+  border-right: $table-border;
+
+  // can't simply say "display: none" because might be multi-line with <br>
+  th:first-child:not(.spanned),
+  td:first-child:not(.spanned) {
+    @extend %hidden-cell;
+    width: 0.1px;
+    white-space: inherit;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2),
+  .spanned {
+    border-left: none;
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: none;
+  }
+
+  table {
+    margin-left: 35%;
+  }
+}
+
+.table-pinned {
+  overflow-x: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  border-right: $table-border;
+  border-left: $table-border;
+
+  // can't simply say "display: none" because might be multi-line with <br>
+  th:nth-child(n+2),
+  td:nth-child(n+2),
+  th.not-first,
+  td.not-first {
+    @extend %hidden-cell;
+    width: 0;
+  }
+
+  th:first-child,
+  td:first-child {
+    border-right: none;
+    border-left: none;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th[rowspan="2"] {
+    height: 51px;
+  }
 }
