@@ -1,18 +1,13 @@
 <?php // Requirement : WP 4.1 and PHP 5.6
 
 require_once 'code/timber.php';
-if(!has_required_plugins() ) { return false; }
+// if(!has_required_plugins() ) { return false; }
 require_once 'code/addon.php';
 
 add_action('init', 'my_init', 1);
 add_action('widgets_init', 'my_widgets');
 add_action('after_setup_theme', 'my_theme_support');
 add_action('wp_enqueue_scripts', 'my_enqueue_script', 100);
-
-// Blog post width, used by Jetpack's Gallery
-if(!isset($content_width)) {
-  $content_width = 600;
-}
 
 /////
 
@@ -56,23 +51,27 @@ function my_theme_support() {
   add_theme_support('post-thumbnails');
   add_theme_support('menus');
   add_theme_support('custom-logo');
-  add_theme_support('html5');
-  add_theme_support('title_tag');
+  add_theme_support('html5', array('search-form', 'comment-form', 'gallery', 'caption') );
 
+  add_theme_support('title_tag');
   add_theme_support('widgets');
+  add_theme_support('automatic-feed-links');
 
   add_post_type_support('page', 'excerpt');
   add_theme_support('jetpack-responsive-videos');
 
   // Jetpack's Infinite scroll
   add_theme_support('infinite-scroll', array(
-    'footer' => 'main-footer',
+    'footer' => false,
     'render' => function() {
       $context = array('posts' => Timber::get_posts() );
       Timber::render('partials/_posts.twig', $context);
     },
     'posts_per_page' => false
   ) );
+
+  // Blog post width, used by Jetpack's Gallery
+  $GLOBALS['content_width'] = 600;
 }
 
 /*
@@ -97,4 +96,9 @@ function my_enqueue_script() {
   wp_enqueue_script('my-fancybox', $js_dir . '/vendor/fancybox.min.js', array('jquery'), false, true);
   wp_enqueue_script('my-slick', $js_dir . '/vendor/slick.min.js', array('jquery'), false, true);
   wp_enqueue_script('my-app', $js_dir . '/app.js', array('jquery'), false, true);
+
+  // Enable comment's reply form
+  if (is_singular() && comments_open() && get_option('thread_comments') ) {
+    wp_enqueue_script('comment-reply');
+  }
 }

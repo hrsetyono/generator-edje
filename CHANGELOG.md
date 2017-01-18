@@ -1,3 +1,8 @@
+## 0.3.8
+
+- [WP] Updated default plugins to latest version.
+- [WP] Added support for Threaded Reply in Comments.
+
 ## 0.3.7
 
 - [WP] Update core to 4.7.1.

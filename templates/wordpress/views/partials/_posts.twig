@@ -5,7 +5,7 @@
     <article class="post-banner post-banner-mini" style="background-image: url('{{ post.thumbnail.src('large') }}');">
       <h-row class="post-row"><h-column class="post-col">
 
-        <p class="tease-meta">{% include "partials/_post-meta.twig" %}</p>
+        {% include "partials/_post-meta.twig" %}
         <a href="{{ post.link }}" class="banner-body">
           <h1>{{ post.title }}</h1>
 
