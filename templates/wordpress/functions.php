@@ -1,7 +1,7 @@
 <?php // Requirement : WP 4.1 and PHP 5.6
 
 require_once 'code/timber.php';
-// if(!has_required_plugins() ) { return false; }
+if(! has_required_plugins() ) { return false; }
 require_once 'code/addon.php';
 
 add_action('init', 'my_init', 1);
@@ -51,14 +51,14 @@ function my_theme_support() {
   add_theme_support('post-thumbnails');
   add_theme_support('menus');
   add_theme_support('custom-logo');
-  add_theme_support('html5', array('search-form', 'comment-form', 'gallery', 'caption') );
-
   add_theme_support('title_tag');
   add_theme_support('widgets');
+
+  add_theme_support('html5', array('search-form', 'comment-form', 'gallery', 'caption') );
+  add_theme_support('jetpack-responsive-videos');
   add_theme_support('automatic-feed-links');
 
   add_post_type_support('page', 'excerpt');
-  add_theme_support('jetpack-responsive-videos');
 
   // Jetpack's Infinite scroll
   add_theme_support('infinite-scroll', array(
@@ -81,7 +81,7 @@ function my_enqueue_script() {
   $css_dir = get_template_directory_uri() . '/assets/css';
   $js_dir = get_template_directory_uri() . '/assets/js';
 
-  // // enqueue jQuery at footer, some plugins may not work correctly if you activate this
+  // // enqueue jQuery at footer, some plugins may not work correctly if you decomment this
   // wp_deregister_script('jquery');
   // wp_deregister_script('jquery-migrate');
   // wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.js'), false, false, true);

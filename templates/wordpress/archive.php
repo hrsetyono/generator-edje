@@ -19,7 +19,7 @@ else if(is_post_type_archive() ) {
   array_unshift($templates, 'archive-' . get_post_type() . '.twig');
 }
 else if(is_author() ) {
-  $context['user'] = $query;
+  $context['user'] = new TimberUser($query->ID);
   array_unshift($templates, 'archive-author.twig');
 }
 

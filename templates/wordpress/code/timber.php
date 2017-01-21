@@ -1,35 +1,38 @@
 <?php
 /*
   Check activation of required plugins
+
   @param boolean $show_message - Whether to show error message or not
   @return boolean
 */
 function has_required_plugins($show_message = true) {
   $plugins_class = array('H', 'Timber');
 
-  $pass = array_reduce($plugins_class, function($result, $c) {
-    // if result already false, always return false
-    return ($result) ? class_exists($c) : false;
-  }, true);
+  // check if all installed
+  $all_installed = false;
+  foreach($plugins_class as $c) {
+    $all_installed = class_exists($c);
 
-  // show error message if not pass
-  if(!$pass && $show_message) {
-    $text = 'TIMBER or EDJE WP is not activated. Please <a href="' . admin_url('plugins.php#timber') . '">visit here</a> to active it.';
-
-    if(is_admin() && current_user_can('install_plugins') ) {
-      add_action('admin_notices', function() use ($text) {
-        echo '<div class="notice notice-error"><p>' . $text . '</p></div>';
-      });
-    }
+    if(! $all_installed) { break; } // if one is false, end loop
   }
 
-  return $pass;
+  // show error message if all not installed AND it's admin page
+  if(! $all_installed && $show_message && is_admin() && current_user_can('install_plugins') ) {
+    $text = 'Please activate required plugins <a href="' . admin_url('plugins.php?s=timber') . '">here</a>.';
+
+    add_action('admin_notices', function() use ($text) {
+      echo '<div class="notice notice-error"><p>' . $text . '</p></div>';
+    });
+  }
+
+  return $all_installed;
 }
+
 if(!has_required_plugins(false) ) { return false; }
 
-// ------------------------
-// Timber Global setting
-// ------------------------
+
+///// TIMBER Global setting /////
+
 
 new TimberH();
 class TimberH extends TimberSite {
@@ -50,25 +53,23 @@ class TimberH extends TimberSite {
     $context['menu'] = new TimberMenu('top-menu');
     $context['site'] = $this;
     $context['home_url'] = home_url();
-
     $context['sidebar'] = Timber::get_widgets('my-sidebar');
-
-    if(function_exists('acf_add_options_page') ) {
-      $context['options'] = get_fields('options');
-    }
 
     $root = get_template_directory_uri();
     $context['images'] = $root.'/assets/images';
     $context['img'] = $context['images']; // alias
-    $context['css'] = $root.'/assets/css';
-    $context['js'] = $root.'/assets/js';
     $context['files'] = $root.'/assets/files';
 
-    // if posts page, single post, or category page
+    // if posts page, single post, or category page, add CATEGORY context
     if(is_home() || is_single() || is_category() ) {
       // get blog menu, if null, get categories instead
       $context['blog_menu'] = has_nav_menu('blog-menu') ? new TimberMenu('blog-menu') : null;
       $context['categories'] = is_null($context['blog_menu']) ? Timber::get_terms('category', array('parent' => 0)) : null;
+    }
+
+    // if there's option page
+    if(function_exists('acf_add_options_page') ) {
+      $context['options'] = get_fields('options');
     }
 
     return $context;

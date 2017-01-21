@@ -66,9 +66,21 @@
 </div>
 
 <footer class="main-footer" id="main-footer">
-  <h-row><h-column class="large-12">
-    {{ site.name }} &copy; {{ "now" | date("Y") }}
-  </h-column></h-row>
+
+  <h-row>
+    <h-column class="large-6">
+      {{ site.name }} &copy; {{ "now" | date("Y") }}
+    </h-column>
+    <h-column class="large-6">
+      {# List of logos: https://gist.github.com/hrsetyono/ad5cb59ac0dd6b3dbe42130a9ebb8104 #}
+      <div class="footer-social">
+        <a class="social-logo social-logo__facebook" href="https://www.facebook.com/username"></a>
+        <a class="social-logo social-logo__twitter" href="https://twitter.com/username"></a>
+        <a class="social-logo social-logo__google-plus" href="https://plus.google.com/+username"></a>
+      </div>
+    </h-column>
+  </h-row>
+
 </footer>
 
 {{ wp_footer }}

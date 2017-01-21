@@ -21,22 +21,9 @@
     {{ post.content }}
   </section>
 
-  {# Author #}
   <footer class="post-author">
-    <figure class="author-image">
-      <img src="{{ post.author.avatar }}" alt="{{ post.author.display_name }}">
-    </figure>
 
-    <div class="author-bio">
-      <h6><a href="{{ post.author.link }}" title="See all posts by {{ post.author.display_name }}">
-        {{ post.author.display_name }}
-      </a></h6>
-      <p>{{ post.author.description }}</p>
-    </div>
-
-    {% if post.author.user_url %}
-      <a href="{{ post.author.user_url }}" target="_blank" class="post-button">Follow</a>
-    {% endif %}
+    {% include "partials/_author-info.twig" with { author: post.author } %}
   </footer>
 
 </h-column></h-row>
