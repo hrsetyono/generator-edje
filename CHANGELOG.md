@@ -1,3 +1,8 @@
+## 0.3.9
+
+- [Plugin] Update Edje WP to add User social links in profile page.
+- [WP] Added social links in Single post to make use of the newly updated plugin.
+
 ## 0.3.8
 
 - [WP] Updated default plugins to latest version.

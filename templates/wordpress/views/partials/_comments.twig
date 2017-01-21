@@ -27,7 +27,7 @@
   <article id="comment-{{ c.id }}"
     class="comment depth-{{ c.depth }} {{ post.post_author == c.user_id ? 'bypostauthor' : '' }}">
     <header>
-      <img class="comment-avatar" src="{{ c.avatar }}" alt="{{ c.author.name }} Avatar"
+      <img class="comment-avatar" src="{{ c.avatar }}"
         title="{{ post.post_author == c.user_id ? 'Author of this Post' : '' }}">
       <b>{{ c.author.name }}</b>
       <time>{{ c.comment_date_gmt | time_ago }}</time>

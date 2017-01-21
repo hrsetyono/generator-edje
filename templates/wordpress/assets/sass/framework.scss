@@ -1,0 +1,449 @@
+// Put styles that you might reuse in other projects here
+@import "setting";
+@import "edje-framework";
+
+// @import "fancybox";
+// @import "slick";
+// @import "woo";
+@import "blog";
+
+///// FONT /////
+
+@include font-faces($font-family-icon, (
+  ("material-icons.woff", 400),
+));
+
+// Usage: <i class="icon">icon_name</icon>
+//   http://google.github.io/material-design-icons/
+.icon {
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.25em;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  -moz-osx-font-smoothing: grayscale;
+  @include icon;
+}
+
+///// BUTTON /////
+
+button,
+.button,
+a.button,
+[type="submit"] {
+  display: inline-block;
+  outline: none;
+  padding: 8px 15px;
+  border: 1px solid $color-main;
+  background-color: $color-main;
+  color: white;
+  text-decoration: none;
+
+  border-radius: $g-radius;
+  transition: none;
+
+  &:hover {
+    background-color: $color-main-dark;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 0 1px white;
+  }
+}
+
+///// INPUT /////
+
+[type="text"],
+[type="number"],
+[type="tel"],
+[type="password"],
+[type="email"],
+[type="search"],
+[type="url"],
+textarea,
+select {
+  display: block;
+  width: 100%;
+  padding: 0.5em 0.75em;
+  border: 1px solid $color-passive;
+  border-top-color: darken($color-passive, 5%);
+  border-radius: $g-radius;
+
+  &:hover {
+    border-color: darken($color-passive, 10%);
+    box-shadow: inset 0 0 3px $color-passive;
+  }
+
+  &:focus {
+    border-color: $color-main;
+    box-shadow: inset 0 1px 2px rgba(black, .2);
+  }
+}
+
+/* --------------------
+  WORDPRESS General
+-------------------- */
+
+
+// Fix adminbar getting pushed down
+#wpadminbar {
+  @include below(600px) {
+    position: absolute;
+    @include transform(translateY(-100%) );
+  }
+}
+
+///// MAIN MENU /////
+
+.main-menu {
+  position: relative;
+  z-index: z(menu);
+  padding: 10px 0;
+  border-bottom: 1px solid $color-passive;
+}
+
+.menu-col {
+  @include column(12);
+  @include flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.main-logo {
+  img {
+    width: auto;
+    height: 50px;
+  }
+}
+
+
+// MENU ITEM
+
+.menu-wrapper {
+  @include flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 1;
+
+  @include below(small) {
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+
+    position: fixed;
+    z-index: z(menu);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 3.5em 0 2em;
+    width: 180px;
+    background-color: white;
+
+    transition: $g-transition;
+    box-shadow: $shadow-z2;
+    @include transform(translateX(-100%) );
+  }
+
+  .menu-active & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+}
+
+.menu-item {
+  position: relative;
+  font-size: em($font-size-small);
+
+  > a {
+    display: block;
+    padding: 12px 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $font-color;
+    transition: none;
+  }
+
+  // current page
+  &.current-menu-item,
+  &.current-page-ancestor,
+  &.current_page_parent {
+    > a {
+      color: $font-color;
+    }
+  }
+
+  &:hover > a {
+    color: $color-main;
+  }
+
+  > a:active {
+    color: $color-main-dark;
+  }
+}
+
+// CHILD MENU
+
+.child-menu {
+  visibility: hidden; opacity: 0;
+  position: absolute;
+  z-index: z(child_menu);
+  top: 100%;
+  left: 0;
+  padding: 4px;
+  min-width: 200px;
+
+  background-color: $color-main-dark;
+  white-space: nowrap;
+
+  transition: $g-transition;
+  box-shadow: $shadow-z1;
+  @include transform(translateY(10px) );
+
+
+  .menu-item:hover & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+
+  a {
+    display: block;
+    padding: 0.25em 0.5em;
+    color: white;
+    letter-spacing: 0.5px;
+    transition: none;
+  }
+
+  a:hover {
+    background-color: $color-main;
+  }
+
+  a:active {
+    background-color: rgba($color-main, .8);
+  }
+
+  /////
+
+  @include below(small) {
+    top: 0;
+    left: 100%;
+    @include transform(translateX(10px) );
+
+    a {
+      padding: 0.5em 0.75em;
+    }
+  }
+}
+
+// MOBILE MENU
+
+body.menu-active {
+  cursor: pointer; // fix iOS untap-able bug
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+.menu-toggle {
+  @include above(small) {
+    display: none;
+  }
+
+  @include below(mini) {
+    span { display: none; }
+  }
+}
+
+// MENU EXTRA
+
+.menu-extra {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  z-index: z(menu);
+  margin-left: auto;
+
+  > * {
+    margin-right: 5px;
+  }
+
+  .menu-item > a {
+    padding: 5px;
+    line-height: 1;
+    border-radius: $g-radius;
+  }
+
+  button {
+    padding: 5px;
+    background-color: $color-sub;
+    line-height: 1;
+    border-radius: $g-radius;
+
+    &:hover { background-color: lighten($color-sub, 5%); color: white; }
+    &:active { background-color: lighten($color-sub, 10%); }
+  }
+}
+
+.search-form {
+  display: flex;
+  position: relative;
+  z-index: z(menu);
+  height: 100%;
+
+  input, #search-toggle {
+    height: 100%;
+  }
+
+  input {
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    padding: 5px 10px;
+    width: 200px;
+
+    transition: $g-transition;
+    border-radius: $g-radius 0 0 $g-radius;
+    @include transform(translateX(-100%) );
+  }
+
+  &.search-active {
+    input {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #search-toggle {
+      background-color: $color-main-dark;
+      border-radius: 0 $g-radius $g-radius 0;
+    }
+  }
+}
+
+///// ERROR PAGE /////
+
+.content-error {
+  padding: 100px 0;
+  text-align: center;
+
+  @include below(small) { padding: 30px 0; }
+
+  h1 {
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    line-height: 1;
+    color: $color-main;
+  }
+
+  span {
+    display: block;
+    color: $font-color;
+    font-size: em($h2, $h1);
+  }
+}
+
+
+///// MAIN FOOTER /////
+
+.main-footer {
+  padding: 20px;
+  background-color: #23282d;
+  color: white;
+}
+
+.footer-social {
+  text-align: right;
+}
+
+///// SOCIAL LOGOS /////
+
+.social-logo {}
+
+
+///// CONTACT FORM 7 /////
+
+.wpcf7-form {
+  span.wpcf7-not-valid-tip {
+    color: $color-main;
+    font-size: em(14px);
+  }
+
+  div.wpcf7-response-output {
+    margin: 1em 0 0;
+    border-width: 1px;
+    border-radius: $g-radius;
+    text-align: center;
+  }
+
+  .wpcf7-validation-errors {
+    border-color: $color-red;
+    color: $color-red;
+    background-color: rgba($color-red, .3);
+  }
+
+  .wpcf7-mail-sent-ok,
+  .wpcf7-mail-sent-ng {
+    border-color: $color-green;
+    color: $color-green;
+    background-color: rgba($color-green, .5);
+  }
+}
+
+form.wpcf7-form {
+  max-width: 570px;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: $shadow-z1;
+
+  br { display: none; }
+
+  label {
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    width: 200px;
+
+    font-size: em($font-size-small);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    vertical-align: top;
+
+    @include below(mini) {
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  h2 {
+    padding-top: 20px;
+    margin-bottom: 1.5em;
+    font-size: em($h4);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .submit-wrapper {
+    text-align: right;
+  }
+}
+
+.wpcf7-form-control-wrap {
+  display: inline-block;
+  width: calc(100% - 205px);
+
+  @include below(small) {
+    width: 100%;
+  }
+}
