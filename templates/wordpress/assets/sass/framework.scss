@@ -366,7 +366,53 @@ body.menu-active {
 
 ///// SOCIAL LOGOS /////
 
-.social-logo {}
+.social-logo {
+  font-weight: normal;
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: top;
+  color: $font-color-passive;
+}
+
+// jetpackShareName: (color, altName...)
+$social-logos: (
+  twitter: (#28a9e0, 'twitter-alt'),
+  facebook: #3b5998,
+  google-plus-1: (#dd4b39, 'google-plus', 'google-plus-alt'),
+  pinterest: (#bd081c, 'pinterest-alt'),
+  jetpack-whatsapp: (#25d366, 'whatsapp'),
+  skype: #0bbff2,
+  pocket: #ed4054,
+  linkedin: #0077b5,
+  reddit: #f54b00,
+  tumblr: #324f6d,
+  telegram: #34abe3,
+  custom-line: #03c302,
+  custom-weibo: #e6162d,
+  custom-sina-weibo: #e6162d,
+  custom-renren: #005eac
+);
+
+@each $name, $values in $social-logos {
+  $color: if(type-of($values) == 'list', nth($values, 1), $values);
+
+  // if has alternate name
+  @if type-of($values) == 'list' {
+    @for $i from 2 through length($values) {
+      .social-logo.social-logo__#{ nth($values, $i) }:hover { color: $color; }
+    }
+  }
+
+  .social-logo.social-logo__#{ $name }:hover { color: $color; }
+
+  // Sharedaddy color
+  div.sharedaddy .sd-block .sd-content ul li a.sd-button.share-#{ $name } {
+    color: $color !important;
+    border-color: $color;
+
+    &:hover { background-color: rgba($color, .3); }
+  }
+}
 
 
 ///// CONTACT FORM 7 /////

@@ -1,3 +1,8 @@
+## 0.3.11
+
+- [WP] Updated to 4.8.1
+- [Plugin] Update Edje-WP to 0.6.1, Timber to 1.2.4, and WooCommerce to 3.1.2
+
 ## 0.3.9
 
 - [Plugin] Update Edje WP to add User social links in profile page.
