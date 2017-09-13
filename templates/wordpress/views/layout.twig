@@ -48,8 +48,8 @@
       {# Extra Menu, aligned to the right #}
       <div class="menu-extra">
         <form class="menu-item search-form" method="get" action="{{ home_url }}">
-          <input type="search" name="s" placeholder="Search">
-          <button id="search-toggle"> <i class="icon">search</i> </button>
+          <input id="search" type="search" name="s" placeholder="Search">
+          <label for="search" class="search-toggle"> <i class="icon">search</i> </label>
         </form>
       </div>
 
@@ -72,11 +72,13 @@
       {{ site.name }} &copy; {{ "now" | date("Y") }}
     </h-column>
     <h-column class="large-6">
+
+
       {# List of logos: https://gist.github.com/hrsetyono/ad5cb59ac0dd6b3dbe42130a9ebb8104 #}
       <div class="footer-social">
-        <a class="social-logo social-logo__facebook" href="https://www.facebook.com/username"></a>
-        <a class="social-logo social-logo__twitter" href="https://twitter.com/username"></a>
-        <a class="social-logo social-logo__google-plus" href="https://plus.google.com/+username"></a>
+        {% for item in social_menu.items %}
+          <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
+        {% endfor %}
       </div>
     </h-column>
   </h-row>

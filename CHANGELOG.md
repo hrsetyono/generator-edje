@@ -1,3 +1,12 @@
+## 0.4.0
+
+- [Wordpress] Simplified code and more integration with Jetpack.
+- [Wordpress] Removed Material icon inclusion in favor of default Wordpress icon.
+- [Woocommerce] Fixed some files not overwriting Wordpress template.
+- [Woocommerce] Remove default CSS for Checkout page in favor or separate plugin: [Edje Woocommerce](https://github.com/hrsetyono/woocommerce-edje)
+
+**Note**: Woocommerce template hasn't been tested on production. Use at own risk.
+
 ## 0.3.11
 
 - [WP] Updated to 4.8.1

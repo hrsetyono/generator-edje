@@ -1,23 +1,26 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-  {% do action("woocommerce_before_main_content") %}
+<section class="shop-title">
+  <h-row><h-column class="large-8 centered">
+    <h1>{{ title }}</h1>
+    {{ content }}
+  </h-column></h-row>
+</section>
 
-  <section class="shop-before">
-    {% do action("woocommerce_before_shop_loop") %}
-  </section>
+<h-row><h-column class="large-12">
+  {% do action("woocommerce_before_main_content") %}
+  {% do action("woocommerce_before_shop_loop") %}
+
 
   <section class="shop-content">
-    <ul class="tile-2">
-    {% for post in posts %}
-      {% include "woo/_tease.twig" %}
-    {% endfor %}
-    </ul>
+    {% include "woo/_products.twig" with { products: posts } %}
   </section>
 
-  <section class="shop-after">
-    {% do action("woocommerce_after_shop_loop") %}
-    {% do action("woocommerce_after_main_content") %}
-  </section>
+
+  {% do action("woocommerce_after_shop_loop") %}
+  {% do action("woocommerce_after_main_content") %}
+
+</h-column></h-row>
 
 {% endblock %}

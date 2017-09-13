@@ -5,6 +5,10 @@
 
   <header>
     <h1>{{ post.title }}</h1>
+
+    {% if fn('function_exists', 'jetpack_breadcrumbs') %}
+      {{ fn('jetpack_breadcrumbs') }}
+    {% endif %}
   </header>
 
   <section>

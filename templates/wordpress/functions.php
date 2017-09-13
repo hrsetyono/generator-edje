@@ -21,8 +21,9 @@ function my_init() {
   // H::remove_menu(array('Comments', 'Media') );
 
   // Create Menu position checkbox
-  register_nav_menu('top-menu', 'Top Menu');
+  register_nav_menu('main-menu', 'Main Menu');
   register_nav_menu('blog-menu', 'Blog Menu');
+  register_nav_menu('social-menu', 'Social Menu');
 
   // Allow EDTIOR to edit Theme and Menu
   $role_object = get_role('editor');
@@ -80,12 +81,6 @@ function my_theme_support() {
 function my_enqueue_script() {
   $css_dir = get_template_directory_uri() . '/assets/css';
   $js_dir = get_template_directory_uri() . '/assets/js';
-
-  // // enqueue jQuery at footer, some plugins may not work correctly if you decomment this
-  // wp_deregister_script('jquery');
-  // wp_deregister_script('jquery-migrate');
-  // wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.js'), false, false, true);
-  // wp_enqueue_script('jquery-migrate', includes_url('/js/jquery/jquery-migrate.min.js'), array('jquery'), false, true);
 
   // Stylesheet
   wp_enqueue_style('my-framework', $css_dir . '/framework.css');

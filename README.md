@@ -33,6 +33,6 @@ The Sass files in our template are compiled using [Edje](https://github.com/hrse
 
 ## Opening Terminal inside Directory
 
-**Windows**: SHIFT + Right-click the directory > Open command here.
+**Windows**: Go inside that directory and type "cmd" in the Address bar.
 
 **Mac**: System Preferences > Keyboard > Shortcuts > Services. Find "New Terminal at Folder" and tick the box. Now whenever you right-click a directory, it will have that option.
