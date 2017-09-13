@@ -7,7 +7,6 @@ $(window).load(startOnLoad);
 
 function start() {
   app.init();
-  woo.init();
 
   animateOnScroll.init();
   responsiveTable.init();
@@ -47,11 +46,9 @@ var app = {
 
   // Toggle Search field
   searchMenu: function() {
-    $('#search-toggle').on('click', toggle);
+    $('.search-toggle').on('click', toggle);
 
     function toggle(e) {
-      e.preventDefault();
-
       var $form = $(this).closest('form');
       $form.toggleClass('search-active');
     }
@@ -184,31 +181,6 @@ var animateOnScroll = {
   },
 }
 
-
-// ----- WOOCOMMERCE -----
-
-var woo = {
-  init: function() {
-    this.cartMenu();
-  },
-
-  // Toggle Cart dialog menu
-  cartMenu: function() {
-    if($('.cart-dialog').length == 0) { return false; }
-
-    $('#menu-cart').on('click', toggle);
-    $('.cart-dialog').on('click', preventClose);
-    $(document).on('click', close);
-
-    function toggle(e) {
-      e.stopPropagation();
-      $('.cart-dialog').toggleClass('cart-active');
-    }
-
-    function preventClose(e) { e.stopPropagation(); }
-    function close(e) { $('.cart-dialog').removeClass('cart-active'); }
-  }
-}
 
 // Browser compatibility, leave this untouched
 if('registerElement' in document) { document.createElement('h-row'); document.createElement('h-column'); }

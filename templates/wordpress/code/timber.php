@@ -50,7 +50,9 @@ class TimberH extends TimberSite {
     @filter timber_context
   */
   function add_to_context($context) {
-    $context['menu'] = new TimberMenu('top-menu');
+    $context['menu'] = new TimberMenu('main-menu');
+    $context['social_menu'] = new TimberMenu('social-menu');
+
     $context['site'] = $this;
     $context['home_url'] = home_url();
     $context['sidebar'] = Timber::get_widgets('my-sidebar');

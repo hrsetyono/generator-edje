@@ -2,37 +2,17 @@
 @import "setting";
 @import "edje-framework";
 
-// @import "fancybox";
-// @import "slick";
-// @import "woo";
+@import "fancybox";
+@import "slick";
+// @import "woo"; // enable if woocommerce template
 @import "blog";
 
 ///// FONT /////
 
-@include font-faces($font-family-icon, (
-  ("material-icons.woff", 400),
-));
-
-// Usage: <i class="icon">icon_name</icon>
-//   http://google.github.io/material-design-icons/
-.icon {
-  display: inline-block;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1.25em;
-
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-
-  -moz-osx-font-smoothing: grayscale;
-  @include icon;
-}
+// @include font-faces("Font Name", (
+//   ("font-file.woff", 400),
+//   ("font-file-bold.woff", 700),
+// ));
 
 ///// BUTTON /////
 
@@ -294,13 +274,25 @@ body.menu-active {
 }
 
 .search-form {
+  display: -webkit-flex;
   display: flex;
   position: relative;
   z-index: z(menu);
   height: 100%;
 
-  input, #search-toggle {
+  input, .search-toggle {
     height: 100%;
+  }
+
+  .search-toggle {
+    cursor: pointer;
+    padding: 5px;
+    transition: $g-transition;
+
+    &:hover {
+      background-color: $color-main-light;
+      color: white;
+    }
   }
 
   input {
@@ -311,7 +303,6 @@ body.menu-active {
     padding: 5px 10px;
     width: 200px;
 
-    transition: $g-transition;
     border-radius: $g-radius 0 0 $g-radius;
     @include transform(translateX(-100%) );
   }
@@ -322,9 +313,9 @@ body.menu-active {
       opacity: 1;
     }
 
-    #search-toggle {
+    .search-toggle {
       background-color: $color-main-dark;
-      border-radius: 0 $g-radius $g-radius 0;
+      color: white;
     }
   }
 }

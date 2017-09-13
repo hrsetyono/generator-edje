@@ -7,18 +7,10 @@ new My_Filter();
 
 class My_Shortcode {
   function __construct() {
-    add_shortcode('icon', array($this, 'icon') );
     add_shortcode('button', array($this, 'button') );
-  }
 
-  /*
-    Create a ligature icon powered by Material Icons
-    Get the name list here: https://design.google.com/icons/
-
-    [icon] name [/icon]
-  */
-  function icon($attr, $content = null) {
-    return '<i class="icon">' . $content . '</i>';
+    add_shortcode('row', array($this, 'row') );
+    add_shortcode('column', array($this, 'column') );
   }
 
   /*
@@ -38,6 +30,28 @@ class My_Shortcode {
 
     // return wpautop($content);
     return wpautop($content);
+  }
+
+  /*
+    Wrap the content with Edje Row syntax, used together with [column] shortcode.
+    - Don't add line spacing between shortcode to avoid the <h-row> getting wrapped with <p>. See example below.
+
+    [row][column size="8"]
+      Content
+    [/column][column size="4"]
+      Content
+    [/column][/row]
+  */
+  function row($atts, $content = null) {
+    return '<h-row>' . do_shortcode($content) . '</h-row>';
+  }
+
+  function column($atts, $content = null) {
+    $a = shortcode_atts( array(
+      'size' => '12', // default is 12
+    ), $atts);
+
+    return '<h-column class="column-shortcode large-' . $a['size'] . '">' . do_shortcode($content) . '</h-column>';
   }
 }
 

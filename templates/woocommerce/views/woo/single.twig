@@ -2,28 +2,41 @@
 {% block content %}
   {{ fn('the_post') }}
 
-  {% do action("woocommerce_before_single_product") %}
-
-  <article class="{{ post.class }}" itemscope itemtype="http://schema.org/Product">
+<h-row><h-column class="large-12">
+  <section class="{{ post.class }}">
+    {% do action("woocommerce_before_single_product") %}
     <h-row>
       {# THUMBNAIL and GALLERY #}
-      <h-column class="large-6">
-        <figure>
+      <h-column class="large-5">
+        <figure class="product-figure">
           {% do action("woocommerce_before_single_product_summary") %}
         </figure>
       </h-column>
 
       {# DESCRIPTION and BUY BUTTON #}
-      <h-column class="large-6">
-        {% do action("woocommerce_single_product_summary") %}
+      <h-column class="large-7">
+        <article>
+          <h2>{{ post.title }}</h2>
 
-        {% do action("woocommerce_after_single_product_summary") %}
+          {% if post._price > 0 %}
+            {% do action("my_template_single_buy") %}
+          {% endif %}
+
+          {% do action("woocommerce_single_product_summary") %}
+          {% do action("woocommerce_after_single_product_summary") %}
+        </article>
       </h-column>
     </h-row>
-
-    <meta itemprop="url" content="{{ post.link }}">
-  </article>
+  </section>
 
   {% do action("woocommerce_after_single_product") %}
+
+  {# RELATED #}
+  <section class="related-products">
+    <h2>Related Products</h2>
+    {% do action("output_related_products") %}
+  </section>
+
+</h-column></h-row>
 
 {% endblock %}
