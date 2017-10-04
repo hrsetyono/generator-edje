@@ -9,9 +9,10 @@
 
 ///// FONT /////
 
-// @include font-faces("Font Name", (
-//   ("font-file.woff", 400),
-//   ("font-file-bold.woff", 700),
+// @include font-faces('Font name', (
+//   ('myfont.woff', 400, normal),
+//   ('myfont-bold.woff', 700, normal),
+//   ('myfont-italic.woff', 400, italic)
 // ));
 
 ///// BUTTON /////
