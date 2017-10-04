@@ -10,30 +10,11 @@
 
 ///// FONT /////
 
-@include font-faces($font-family-icon, (
-  ("material-icons.woff", 400),
-));
-
-// Usage: <i class="icon">icon_name</icon>
-//   http://google.github.io/material-design-icons/
-.icon {
-  display: inline-block;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1.25em;
-
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-
-  -moz-osx-font-smoothing: grayscale;
-  @include icon;
-}
+// @include font-faces('Font name', (
+//   ('myfont.woff', 400, normal),
+//   ('myfont-bold.woff', 700, normal),
+//   ('myfont-italic.woff', 400, italic)
+// ));
 
 ///// BUTTON /////
 

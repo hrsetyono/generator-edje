@@ -5,7 +5,6 @@ $version: 1.0;
 // ----- FONT -----
 $font-family : Helvetica, Arial, "sans-serif";
 $font-family-header : Helvetica, Arial, "sans-serif";
-$font-family-icon : "Material Icons";
 
 // ----- COLORS -----
 $color-main : #2196f3;
@@ -117,12 +116,5 @@ $include-animate: true;
 
 
 // ----- CUSTOM MIXIN -----
-
-@mixin icon($ff: $font-family-icon) {
-  font-family: $ff;
-  font-feature-settings: "liga";
-  vertical-align: text-bottom;
-  line-height: 1;
-}
 
 @mixin your-custom-mixin() { }

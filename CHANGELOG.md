@@ -1,3 +1,8 @@
+## 0.4.1
+
+- [Wordpress] Updated installation to 4.8.2
+- [WooCommerce] updated Woocommerce Edje 1.1.4a
+
 ## 0.4.0
 
 - [Wordpress] Simplified code and more integration with Jetpack.

@@ -102,7 +102,7 @@
         // if woocommerce, add extra
         if(self.template === 'woocommerce') {
           self._copy('woocommerce', dest);
-          plugins = plugins.concat(['edje-woo', 'woocommerce']);
+          plugins = plugins.concat(['woocommerce-edje', 'woocommerce']);
         }
 
         self._addPlugins(plugins); // plugins
