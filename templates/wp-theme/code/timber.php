@@ -1,12 +1,11 @@
 <?php
 ///// TIMBER Global setting /////
 
-class TimberH extends TimberSite {
+class MyTimber extends TimberSite {
 
   function __construct(){
     add_filter( 'timber_context', array( $this, 'add_to_context' ) );
     add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
-
     parent::__construct();
   }
 
@@ -15,6 +14,9 @@ class TimberH extends TimberSite {
     @filter timber_context
   */
   function add_to_context( $context ) {
+    global $woocommerce;
+    $context['woo'] = $woocommerce;
+
     $context['nav'] = new TimberMenu( 'main-nav' );
     $context['social_nav'] = new TimberMenu( 'social-nav' );
 
@@ -34,7 +36,7 @@ class TimberH extends TimberSite {
       $context['categories'] = is_null( $context['blog_menu'] ) ? Timber::get_terms('category', array('parent' => 0)) : null;
     }
 
-    // if there's option page
+    // if ACF installed
     if(function_exists( 'acf_add_options_page' )) {
       $context['options'] = get_fields( 'options' );
     }
@@ -49,10 +51,8 @@ class TimberH extends TimberSite {
   function add_to_twig( $twig ) {
     $twig->addExtension( new Twig_Extension_StringLoader() );
 
-    /*
-      Custom filter sample
-      Usage: {{ post.content | my_filter }}
-    */
+    // Custom filter sample
+    // Usage: {{ post.content | my_filter }}
     $twig->addFilter('my_filter', new Twig_Filter_Function(function( $text ) {
       return $text;
     }) );

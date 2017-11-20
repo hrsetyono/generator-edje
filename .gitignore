@@ -7,6 +7,14 @@ templates/wc-theme/assets/sass/_setting.scss
 templates/wc-theme/assets/sass/framework.scss
 templates/wc-theme/assets/js
 
+templates/wp-theme/assets/css/
+templates/wp-theme/assets/sass/
+templates/wp-theme/assets/images/
+templates/wp-theme/assets/js
+templates/wp-theme/style.css
+templates/wp-theme/404.php
+templates/wp-theme/package.json
+
 # Others
 sql/
 *.Cache

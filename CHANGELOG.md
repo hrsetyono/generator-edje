@@ -2,7 +2,6 @@
 
 - [WP] Reworked theme files to be simpler.
 - [Woo] Reworked theme files to be simpler.
-- ...
 
 ## 0.4.1
 
