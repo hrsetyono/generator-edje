@@ -1,0 +1,44 @@
+{# Use Jetpack RelatedPost if installed #}
+{% if fn('class_exists', 'Jetpack_RelatedPosts') %}
+  {% filter shortcodes %} [jetpack-related-posts] {% endfilter %}
+
+{# Else, create Next / Prev links #}
+{% elseif post.prev or post.next %}
+  <div id="jp-relatedposts" class="jp-relatedposts jp-next-prev">
+    <h3 class="jp-relatedposts-headline"><em>You May Like</em></h3>
+    <div class="jp-relatedposts-items jp-relatedposts-items-visual">
+      {% if post.prev %}
+        {{ _self.post_thumb(post.prev, post) }}
+      {% endif %}
+
+      {% if post.next %}
+        {{ _self.post_thumb(post.next, post) }}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+
+{# ///// #}
+
+
+{# Post Thumb macro #}
+{% macro post_thumb(np, current_post) %}
+<div class="jp-relatedposts-post {% if not np.thumbnail %} jp-relatedposts-nothumb {% endif %}" data-post-id="{{ np.id }}" data-post-format="false">
+
+  {% if np.thumbnail %}
+    <a class="jp-relatedposts-post-a" href="{{ np.link }}" rel="nofollow" data-origin="{{ current_post.id }}">
+      <img class="jp-relatedposts-post-img" src="{{ np.thumbnail.src('medium') }}" alt="{{ np.title }}">
+    </a>
+  {% endif %}
+
+  <h4 class="jp-relatedposts-post-title">
+    <a class="jp-relatedposts-post-a" href="{{ np.link }}" rel="nofollow" data-origin="{{ current_post.id }}">{{ np.title }}</a>
+  </h4>
+  <p class="jp-relatedposts-post-date">{{ np.post_date | date }}</p>
+
+  {% if not np.thumbnail %}
+    <p class="jp-relatedposts-nothumb-excerpt">{{ np.get_preview(12) }}</p>
+  {% endif %}
+</div>
+{% endmacro %}

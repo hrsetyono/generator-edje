@@ -1,0 +1,77 @@
+{# CART DIALOG #}
+<div class="menu-item" id="menu-cart">
+  {# toggle #}
+  {% if woo.cart.is_empty %}
+    <a id="cart-toggle">
+      <span>Cart</span>
+      <i class="material-icons">shopping_basket</i>
+    </a>
+
+  {% else %}
+    <a id="cart-toggle">
+      <span>Cart</span> ({{ woo.cart.get_cart_contents_count }})
+      <i class="material-icons">shopping_basket</i>
+    </a>
+  {% endif %}
+
+  {# dialog #}
+  <div class="cart-dialog {% if woo.cart.is_empty %} cart-is-empty {% endif %}">
+    <h3 class="cart-title">Your Cart</h3>
+
+    {% if woo.cart.is_empty %}
+      <div class="cart-tagline">
+        <p>Cart is Empty.</p>
+        <a href="/products/" class="button">Shop Now</a>
+      </div>
+    {% else %}
+      <div class="cart-items-wrapper">
+        <table class="cart-items">
+          {% for key, item in woo.cart.cart_contents %}
+            <tr>
+              <td class="remove-col">
+                <a href="{{ woo.cart.get_remove_url(key) }}" title="Remove this Item">
+                  <strong>×</strong>
+                </a>
+              </td>
+              <td class="image-col">
+                {{ item.data.get_image("thumbnail") }}
+              </td>
+              <td class="name-col">
+                <strong><a href="{{ item.data.get_permalink }}">{{ item.data.get_title }}</a></strong> <br>
+                {{ woo.cart.get_item_data(item) }}
+              </td>
+              <td class="price-col">
+                <strong>{{ fn("wc_price", item.line_total) }}</strong> <br>
+                Qty: {{ item.quantity }}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <div class="cart-actions">
+        <p>
+          <strong>Total: </strong> {{ woo.cart.get_cart_total }}
+        </p>
+        <a href="{{ woo.cart.get_checkout_url }}" class="button">Continue Payment</a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{# SEARCH #}
+<form class="menu-item search-form" method="get" action="{{ home_url }}">
+  <input type="search" name="s" placeholder="Search">
+
+  <button id="search-toggle">
+    <i class="icon">search</i>
+  </button>
+</form>
+
+{# SOCIAL #}
+<div class="menu-item">
+  <a href="">
+    <i class="icon">facebook_box</i>
+  </a>
+</div>

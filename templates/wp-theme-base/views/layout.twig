@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }}>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ wp_title }}</title>
+  <meta name="theme-color" content=""> {# Use Hex Color #}
+
+  {{ wp_head }}
+</head>
+
+<body class="{{ body_class }}">
+
+<div id="main-wrapper">
+  {# MAIN MENU #}
+  <section class="main-menu">
+    <h-row><h-column class="menu-col">
+      <div class="main-logo">
+        {{ fn('the_custom_logo') }}
+      </div>
+
+      <div id="menu-toggle" class="menu-item menu-toggle">
+        <a> <i class="icon">menu</i> <span>Menu</span> </a>
+      </div>
+
+      <nav class="menu-wrapper">
+      {% for item in menu.items %}
+        <div class="{{ item.classes | join(' ') }}">
+          <a href="{{ item.url }}">
+            {{ item.title }}
+          </a>
+
+          {# child menu #}
+          {% if item.children %}
+            <div class="child-menu">
+              {% for child in item.children %}
+                <a href="{{ child.url }}">{{ child.title }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+      </nav>
+
+      {# Extra Menu, aligned to the right #}
+      <div class="menu-extra">
+        <form class="menu-item search-form" method="get" action="{{ home_url }}">
+          <input id="search" type="search" name="s" placeholder="Search">
+          <label for="search" class="search-toggle"> <i class="icon">search</i> </label>
+        </form>
+      </div>
+
+    </h-column></h-row>
+  </section>
+
+
+  {# MAIN CONTENT #}
+  {% block content %}{% endblock %}
+
+
+  {# Use mixin `@sticky-footer($height-px)` to push the footer when content is not high enough #}
+  <div id="footer-push"></div>
+</div>
+
+<footer class="main-footer" id="main-footer">
+
+  <h-row>
+    <h-column class="large-6">
+      {{ site.name }} &copy; {{ "now" | date("Y") }}
+    </h-column>
+    <h-column class="large-6">
+
+
+      {# List of logos: https://gist.github.com/hrsetyono/ad5cb59ac0dd6b3dbe42130a9ebb8104 #}
+      <div class="footer-social">
+        {% for item in social_menu.items %}
+          <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
+        {% endfor %}
+      </div>
+    </h-column>
+  </h-row>
+
+</footer>
+
+{{ wp_footer }}
+
+</body>
+</html>

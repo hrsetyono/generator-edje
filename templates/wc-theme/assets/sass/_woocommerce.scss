@@ -1,0 +1,255 @@
+/* ------------
+  WOOCOMMERCE
+------------ */
+
+.woocommerce-pagination {
+  margin: 2em 0;
+
+  ul {
+    border: none;
+    list-style-type: none;
+    text-align: center;
+  }
+
+  ul li {
+    display: inline-block;
+    border-right: none;
+    vertical-align: middle;
+  }
+
+  span, a {
+    display: inline-block;
+    line-height: 2em;
+    width: 1.5em;
+  }
+
+  a.next,
+  a.prev {
+    width: 2.25em;
+    border: 1px solid $color-main;
+    border-radius: $g-radius;
+    color: $color-main;
+    line-height: 2em;
+
+    &:hover,
+    &:focus {
+      background-color: rgba($color-main, .1);
+    }
+
+    &:active {
+      box-shadow: inset 0 0 0 2px rgba($color-main, .3);
+    }
+  }
+}
+
+.woocommerce .woocommerce-breadcrumb {
+  margin: 1.5em 0;
+  color: $font-color;
+
+  a { font-weight: 700; color: $color-link; }
+  a:hover { color: lighten($color-link, 20%); }
+}
+
+///// TOAST /////
+
+.woocommerce-info,
+.woocommerce-message {
+  background-color: white;
+
+  box-shadow: $shadow-z0;
+}
+
+.woocommerce-info {
+  border-top-color: $color-blue;
+
+  &::before { color: $color-blue; }
+
+  // so it looks merged with coupon form
+  .woocommerce-checkout & {
+    margin-bottom: 0 !important;
+  }
+
+  a {
+    color: $color-blue;
+
+    &:hover { color: lighten($color-blue, 10%); }
+  }
+}
+
+.woocommerce-message {
+  border-top-color: $color-green;
+
+  &::before { color: $color-green; }
+
+  a.button {
+    border-color: $color-green;
+    color: $color-green;
+
+    &:hover { background-color: $color-green; color: white; }
+  }
+}
+
+.woocommerce-error {
+  border-top-color: $color-red;
+  color: $color-red;
+}
+
+///// PRODUCT /////
+
+.woocommerce-main-image {
+  display: block;
+  margin-bottom: 10px;
+  pointer-events: none;
+}
+
+.thumbnails {
+  margin: 0 -5px;
+  @include clearfix;
+
+  a {
+    display: block;
+    float: left;
+    width: 25%;
+    padding: 0 5px;
+
+    &:nth-child(4n+1) {
+      clear: both;
+    }
+  }
+
+  img {
+    transition: $g-transition;
+    border-radius: $g-radius;
+  }
+
+  .active img {
+    box-shadow: 0 0 0 2px $color-main;
+  }
+}
+
+.price {
+  color: $color-red;
+  font-weight: 700;
+}
+
+button.single_add_to_cart_button {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+///// CART DIALOG /////
+
+[data-nav-dialog="cart-dialog"] {
+  b {
+    display: inline-block;
+    background-color: $color-red;
+    min-width: 1.25rem;
+    line-height: 1.25rem;
+
+    font-size: 0.875rem;
+    color: white;
+    text-align: center;
+
+    border-radius: 1rem;
+    @include animation(bounce 2s infinite);
+  }
+}
+
+.cart-dialog {
+  background-color: $color-passive;
+
+  h3 {
+    padding: 0.5rem 0 0.75rem;
+    font-size: 0.87rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+
+  .woocommerce-Price-currencySymbol {
+    color: $font-color-passive;
+  }
+}
+
+
+// Table on Cart Dialog
+
+.cart-dialog-table {
+  background-color: white;
+  text-align: left;
+
+  td {
+    padding: 0.5rem;
+    line-height: 1.5;
+  }
+
+  td:first-child {
+    width: 30%;
+  }
+
+  tr {
+    border-bottom: 2px solid $color-passive;
+  }
+
+  figure {
+    position: relative;
+  }
+}
+
+// Remove item button on Cart dialog
+
+.cart-dialog-remove {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+
+  &::before {
+    content: "\00d7";
+    display: inline-block;
+    background-color: $color-red;
+    opacity: .5;
+
+    color: white;
+    width: 1rem;
+    padding-bottom: 0.1rem;
+    line-height: 0.9rem;
+    font-size: 1.25rem;
+    text-align: center;
+
+    border-radius: 50%;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// Cart Total
+
+.cart-dialog-total {
+  padding: 0.5rem 0;
+  text-align: center;
+
+  p {
+    font-size: 1.125rem;
+  }
+
+  .button {
+    margin-top: 0.5rem;
+  }
+}
+
+
+// Empty Cart
+
+.cart-dialog-empty {
+  padding: 1.5rem 1.5rem 4rem;
+  text-align: center;
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}

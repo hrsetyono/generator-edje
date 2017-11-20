@@ -7,7 +7,7 @@ $font-family : Helvetica, Arial, "sans-serif";
 $font-family-header : Helvetica, Arial, "sans-serif";
 
 // ----- COLORS -----
-$color-main : #2196f3;
+$color-main : #00aadc;
 $color-sub  : #607d8b;
 
 // $color-main-dark : darken($color-main, 10%);
@@ -17,13 +17,36 @@ $color-link : $color-main;
 // $color-link-hover : lighten($color-main, 10%);
 
 // $color-passive : #e0e0e0;
-// $color-red : #f44336;
+// $color-red : #f45b4f;
 // $color-yellow : #ffeb3b;
 // $color-green : #4caf50;
 // $color-blue: #2196f3;
 
 // $body-background: #fff;
 // $text-highlight: null;
+
+// Colors for Jetpack Shared and Social Nav
+$social-colors: (
+  twitter: #28a9e0,
+  twitter-alt: #28a9e0,
+  facebook: #3b5998,
+  google-plus-1: #dd4b39,
+  google-plus: #dd4b39,
+  google-plus-alt: #dd4b39,
+
+  pinterest: #bd081c,
+  pinterest-alt: #bd081c,
+  jetpack-whatsapp: #25d366,
+  whatsapp: #25d366,
+
+  skype: #0bbff2,
+  pocket: #ed4054,
+  linkedin: #0077b5,
+  reddit: #f54b00,
+  tumblr: #324f6d,
+  telegram: #34abe3,
+  custom-line: #03c302,
+);
 
 
 // ----- SIZING -----
@@ -38,16 +61,15 @@ $color-link : $color-main;
 // $adaptive-breakpoints : large, medium, small, mini;
 
 // ----- Z INDEX -----
-// .sample-usage { z-index: z(menu); }
+// .sample-usage { z-index: z(nav); }
 
 $z-indexes: (
-  menu: 1010,
-  child_menu: 1020,
-  banner: 1000
+  nav: 1010,
+  child_nav: 1020,
 );
 
 // ----- GLOBAL VALUE -----
-// $g-radius     : 2px;
+$g-radius     : 2px;
 // $g-transition : all .25s ease-in-out;
 
 
@@ -63,13 +85,14 @@ $z-indexes: (
 
 
 // ----- TYPOGRAPHY -----
-// $font-color  : #222;
+$font-color  : #222;
 // $font-color-passive : #888;
 
 // $font-weight : 400;
 // $font-line : 1.65;
 $font-size : 16px;
 $font-size-small : 14px;
+
 
 // ----- HEADER -----
 // $header-color  : $font-color;
@@ -78,7 +101,7 @@ $font-size-small : 14px;
 // $header-spacing : 0;
 // $header-transform : none;
 
-$h1 : 42px;
+$h1 : 44px;
 $h2 : 36px;
 $h3 : 30px;
 $h4 : 24px;
@@ -107,9 +130,6 @@ $h6 : $font-size;
 // $include-print  : true;
 // $override-color : true;   // Override all text color to #000 black
 
-
-// ----- ANIMATION -----
-$include-animate: true;
 
 // ----- TEXT DIRECTION -----
 // $text-direction   : ltr;  // Global text direction, 'rtl' or 'ltr'

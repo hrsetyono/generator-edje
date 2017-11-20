@@ -1,3 +1,9 @@
+## 0.5.0
+
+- [WP] Reworked theme files to be simpler.
+- [Woo] Reworked theme files to be simpler.
+- ...
+
 ## 0.4.1
 
 - [Wordpress] Updated installation to 4.8.2

@@ -1,54 +1,57 @@
 (function() {
   'use strict';
 
-  var generators = require('yeoman-generator');
-  var path = require('path');
-  var fs = require('fs');
-  var adm_zip = require('adm-zip');
+  var generators = require( 'yeoman-generator' );
+  var path = require( 'path' );
+  var fs = require( 'fs' );
+  var adm_zip = require( 'adm-zip' );
+
+  var templateChoices = [
+    { name: 'HTML', value: 'html', },
+    { name: 'WordPress', value: 'wordpress', },
+    { name: 'WooCommerce', value: 'woocommerce', },
+    { name: 'Email', value: 'email' }
+  ];
 
   module.exports = generators.Base.extend({
-    constructor: function () {
-      generators.Base.apply(this, arguments); // super()
 
-      this.argument('template', { type: String, required: false });
+    constructor: function () {
+      generators.Base.apply( this, arguments ); // super()
+
+      this.argument( 'template', { type: String, required: false } );
       this.template = this.template;
-      this.appname = this.appname.toLowerCase().replace(' ', '-');
+      this.appname = this.appname.toLowerCase().replace( ' ', '-' );
     },
+
 
     paths: function() {
-      this.sourceRoot(path.join(__dirname, '../templates') );
+      this.sourceRoot( path.join(__dirname, '../templates') );
     },
+
 
     /*
       Prompt question to get missing template and project's name
     */
     prompting: function() {
       var self = this;
-      var availableTpl = [
-        { name: 'HTML', value: 'html' },
-        { name: 'WordPress', value: 'wordpress' },
-        { name: 'WooCommerce', value: 'woocommerce' },
-        { name: 'Email', value: 'email' }
-      ];
 
-      var askTpl = {
+      var promptArgs = {
         type: 'list',
         name: 'template',
         message: 'Choose your project type:',
-        choices: availableTpl,
-        when: isArgInvalid
+        choices: templateChoices,
+        when: _isAnswerInvalid
       };
 
       // prompt the question
-      return self.prompt(askTpl).then(afterAsk);
+      return self.prompt( promptArgs ).then( _afterAsk );
 
       /////
 
-      // check if CLI arg is invalid
-      function isArgInvalid(answer) {
-        // if template found, don't prompt question
-        for(var i in availableTpl) {
-          if(availableTpl[i].value === self.template) {
+      // Ask question again if answer not one of available templates
+      function _isAnswerInvalid( answer ) {
+        for( var i in templateChoices ) {
+          if( templateChoices[i].value === answer.template ) {
             return false;
           }
         }
@@ -56,10 +59,11 @@
         return true;
       }
 
-      // assign answer to the class value
-      function afterAsk(answer) {
+      // Assign answer to the class value
+      function _afterAsk( answer ) {
         self.template = answer.template || self.template;
       }
+
     },
 
     /*
@@ -67,46 +71,74 @@
     */
     writing: function() {
       var self = this;
-      // this.log(self.sourceRoot('new/path') );
-      var destinationName = self.destinationRoot().split(path.sep).pop();
+      var destinationName = self.destinationRoot().split( path.sep ).pop();
 
-      switch(self.template) {
+      var themeDest = 'wp-content/themes/' + self.appname;
+      var pluginDest = 'wp-content/plugins/';
+
+      var plugins = ['edje-wp', 'timber-library'];
+      if( self.template === 'woocommerce' ) {
+        plugins.concat( ['woocommerce-edje', 'woocommerce'] )
+      }
+
+      switch( self.template ) {
         case 'wordpress':
         case 'woocommerce':
-          self.log('Downloading WordPress...');
+          self.log( 'Downloading WordPress...' );
 
           // copy installation file
-          self._copy('wordpress-src/wordpress.zip', 'wordpress.zip');
-          self.fs.commit([], afterWpCopy.bind(self) );
+          self._copy( 'wordpress-src/wordpress.zip', 'wordpress.zip' );
+          self.fs.commit( [], copyTheme );
           break;
 
         case 'email':
-          self._copy(self.template);
+          self._copy( self.template );
           break;
 
         default:
-          self._copy('base');
-          self._copy(self.template);
+          self._copy( 'base' );
+          self._copy( self.template );
       }
 
-      function afterWpCopy() {
-        self._unzip('wordpress.zip'); // unzip install file
 
-        var dest = 'wp-content/themes/' + self.appname;
+      // Copy theme files after installing WP
+      function copyTheme() {
+        self._unzip( 'wordpress.zip' );
 
         // setup theme and plugins
-        self._copy('base', dest);
-        self._copy('wordpress', dest);
-        var plugins = ['edje-wp', 'timber-library'];
+        self._copy( 'base', themeDest );
+        self._copy( 'wp-theme-base', themeDest );
+        self._copy( 'wp-theme', themeDest );
 
         // if woocommerce, add extra
-        if(self.template === 'woocommerce') {
-          self._copy('woocommerce', dest);
-          plugins = plugins.concat(['woocommerce-edje', 'woocommerce']);
+        if( self.template === 'woocommerce' ) {
+          self._copy( 'wc-theme', themeDest );
+
         }
 
-        self._addPlugins(plugins); // plugins
+        copyPlugins();
       }
+
+      // Copy plugin files
+      function copyPlugins() {
+        for( var i in plugins ) {
+          var p = plugins[i] + '.zip';
+          self._copy( 'wordpress-plugins/' + p, pluginDest + p);
+        }
+
+        self.fs.commit([], extractPlugins );
+      }
+
+      // Extract plugin files
+      function extractPlugins() {
+        self.log('Extracting plugins...');
+
+        for( var i in plugins ) {
+          var source = pluginDest + plugins[i] + '.zip';
+          self._unzip( source, pluginDest );
+        }
+      }
+
     },
 
     /*
@@ -140,35 +172,6 @@
       zip.extractAllTo(dest, true);
       fs.unlink(file, function() { } );
     },
-
-    /*
-      Add plugins to WP directory
-
-      @param names (mix) - String or array of plugin names.
-    */
-    _addPlugins: function(names) {
-      var self = this;
-      var dest = 'wp-content/plugins/';
-
-      // if not array, wrap it in array format
-      names = (Object.prototype.toString.call(names) === '[object Array]') ? names : [names];
-
-      for(var n in names) {
-        var name = names[n] + '.zip';
-        self._copy('wordpress-plugins/' + name, dest + name);
-      }
-
-      self.fs.commit([], afterCopy.bind(self) );
-
-      function afterCopy() {
-        self.log('Extracting plugins...');
-
-        for(var n in names) {
-          var source = dest + names[n] + '.zip';
-          self._unzip(source, dest);
-        }
-      }
-    }
 
 
   });

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }}>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ wp_title }}</title>
+  <meta name="theme-color" content=""> {# Use Hex Color #}
+
+  {{ wp_head }}
+</head>
+
+<body class="{{ body_class }}">
+
+<div id="main-wrapper">
+
+{# MAIN NAV #}
+{% block nav %}
+<section class="main-nav">
+<h-row><h-column class="nav-col">
+
+  <div class="main-logo">
+    {{ fn('the_custom_logo') }}
+
+    <div class="mobile-logo">
+      <img src="{{ fn( 'get_theme_mod', 'logo_mobile' ) }}">
+    </div>
+  </div>
+
+  <div id="nav-toggle" class="menu-item nav-toggle">
+    <i class="dashicons-before"></i> <b>Menu</b>
+  </div>
+
+  <nav class="nav-wrapper">
+  {% for item in nav.items %}
+    <div class="{{ item.classes | join(' ') }}">
+      <a href="{{ item.url }}"> {{ item.title }} </a>
+
+      {# child menu #}
+      {% if item.children %}
+        <div class="nav-children">
+          {% for child in item.children %}
+            <a href="{{ child.url }}">{{ child.title }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </nav>
+
+
+  <div class="nav-extra">
+    {% include "woo/_cart-nav.twig" %}
+
+    <form class="menu-item search-form" method="get" action="{{ home_url }}">
+      <input id="search" type="search" name="s" placeholder="Search">
+      <label for="search" class="search-toggle"> <i class="dashicons-before dashicons-search"></i> </label>
+    </form>
+  </div>
+
+</h-column></h-row>
+</section>
+{% endblock %}
+
+  {# MAIN CONTENT #}
+  {% block content %}{% endblock %}
+
+  {# Use mixin `@sticky-footer($height-px)` to push the footer when content is not high enough #}
+  <div id="footer-push"></div>
+</div>
+
+{# MAIN FOOTER #}
+{% block footer %}
+<footer class="main-footer">
+<h-row>
+  <h-column class="large-12">
+
+    <nav class="footer-nav">
+      {% for item in nav.items %}
+        <a href="{{ item.link }}">{{ item.title }}</a>
+      {% endfor %}
+    </nav>
+
+  </h-column>
+</h-row>
+
+<h-row>
+  <h-column class="large-8">
+
+    <div class="footer-legal">
+      &copy; {{ "now" | date("Y") }} {{ site.name }}
+
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+
+  </h-column>
+  <h-column class="large-4">
+
+    {# https://github.com/hrsetyono/generator-edje/wiki/(Jetpack)-Social-Menu #}
+    <div class="footer-social">
+      {% for item in social_nav.items %}
+        <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
+      {% endfor %}
+    </div>
+
+  </h-column>
+</h-row>
+</footer>
+{% endblock %}
+
+{{ wp_footer }}
+
+</body>
+</html>

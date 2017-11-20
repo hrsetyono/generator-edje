@@ -1,0 +1,52 @@
+{% if post.comment_status != "closed" %}
+<section class="post-comments">
+
+  {% if post.comment_count %}
+    <h4>{{ post.comment_count }} comments</h4>
+  {% endif %}
+
+  {# Form #}
+  {{ post.comment_form }}
+
+  {# Comments #}
+  <ul class="comments-list">
+    {% for c in post.comments %}
+      <li> {{ _self.comment(c, post) }} </li>
+    {% endfor %}
+  </ul>
+
+</section>
+{% endif %} {# if open #}
+
+
+{# ///// #}
+
+
+{% macro comment(c, post) %}
+
+  <article id="comment-{{ c.id }}"
+    class="comment depth-{{ c.depth }} {{ post.post_author == c.user_id ? 'bypostauthor' : '' }}">
+    <header>
+      <img class="comment-avatar" src="{{ c.avatar }}"
+        title="{{ post.post_author == c.user_id ? 'Author of this Post' : '' }}">
+      <b>{{ c.author.name }}</b>
+      <time>{{ c.comment_date_gmt | time_ago }}</time>
+    </header>
+
+    {{ c.comment_content | wpautop }}
+
+    {% if fn('get_option', 'thread_comments') and fn('get_option', 'thread_comments_depth') > c.depth + 1 %}
+      {{ c.reply_link }}
+    {% endif %}
+  </article>
+
+  {# Child comments #}
+  {% if c.children %}
+    <ul class="replies-list">
+      {% for r in c.children %}
+        <li> {{ _self.comment(r, post) }} </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endmacro %}

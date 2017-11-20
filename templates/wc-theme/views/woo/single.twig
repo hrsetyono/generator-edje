@@ -1,0 +1,37 @@
+{% extends "layout.twig" %}
+{% block content %}
+  {{ fn('the_post') }}
+
+<h-row><h-column class="large-12">
+  <section class="{{ post.class }}">
+    {% do action("woocommerce_before_single_product") %}
+
+    <h-row>
+      {# THUMBNAIL and GALLERY #}
+      <h-column class="large-5">
+        <figure class="product-figure">
+          {% do action("woocommerce_before_single_product_summary") %}
+        </figure>
+      </h-column>
+
+      {# DESCRIPTION and BUY BUTTON #}
+      <h-column class="large-7">
+        <article>
+          {% do action("woocommerce_single_product_summary") %}
+          {% do action("woocommerce_after_single_product_summary") %}
+        </article>
+      </h-column>
+    </h-row>
+  </section>
+
+  {% do action("woocommerce_after_single_product") %}
+
+  {# RELATED #}
+  <section class="related-products">
+    <h2>Related Products</h2>
+    {% do action("output_related_products") %}
+  </section>
+
+</h-column></h-row>
+
+{% endblock %}
