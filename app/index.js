@@ -77,8 +77,8 @@
       var pluginDest = 'wp-content/plugins/';
 
       var plugins = ['edje-wp', 'timber-library'];
-      if( self.template === 'woocommerce' ) {
-        plugins.concat( ['woocommerce-edje', 'woocommerce'] )
+      if( self.template == 'woocommerce' ) {
+        plugins = plugins.concat( ['woocommerce-edje', 'woocommerce'] );
       }
 
       switch( self.template ) {
@@ -87,7 +87,7 @@
           self.log( 'Downloading WordPress...' );
 
           // copy installation file
-          self._copy( 'wordpress-src/wordpress.zip', 'wordpress.zip' );
+          self._copy( 'wp-install/wordpress.zip', 'wordpress.zip' );
           self.fs.commit( [], copyTheme );
           break;
 
@@ -123,7 +123,7 @@
       function copyPlugins() {
         for( var i in plugins ) {
           var p = plugins[i] + '.zip';
-          self._copy( 'wordpress-plugins/' + p, pluginDest + p);
+          self._copy( 'wp-plugins/' + p, pluginDest + p);
         }
 
         self.fs.commit([], extractPlugins );
