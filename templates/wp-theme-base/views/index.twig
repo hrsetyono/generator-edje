@@ -3,7 +3,17 @@
 
 <h-row class="post-row">
 <h-column class="post-col" id="content">
-  {% include "partials/_categories.twig" %}
+
+  {# Blog Nav #}
+  <nav class="blog-nav">
+    <a href="{{ blog_url }}" {% if not term %} class="active" {% endif %}>All</a>
+
+    {% for item in blog_nav %}
+      <a href="{{ item.link }}" {% if item.title == term.name %} class="active" {% endif %}>{{ item.title }}</a>
+    {% endfor %}
+  </nav>
+
+
   {% include "partials/_posts.twig" %}
   {% include "partials/_pagination.twig" %}
 </h-column>

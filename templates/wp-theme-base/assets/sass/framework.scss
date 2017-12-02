@@ -130,8 +130,11 @@ input[type="radio"] {
 .main-nav {
   position: relative;
   z-index: z(nav);
-  padding: 10px 0;
   border-bottom: 1px solid $color-passive;
+
+  @include above(small) {
+    padding: 0.75em 0;
+  }
 }
 
 .nav-col {
@@ -172,6 +175,29 @@ input[type="radio"] {
 
 // NAV ITEM
 
+.menu-item {
+  position: relative;
+
+  > a {
+    display: block;
+    padding: 0.75em 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $font-color;
+    transition: none;
+  }
+
+  // current page
+  &.current-menu-item,
+  &.current-page-ancestor,
+  &.current_page_parent {
+    > a { color: $color-main; }
+  }
+
+  &:hover > a { opacity: .7; }
+  &:active > a { opacity: .5; }
+}
+
 .nav-wrapper {
   display: -webkit-flex;
   display: flex;
@@ -205,38 +231,7 @@ input[type="radio"] {
   }
 }
 
-.menu-item {
-  position: relative;
-  font-size: em($font-size-small);
-
-  > a {
-    display: block;
-    padding: 12px 18px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: $font-color;
-    transition: none;
-  }
-
-  // current page
-  &.current-menu-item,
-  &.current-page-ancestor,
-  &.current_page_parent {
-    > a {
-      color: $font-color;
-    }
-  }
-
-  &:hover > a {
-    color: $color-main;
-  }
-
-  > a:active {
-    color: $color-main-dark;
-  }
-}
-
-///// NAV CHILDREN /////
+// Nav Mobile
 
 body.nav-active {
   cursor: pointer; // fix iOS untap-able bug
@@ -244,14 +239,27 @@ body.nav-active {
 }
 
 .nav-toggle {
+  i {
+    line-height: 1;
+  }
+
+  i, b {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .dashicons-before::before {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+
   @include above(small) {
     display: none;
   }
-
-  @include below(mini) {
-    span { display: none; }
-  }
 }
+
+// Nav Children
 
 .nav-children {
   visibility: hidden; opacity: 0;
@@ -528,9 +536,9 @@ body.nav-active {
 
 ///// CONTACT FORM 7
 
-.wpcf7-form {
+div.wpcf7 {
   span.wpcf7-not-valid-tip {
-    color: $color-main;
+    color: $color-red;
     font-size: em(14px);
   }
 
@@ -544,7 +552,7 @@ body.nav-active {
   .wpcf7-validation-errors {
     border-color: $color-red;
     color: $color-red;
-    background-color: rgba($color-red, .3);
+    background-color: rgba($color-red, .2);
   }
 
   .wpcf7-mail-sent-ok,
@@ -565,42 +573,15 @@ form.wpcf7-form {
   br { display: none; }
 
   label {
-    display: inline-block;
-    position: relative;
-    top: 6px;
-    width: 200px;
-
+    display: block;
     font-size: em($font-size-small);
     font-weight: 700;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     vertical-align: top;
-
-    @include below(mini) {
-      top: 0;
-      width: 100%;
-    }
-  }
-
-  h2 {
-    padding-top: 20px;
-    margin-bottom: 1.5em;
-    font-size: em($h4);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .submit-wrapper {
-    text-align: right;
   }
 }
 
 .wpcf7-form-control-wrap {
-  display: inline-block;
-  width: calc(100% - 205px);
 
-  @include below(small) {
-    width: 100%;
-  }
 }

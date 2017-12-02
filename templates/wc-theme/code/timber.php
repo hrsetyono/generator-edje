@@ -32,11 +32,10 @@ class MyTimber extends TimberSite {
     $context['img'] = $context['images']; // alias
     $context['files'] = $root.'/assets/files';
 
-    // if posts page, single post, or category page, add CATEGORY context
+    // if posts page, single post, or category page, use CATEGORIES as nav
     if( is_home() || is_singular('post') || is_category() ) {
-      // get blog menu, if null, get categories instead
-      $context['blog_menu'] = has_nav_menu( 'blog-menu' ) ? new TimberMenu( 'blog-menu' ) : null;
-      $context['categories'] = is_null( $context['blog_menu'] ) ? Timber::get_terms('category', array('parent' => 0)) : null;
+      $context['blog_url'] = get_post_type_archive_link( 'post' );
+      $context['blog_nav'] = Timber::get_terms( 'category', array('parent' => 0) );
     }
 
     // if ACF installed

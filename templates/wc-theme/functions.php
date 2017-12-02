@@ -69,7 +69,6 @@ function my_after_load_theme() {
 
   // Create Nav assignment
   register_nav_menu( 'main-nav', 'Main Nav' );
-  register_nav_menu( 'blog-nav', 'Blog Nav' );
   register_nav_menu( 'social-nav', 'Social Nav' );
 }
 

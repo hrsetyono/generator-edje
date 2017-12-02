@@ -1,18 +1,21 @@
 ## Demo Files
 
-templates/wc-theme/assets/css/
+templates/wp-theme-base/assets/js/vendor/fastclick.min.js
+
+templates/wc-theme/assets/css/*
+templates/wc-theme/assets/images/*
+templates/wc-theme/assets/js/*
+templates/wc-theme/assets/sass/*
+!templates/wc-theme/assets/sass/_woocommerce.scss
+!templates/wc-theme/assets/sass/app.scss
 templates/wc-theme/style.css
 templates/wc-theme/package.json
-templates/wc-theme/assets/sass/_setting.scss
-templates/wc-theme/assets/sass/framework.scss
-templates/wc-theme/assets/js
 
-templates/wp-theme/assets/css/
-templates/wp-theme/assets/sass/
-templates/wp-theme/assets/images/
-templates/wp-theme/assets/js
+templates/wp-theme/assets/css/*
+templates/wp-theme/assets/images/*
+templates/wp-theme/assets/js/*
+templates/wp-theme/assets/sass/*
 templates/wp-theme/style.css
-templates/wp-theme/404.php
 templates/wp-theme/package.json
 
 # Others

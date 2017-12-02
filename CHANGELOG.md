@@ -1,3 +1,8 @@
+## 0.5.1
+
+- [Template] All duplicate Sass and JS files are replaced with Symlinked files.
+- ...
+
 ## 0.5.0
 
 - [WP] Reworked theme files to be simpler.

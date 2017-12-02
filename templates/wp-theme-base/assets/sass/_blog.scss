@@ -432,7 +432,6 @@ span.post-button {
     color: $font-color;
   }
 
-
   .post-button {
     border-color: $color-main;
     color: $color-main;
@@ -441,9 +440,9 @@ span.post-button {
   }
 }
 
-///// CATEGORIES /////
+///// BLOG NAV /////
 
-.categories {
+.blog-nav {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
@@ -476,27 +475,7 @@ span.post-button {
   }
 }
 
-.category-menu {
-  position: relative;
-  margin-left: auto;
-  padding: 0 0.5em;
-
-  > a {
-    padding: 0;
-    color: inherit;
-  }
-
-  i {
-    font-size: 2em;
-    transition: all .15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  &:hover i {
-    @include transform(rotate(90deg) );
-  }
-}
-
-.menu-tip {
+.blog-nav-tip {
   display: none;
 
   position: absolute;
@@ -548,116 +527,6 @@ span.post-button {
       background-color: $color-main;
       color: white;
     }
-  }
-}
-
-///// SHARE (Jetpack) /////
-
-div.sharedaddy {
-  margin: 2em 0;
-  padding-top: 2em;
-  border-top: 1px solid $color-passive;
-
-  .sd-block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sd-content ul {
-    margin: 0 -4px !important;
-  }
-
-  .sd-content ul li {
-    padding: 0 4px 8px;
-    margin: 0;
-  }
-
-  .sd-block h3.sd-title {
-    margin: 0 0 1em 0;
-    letter-spacing: 0.5px;
-    font-size: em($font-size-small);
-    text-transform: uppercase;
-    white-space: nowrap;
-
-    &::before { display: none; }
-  }
-
-  .share-end { display: none; }
-}
-
-// button general (needs to override)
-div.sharedaddy .sd-block .sd-content ul li a.sd-button {
-  display: block;
-  background-color: transparent;
-  border: 1px solid $font-color;
-  margin-top: 0;
-
-  &:hover {
-    background-color: rgba($font-color, .3);
-    opacity: 1;
-  }
-
-  // Coloring is handled in framework.scss - SOCIAL LOGO section
-}
-
-// icon only
-div.sharedaddy .sd-social-icon {
-  flex-direction: row;
-
-  .sd-content ul li[class*='share-'] a.sd-button:before {
-    top: 0;
-  }
-
-  h3.sd-title {
-    align-self: center;
-    margin: 0 0.5em 0 0;
-  }
-
-  ul li {
-    margin-bottom: 0;
-  }
-}
-
-// icon-text and text only
-div.sharedaddy .sd-social-icon-text,
-div.sharedaddy .sd-social-text,
-div.sharedaddy .sd-social-official {
-
-  ul li a.sd-button {
-    padding: 4px 10px 3px 8px;
-    border-radius: $g-radius;
-    font-size: em($font-size-small);
-  }
-}
-
-// share email popup
-div#sharing_email {
-  border-radius: $g-radius;
-  box-shadow: $shadow-z1, inset 0 3px $color-main;
-  @include transform(translateY(-1em) );
-
-  label {
-    font-size: em($font-size-small);
-    font-weight: $font-weight;
-  }
-}
-
-// hidden popup
-.sd-content .sharing-hidden {
-  .inner {
-    width: 260px;
-    padding: 8px 8px 0;
-  }
-
-  ul {
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  ul li {
-    width: 50%;
-    text-align: center;
   }
 }
 
@@ -1306,6 +1175,7 @@ a.comment-reply-link {
 
 ///// INFINITE SCROLL (Jetpack)
 
+
 // if infinite-footer is turned on (in theme_support), hide it in paged list.
 body[class^="paged-"] #infinite-footer {
   display: none;
@@ -1317,5 +1187,117 @@ body[class^="paged-"] #infinite-footer {
   .spinner {
     left: 50% !important;
     @include transform(translateX(-50%) );
+  }
+}
+
+
+///// SHARE (Jetpack) /////
+
+
+div.sharedaddy {
+  margin: 2em 0;
+  padding-top: 2em;
+  border-top: 1px solid $color-passive;
+
+  .sd-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sd-content ul {
+    margin: 0 -4px !important;
+  }
+
+  .sd-content ul li {
+    padding: 0 4px 8px;
+    margin: 0;
+  }
+
+  .sd-block h3.sd-title {
+    margin: 0 0 1em 0;
+    letter-spacing: 0.5px;
+    font-size: em($font-size-small);
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &::before { display: none; }
+  }
+
+  .share-end { display: none; }
+}
+
+// button general (needs to override)
+div.sharedaddy .sd-block .sd-content ul li a.sd-button {
+  display: block;
+  background-color: transparent;
+  border: 1px solid $font-color;
+  margin-top: 0;
+
+  &:hover {
+    background-color: rgba($font-color, .3);
+    opacity: 1;
+  }
+
+  // Coloring is handled in framework.scss - SOCIAL LOGO section
+}
+
+// icon only
+div.sharedaddy .sd-social-icon {
+  flex-direction: row;
+
+  .sd-content ul li[class*='share-'] a.sd-button:before {
+    top: 0;
+  }
+
+  h3.sd-title {
+    align-self: center;
+    margin: 0 0.5em 0 0;
+  }
+
+  ul li {
+    margin-bottom: 0;
+  }
+}
+
+// icon-text and text only
+div.sharedaddy .sd-social-icon-text,
+div.sharedaddy .sd-social-text,
+div.sharedaddy .sd-social-official {
+
+  ul li a.sd-button {
+    padding: 4px 10px 3px 8px;
+    border-radius: $g-radius;
+    font-size: em($font-size-small);
+  }
+}
+
+// share email popup
+div#sharing_email {
+  border-radius: $g-radius;
+  box-shadow: $shadow-z1, inset 0 3px $color-main;
+  @include transform(translateY(-1em) );
+
+  label {
+    font-size: em($font-size-small);
+    font-weight: $font-weight;
+  }
+}
+
+// hidden popup
+.sd-content .sharing-hidden {
+  .inner {
+    width: 260px;
+    padding: 8px 8px 0;
+  }
+
+  ul {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  ul li {
+    width: 50%;
+    text-align: center;
   }
 }

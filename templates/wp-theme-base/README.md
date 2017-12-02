@@ -5,8 +5,8 @@ Write your project description here.
 **Specs**:
 
 - PHP 5.6
-- WordPress 4.8.2
-- Timber 1.2
+- WordPress 4.9
+- Timber 1.5
 - Edje 1.2
 - EdjeWP 0.6.1
 
