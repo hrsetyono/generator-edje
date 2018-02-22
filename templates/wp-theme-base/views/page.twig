@@ -1,8 +1,9 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-<article>
+<h-row><h-column class="large-12">
 
+<article>
   <header>
     <h1>{{ post.title }}</h1>
 
@@ -14,7 +15,8 @@
   <section>
     {{ post.content }}
   </section>
-
 </article>
+
+</h-column></h-row>
 
 {% endblock %}

@@ -5,13 +5,11 @@
 class MyHelper {
   /*
     Check activation of required plugins
-
     @return boolean
   */
   static function has_required_plugins() {
     $is_all_installed = class_exists( 'H' ) && class_exists( 'Timber' );
     $is_admin_page = is_admin() && current_user_can('install_plugins');
-
     // show error message if all not installed AND it's admin page
     if( !$is_all_installed && $is_admin_page ) {
       $text = 'Please activate required plugins <a href="' . admin_url('plugins.php?s=timber') . '">here</a>.';
@@ -19,10 +17,10 @@ class MyHelper {
         echo '<div class="notice notice-error"><p>' . $text . '</p></div>';
       });
     }
-
     return $is_all_installed;
   }
 }
+
 
 ///// SHORTCODE /////
 
@@ -33,8 +31,7 @@ class MyShortcode {
 
   /*
     Add button class to the link inside
-
-    [button] link [/button]
+    Usage: [button] link [/button]
   */
   function button($attr, $content = null) {
     // if have anchor inside, add button class
@@ -46,7 +43,6 @@ class MyShortcode {
       $content = '<a class="button">' . $content . '</a>';
     }
 
-    // return wpautop($content);
     return wpautop( $content );
   }
 }
@@ -55,22 +51,10 @@ class MyShortcode {
 
 class MyFilter {
   function __construct() {
-    add_action( 'customize_register', array( $this, 'customize_register' ) );
+    add_filter( 'filter_name', array($this, 'my_filter') );
   }
 
-  /*
-    Add items in Customizer
-  */
-  function customize_register( $wp_customize ) {
-    // Mobile Logo
-    $wp_customize->add_setting( 'logo_mobile' );
-    $wp_customize->add_control(
-      new WP_Customize_Image_Control( $wp_customize, 'logo_mobile', array(
-        'label' => __( 'Mobile Logo', 'my' ),
-        'section' => 'title_tagline',
-        'settings' => 'logo_mobile'
-      ) )
-    );
-  }
+  function my_filter() {
 
+  }
 }

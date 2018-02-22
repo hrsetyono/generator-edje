@@ -2,9 +2,9 @@
 @import "setting";
 @import "edje-framework";
 
-@import "fancybox";
-@import "slick";
-@import "blog";
+@import "fw-blog";
+@import "fw-magnific";
+@import "fw-slick";
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
@@ -12,26 +12,30 @@
 
 ///// FONT /////
 
-// @include font-faces("Font Name", (
-//   ("font-file.woff", 400),
-//   ("font-file-bold.woff", 700),
-// ));
+/*
+@include font-faces("Font Name", (
+  ("font.woff", 400),
+  ("font-italic.woff", 400, italic),
+  ("font-bold.woff", 700),
+));
+*/
 
 ///// BUTTON /////
 
-button,
 .button,
 a.button,
 [type="submit"] {
   display: inline-block;
   outline: none;
-  padding: 6px 16px 8px;
+  padding: 6px 12px 8px;
   border: 1px solid $color-main;
   background-color: $color-main;
+
+  line-height: 1;
   color: white;
   text-decoration: none;
 
-  border-radius: 24px;
+  border-radius: $g-radius;
   transition: none;
 
   &:hover {
@@ -41,6 +45,11 @@ a.button,
 
   &:active {
     box-shadow: inset 0 0 0 1px white;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: .3;
   }
 }
 
@@ -79,8 +88,8 @@ input[type="radio"],
 input[type="checkbox"] {
   cursor: pointer;
   border: 1px solid rgba(black, .2);
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   vertical-align: middle;
 
   transition: $g-transition;
@@ -100,7 +109,7 @@ input[type="checkbox"] {
 
   + label,
   + span {
-    margin-left: 0.5em;
+    margin-left: 0.5rem;
   }
 }
 
@@ -147,13 +156,17 @@ input[type="radio"] {
 
 // MAIN LOGO
 
-.main-logo {
+.nav-logo {
+  @include below(small) {
+    order: 1;
+    margin: 0 auto;
+  }
 }
 
 .custom-logo-link {
   img {
     width: auto;
-    height: 41px;
+    height: 2.5em;
   }
 
   @include below(small) {
@@ -181,15 +194,13 @@ input[type="radio"] {
   > a {
     display: block;
     padding: 0.75em 1em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     color: $font-color;
     transition: none;
   }
 
   // current page
   &.current-menu-item,
-  &.current-page-ancestor,
+  &.current-page  -ancestor,
   &.current_page_parent {
     > a { color: $color-main; }
   }
@@ -316,8 +327,8 @@ body.nav-active {
 // NAV EXTRA
 
 .nav-extra {
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex;
+  order: 2;
   align-items: center;
 
   position: relative;
@@ -464,15 +475,15 @@ body.nav-active {
 .main-footer {
   position: relative;
   padding: 1.5em 0 3em;
-  background-color: #faf9f7;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  background-color: $color-passive-light;
+  border-top: 1px solid $color-passive;
+  border-bottom: 1px solid $color-passive;
 }
 
 .footer-nav {
   padding-bottom: 1em;
   margin-bottom: 1em;
-  border-bottom: 1px dashed #ddd;
+  border-bottom: 1px dashed $color-passive;
   text-align: center;
 
   a {

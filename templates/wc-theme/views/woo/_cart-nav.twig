@@ -24,13 +24,13 @@
         <td>
           <figure>
             {{ item.data.get_image("thumbnail") }}
-            <a class="cart-dialog-remove" href="{{ woo.cart.get_remove_url(key) }}" title="Remove this Item"></a>
+            <a class="cart-dialog-remove" href="{{ woo.cart.wc_get_cart_remove_url(key) }}" title="Remove this Item"></a>
           </figure>
         </td>
         <td>
           <p>
             <a href="{{ item.data.get_permalink }}">{{ item.data.get_title }}</a> <br>
-            {{ woo.cart.get_item_data(item) }}
+            {{ woo.cart.wc_get_formatted_cart_item_data(item) }}
           </p>
           <p>
             {{ fn("wc_price", item.line_total) }}

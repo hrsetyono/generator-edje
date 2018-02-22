@@ -1,24 +1,20 @@
-{{ fn("timber_set_product", post) }} {# set context #}
+{{ fn("timber_set_product", p) }} {# set context #}
 
-<li>
-<article class="{{ post.class }}">
-
+<li class="product-tease">
   <figure>
-    {% if post.thumbnail %}
-      <img src="{{ post.thumbnail.src('thumbnail') }}">
-    {% else %}
-      <img src="{{ images }}/placeholder.png">
-    {% endif %}
+    <a href="{{ p.link }}">
+      <img src="{{ p.thumbnail ? p.thumbnail.src('medium') : fn('wc_placeholder_img_src') }}">
+    </a>
   </figure>
 
-  <div class="content">
+  <div class="product-tease-content">
     {% do action('woocommerce_before_shop_loop_item_title') %}
+
     <h3>
-      <a href="{{ post.link }}">{{ post.title }}</a>
+      <a href="{{ p.link }}">{{ p.title }}</a>
     </h3>
 
     {% do action("woocommerce_after_shop_loop_item_title") %}
     {% do action("woocommerce_after_shop_loop_item") %}
   </div>
-</article>
 </li>

@@ -20,16 +20,20 @@
 <section class="main-nav">
 <h-row><h-column class="nav-col">
 
-  <div class="main-logo">
+  <div class="nav-logo">
     {{ fn('the_custom_logo') }}
 
     <div class="mobile-logo">
-      <img src="{{ fn( 'get_theme_mod', 'logo_mobile' ) }}">
+      <a href="{{ home_url }}">
+        <img src="{{ fn( 'get_theme_mod', 'logo_mobile' ) }}">
+      </a>
     </div>
   </div>
 
   <div id="nav-toggle" class="menu-item nav-toggle">
-    <i class="dashicons-before"></i> <b>Menu</b>
+    <a>
+      <i class="dashicons-before dashicons-menu"></i> <b>Menu</b>
+    </a>
   </div>
 
   <nav class="nav-wrapper">

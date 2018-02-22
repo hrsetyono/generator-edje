@@ -9,9 +9,9 @@
 {% endif %}
 
 {# Content #}
-<article class="post-content">
 <h-row class="post-row"><h-column class="post-col">
 
+<article class="post-content">
   <header class="post-header">
     <h1>{{ post.title }}</h1>
     {% include "partials/_post-meta.twig" %}
@@ -22,12 +22,11 @@
   </section>
 
   <footer class="post-author">
-
     {% include "partials/_author-info.twig" with { author: post.author } %}
   </footer>
+</article>
 
 </h-column></h-row>
-</article>
 
 
 <section class="post-footer">

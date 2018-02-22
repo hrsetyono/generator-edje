@@ -10,6 +10,7 @@ add_action( 'after_switch_theme', 'my_after_activate_theme' );
 add_action( 'init', 'my_init', 1 );
 add_action( 'widgets_init', 'my_widgets' );
 
+
 /////
 
 /*
@@ -19,6 +20,7 @@ function my_enqueue_script() {
   $css_dir = get_stylesheet_directory_uri() . '/assets/css';
   $js_dir = get_stylesheet_directory_uri() . '/assets/js';
 
+
   // Stylesheet
   wp_enqueue_style( 'my-framework', $css_dir . '/framework.css' );
   wp_enqueue_style( 'my-app', $css_dir . '/app.css' );
@@ -26,7 +28,7 @@ function my_enqueue_script() {
 
   // JavaScript
   wp_enqueue_script( 'my-fastclick', $js_dir . '/vendor/fastclick.min.js', false, false, true );
-  wp_enqueue_script( 'my-fancybox', $js_dir . '/vendor/fancybox.min.js', array('jquery'), false, true );
+  wp_enqueue_script( 'my-magnific', $js_dir . '/vendor/magnific.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-slick', $js_dir . '/vendor/slick.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
 
@@ -67,7 +69,6 @@ function my_after_load_theme() {
 
   // Create Nav assignment
   register_nav_menu( 'main-nav', 'Main Nav' );
-  register_nav_menu( 'blog-nav', 'Blog Nav' );
   register_nav_menu( 'social-nav', 'Social Nav' );
 }
 
@@ -97,8 +98,6 @@ function my_init() {
     https://github.com/hrsetyono/edje-wp/wiki/Custom-Post-Type
   */
   // H::register_post_type( 'product' );
-  // H::remove_menu( array( 'Comments', 'Media' ) );
-
 
   // ACF Option page
   if( function_exists( 'acf_add_options_page' ) ) {

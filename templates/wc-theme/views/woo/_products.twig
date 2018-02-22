@@ -1,16 +1,20 @@
-<ul class="tile-5 small-tile-2">
-  {% for post in products %}
-    {% include "woo/_product-tease.twig" %}
-  {% endfor %}
-</ul>
+<section class="shop-products">
 
-{% if not products %}
-  <h-row><h-column class="large-5 centered">
-    <article class="post-content content-error">
-      <h1>Product <span>Not Found</span></h1>
-      <p>
-        Sorry, there is no product listed here yet
-      </p>
-    </article>
-  </h-column></h-row>
-{% endif %}
+  <ul class="products-tile tile-{{ fn('wc_get_loop_prop', 'columns') }}">
+    {% for p in products %}
+      {% include "woo/_product-tease.twig" %}
+    {% endfor %}
+  </ul>
+
+  {% if not products %}
+    <h-row><h-column class="large-5 centered">
+      <article class="post-content content-error">
+        <h1>Product <span>Not Found</span></h1>
+        <p>
+          Sorry, there is no product listed here yet
+        </p>
+      </article>
+    </h-column></h-row>
+  {% endif %}
+
+</section>

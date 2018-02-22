@@ -1,10 +1,13 @@
 <?php
 
+
 require_once 'code/addon.php';
 if( !MyHelper::has_required_plugins() ) { return false; }
 require_once 'code/timber.php';
 require_once 'code/addon-wc.php';
 
+
+add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );  // disable woocommerce CSS
 add_action( 'wp_enqueue_scripts', 'my_enqueue_script', 100 );
 add_action( 'after_setup_theme', 'my_after_load_theme' );
 add_action( 'after_switch_theme', 'my_after_activate_theme' );
@@ -27,7 +30,7 @@ function my_enqueue_script() {
 
   // JavaScript
   wp_enqueue_script( 'my-fastclick', $js_dir . '/vendor/fastclick.min.js', false, false, true );
-  wp_enqueue_script( 'my-fancybox', $js_dir . '/vendor/fancybox.min.js', array('jquery'), false, true );
+  wp_enqueue_script( 'my-magnific', $js_dir . '/vendor/magnific.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-slick', $js_dir . '/vendor/slick.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
 
@@ -96,9 +99,12 @@ function my_init() {
   new MyFilter();
   new MyTimber();
 
+  new MyShop();
   new MyProduct();
   new MyCart();
   new MyCheckout();
+
+
 
   /*
     Register Custom Post Type and Taxonomy
