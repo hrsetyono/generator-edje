@@ -382,15 +382,6 @@ body.nav-active {
     top: calc(100% + 10px);
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    right: 25px;
-
-    @include triangle($color: $body-background, $width: 20px, $height: 10px, $direction: top);
-  }
-
   &.nav-dialog--active {
     visibility: visible;
     opacity: 1;
@@ -531,6 +522,8 @@ body.nav-active {
   color: rgba($font-color, .4);
 }
 
+///// SHARE COLORS
+
 @each $name, $color in $social-colors {
   .social-logo__#{ $name }:hover {
     color: $color;
@@ -540,6 +533,7 @@ body.nav-active {
   div.sharedaddy .sd-block .sd-content ul li a.sd-button.share-#{ $name } {
     color: $color !important;
     border-color: $color;
+
     &:hover { background-color: rgba($color, .3); }
   }
 }

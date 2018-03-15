@@ -1,3 +1,8 @@
+## 0.6.0
+
+- [Woo] Major revamp. Now comes with very simple yet beautiful base design.
+- [WP] Update code to be more inline with WP Guidelines.
+
 ## 0.5.1
 
 - [Template] All duplicate Sass and JS files are replaced with Symlinked files.

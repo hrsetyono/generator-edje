@@ -3,11 +3,15 @@ $context = Timber::get_context();
 
 // SINGLE PRODUCT
 if( is_singular( 'product' ) ) {
-  $post = Timber::get_post();
-  $context['post'] = $post;
+  $context['post'] = Timber::get_post();
 
+  // get detailed product info
   $product = wc_get_product( $context['post']->id );
   $context['product'] = $product;
+
+  // get related products
+  $related_ids = wc_get_related_products( $context['post']->id );
+  $context['related_products'] =  Timber::get_posts( $related_ids );
 
   Timber::render( 'woo/single.twig', $context );
 }
@@ -37,7 +41,7 @@ else {
   // if display products
   if( $display_mode === 'both' || $display_mode === 'products' ) {
     $posts = Timber::get_posts();
-    $context['products'] = MyProduct::get_products( $posts );
+    $context['products'] =  $posts;
   }
 
   // if display categories

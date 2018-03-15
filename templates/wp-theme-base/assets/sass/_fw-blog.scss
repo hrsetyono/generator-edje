@@ -1207,7 +1207,7 @@ body[class^="paged-"] #infinite-footer {
 
 div.sharedaddy {
   margin: 2em 0;
-  padding-top: 2em;
+  padding-top: 1em;
   border-top: 1px solid $color-passive;
 
   .sd-block {
@@ -1238,7 +1238,7 @@ div.sharedaddy {
 }
 
 // button general (needs to override)
-div.sharedaddy .sd-block .sd-content ul li a.sd-button {
+div.sharedaddy .sd-block.sd-social .sd-content ul li a.sd-button {
   display: block;
   background-color: transparent;
   border: 1px solid $font-color;

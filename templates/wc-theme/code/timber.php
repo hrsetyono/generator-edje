@@ -1,6 +1,8 @@
 <?php
 ///// TIMBER Global setting /////
 
+if( MyHelper::has_required_plugins('WooCommerce') ) { return false; }
+
 class MyTimber extends TimberSite {
 
   function __construct(){
@@ -54,15 +56,8 @@ class MyTimber extends TimberSite {
     $twig->addExtension( new Twig_Extension_StringLoader() );
 
     // Custom filter sample
-    // Usage: {{ post.content | my_filter }}
     $twig->addFilter('my_filter', new Twig_Filter_Function(function( $text ) {
       return $text;
-    }) );
-
-    // Get category / term permalink
-    // Usage: {{ post.categories[0] | get_term_link  }}
-    $twig->addFilter('get_term_link', new Twig_Filter_Function(function( $cat_id ) {
-      return get_term_link( $cat_id );
     }) );
 
     return $twig;

@@ -3,33 +3,43 @@
   {{ fn('the_post') }}
 
 <h-row><h-column class="large-12">
-  <section class="{{ post.class }}">
-    {% do action("woocommerce_before_single_product") %}
+
+  <section class="product-wrapper">
+    <header class="product-header">
+      {% do action("woocommerce_before_single_product") %}
+    </header>
 
     <h-row>
-      {# THUMBNAIL and GALLERY #}
-      <h-column class="large-5">
+      {# Gallery #}
+      <h-column class="large-4">
         <figure class="product-figure">
           {% do action("woocommerce_before_single_product_summary") %}
         </figure>
       </h-column>
 
-      {# DESCRIPTION and BUY BUTTON #}
-      <h-column class="large-7">
-        <article>
+      {# Description tab #}
+      <h-column class="large-5">
+        <article class="product-article">
           {% do action("woocommerce_single_product_summary") %}
-          {% do action("woocommerce_after_single_product_summary") %}
         </article>
       </h-column>
+
+      {# Price & Buy button #}
+      <h-column class="large-3">
+        <aside class="product-purchase">
+          {% do action("woocommerce_after_single_product_summary") %}
+        </aside>
+      </h-column>
     </h-row>
+
   </section>
 
   {% do action("woocommerce_after_single_product") %}
 
   {# RELATED #}
-  <section class="related-products">
-    <h2>Related Products</h2>
-    {% do action("output_related_products") %}
+  <section class="product-related">
+    <h2>{{ __('Related Products', 'my') }} </h2>
+    {% include "woo/_products.twig" with { products: related_products } %}
   </section>
 
 </h-column></h-row>

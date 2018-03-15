@@ -24,7 +24,6 @@
         <td>
           <figure>
             {{ item.data.get_image("thumbnail") }}
-            <a class="cart-dialog-remove" href="{{ woo.cart.wc_get_cart_remove_url(key) }}" title="Remove this Item"></a>
           </figure>
         </td>
         <td>
@@ -36,6 +35,8 @@
             {{ fn("wc_price", item.line_total) }}
             <small>(Qty: {{ item.quantity }})</small>
           </p>
+
+          <a class="cart-dialog-remove" href="{{ fn('wc_get_cart_remove_url', key) }}">&times;</a>
         </td>
       </tr>
       {% endfor %}

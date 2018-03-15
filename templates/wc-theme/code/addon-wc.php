@@ -9,18 +9,21 @@ function timber_set_product( $post ) {
 
 
 /*
-  Functions for SHOP listing page
+  Functions for SHOP or CATALOG page
 */
 class MyShop {
   function __construct() {
-    // remove default image in product thumb
-    remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail' );
+    // disable woocommerce CSS
+    add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
     // remove breadcrumb
     add_filter( 'woocommerce_get_breadcrumb', '__return_false' );
 
+    // remove default image in product thumb
+    remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail' );
+
     // change the amount of products per page
-    add_filter( 'loop_shop_per_page', array($this, 'change_products_per_page') );
+    add_filter( 'loop_shop_per_page', array($this, 'change_products_per_page'), 1000 );
 
     // replace default pagination
     remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
@@ -36,6 +39,7 @@ class MyShop {
   function change_products_per_page( $num ) {
     return get_option( 'posts_per_page' );
   }
+
 
   /*
     Change the HTML markup of WC Pagination
@@ -53,6 +57,8 @@ class MyShop {
     );
     Timber::render( '/partials/_pagination.twig', $context );
   }
+
+  /////
 
   /*
     Get categories data to be displayed as Thumbnail in SHOP page
@@ -80,70 +86,43 @@ class MyShop {
 }
 
 /*
-  Controller for Catalog, Single Product, and Shop page
+  Functions for SINGLE PRODUCT page
 */
 class MyProduct {
-
   function __construct() {
-    // SINGLE PRODUCT
-    // Separate some actions from one call
-    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+    // Move UPSELL and RELATED products to bottom
     remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
     remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
-    add_action( 'my_output_related_products', 'woocommerce_output_related_products' );
-    add_action( 'my_template_single_buy', 'woocommerce_template_single_price', 5 );
-    add_action( 'my_template_single_buy', 'woocommerce_template_single_add_to_cart', 10 );
+    // Move DESCRIPTION to center panel
+    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+    add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs' );
 
-    // TEASE
-    add_filter( 'woocommerce_product_single_add_to_cart_text', array($this, 'add_to_cart_text') );
-  }
+    // move TITLE and SHARING to top
+    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+    add_action( 'woocommerce_before_single_product', 'woocommerce_template_single_title' );
+    add_action( 'woocommerce_before_single_product', 'woocommerce_template_single_sharing' );
 
-  /*
-    Change "Add to Cart" button
-    @filter woocommerce_product_single_add_to_cart_text
-  */
-  function add_to_cart_text() {
-    return __( 'Buy Now', 'my' );
-  }
-
-
-  /*
-    Get WC_Product data from posts and embed it
-
-    @param $posts (arr)
-    @return (arr) - Posts with embedded Product data
-  */
-  static function get_products( $posts ) {
-    $post_ids = array_reduce($posts, function( $result, $p ) {
-      $result[] = $p->id;
-      return $result;
-    }, array() );
-
-    $products = wc_get_products(array(
-      'include' => $post_ids,
-      'orderby' => 'post__in',
-      'posts_per_page' => wc_get_loop_prop( 'total' )
-    ) );
-
-    $posts = array_map( function( $p, $index ) use ( $products ) {
-      $p->product = $products[$index];
-      return $p;
-    }, $posts, array_keys( $posts ) );
-
-    return $posts;
+    // move the PRICE and VARIATION to right-sidebar
+    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+    remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
+    add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_price' );
+    add_action( 'woocommerce_after_single_product_summary', 'woocommerce_variable_add_to_cart' );
   }
 
 }
 
 
 /*
-  Controller for Cart actions and pages
+  Functions for CART actions and pages
 */
 class MyCart {
   function __construct() {
-    // remove success message
-    add_filter( 'woocommerce_add_success', array( $this, 'remove_add_success' ) );
+    // remove alert when removing item from cart
+    add_filter( 'woocommerce_add_success', array( $this, 'disable_alert_remove_cart' ) );
+
+    // change the button in alert to go straight to checkout
     add_filter( 'wc_add_to_cart_message_html', array( $this, 'added_to_cart_message' ), null, 2 );
 
     // replace default cross-sell
@@ -158,7 +137,7 @@ class MyCart {
     @param $message (str) - Default message
     @return str - Modified message
   */
-  function remove_add_success( $message ) {
+  function disable_alert_remove_cart( $message ) {
     if( strpos( $message, 'Undo' ) ) {
       return false;
     }
@@ -200,13 +179,4 @@ class MyCart {
     }
   }
 
-}
-
-/*
-  Controller for Cart, Checkout, and Order-Received page
-*/
-class MyCheckout {
-  function __construct() {
-
-  }
 }

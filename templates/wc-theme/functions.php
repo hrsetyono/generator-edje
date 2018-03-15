@@ -1,23 +1,21 @@
 <?php
 
-
 require_once 'code/addon.php';
 if( !MyHelper::has_required_plugins() ) { return false; }
 require_once 'code/timber.php';
 require_once 'code/addon-wc.php';
 
-
-add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );  // disable woocommerce CSS
 add_action( 'wp_enqueue_scripts', 'my_enqueue_script', 100 );
 add_action( 'after_setup_theme', 'my_after_load_theme' );
-add_action( 'after_switch_theme', 'my_after_activate_theme' );
 add_action( 'init', 'my_init', 1 );
 add_action( 'widgets_init', 'my_widgets' );
+add_action(' after_switch_theme', 'my_after_activate_theme' );
 
 /////
 
 /*
   Register all your CSS and JS here
+  @action wp_enqueue_scripts 100
 */
 function my_enqueue_script() {
   $css_dir = get_stylesheet_directory_uri() . '/assets/css';
@@ -33,17 +31,13 @@ function my_enqueue_script() {
   wp_enqueue_script( 'my-magnific', $js_dir . '/vendor/magnific.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-slick', $js_dir . '/vendor/slick.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
-
-  // Enable comment's reply form
-  if( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-    wp_enqueue_script( 'comment-reply' );
-  }
 }
 
 
 
 /*
   Run after theme is loaded
+  @action after_setup_theme
 */
 function my_after_load_theme() {
   $GLOBALS['content_width'] = 600; // Blog article's width
@@ -54,10 +48,20 @@ function my_after_load_theme() {
   add_theme_support( 'title_tag' );
   add_theme_support( 'widgets' );
   add_theme_support( 'html5', array('search-form', 'comment-form', 'gallery', 'caption') );
-  add_theme_support( 'jetpack-responsive-videos' );
   add_theme_support( 'automatic-feed-links' );
-  add_theme_support( 'woocommerce' );
+  add_post_type_support( 'page', 'excerpt' ); // allow page to have excerpt
 
+  // WooCommerce support
+  add_theme_support( 'woocommerce', array(
+    'product_grid' => array( 'default_columns' => 4 ),
+    'single_image_width' => 480,
+  ) );
+  add_theme_support( 'wc-product-gallery-zoom' );
+	add_theme_support( 'wc-product-gallery-lightbox' );
+	add_theme_support( 'wc-product-gallery-slider' );
+
+  // Jetpack support
+  add_theme_support( 'jetpack-responsive-videos' );
   add_theme_support( 'infinite-scroll', array(
     'footer' => false,
     'render' => function() {
@@ -66,8 +70,6 @@ function my_after_load_theme() {
     },
     'posts_per_page' => false
   ) );
-
-  add_post_type_support( 'page', 'excerpt' ); // allow page to have excerpt
 
 
   // Create Nav assignment
@@ -78,21 +80,8 @@ function my_after_load_theme() {
 
 
 /*
-  Run only after this theme is activated
-*/
-function my_after_activate_theme() {
-  // Allow EDITOR and SHOP MANAGER to edit appearances
-  $role = get_role( 'editor' );
-  $role ? $role->add_cap( 'edit_theme_options' ) : false;
-
-  $role = get_role( 'shop_manager' );
-  $role ? $role->add_cap( 'edit_theme_options' ) : false;
-}
-
-
-
-/*
   After Wordpress has finished loading but no data has been sent
+  @action init 1
 */
 function my_init() {
   new MyShortcode();
@@ -102,17 +91,12 @@ function my_init() {
   new MyShop();
   new MyProduct();
   new MyCart();
-  new MyCheckout();
-
-
 
   /*
     Register Custom Post Type and Taxonomy
-    https://github.com/hrsetyono/edje-wp/wiki/Custom-Post-Type
+    https://github.com/hrsetyono/wp-edje/wiki/Custom-Post-Type
   */
   // H::register_post_type( 'product' );
-  // H::remove_menu( array( 'Comments', 'Media' ) );
-
 
   // ACF Option page
   if( function_exists( 'acf_add_options_page' ) ) {
@@ -127,7 +111,22 @@ function my_init() {
 
 /*
   Register widgets
+  @action widgets_init
 */
 function my_widgets() {
   register_sidebar( array('name' => 'My Sidebar', 'id' => 'my-sidebar') );
+}
+
+
+/*
+  Run only after this theme is activated
+  @action after_switch_theme
+*/
+function my_after_activate_theme() {
+  // Allow EDITOR and SHOP MANAGER to edit appearances
+  $role = get_role( 'editor' );
+  $role ? $role->add_cap( 'edit_theme_options' ) : false;
+
+  $role = get_role( 'shop_manager' );
+  $role ? $role->add_cap( 'edit_theme_options' ) : false;
 }

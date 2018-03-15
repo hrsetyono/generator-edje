@@ -51,7 +51,6 @@ class MyTimber extends TimberSite {
     $twig->addExtension( new Twig_Extension_StringLoader() );
 
     // Custom filter sample
-    // Usage: {{ post.content | my_filter }}
     $twig->addFilter('my_filter', new Twig_Filter_Function(function( $text ) {
       return $text;
     }) );
