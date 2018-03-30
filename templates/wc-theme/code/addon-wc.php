@@ -23,7 +23,7 @@ class MyShop {
     remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail' );
 
     // change the amount of products per page
-    add_filter( 'loop_shop_per_page', array($this, 'change_products_per_page'), 1000 );
+    add_filter( 'loop_shop_per_page', array($this, 'change_products_per_page') );
 
     // replace default pagination
     remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
@@ -83,6 +83,32 @@ class MyShop {
 
     return $parsed_cats;
   }
+
+  /*
+    Get WC_Product data from posts and embed it
+
+    @param $posts (arr)
+    @return (arr) - Posts with embedded Product data
+  */
+  static function get_products( $posts ) {
+    $post_ids = array_reduce($posts, function( $result, $p ) {
+      $result[] = $p->id;
+      return $result;
+    }, array() );
+
+    $products = wc_get_products(array(
+      'include' => $post_ids,
+      'orderby' => 'post__in',
+      'posts_per_page' => wc_get_loop_prop( 'total' )
+    ) );
+
+    $posts = array_map( function( $p, $index ) use ( $products ) {
+      $p->product = $products[$index];
+      return $p;
+    }, $posts, array_keys( $posts ) );
+
+    return $posts;
+  }
 }
 
 /*
@@ -110,6 +136,9 @@ class MyProduct {
     add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_price' );
     add_action( 'woocommerce_after_single_product_summary', 'woocommerce_variable_add_to_cart' );
   }
+
+  /////
+
 
 }
 

@@ -344,16 +344,6 @@ body.nav-active {
     line-height: 1;
     border-radius: $g-radius;
   }
-
-  button {
-    padding: 5px;
-    background-color: $color-sub;
-    line-height: 1;
-    border-radius: $g-radius;
-
-    &:hover { background-color: lighten($color-sub, 5%); color: white; }
-    &:active { background-color: lighten($color-sub, 10%); }
-  }
 }
 
 
@@ -392,18 +382,16 @@ body.nav-active {
 ///// SEARCH FORM
 
 .search-form {
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex;
   position: relative;
   z-index: z(nav);
 
-  input, label {
-    height: 100%;
-  }
-
   label {
     cursor: pointer;
+    position: relative;
+    z-index: z(nav);
     padding: 5px;
+
     border-radius: $g-radius;
     transition: $g-transition;
 
@@ -412,28 +400,31 @@ body.nav-active {
       color: white;
     }
   }
+}
 
-  input {
-    opacity: 0;
-    position: absolute;
-    padding: 5px 0;
-    width: 0;
+.search-form input {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.25em);
+  padding: 0.5em 0;
+  width: 0;
+  opacity: 0;
 
-    border-radius: $g-radius 0 0 $g-radius;
-    @include transform(translateX(-100%) );
+  border-radius: $g-radius 0 0 $g-radius;
+  @include transform(translateX(-100%) translateY(-50%) );
 
-    &:focus {
-      opacity: 1;
-      padding-right: 10px;
-      padding-left: 10px;
-      width: 200px;
-    }
+  &:focus {
+    opacity: 1;
+    padding-right: 2.5em;
+    padding-left: 0.5em;
+    width: 250px;
+    box-shadow: $shadow-z1;
+  }
 
-    &:focus + label {
-      background-color: $color-main-dark;
-      color: white;
-      border-radius: 0 $g-radius $g-radius 0;
-    }
+  &:focus ~ label {
+    background-color: $color-main-dark;
+    color: white;
+    border-radius: 0 $g-radius $g-radius 0;
   }
 }
 

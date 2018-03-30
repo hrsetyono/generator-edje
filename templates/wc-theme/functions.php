@@ -62,15 +62,6 @@ function my_after_load_theme() {
 
   // Jetpack support
   add_theme_support( 'jetpack-responsive-videos' );
-  add_theme_support( 'infinite-scroll', array(
-    'footer' => false,
-    'render' => function() {
-      $context = array( 'posts' => Timber::get_posts() );
-      Timber::render( 'partials/_posts.twig', $context );
-    },
-    'posts_per_page' => false
-  ) );
-
 
   // Create Nav assignment
   register_nav_menu( 'main-nav', 'Main Nav' );

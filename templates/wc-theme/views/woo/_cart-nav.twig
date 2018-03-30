@@ -1,20 +1,20 @@
 {# CART DIALOG #}
 <div class="menu-item">
 
-<a data-nav-dialog="cart-dialog">
+<a class="cart-nav {{ woo.cart.is_empty ? '' : 'cart-nav--active' }}" data-nav-dialog="cart-dialog">
   <i class="dashicons-before dashicons-cart"></i>
-  <span>Cart</span>
+  <span>{{ __('Cart', 'my') }}</span>
   {% if not woo.cart.is_empty %} <b>{{ woo.cart.get_cart_contents_count }}</b> {% endif %}
 </a>
 
 {# dialog #}
 <div id="cart-dialog" class="nav-dialog cart-dialog">
-  <h3>Your Cart</h3>
+  <h3>{{ __('Your Cart', 'my') }}</h3>
 
   {% if woo.cart.is_empty %}
     <div class="cart-dialog-empty">
-      <p>Cart is Empty.</p>
-      <a href="/shop/" class="button">Shop Now »</a>
+      <p>{{ __('Cart is Empty', 'my') }}</p>
+      <a href="/shop/" class="button">{{ __('Shop Now', 'my') }} »</a>
     </div>
 
   {% else %}

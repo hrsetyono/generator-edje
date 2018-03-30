@@ -1,3 +1,7 @@
+## 0.6.1
+
+- [WP] Another update to be more inline with WP Guidelines.
+
 ## 0.6.0
 
 - [Woo] Major revamp. Now comes with very simple yet beautiful base design.

@@ -41,7 +41,7 @@ else {
   // if display products
   if( $display_mode === 'both' || $display_mode === 'products' ) {
     $posts = Timber::get_posts();
-    $context['products'] =  $posts;
+    $context['products'] =  MyShop::get_products( $posts );
   }
 
   // if display categories

@@ -106,7 +106,7 @@ $font-size-small : 14px;
 // $header-spacing : 0;
 // $header-transform : none;
 
-$h1 : 44px;
+$h1 : 42px;
 $h2 : 36px;
 $h3 : 30px;
 $h4 : 24px;
@@ -131,13 +131,9 @@ $h6 : $font-size;
 // $shadow-z3: 0 6px 12px rgba(black, .23), 0 10px 40px rgba(black, .19);
 
 
-// ----- PRINT -----
+// ----- INCLUDE ------
 // $include-print  : true;
-// $override-color : true;   // Override all text color to #000 black
-
-
-// ----- TEXT DIRECTION -----
-// $text-direction   : ltr;  // Global text direction, 'rtl' or 'ltr'
+// $include-animate: true;
 
 
 // ----- CUSTOM MIXIN -----

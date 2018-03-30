@@ -259,7 +259,7 @@ button.single_add_to_cart_button {
 
 .woocommerce-variation-add-to-cart {
   @include display-flex;
-  
+
 }
 
 
@@ -357,21 +357,23 @@ button.single_add_to_cart_button {
 }
 
 
-///// CART DIALOG /////
+///// CART NAV /////
 
-[data-nav-dialog="cart-dialog"] {
+.cart-nav {
+
+  &.cart-nav--active {
+    background-color: $color-main;
+    color: white;
+  }
+
   b {
     display: inline-block;
-    background-color: $color-red;
-    min-width: 1.25rem;
+    background-color: $color-main-dark;
+    padding: 0 0.5em;
     line-height: 1.25rem;
 
     font-size: 0.875rem;
-    color: white;
-    text-align: center;
-
-    border-radius: 1rem;
-    @include animation(bounce 2s infinite);
+    border-radius: $g-radius;
   }
 }
 

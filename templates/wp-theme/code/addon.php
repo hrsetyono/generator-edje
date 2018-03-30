@@ -28,15 +28,7 @@ class MyShortcode {
 
 class MyFilter {
   function __construct() {
-    add_action( 'after_switch_theme', array($this, 'allow_editor_edit_appearance') );
-  }
 
-  /*
-    Allow EDITOR to edit Appearance settings like Customize and Menu
-  */
-  function allow_editor_edit_appearance() {
-    $role = get_role( 'editor' );
-    $role ? $role->add_cap( 'edit_theme_options' ) : false;
   }
 }
 
@@ -63,8 +55,6 @@ class MyHelper {
     } else {
       $is_all_installed = class_exists( $plugins );
     }
-
-
 
     // show error message if all not installed AND it's admin page
     $is_admin_page = is_admin() && current_user_can('install_plugins');
