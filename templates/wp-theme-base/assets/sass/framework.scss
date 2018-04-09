@@ -1,10 +1,12 @@
-// Put styles that you might reuse in other projects here
+// Put styles that you might REUSE in other projects here
 @import "setting";
 @import "edje-framework";
 
 @import "fw-blog";
 @import "fw-magnific";
 @import "fw-slick";
+
+@import "fw-nav";
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
@@ -24,27 +26,33 @@
 
 .button,
 a.button,
-[type="submit"] {
+[type="submit"],
+[type="button"],
+[type="reset"] {
   display: inline-block;
   outline: none;
-  padding: 6px 12px 8px;
-  border: 1px solid $color-main;
+  overflow: hidden;
+
+  padding: 0.5em 0.75em;
+  border: solid $color-main-dark;
+  border-width: 1px 1px 2px;
   background-color: $color-main;
 
-  line-height: 1;
+  font-weight: 600;
   color: white;
   text-decoration: none;
+  line-height: normal;
 
   border-radius: $g-radius;
   transition: none;
 
   &:hover {
-    background-color: $color-main-dark;
+    border-color: darken( $color-main-dark, 10% );
     color: white;
   }
 
   &:active {
-    box-shadow: inset 0 0 0 1px white;
+    border-width: 2px 1px 1px;
   }
 
   &[disabled] {
@@ -63,25 +71,27 @@ a.button,
 [type="email"],
 [type="search"],
 [type="url"],
+[type="date"],
+[type="time"],
 textarea,
 select {
   display: block;
   width: 100%;
   padding: 0.5em 0.75em;
-  border: 1px solid $color-passive;
-  border-top-color: darken($color-passive, 5%);
+  border: 2px solid $color-passive;
   border-radius: $g-radius;
-  line-height: normal;
 
-  &:hover {
-    border-color: darken($color-passive, 10%);
-    box-shadow: inset 0 0 3px $color-passive;
-  }
+  line-height: normal;
+  transition: $g-transition;
 
   &:focus {
     border-color: $color-main;
-    box-shadow: inset 0 1px 2px rgba(black, .2);
+    box-shadow: 0 0 0 2px #78dcfa;
   }
+}
+
+select {
+  border-width: 1px 1px 2px;
 }
 
 input[type="radio"],
@@ -127,304 +137,9 @@ input[type="radio"] {
 
 // Fix adminbar getting pushed down
 #wpadminbar {
-  @include below(600px) {
+  @include below( 600px ) {
     position: absolute;
     @include transform(translateY(-100%) );
-  }
-}
-
-
-///// MAIN NAV /////
-
-.main-nav {
-  position: relative;
-  z-index: z(nav);
-  border-bottom: 1px solid $color-passive;
-
-  @include above(small) {
-    padding: 0.75em 0;
-  }
-}
-
-.nav-col {
-  @include column(12);
-  display: -webkit-flex;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-// MAIN LOGO
-
-.nav-logo {
-  @include below(small) {
-    order: 1;
-    margin: 0 auto;
-  }
-}
-
-.custom-logo-link {
-  img {
-    width: auto;
-    height: 2.5em;
-  }
-
-  @include below(small) {
-    display: none;
-  }
-}
-
-.mobile-logo {
-  img {
-    width: auto;
-    height: 32px;
-  }
-
-  @include above(small) {
-    display: none;
-  }
-}
-
-
-// NAV ITEM
-
-.menu-item {
-  position: relative;
-
-  > a {
-    display: block;
-    padding: 0.75em 1em;
-    color: $font-color;
-    transition: none;
-  }
-
-  // current page
-  &.current-menu-item,
-  &.current-page  -ancestor,
-  &.current_page_parent {
-    > a { color: $color-main; }
-  }
-
-  &:hover > a { opacity: .7; }
-  &:active > a { opacity: .5; }
-}
-
-.nav-wrapper {
-  display: -webkit-flex;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  flex: 1;
-
-  @include below(small) {
-    flex-direction: column;
-    visibility: hidden;
-    opacity: 0;
-
-    position: fixed;
-    z-index: z(nav);
-    top: 0;
-    left: 0;
-    bottom: 0;
-    padding: 3.5em 0 2em;
-    width: 180px;
-    background-color: white;
-
-    transition: $g-transition;
-    box-shadow: $shadow-z2;
-    @include transform(translateX(-100%) );
-  }
-
-  .nav-active & {
-    visibility: visible;
-    opacity: 1;
-    @include transform(none);
-  }
-}
-
-// Nav Mobile
-
-body.nav-active {
-  cursor: pointer; // fix iOS untap-able bug
-  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
-}
-
-.nav-toggle {
-  i {
-    line-height: 1;
-  }
-
-  i, b {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  .dashicons-before::before {
-    width: 18px;
-    height: 18px;
-    font-size: 18px;
-  }
-
-  @include above(small) {
-    display: none;
-  }
-}
-
-// Nav Children
-
-.nav-children {
-  visibility: hidden; opacity: 0;
-  position: absolute;
-  z-index: z(child_nav);
-  top: 100%;
-  left: 0;
-  padding: 4px;
-  min-width: 200px;
-
-  background-color: $color-main-dark;
-  white-space: nowrap;
-
-  transition: $g-transition;
-  box-shadow: $shadow-z1;
-  @include transform(translateY(10px) );
-
-
-  .menu-item:hover & {
-    visibility: visible;
-    opacity: 1;
-    @include transform(none);
-  }
-
-  a {
-    display: block;
-    padding: 0.25em 0.5em;
-    color: white;
-    letter-spacing: 0.5px;
-    transition: none;
-  }
-
-  a:hover {
-    background-color: $color-main;
-  }
-
-  a:active {
-    background-color: rgba($color-main, .8);
-  }
-
-  /////
-
-  @include below(small) {
-    top: 0;
-    left: 100%;
-    @include transform(translateX(10px) );
-
-    a {
-      padding: 0.5em 0.75em;
-    }
-  }
-}
-
-// NAV EXTRA
-
-.nav-extra {
-  @include display-flex;
-  order: 2;
-  align-items: center;
-
-  position: relative;
-  z-index: z(nav);
-  margin-left: auto;
-
-  > * {
-    margin-right: 5px;
-  }
-
-  .menu-item > a {
-    padding: 5px;
-    line-height: 1;
-    border-radius: $g-radius;
-  }
-}
-
-
-///// NAV DIALOG
-
-.nav-dialog {
-  visibility: hidden;
-  opacity: 0;
-
-  position: absolute;
-  z-index: z(nav);
-  top: 100%;
-  right: 0;
-  width: 300px;
-  background-color: $body-background;
-  padding: 5px 0;
-
-  font-size: em(15px);
-
-  border-radius: $g-radius;
-  box-shadow: $shadow-z1;
-  transition: $g-transition;
-  @include transform(translateY(-1.5em) );
-
-  @include below(small) {
-    top: calc(100% + 10px);
-  }
-
-  &.nav-dialog--active {
-    visibility: visible;
-    opacity: 1;
-    @include transform(none);
-  }
-}
-
-///// SEARCH FORM
-
-.search-form {
-  @include display-flex;
-  position: relative;
-  z-index: z(nav);
-
-  label {
-    cursor: pointer;
-    position: relative;
-    z-index: z(nav);
-    padding: 5px;
-
-    border-radius: $g-radius;
-    transition: $g-transition;
-
-    &:hover {
-      background-color: $color-main-light;
-      color: white;
-    }
-  }
-}
-
-.search-form input {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 0.25em);
-  padding: 0.5em 0;
-  width: 0;
-  opacity: 0;
-
-  border-radius: $g-radius 0 0 $g-radius;
-  @include transform(translateX(-100%) translateY(-50%) );
-
-  &:focus {
-    opacity: 1;
-    padding-right: 2.5em;
-    padding-left: 0.5em;
-    width: 250px;
-    box-shadow: $shadow-z1;
-  }
-
-  &:focus ~ label {
-    background-color: $color-main-dark;
-    color: white;
-    border-radius: 0 $g-radius $g-radius 0;
   }
 }
 
@@ -452,7 +167,6 @@ body.nav-active {
 
 
 ///// MAIN FOOTER /////
-
 
 .main-footer {
   position: relative;
@@ -525,7 +239,7 @@ body.nav-active {
     color: $color !important;
     border-color: $color;
 
-    &:hover { background-color: rgba($color, .3); }
+    &:hover { border-color: darken( $color, 15% ); }
   }
 }
 

@@ -17,19 +17,21 @@
         </figure>
       </h-column>
 
-      {# Description tab #}
-      <h-column class="large-5">
-        <article class="product-article">
-          {% do action("woocommerce_single_product_summary") %}
-        </article>
-      </h-column>
-
       {# Price & Buy button #}
       <h-column class="large-3">
         <aside class="product-purchase">
           {% do action("woocommerce_after_single_product_summary") %}
         </aside>
       </h-column>
+
+      {# Description tab #}
+      <h-column class="large-5">
+        <article class="product-article post-content">
+          {% do action("woocommerce_single_product_summary") %}
+        </article>
+      </h-column>
+
+
     </h-row>
 
   </section>

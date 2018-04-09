@@ -1,3 +1,8 @@
+## 0.7.0
+
+- [Woo] Further revamp with beautiful basic design for all Woo pages including obscure My Account.
+- [WP] Slight design changes on blog
+
 ## 0.6.1
 
 - [WP] Another update to be more inline with WP Guidelines.

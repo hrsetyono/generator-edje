@@ -34,7 +34,7 @@
 
   <nav class="nav-wrapper">
   {% for item in nav.items %}
-    <div class="{{ item.classes | join(' ') }}">
+    <div class="{{ item.class }}">
       <a href="{{ item.url }}"> {{ item.title }} </a>
 
       {# child menu #}
@@ -62,6 +62,7 @@
 
 </h-column></h-row>
 </section>
+
 {% endblock %}
 
   {# MAIN CONTENT #}

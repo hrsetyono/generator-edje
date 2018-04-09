@@ -10,15 +10,13 @@ class MyShortcode {
     Add button class to the link inside
     Usage: [button] link [/button]
   */
-  function button($attr, $content = null) {
+  function button( $attr, $content = null ) {
     // if have anchor inside, add button class
     if(preg_match( '/<a (.+?)>/', $content, $match ) ) {
       $content = substr_replace( $content, ' class="button" ', 3, 0 );
     }
     // else, make it into do-nothing button
-    else {
-      $content = '<a class="button">' . $content . '</a>';
-    }
+    else { $content = '<a class="button">' . $content . '</a>'; }
 
     return wpautop( $content );
   }
@@ -28,11 +26,40 @@ class MyShortcode {
 
 class MyFilter {
   function __construct() {
+    add_action( 'after_setup_theme', array($this, 'default_theme_support') );
+    add_action( 'after_switch_theme', array($this, 'change_editor_cap') );
+  }
 
+
+
+  /////
+
+  /*
+    Default theme_support
+    @action after_setup_theme
+  */
+  function default_theme_support() {
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'menus' );
+    add_theme_support( 'custom-logo' );
+    add_theme_support( 'title_tag' );
+    add_theme_support( 'html5', array('search-form', 'comment-form', 'gallery', 'caption') );
+    add_theme_support( 'automatic-feed-links' );
+    add_post_type_support( 'page', 'excerpt' ); // allow page to have excerpt
+  }
+
+  /*
+    Allow editor to edit Appearance
+    @action after_switch_theme
+  */
+  function change_editor_cap() {
+    $role = get_role( 'editor' );
+    $role ? $role->add_cap( 'edit_theme_options' ) : false;
+
+    $role = get_role( 'shop_manager' );
+    $role ? $role->add_cap( 'edit_theme_options' ) : false;
   }
 }
-
-
 
 
 ///// HELPER /////

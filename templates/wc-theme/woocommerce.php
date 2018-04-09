@@ -33,6 +33,7 @@ else {
   // if SHOP page
   else {
     $post = Timber::get_post( get_option( 'woocommerce_shop_page_id' ) );
+
     $context['title'] = $post->title;
     $context['content'] = $post->content;
   }

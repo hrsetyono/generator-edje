@@ -1,8 +1,15 @@
 <div class="post-meta">
-  <a class="meta-category" href="{{ post.categories[0].link }}">{{ post.categories[0].name }}</a>
+  <a class="meta-category" href="{{ post.categories[0].link }}"><strong>{{ post.categories[0].name }}</strong></a>
   by <a class="meta-author" href="{{ post.author.link }}">{{ post.author.display_name }}</a>
 
   <time datetime="{{ post.post_date | date('Y-m-d') }}">
     {{ post.post_date | date }}
   </time>
+
+  {% if post.comment_count %}
+    <span class="meta-comments">
+      <i class="dashicons-before dashicons-admin-comments"></i> {{ post.comment_count }} Comments
+    </span>
+  {% endif %}
+
 </div>

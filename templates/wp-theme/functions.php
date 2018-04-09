@@ -4,11 +4,12 @@ require_once 'code/addon.php';
 if( !MyHelper::has_required_plugins() ) { return false; }
 require_once 'code/timber.php';
 
-add_action( 'wp_enqueue_scripts', 'my_enqueue_script', 100 );
+add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 100 );
 add_action( 'after_setup_theme', 'my_after_load_theme' );
 add_action( 'init', 'my_init', 1 );
 add_action( 'widgets_init', 'my_widgets' );
-add_action(' after_switch_theme', 'my_after_activate_theme' );
+
+new MyFilter();
 
 
 /////
@@ -17,7 +18,7 @@ add_action(' after_switch_theme', 'my_after_activate_theme' );
   Register all your CSS and JS here
   @action wp_enqueue_scripts 100
 */
-function my_enqueue_script() {
+function my_enqueue_scripts() {
   $css_dir = get_stylesheet_directory_uri() . '/assets/css';
   $js_dir = get_stylesheet_directory_uri() . '/assets/js';
 
@@ -40,26 +41,18 @@ function my_enqueue_script() {
   @action after_setup_theme
 */
 function my_after_load_theme() {
-  $GLOBALS['content_width'] = 600; // Blog article's width
-
-  add_theme_support( 'post-thumbnails' );
-  add_theme_support( 'menus' );
-  add_theme_support( 'custom-logo' );
-  add_theme_support( 'title_tag' );
+  $GLOBALS['content_width'] = 600; // Blog wi dth, affect Jetpack Gallery size
   add_theme_support( 'widgets' );
-  add_theme_support( 'html5', array('search-form', 'comment-form', 'gallery', 'caption') );
-  add_theme_support( 'automatic-feed-links' );
-  add_post_type_support( 'page', 'excerpt' ); // allow page to have excerpt
 
   // Jetpack support
   add_theme_support( 'jetpack-responsive-videos' );
   add_theme_support( 'infinite-scroll', array(
     'footer' => false,
+    'posts_per_page' => false,
     'render' => function() {
       $context = array( 'posts' => Timber::get_posts() );
       Timber::render( 'partials/_posts.twig', $context );
     },
-    'posts_per_page' => false
   ) );
 
   // Create Nav assignment
@@ -75,7 +68,6 @@ function my_after_load_theme() {
 */
 function my_init() {
   new MyShortcode();
-  new MyFilter();
   new MyTimber();
 
   /*
@@ -99,15 +91,4 @@ function my_init() {
 */
 function my_widgets() {
   register_sidebar( array('name' => 'My Sidebar', 'id' => 'my-sidebar') );
-}
-
-
-/*
-  Run only after this theme is activated
-  @action after_switch_theme
-*/
-function my_after_activate_theme() {
-  // Allow EDITOR to edit appearances
-  $role = get_role( 'editor' );
-  $role ? $role->add_cap( 'edit_theme_options' ) : false;
 }

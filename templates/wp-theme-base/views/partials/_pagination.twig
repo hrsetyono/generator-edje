@@ -9,6 +9,8 @@
   {% for page in pagination.pages %}
     {% if page.link %}
       <option value="{{ page.link }}">Page {{ page.title }}</option>
+    {% elseif page.class == 'dots' %}
+      <option disabled>{{ page.title }}</option>
     {% else %}
       <option selected disabled>Page {{ page.title }} of {{ pagination.total }}</option>
     {% endif %}

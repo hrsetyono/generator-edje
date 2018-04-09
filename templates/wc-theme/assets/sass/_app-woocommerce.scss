@@ -1,17 +1,19 @@
 // SETTING
 
-$wc-panel: #faf9f7;
-$wc-panel-dark: darken($wc-panel, 3%);
+$wc-panel: $color-passive-light;
+$wc-panel-dark: darken($wc-panel, 5%);
 
 ///// GENERAL
 
 .price {
   del {
+    display: block;
+    opacity: .5;
     font-size: em( $font-size-small );
   }
 
   ins {
-    color: $color-red;
+    display: block;
     text-decoration: none;
   }
 }
@@ -127,7 +129,6 @@ $wc-panel-dark: darken($wc-panel, 3%);
 
 // product header
 
-
 .product-header {
   margin-bottom: 2em;
 
@@ -222,32 +223,64 @@ $wc-panel-dark: darken($wc-panel, 3%);
   }
 }
 
-// product article
-.product-article {
+///// PRODUCT TABS
 
-  @include above(small) {
-    padding: 0 1.5em;
+ul.wc-tabs {
+  @include display-flex;
+  flex-wrap: wrap;
+
+  padding-left: 0;
+  list-style-type: none;
+
+  li {
+  }
+
+  a {
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+  }
+
+  .active a {
+    background-color: rgba( $color-main, .2 );
   }
 }
 
-button.single_add_to_cart_button {
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.wc-tab {
+  > h2:first-child {
+    display: none;
+  }
+}
+
+// product article
+
+.product-article {
 }
 
 // product purchase
 
 .product-purchase {
+  padding: 0 1em;
+
   .price {
     display: block;
+    background-color: rgba( $color-main, .1 );
+
     padding: 0.75em;
-    margin-bottom: 0.5em;
-    border: 1px solid $color-passive;
+    border: 1px solid rgba( $color-main, .5 );
     border-radius: $g-radius;
 
     line-height: 1.15;
     text-align: center;
-    color: $color-red;
+  }
+
+  > .price {
+    margin-bottom: 1.5em;
+  }
+
+  .quantity {
+    flex: 1;
+    margin-right: 1em;
   }
 
   .amount {
@@ -255,15 +288,58 @@ button.single_add_to_cart_button {
     display: block;
     font-weight: 700;
   }
+
+  form {
+    @include display-flex;
+    flex-wrap: wrap;
+  }
+
+  label {
+    font-size: em( $font-size-small );
+  }
+
+  .single_add_to_cart_button {
+    align-self: flex-end;
+  }
+}
+
+
+// PRODUCT VARIATION
+
+.single_variation_wrap {
+  margin-bottom: 1.5em;
+}
+
+table.variations {
+  margin-top: 1.5em;
+  width: 100%;
+
+  label,
+  select {
+    margin-bottom: 0.5em;
+  }
 }
 
 .woocommerce-variation-add-to-cart {
   @include display-flex;
+}
 
+// Div that appears after selecting variation
+.single_variation {
+
+  p,
+  .woocommerce-variation-price  {
+    margin-bottom: 1em;
+  }
+
+  .out-of-stock {
+    color: $color-red;
+  }
 }
 
 
-// product related
+///// RELATED PRODUCT
+
 .product-related {
   margin: 3em 0 2em;
 
@@ -275,6 +351,10 @@ button.single_add_to_cart_button {
 
 
 ///// CART
+
+.woocommerce-cart-form {
+  margin: 2em 0;
+}
 
 .shop_table {
   width: 100%;
@@ -296,6 +376,16 @@ button.single_add_to_cart_button {
 
     &:nth-child(even) {
       background-color: $wc-panel;
+    }
+  }
+
+  .product-name a {
+    font-weight: $header-weight;
+  }
+
+  .variation {
+    dt, dd {
+      display: inline-block;
     }
   }
 
@@ -527,7 +617,7 @@ body.woocommerce-account div.woocommerce {
     border-left: 4px solid transparent;
     width: 100%;
 
-    color: $font-color-passive;
+    color: $font-color;
     transition: $g-transition;
 
     &:hover {
@@ -586,10 +676,10 @@ body.woocommerce-account div.woocommerce {
   text-align: center;
 
   a {
-    width: 100px;
     background-color: inherit;
-    text-align: center;
     color: $color-main;
+
+    &:hover { color: $color-main; }
   }
 
   .woocommerce-button--previous {
@@ -738,10 +828,6 @@ body.woocommerce-account div.woocommerce {
 
   td:first-child {
     flex: 1;
-  }
-
-  .product-name {
-    font-weight: 700;
   }
 
   .product-quantity {

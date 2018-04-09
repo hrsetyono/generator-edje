@@ -9,24 +9,26 @@
 {% endif %}
 
 {# Content #}
-<h-row class="post-row"><h-column class="post-col">
+<h-row class="post-row">
+<h-column class="post-col">
 
-<article class="post-content">
-  <header class="post-header">
-    <h1>{{ post.title }}</h1>
-    {% include "partials/_post-meta.twig" %}
-  </header>
+  <article class="post-content">
+    <header class="post-header">
+      <h1>{{ post.title }}</h1>
+      {% include "partials/_post-meta.twig" %}
+    </header>
 
-  <section class="post-body">
-    {{ post.content }}
-  </section>
+    <section class="post-body">
+      {{ post.content }}
+    </section>
 
-  <footer class="post-author">
-    {% include "partials/_author-info.twig" with { author: post.author } %}
-  </footer>
-</article>
+    <footer class="post-author">
+      {% include "partials/_author-info.twig" with { author: post.author } %}
+    </footer>
+  </article>
 
-</h-column></h-row>
+</h-column>
+</h-row>
 
 
 <section class="post-footer">
