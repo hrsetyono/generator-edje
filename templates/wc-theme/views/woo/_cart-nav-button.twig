@@ -1,0 +1,8 @@
+{# NOTE: This file is called when updating Cart button via AJAX #}
+
+<a class="cart-nav {{ woo.cart.is_empty ? 'button-passive' : 'button cart-nav--active' }}" data-nav-dialog="cart-dialog">
+  <i class="dashicons-before dashicons-cart"></i>
+  <span>{{ __('Cart', 'my') }}</span>
+
+  <b>{{ woo.cart.get_cart_contents_count }}</b>
+</a>

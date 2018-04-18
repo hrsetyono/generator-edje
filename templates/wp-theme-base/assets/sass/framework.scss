@@ -5,7 +5,6 @@
 @import "fw-blog";
 @import "fw-magnific";
 @import "fw-slick";
-
 @import "fw-nav";
 
 .text-left { text-align: left; }
@@ -24,32 +23,21 @@
 
 ///// BUTTON /////
 
-.button,
-a.button,
-[type="submit"],
-[type="button"],
-[type="reset"] {
+%button {
   display: inline-block;
   outline: none;
   overflow: hidden;
-
-  padding: 0.5em 0.75em;
-  border: solid $color-main-dark;
+  border-style: solid;
   border-width: 1px 1px 2px;
-  background-color: $color-main;
+  padding: 0.5em 0.75em;
 
   font-weight: 600;
-  color: white;
   text-decoration: none;
   line-height: normal;
+  vertical-align: top;
 
   border-radius: $g-radius;
   transition: none;
-
-  &:hover {
-    border-color: darken( $color-main-dark, 10% );
-    color: white;
-  }
 
   &:active {
     border-width: 2px 1px 1px;
@@ -60,6 +48,50 @@ a.button,
     opacity: .3;
   }
 }
+
+
+.button,
+a.button,
+[type="submit"],
+[type="button"],
+[type="reset"] {
+  @extend %button;
+  border-color: $color-main-dark;
+  background-color: $color-main;
+  color: white;
+
+  &:hover {
+    border-color: darken( $color-main-dark, 10% );
+  }
+}
+
+.button-passive,
+a.button-passive,
+.button.loading {
+  border-color: $color-passive;
+  background-color: $color-passive-light;
+  color: $font-color;
+
+  &:hover {
+    border-color: darken( $color-passive, 10% );
+    color: $font-color;
+  }
+}
+
+
+.button-passive,
+a.button-passive {
+  @extend %button;
+}
+
+.button.loading {
+  cursor: not-allowed;
+  background-image: url( $spinner_path );
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: transparent !important;
+}
+
 
 
 ///// INPUT /////
@@ -162,84 +194,6 @@ input[type="radio"] {
     display: block;
     color: $font-color;
     font-size: em($h2, $h1);
-  }
-}
-
-
-///// MAIN FOOTER /////
-
-.main-footer {
-  position: relative;
-  padding: 1.5em 0 3em;
-  background-color: $color-passive-light;
-  border-top: 1px solid $color-passive;
-  border-bottom: 1px solid $color-passive;
-}
-
-.footer-nav {
-  padding-bottom: 1em;
-  margin-bottom: 1em;
-  border-bottom: 1px dashed $color-passive;
-  text-align: center;
-
-  a {
-    display: inline-block;
-    padding: 0 1em;
-    color: $font-color;
-  }
-
-  a:hover { color: $color-main; }
-
-  @include above(mini) {
-    a:first-child { padding-left: 0; }
-    a:last-child { padding-right: 0; }
-  }
-
-  @include below(mini) {
-    @include flex;
-    flex-wrap: wrap;
-
-    a {
-      width: 50%;
-    }
-  }
-}
-
-.footer-legal {
-  font-size: em($font-size-small);
-
-  a { margin-left: 1em; }
-}
-
-//// FOOTER SOCIAL LOGOS
-
-.footer-social {
-  text-align: right;
-
-  a + a { margin-left: 0.25em; }
-}
-
-.social-logo {
-  font-weight: normal;
-  font-size: 1.5em;
-  line-height: 1;
-  vertical-align: top;
-  color: rgba($font-color, .4);
-}
-
-///// SHARE COLORS
-
-@each $name, $color in $social-colors {
-  .social-logo__#{ $name }:hover {
-    color: $color;
-  }
-
-  // Sharedaddy color
-  div.sharedaddy .sd-block .sd-content ul li a.sd-button.share-#{ $name } {
-    color: $color !important;
-    border-color: $color;
-
-    &:hover { border-color: darken( $color, 15% ); }
   }
 }
 

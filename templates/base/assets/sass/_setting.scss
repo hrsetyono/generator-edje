@@ -71,6 +71,7 @@ $z-indexes: (
   nav: 1010,
   nav_overlay: 900,
   child_nav: 1020,
+  above_normal: 10,
 );
 
 // ----- GLOBAL VALUE -----
@@ -131,11 +132,10 @@ $h6 : $font-size;
 // $shadow-z3: 0 6px 12px rgba(black, .23), 0 10px 40px rgba(black, .19);
 
 
-// ----- INCLUDE ------
-// $include-print  : true;
-// $include-animate: true;
+
+$spinner_path: '../../../../../wp-admin/images/spinner.gif';
 
 
-// ----- CUSTOM MIXIN -----
+///// CUSTOM MIXIN
 
 @mixin your-custom-mixin() { }

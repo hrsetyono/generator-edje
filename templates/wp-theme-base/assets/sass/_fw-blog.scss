@@ -99,6 +99,10 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
     border: $table-border;
     text-align: left;
   }
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
 ///// EDITOR STYLE
@@ -1106,25 +1110,20 @@ a.comment-reply-link {
   color: $font-color-passive;
   text-align: center;
 
-  .page-button,
+  a,
   select {
     cursor: pointer;
-    display: inline-block;
     width: auto;
-    border: 1px solid $font-color-passive;
-    padding: 5px 1em;
-    background-color: transparent;
 
-    color: inherit;
-
-    border-radius: $g-radius;
-    transition: $g-transition;
     -webkit-appearance: none;
-
-    &:hover { border-color: $font-color; color: $font-color; }
+    appearance: none;
   }
 
-  .page-button {
+  select:not(:hover) {
+    border-color: transparent;
+  }
+
+  a {
     align-self: center;
 
     &:first-child { margin-right: auto; }
@@ -1135,10 +1134,6 @@ a.comment-reply-link {
       visibility: hidden;
       opacity: 0;
     }
-  }
-
-  select {
-    border-color: transparent;
   }
 }
 
@@ -1239,22 +1234,16 @@ div.sharedaddy {
 
 // button general (needs to override)
 div.sharedaddy .sd-block.sd-social .sd-content ul li a.sd-button {
-  display: block;
-  overflow: hidden;
+  @extend %button;
 
   background-color: transparent;
-  border: solid $font-color;
-  border-width: 1px 1px 2px;
+  border-color: $font-color;
   margin-top: 0;
 
   &:hover {
     background-color: inherit;
     border-color: darken( $font-color, 15% );
     opacity: 1;
-  }
-
-  &:active {
-    border-width: 2px 1px 1px;
   }
 
   // Coloring is handled in framework.scss - SOCIAL LOGO section

@@ -6,9 +6,9 @@ $(document).on('page:load', start);
 $(window).load(startOnLoad);
 
 function start() {
-  app.init();
-  nav.init();
-  blog.init();
+  myApp.init();
+  myNav.init();
+  myBlog.init();
 }
 
 // functions that needs to run only after everything loads
@@ -20,7 +20,7 @@ function startOnLoad() {
 
 
 ///// GENERAL LISTENERS
-var app = {
+var myApp = {
   init: function() {
     $('.sample-div').on( 'click', this.sampleListener );
   },
@@ -33,7 +33,7 @@ var app = {
 
 ///// BLOG POSTS
 
-var blog = {
+var myBlog = {
   init: function() {
     this.commentFormToggle();
   },
@@ -63,7 +63,7 @@ var blog = {
 
 ///// NAVIGATION
 
-var nav = {
+var myNav = {
   init: function() {
     var self = this;
     self.mobileNav();
@@ -99,17 +99,18 @@ var nav = {
   */
   dialogNav: function() {
     var self = this;
-    $('[data-nav-dialog]').on( 'click', open );
-    $('.nav-dialog').on( 'click', self.preventClose );
+    $('.main-nav').on( 'click', '[data-nav-dialog]', toggle );
+    $( document.body ).on( 'click', '.nav-dialog', self.preventClose );
 
 
-    function open( e ) {
+    function toggle( e ) {
       e.preventDefault();
       e.stopPropagation();
-      var targetId = $(this).data( 'nav-dialog' );
+      var $target = $( '#' + $(this).data( 'nav-dialog' ) );
+      var isTargetActive = $target.hasClass( 'nav-dialog--active' );
 
       self.closeNav(); // close all nav first
-      $('#' + targetId).addClass( 'nav-dialog--active' );
+      isTargetActive ? $target.removeClass( 'nav-dialog--active' ) : $target.addClass( 'nav-dialog--active' );
     }
   },
 

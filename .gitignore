@@ -6,6 +6,7 @@ templates/wc-theme/code/addon.php
 templates/wc-theme/assets/css/*
 templates/wc-theme/assets/images/*
 templates/wc-theme/assets/js/*
+!templates/wc-theme/assets/js/app-wc.js
 templates/wc-theme/assets/sass/*
 !templates/wc-theme/assets/sass/_app-woocommerce.scss
 !templates/wc-theme/assets/sass/app.scss

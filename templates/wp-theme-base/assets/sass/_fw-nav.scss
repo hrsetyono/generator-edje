@@ -58,6 +58,8 @@
     padding: 0.75em 1em;
     color: $font-color;
     transition: none;
+
+    &:hover { opacity: .7; }
   }
 
   // current page
@@ -67,9 +69,6 @@
   &.current-menu-parent {
     > a { color: $color-main; }
   }
-
-  &:hover > a { opacity: .7; }
-  &:active > a { opacity: .5; }
 }
 
 .nav-wrapper {
@@ -144,9 +143,10 @@ body.nav-active {
   padding: 4px;
   min-width: 200px;
 
-  background-color: $color-main-dark;
+  background-color: $color-passive-light;
   white-space: nowrap;
 
+  border-radius: $g-radius;
   transition: $g-transition;
   box-shadow: $shadow-z1;
   @include transform(translateY(10px) );
@@ -161,17 +161,13 @@ body.nav-active {
   a {
     display: block;
     padding: 0.25em 0.5em;
-    color: white;
-    letter-spacing: 0.5px;
-    transition: none;
+    color: inherit;
+
+    border-radius: $g-radius;
   }
 
   a:hover {
-    background-color: $color-main;
-  }
-
-  a:active {
-    background-color: rgba($color-main, .8);
+    background-color: $color-passive;
   }
 
   /////
@@ -285,5 +281,83 @@ body.nav-active {
   &:focus ~ label {
     background-color: $color-main-dark;
     color: white;
+  }
+}
+
+
+///// MAIN FOOTER /////
+
+.main-footer {
+  position: relative;
+  padding: 1.5em 0 3em;
+  background-color: $color-passive-light;
+  border-top: 1px solid $color-passive;
+  border-bottom: 1px solid $color-passive;
+}
+
+.footer-nav {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px dashed $color-passive;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    padding: 0 1em;
+    color: $font-color;
+  }
+
+  a:hover { color: $color-main; }
+
+  @include above(mini) {
+    a:first-child { padding-left: 0; }
+    a:last-child { padding-right: 0; }
+  }
+
+  @include below(mini) {
+    @include flex;
+    flex-wrap: wrap;
+
+    a {
+      width: 50%;
+    }
+  }
+}
+
+.footer-legal {
+  font-size: em($font-size-small);
+
+  a { margin-left: 1em; }
+}
+
+//// FOOTER SOCIAL LOGOS
+
+.footer-social {
+  text-align: right;
+
+  a + a { margin-left: 0.25em; }
+}
+
+.social-logo {
+  font-weight: normal;
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: top;
+  color: rgba($font-color, .4);
+}
+
+///// SHARE COLORS
+
+@each $name, $color in $social-colors {
+  .social-logo__#{ $name }:hover {
+    color: $color;
+  }
+
+  // Sharedaddy color
+  div.sharedaddy .sd-block .sd-content ul li a.sd-button.share-#{ $name } {
+    color: $color !important;
+    border-color: $color;
+
+    &:hover { border-color: darken( $color, 15% ); }
   }
 }

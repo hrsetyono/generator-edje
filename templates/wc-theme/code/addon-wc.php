@@ -147,10 +147,13 @@ class MyProduct {
 class MyCart {
   function __construct() {
     // remove alert when removing item from cart
-    add_filter( 'woocommerce_add_success', array( $this, 'disable_alert_remove_cart' ) );
+    add_filter( 'woocommerce_add_success', array($this, 'disable_alert_remove_cart') );
 
     // change the button in alert to go straight to checkout
-    add_filter( 'wc_add_to_cart_message_html', array( $this, 'added_to_cart_message' ), null, 2 );
+    add_filter( 'wc_add_to_cart_message_html', array($this, 'added_to_cart_message'), null, 2 );
+
+    // Cart navigation widget
+    add_filter( 'woocommerce_add_to_cart_fragments', array($this, 'update_cart_widget_fragment') );
 
     // replace default cross-sell
     remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
@@ -183,11 +186,26 @@ class MyCart {
   function added_to_cart_message( $message, $product_id ) {
     $real_message = preg_replace( '/<a\D+a>/', '', $message ); // without <a> tag
     $button = sprintf(
-      '<a href="%s" class="button wc-forward">%s</a> ',
+      '<a class="woocommerce-message-close">×</a> <a href="%s" class="button wc-forward">%s</a> ',
       esc_url( wc_get_page_permalink('checkout') ), esc_html__( 'Continue Payment', 'my' )
     );
 
     return $button . $real_message;
+  }
+
+  /*
+    Update Cart Widget whenever we add new item to cart via AJAX
+    @filter woocommerce_add_to_cart_fragments
+
+    @param $fragments arr - HTML to be applied to widget
+  */
+  function update_cart_widget_fragment( $fragments ) {
+    ob_start();
+    $context = Timber::get_context();
+    Timber::render( 'woo/_cart-nav-button.twig', $context );
+    $fragments['.cart-nav'] = ob_get_clean();
+
+    return $fragments;
   }
 
   /*

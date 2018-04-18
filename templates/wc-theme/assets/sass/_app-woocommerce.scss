@@ -27,7 +27,7 @@ $wc-panel-dark: darken($wc-panel, 5%);
 ///// CATEGORY LISTING
 
 .shop-categories {
-  margin: 2em 0;
+  margin: 2em 0 3em;
 
   h2 {
     margin-bottom: 1rem;
@@ -45,6 +45,10 @@ $wc-panel-dark: darken($wc-panel, 5%);
   figure {
     margin-bottom: 1em;
     transition: $g-transition;
+  }
+
+  img {
+    border-radius: $g-radius;
   }
 
   h3 {
@@ -79,6 +83,7 @@ $wc-panel-dark: darken($wc-panel, 5%);
 }
 
 .product-tease {
+  position: relative;
   margin-bottom: 1.5em;
   text-align: center;
 
@@ -103,22 +108,66 @@ $wc-panel-dark: darken($wc-panel, 5%);
     display: block;
   }
 
-  .onsale {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-    padding: 0 1em;
-    border: 1px solid $font-color-passive;
-    color: $font-color-passive;
-    font-size: em( $font-size-small );
-
-    border-radius: $g-radius;
-  }
-
+  // Tease button
   .button {
     margin-top: 0.5rem;
     font-size: em( $font-size-small );
+    vertical-align: middle;
+  }
+
+  .button.added {
+    position: relative;
+    background-color: $color-green;
+    border-color: darken( $color-green, 10% );
+    color: transparent;
+
+    &::after {
+      content: "\f147";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      font-family: "dashicons";
+      font-size: 1.25em;
+      color: white;
+      @include transform( translateX(-50%) translateY(-50%) );
+    }
+  }
+
+  .added_to_cart {
+    display: none;
   }
 }
+
+///// ON SALE LABEL
+
+.onsale {
+  display: inline-block;
+  padding: 0 1em;
+  border: 1px dashed white;
+  background-color: $color-red;
+  color: white;
+  font-weight: $header-weight;
+  font-size: em( $font-size-small );
+  text-transform: uppercase;
+
+  border-radius: $g-radius;
+  box-shadow: 0 0 0 2px $color-red;
+
+  .product-tease & {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+  }
+
+  .product-figure & {
+    position: absolute;
+    z-index: z( above_normal );
+    top: 10px;
+    left: 10px;
+  }
+}
+
 
 
 ///// SINGLE PRODUCT
@@ -126,6 +175,7 @@ $wc-panel-dark: darken($wc-panel, 5%);
 .product-wrapper {
   margin: 2em 0;
 }
+
 
 // product header
 
@@ -136,14 +186,29 @@ $wc-panel-dark: darken($wc-panel, 5%);
     @include font-sizes( $h2-sizes );
   }
 
+  // Jetpack Sharing
   .sharedaddy {
     padding: 0.5em 0;
     margin: 0.75em 0 0;
     border-bottom: 1px solid $color-passive;
   }
+
+  div.sd-block {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  div.sd-block h3.sd-title {
+    margin-bottom: 0;
+    margin-right: 1em;
+  }
 }
 
 // product gallery
+.product-figure {
+  position: relative;
+}
+
 .woocommerce-product-gallery {
   position: relative;
 }
@@ -341,7 +406,7 @@ table.variations {
 ///// RELATED PRODUCT
 
 .product-related {
-  margin: 3em 0 2em;
+  margin: 4em 0 2em;
 
   h2 {
     text-align: center;
@@ -450,20 +515,17 @@ table.variations {
 ///// CART NAV /////
 
 .cart-nav {
-
-  &.cart-nav--active {
-    background-color: $color-main;
-    color: white;
-  }
-
   b {
     display: inline-block;
-    background-color: $color-main-dark;
     padding: 0 0.5em;
+    background-color: $color-passive;
     line-height: 1.25rem;
-
     font-size: 0.875rem;
     border-radius: $g-radius;
+  }
+
+  &.cart-nav--active b {
+    background-color: $color-main-dark;
   }
 }
 
@@ -477,41 +539,97 @@ table.variations {
     text-align: center;
     letter-spacing: 2px;
   }
+
+  .blockOverlay {
+    background-color: rgba(white, .8) !important;
+    background-image: url( $spinner_path );
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
 }
 
-
-// Table on Cart Dialog
-
-.cart-dialog-table {
+.woocommerce-mini-cart {
   background-color: white;
+  max-height: 264px;
+  overflow-y: auto;
+
+  list-style-type: none;
   text-align: left;
+}
 
-  td {
-    position: relative;
-    padding: 0.5rem;
-    line-height: 1.5;
-  }
+.woocommerce-mini-cart-item {
+  @include clearfix;
+  display: block;
+  position: relative;
+  padding: 0.5rem;
+  border-bottom: 1px solid $wc-panel-dark;
+  line-height: 1.5;
 
-  td:first-child {
+  img {
     width: 25%;
+    float: left;
+    margin-right: 0.5em;
   }
 
-  tr {
-    border-bottom: 1px solid $wc-panel-dark;
-  }
 
   figure {
     position: relative;
   }
 
   a {
-    font-weight: 700;
+    display: block;
+    color: inherit;
+    font-weight: 500;
+
+    &:hover { text-decoration: underline;
+      img { opacity: .75; }
+    }
+  }
+
+  .variation {
+    margin-bottom: 0.5em;
+  }
+
+  dt, dd {
+    display: inline-block;
+  }
+}
+
+// Cart Total
+.woocommerce-mini-cart__total {
+  padding: 1em 0 0.5em;
+  text-align: center;
+
+  .woocommerce-Price-amount {
+    font-size: 1.125rem;
+  }
+
+  .button {
+    margin-top: 0.5rem;
+  }
+}
+
+.woocommerce-mini-cart__buttons {
+  text-align: center;
+
+  // Hide VIEW CART button because we want to go directly to Checkout
+  a:first-child {
+    display: none;
+  }
+
+  .button {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .button::after {
+    content: " »";
   }
 }
 
 // Remove item button on Cart dialog
 
-.cart-dialog-remove {
+a.remove_from_cart_button {
   display: inline-block;
   position: absolute;
   top: 0.25rem;
@@ -534,33 +652,12 @@ table.variations {
   }
 }
 
-// Cart Total
-
-.cart-dialog-total {
-  padding: 0.5rem 0;
-  text-align: center;
-
-  p {
-    font-size: 1.125rem;
-  }
-
-  .button {
-    margin-top: 0.5rem;
-  }
-}
-
 
 // Empty Cart
-
-.cart-dialog-empty {
+.woocommerce-mini-cart__empty-message {
   padding: 1.5rem 1.5rem 4rem;
   text-align: center;
-
-  p {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
+  font-size: 1.25rem;
 }
 
 
@@ -1016,46 +1113,79 @@ body.woocommerce-account div.woocommerce {
 
 ///// TOAST /////
 
+
+@include keyframes( flipInX ) {
+  from {
+    @include transform( perspective(400px) rotate3d(1, 0, 0, 90deg) );
+    @include animation-timing-function( ease-in );
+  }
+
+  40% {
+    @include transform( perspective(400px) rotate3d(1, 0, 0, -20deg) );
+    @include animation-timing-function( ease-in );
+  }
+
+  60% {
+    @include transform( perspective(400px) rotate3d(1, 0, 0, 10deg) );
+  }
+
+  80% {
+    @include transform( perspective(400px) rotate3d(1, 0, 0, -5deg) );
+  }
+
+  to {
+    @include transform( perspective(400px) );
+  }
+}
+
+
 .woocommerce-info,
 .woocommerce-message {
-  background-color: white;
+  @include display-flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
 
-  box-shadow: $shadow-z0;
-}
+  position: fixed;
+  z-index: z(nav);
+  bottom: 1em;
+  right: 1em;
+  padding: 1.25em;
+  padding-left: 2em;
+  background-color: $color-passive-light;
+  border-top: 2px solid transparent;
 
-.woocommerce-info {
-  border-top-color: $color-blue;
+  box-shadow: $shadow-z2;
+  border-radius: $g-radius;
 
-  &::before { color: $color-blue; }
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+  @include animation-name( flipInX );
+  @include animation-duration( 0.5s );
+  @include animation-fill-mode( both );
 
-  // so it looks merged with coupon form
-  .woocommerce-checkout & {
-    margin-bottom: 0 !important;
-  }
-
-  a {
-    color: $color-blue;
-
-    &:hover { color: lighten($color-blue, 10%); }
-  }
-}
-
-.woocommerce-message {
-  border-top-color: $color-green;
-
-  &::before { color: $color-green; }
-
-  a.button {
-    border-color: $color-green;
-    color: $color-green;
-
-    &:hover { background-color: $color-green; color: white; }
+  .button {
+    margin-top: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
   }
 }
 
 .woocommerce-error {
   border-top-color: $color-red;
   color: $color-red;
+}
+
+.woocommerce-message-close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+
+  text-align: center;
+  line-height: 1;
+  font-size: em(20px);
+  font-weight: $header-weight;
 }
 
 ///// STORE NOTICE

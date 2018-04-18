@@ -1,55 +1,9 @@
 {# CART DIALOG #}
 <div class="menu-item">
+  {% include 'woo/_cart-nav-button.twig' %}
 
-<a class="cart-nav {{ woo.cart.is_empty ? '' : 'cart-nav--active' }}" data-nav-dialog="cart-dialog">
-  <i class="dashicons-before dashicons-cart"></i>
-  <span>{{ __('Cart', 'my') }}</span>
-  {% if not woo.cart.is_empty %} <b>{{ woo.cart.get_cart_contents_count }}</b> {% endif %}
-</a>
-
-{# dialog #}
-<div id="cart-dialog" class="nav-dialog cart-dialog">
-  <h3>{{ __('Your Cart', 'my') }}</h3>
-
-  {% if woo.cart.is_empty %}
-    <div class="cart-dialog-empty">
-      <p>{{ __('Cart is Empty', 'my') }}</p>
-      <a href="/shop/" class="button">{{ __('Shop Now', 'my') }} »</a>
-    </div>
-
-  {% else %}
-    <table class="cart-dialog-table">
-      {% for key, item in woo.cart.cart_contents %}
-      <tr>
-        <td>
-          <figure>
-            {{ item.data.get_image("thumbnail") }}
-          </figure>
-        </td>
-        <td>
-          <p>
-            <a href="{{ item.data.get_permalink }}">{{ item.data.get_title }}</a> <br>
-            {{ woo.cart.wc_get_formatted_cart_item_data(item) }}
-          </p>
-          <p>
-            {{ fn("wc_price", item.line_total) }}
-            <small>(Qty: {{ item.quantity }})</small>
-          </p>
-
-          <a class="cart-dialog-remove" href="{{ fn('wc_get_cart_remove_url', key) }}">&times;</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
-
-    <div class="cart-dialog-total">
-      <p>
-        Total <strong>{{ woo.cart.get_cart_total }}</strong>
-      </p>
-
-      <a href="{{ checkout_url }}" class="button">Continue Payment »</a>
-    </div>
-  {% endif %}
-
+  <aside class="nav-dialog cart-dialog" id="cart-dialog">
+    <h3>{{ __('Your Cart', 'my') }}</h3>
+    {{ fn('the_widget', 'WC_Widget_Cart' ) }}
+  </aside>
 </div>
-</div> {# menu item#}

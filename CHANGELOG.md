@@ -1,3 +1,9 @@
+## 0.7.1
+
+- [Woo] Added CART Widget in Navigation.
+- [Woo] Add loading and success animation when clicking "Add to Cart" on Product Thumbnail.
+- [Woo] WC Notification Message is now floating in bottom-right.
+
 ## 0.7.0
 
 - [Woo] Further revamp with beautiful basic design for all Woo pages including obscure My Account.
