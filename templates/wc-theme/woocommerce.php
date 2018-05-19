@@ -10,8 +10,9 @@ if( is_singular( 'product' ) ) {
   $context['product'] = $product;
 
   // get related products
-  $related_ids = wc_get_related_products( $context['post']->id );
-  $context['related_products'] =  Timber::get_posts( $related_ids );
+  $related_limit = wc_get_loop_prop( 'columns' );
+  $related_ids = wc_get_related_products( $context['post']->id, $related_limit );
+  $context['related_products'] =  Timber::get_posts(  $related_ids );
 
   Timber::render( 'woo/single.twig', $context );
 }

@@ -94,8 +94,6 @@ function my_init() {
   }
 }
 
-
-
 /*
   Register widgets
   @action widgets_init

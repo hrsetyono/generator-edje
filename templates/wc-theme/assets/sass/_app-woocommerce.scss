@@ -172,19 +172,24 @@ $wc-panel-dark: darken($wc-panel, 5%);
 
 ///// SINGLE PRODUCT
 
-.product-wrapper {
+// The wrapper, need to be named "product" to make the gallery works
+.product {
   margin: 2em 0;
 }
 
+.product_meta {
+  margin-top: 1em;
+  font-size: em( $font-size-small );
+
+  > span {
+    display: block;
+  }
+}
 
 // product header
 
 .product-header {
   margin-bottom: 2em;
-
-  h1 {
-    @include font-sizes( $h2-sizes );
-  }
 
   // Jetpack Sharing
   .sharedaddy {
@@ -207,6 +212,16 @@ $wc-panel-dark: darken($wc-panel, 5%);
 // product gallery
 .product-figure {
   position: relative;
+
+  .flex-viewport {
+    margin-bottom: 0.25em;
+    border: 2px solid rgba(black, .05);
+    border-radius: $g-radius;
+  }
+
+  @include below(small) {
+    margin-bottom: 2em;
+  }
 }
 
 .woocommerce-product-gallery {
@@ -235,7 +250,7 @@ $wc-panel-dark: darken($wc-panel, 5%);
     background-color: white;
     padding: 0.25em;
 
-    font-family: $font-family-icon;
+    font-family: "dashicons";
     font-size: 1.5rem;
     line-height: 1;
     color: $font-color;
@@ -352,11 +367,6 @@ ul.wc-tabs {
     @include font-sizes( $h5-sizes );
     display: block;
     font-weight: 700;
-  }
-
-  form {
-    @include display-flex;
-    flex-wrap: wrap;
   }
 
   label {
@@ -523,10 +533,6 @@ table.variations {
     font-size: 0.875rem;
     border-radius: $g-radius;
   }
-
-  &.cart-nav--active b {
-    background-color: $color-main-dark;
-  }
 }
 
 .cart-dialog {
@@ -663,15 +669,137 @@ a.remove_from_cart_button {
 
 ///// MY ACCOUNT
 
-body.woocommerce-account div.woocommerce {
-  @include display-flex;
-  flex-wrap: wrap;
-  margin: 2em 0;
+body.woocommerce-account {
+  div.woocommerce {
+    @include display-flex;
+  }
 }
+
+///// FRONTEND LOGIN
+
+// form page wrapper
+#customer_login,
+.woocommerce-ResetPassword::before {
+  width: 100%;
+  padding: 1em 1em 2em;
+  background-color: $wc-panel;
+  border: 1px solid $wc-panel-dark;
+}
+
+// form wrapper
+#customer_login form,
+.woocommerce-ResetPassword {
+  width: 320px;
+  margin: 0 auto;
+  padding: 1.5em;
+  border: 1px solid $color-passive;
+  background-color: white;
+
+  label {
+    margin-bottom: 2px;
+  }
+
+  .form-row {
+    @include display-flex;
+    flex-wrap: wrap;
+
+    padding: 0;
+    width: 100%;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+// Login & Register form
+#customer_login {
+  @include clearfix;
+  margin: 2em 0 3em;
+
+  .u-column1,
+  .u-column2 {
+    width: 50%;
+    float: left;
+
+    @include below(small) {
+      width: 100%;
+    }
+  }
+
+  h2 {
+    margin-bottom: 1em;
+    font-weight: $font-weight;
+    text-align: center;
+    @include font-sizes( $h3-sizes );
+  }
+
+  .button {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .woocommerce-LostPassword {
+    font-size: em( $font-size-small );
+  }
+}
+
+// Register form
+#customer_login .register {
+  background-color: transparent;
+}
+
+.woocommerce-password-strength {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  font-size: em($font-size-small);
+
+  &.short,
+  &.bad { color: $color-red; }
+
+  &.good,
+  &.strong {
+    font-weight: $header-weight;
+    text-transform: uppercase;
+  }
+  &.good { color: $color-blue; }
+  &.strong { color: $color-green; }
+}
+
+// Lost Password Form
+.woocommerce-lost-password div.woocommerce {
+  position: relative;
+}
+
+.woocommerce-ResetPassword {
+  margin-top: 4em;
+  margin-bottom: 4em;
+
+  p + p {
+    margin-top: 1em;
+  }
+
+  p:first-of-type {
+    font-size: em( $font-size-small );
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: -2em;
+    left: 0;
+    right: 0;
+    bottom: -2em;
+  }
+}
+
+//// Sidebar navigation
 
 .woocommerce-MyAccount-navigation {
   width: 20%;
-  margin-right: 40px;
+  margin: 2em 40px 2em 0;
   background-color: $wc-panel;
 
   ul {
@@ -726,7 +854,7 @@ body.woocommerce-account div.woocommerce {
       opacity: .7;
 
       font-size: 1.125em;
-      font-family: $font-family-icon;
+      font-family: "dashicons";
     }
   }
 
@@ -760,6 +888,7 @@ body.woocommerce-account div.woocommerce {
 
 .woocommerce-MyAccount-content {
   flex: 1;
+  margin: 2em 0;
 
   body.woocommerce-orders & {
     max-width: 100%;
@@ -1140,19 +1269,20 @@ body.woocommerce-account div.woocommerce {
 
 
 .woocommerce-info,
-.woocommerce-message {
+.woocommerce-message,
+.woocommerce-error {
   @include display-flex;
   flex-direction: column-reverse;
   align-items: flex-end;
+
+  pointer-events: none;
 
   position: fixed;
   z-index: z(nav);
   bottom: 1em;
   right: 1em;
   padding: 1.25em;
-  padding-left: 2em;
   background-color: $color-passive-light;
-  border-top: 2px solid transparent;
 
   box-shadow: $shadow-z2;
   border-radius: $g-radius;
@@ -1160,22 +1290,42 @@ body.woocommerce-account div.woocommerce {
   -webkit-backface-visibility: visible;
   backface-visibility: visible;
   @include animation-name( flipInX );
-  @include animation-duration( 0.5s );
+  @include animation-duration( 1s );
   @include animation-fill-mode( both );
 
   .button {
+    pointer-events: all;
     margin-top: 0.5em;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
   }
+
+  &::before {
+    content: "×";
+    cursor: pointer;
+    pointer-events: all;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+
+    text-align: center;
+    line-height: 1;
+    font-size: em(20px);
+    font-weight: $header-weight;
+  }
 }
 
 .woocommerce-error {
-  border-top-color: $color-red;
-  color: $color-red;
+  background-color: $color-red;
+  list-style-type: none;
+  color: white;
 }
 
 .woocommerce-message-close {
+  cursor: pointer;
   position: absolute;
   top: 0;
   left: 0;
@@ -1186,6 +1336,10 @@ body.woocommerce-account div.woocommerce {
   line-height: 1;
   font-size: em(20px);
   font-weight: $header-weight;
+
+  &:hover {
+    background-color: rgba( $color-main, .1 );
+  }
 }
 
 ///// STORE NOTICE

@@ -1,3 +1,8 @@
+## 0.7.2
+
+- [Woo] Slight CSS changes.
+- [WP] Update WP installation and plugin files.
+
 ## 0.7.1
 
 - [Woo] Added CART Widget in Navigation.

@@ -16,11 +16,11 @@ function startOnLoad() {
 
 var myShop = {
   init: function() {
-    $('.woocommerce-message-close').on( 'click', this.closeToast );
+    $('.woocommerce-info, .woocommerce-message, .woocommerce-error').on( 'click', this.closeToast );
   },
 
   closeToast: function() {
-    $(this).closest( '.woocommerce-message, .woocommerce-info' ).hide();
+    $(this).hide();
   }
 };
 

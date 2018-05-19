@@ -149,6 +149,12 @@ class MyCart {
     // remove alert when removing item from cart
     add_filter( 'woocommerce_add_success', array($this, 'disable_alert_remove_cart') );
 
+
+    // Add close button in message
+    add_filter( 'woocommerce_add_to_cart_validation', array($this, 'add_close_button_in_message') );
+    add_filter( 'wc_add_to_cart_message_html', array($this, 'add_close_button_in_message') );
+    add_filter( 'woocommerce_add_error', array($this, 'add_close_button_in_message') );
+
     // change the button in alert to go straight to checkout
     add_filter( 'wc_add_to_cart_message_html', array($this, 'added_to_cart_message'), null, 2 );
 
@@ -176,6 +182,17 @@ class MyCart {
   }
 
   /*
+    Add X button to dismiss the message
+
+    @filter woocommerce_add_to_cart_validation
+    @filter wc_add_to_cart_message
+  */
+  function add_close_button_in_message( $message ) {
+    $button = '<span class="woocommerce-message-close">×</span>';
+    return $button . $message;
+  }
+
+  /*
     Change the alert message after adding to cart
     @filter wc_add_to_cart_message
 
@@ -186,7 +203,7 @@ class MyCart {
   function added_to_cart_message( $message, $product_id ) {
     $real_message = preg_replace( '/<a\D+a>/', '', $message ); // without <a> tag
     $button = sprintf(
-      '<a class="woocommerce-message-close">×</a> <a href="%s" class="button wc-forward">%s</a> ',
+      '<a href="%s" class="button wc-forward">%s</a> ',
       esc_url( wc_get_page_permalink('checkout') ), esc_html__( 'Continue Payment', 'my' )
     );
 
@@ -201,7 +218,9 @@ class MyCart {
   */
   function update_cart_widget_fragment( $fragments ) {
     ob_start();
-    $context = Timber::get_context();
+    global $woocommerce;
+    $context = array( 'woo' => $woocommerce );
+
     Timber::render( 'woo/_cart-nav-button.twig', $context );
     $fragments['.cart-nav'] = ob_get_clean();
 

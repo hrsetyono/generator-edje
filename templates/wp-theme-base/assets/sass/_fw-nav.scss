@@ -97,7 +97,7 @@
     @include transform(translateX(-100%) );
   }
 
-  .nav-active & {
+  .nav-is-active & {
     visibility: visible;
     opacity: 1;
     @include transform(none);
@@ -106,7 +106,8 @@
 
 // Nav Mobile
 
-body.nav-active {
+body.nav-is-active,
+body.nav-dialog-is-active {
   cursor: pointer; // fix iOS untap-able bug
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 }

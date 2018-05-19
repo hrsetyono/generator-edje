@@ -77,14 +77,13 @@ var myNav = {
   */
   mobileNav: function() {
     var self = this;
-    $('#nav-toggle').on( 'click', open );
+    $('#nav-toggle').on( 'click', toggle );
     $('.nav-wrapper').on( 'click', self.preventClose );
 
 
-    function open( e ) {
+    function toggle( e ) {
       e.stopPropagation();
-      self.closeNav(); // close all nav first
-      $('body').toggleClass( 'nav-active' );
+      $('body').removeClass( 'nav-dialog-is-active' ).toggleClass( 'nav-is-active' );
     }
   },
 
@@ -102,22 +101,21 @@ var myNav = {
     $('.main-nav').on( 'click', '[data-nav-dialog]', toggle );
     $( document.body ).on( 'click', '.nav-dialog', self.preventClose );
 
-
     function toggle( e ) {
       e.preventDefault();
       e.stopPropagation();
       var $target = $( '#' + $(this).data( 'nav-dialog' ) );
-      var isTargetActive = $target.hasClass( 'nav-dialog--active' );
 
-      self.closeNav(); // close all nav first
-      isTargetActive ? $target.removeClass( 'nav-dialog--active' ) : $target.addClass( 'nav-dialog--active' );
-    }
+      $('.nav-dialog--active').not( $target ).removeClass( 'nav-dialog--active' ); // close other nav dialog
+      $('body').removeClass( 'nav-is-active' ).toggleClass( 'nav-dialog-is-active' ); // close main menu, toggle dialog menu
+      $target.toggleClass( 'nav-dialog--active' ); // toggle selected dialog menu
+     }
   },
 
   // Close all nav when clicking outside
   closeNav: function( e ) {
     $('.nav-dialog--active').removeClass( 'nav-dialog--active' );
-    $('body').removeClass( 'nav-active' );
+    $('body').removeClass( 'nav-is-active nav-dialog-is-active' );
   },
 
 

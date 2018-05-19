@@ -24,9 +24,6 @@ class MyTimber extends TimberSite {
 
     $context['site'] = $this;
     $context['home_url'] = home_url();
-    $context['shop_url'] = get_permalink( wc_get_page_id( 'shop' ) );
-    $context['checkout_url'] = wc_get_checkout_url();
-
     $context['sidebar'] = Timber::get_widgets( 'my-sidebar' );
 
     $root = get_template_directory_uri();

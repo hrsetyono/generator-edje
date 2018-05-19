@@ -6,12 +6,22 @@
   var fs = require( 'fs' );
   var adm_zip = require( 'adm-zip' );
 
-  var templateChoices = [
-    { name: 'HTML', value: 'html', },
-    { name: 'WordPress', value: 'wordpress', },
-    { name: 'WooCommerce', value: 'woocommerce', },
-    { name: 'Email', value: 'email' }
-  ];
+  var templateChoices = {
+    html: {
+      name: 'HTML'
+    },
+    wordpress: {
+      name: 'WordPress',
+      plugins: [ 'wp-edje', 'timber-library-170' ]
+    },
+    woocommerce: {
+      name: 'WooCommerce',
+      plugins: [ 'wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje' ]
+    },
+    email: {
+      name: 'Email'
+    }
+  };
 
   module.exports = generators.Base.extend({
 
@@ -35,11 +45,19 @@
     prompting: function() {
       var self = this;
 
+      // get choices
+      var _choices = [];
+      for( var key in templateChoices ) {
+        if( !templateChoices.hasOwnProperty( key ) ) { return false; }
+
+        _choices.push( { name: templateChoices[key].name, value: key } );
+      }
+
       var promptArgs = {
         type: 'list',
         name: 'template',
         message: 'Choose your project type:',
-        choices: templateChoices,
+        choices: _choices,
         when: _isAnswerInvalid
       };
 
@@ -50,8 +68,8 @@
 
       // Ask question again if answer not one of available templates
       function _isAnswerInvalid( answer ) {
-        for( var i in templateChoices ) {
-          if( templateChoices[i].value === answer.template ) {
+        for( var key in templateChoices ) {
+          if( templateChoices[ key ].value === answer.template ) {
             return false;
           }
         }
@@ -75,11 +93,7 @@
 
       var themeDest = 'wp-content/themes/' + self.appname;
       var pluginDest = 'wp-content/plugins/';
-
-      var plugins = ['edje-wp', 'timber-library'];
-      if( self.template == 'woocommerce' ) {
-        plugins = plugins.concat( ['woocommerce-edje', 'woocommerce'] );
-      }
+      var plugins = templateChoices[ self.template ];
 
       switch( self.template ) {
         case 'wordpress':
