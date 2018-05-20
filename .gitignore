@@ -20,6 +20,8 @@ templates/wp-theme/assets/sass/*
 templates/wp-theme/style.css
 templates/wp-theme/package.json
 
+package-lock.json
+
 # Others
 sql/
 *.Cache

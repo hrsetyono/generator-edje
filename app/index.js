@@ -6,36 +6,33 @@
   var fs = require( 'fs' );
   var adm_zip = require( 'adm-zip' );
 
-  var templateChoices = {
-    html: {
-      name: 'HTML'
-    },
-    wordpress: {
-      name: 'WordPress',
-      plugins: [ 'wp-edje', 'timber-library-170' ]
-    },
-    woocommerce: {
-      name: 'WooCommerce',
-      plugins: [ 'wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje' ]
-    },
-    email: {
-      name: 'Email'
-    }
+  var promptChoices = [
+    { name: 'HTML', value: 'html', },
+    { name: 'WordPress', value: 'wordpress', },
+    { name: 'WooCommerce', value: 'woocommerce', },
+    { name: 'Email', value: 'email' }
+  ];
+
+  var reqPlugins = {
+    wordpress: ['wp-edje', 'timber-library-170'],
+    woocommerce: ['wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje'];
   };
 
   module.exports = generators.Base.extend({
 
     constructor: function () {
-      generators.Base.apply( this, arguments ); // super()
+      generators.Base.apply( this, arguments );
 
       this.argument( 'template', { type: String, required: false } );
       this.template = this.template;
       this.appname = this.appname.toLowerCase().replace( ' ', '-' );
     },
 
-
+    /*
+      Define templates location
+    */
     paths: function() {
-      this.sourceRoot( path.join(__dirname, '../templates') );
+      this.sourceRoot( path.join( __dirname, '../templates' ) );
     },
 
 
@@ -45,26 +42,20 @@
     prompting: function() {
       var self = this;
 
-      // get choices
-      var _choices = [];
-      for( var key in templateChoices ) {
-        if( !templateChoices.hasOwnProperty( key ) ) { return false; }
-
-        _choices.push( { name: templateChoices[key].name, value: key } );
-      }
-
       var promptArgs = {
         type: 'list',
         name: 'template',
-        message: 'Choose your project type:',
-        choices: _choices,
+        message: 'Choose your project template:',
+        choices: promptChoices,
         when: _isAnswerInvalid
       };
 
       // prompt the question
       return self.prompt( promptArgs ).then( _afterAsk );
 
+
       /////
+
 
       // Ask question again if answer not one of available templates
       function _isAnswerInvalid( answer ) {
@@ -93,7 +84,7 @@
 
       var themeDest = 'wp-content/themes/' + self.appname;
       var pluginDest = 'wp-content/plugins/';
-      var plugins = templateChoices[ self.template ];
+      var plugins = reqPlugins[ self.template ];
 
       switch( self.template ) {
         case 'wordpress':
@@ -101,7 +92,7 @@
           self.log( 'Downloading WordPress...' );
 
           // copy installation file
-          self._copy( 'wp-install/wordpress.zip', 'wordpress.zip' );
+          self._copy( 'wp-install-test/wordpress.zip', 'wordpress.zip' );
           self.fs.commit( [], copyTheme );
           break;
 
@@ -113,6 +104,9 @@
           self._copy( 'base' );
           self._copy( self.template );
       }
+
+
+      /////
 
 
       // Copy theme files after installing WP
@@ -127,7 +121,6 @@
         // if woocommerce, add extra
         if( self.template === 'woocommerce' ) {
           self._copy( 'wc-theme', themeDest );
-
         }
 
         copyPlugins();
@@ -137,15 +130,15 @@
       function copyPlugins() {
         for( var i in plugins ) {
           var p = plugins[i] + '.zip';
-          self._copy( 'wp-plugins/' + p, pluginDest + p);
+          self._copy( 'wp-plugins/' + p, pluginDest + p );
         }
 
-        self.fs.commit([], extractPlugins );
+        self.fs.commit( [], extractPlugins );
       }
 
       // Extract plugin files
       function extractPlugins() {
-        self.log('Extracting plugins...');
+        self.log( 'Extracting plugins...' );
 
         for( var i in plugins ) {
           var source = pluginDest + plugins[i] + '.zip';
@@ -161,13 +154,13 @@
       @param source (str) - Relative path to a source dir
       @param dest (str) - Relative path to a destination dir
     */
-    _copy: function(source, dest) {
+    _copy: function( source, dest ) {
       var self = this;
 
-      source = self.templatePath(source);
-      dest = dest ? self.destinationPath(dest) : self.destinationRoot();
+      source = self.templatePath( source );
+      dest = dest ? self.destinationPath( dest ) : self.destinationRoot();
 
-      self.fs.copy(source, dest);
+      self.fs.copy( source, dest );
     },
 
     /*
@@ -176,15 +169,15 @@
       @param filePath (str) - Relative path to the zip file.
       @param dest (str) - optional, Relative path to the extract destination.
     */
-    _unzip: function(filePath, dest) {
+    _unzip: function( filePath, dest ) {
       var self = this;
 
-      var file = self.destinationPath(filePath);
-      var zip = new adm_zip(file);
-      dest = dest ? self.destinationPath(dest) : self.destinationRoot();
+      var file = self.destinationPath( filePath );
+      var zip = new adm_zip( file );
+      dest = dest ? self.destinationPath( dest ) : self.destinationRoot();
 
-      zip.extractAllTo(dest, true);
-      fs.unlink(file, function() { } );
+      zip.extractAllTo( dest, true );
+      fs.unlink( file, function() { } );
     },
 
 

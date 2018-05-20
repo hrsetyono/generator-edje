@@ -1,3 +1,7 @@
+## 0.7.3
+
+- Fixed not being able to select the template needed
+
 ## 0.7.2
 
 - [Woo] Slight CSS changes.
