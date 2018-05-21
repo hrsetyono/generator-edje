@@ -15,7 +15,7 @@
 
   var reqPlugins = {
     wordpress: ['wp-edje', 'timber-library-170'],
-    woocommerce: ['wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje'];
+    woocommerce: ['wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje'],
   };
 
   module.exports = generators.Base.extend({
@@ -59,8 +59,8 @@
 
       // Ask question again if answer not one of available templates
       function _isAnswerInvalid( answer ) {
-        for( var key in templateChoices ) {
-          if( templateChoices[ key ].value === answer.template ) {
+        for( var key in promptChoices ) {
+          if( promptChoices[ key ].value === answer.template ) {
             return false;
           }
         }
@@ -83,13 +83,14 @@
       var destinationName = self.destinationRoot().split( path.sep ).pop();
 
       var themeDest = 'wp-content/themes/' + self.appname;
-      var pluginDest = 'wp-content/plugins/';
-      var plugins = reqPlugins[ self.template ];
 
       switch( self.template ) {
         case 'wordpress':
         case 'woocommerce':
           self.log( 'Downloading WordPress...' );
+
+          var pluginDest = 'wp-content/plugins/';
+          var plugins = reqPlugins[ self.template ];
 
           // copy installation file
           self._copy( 'wp-install-test/wordpress.zip', 'wordpress.zip' );

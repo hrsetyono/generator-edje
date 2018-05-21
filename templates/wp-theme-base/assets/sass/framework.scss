@@ -1,6 +1,7 @@
-// Put styles that you might REUSE in other projects here
+// Put styles that you might reuse in other projects here
 @import "setting";
-@import "edje-framework";
+$output-framework: true;
+@import "edje-v15";
 
 @import "fw-blog";
 @import "fw-magnific";
@@ -17,7 +18,7 @@
 @include font-faces("Font Name", (
   ("font.woff", 400),
   ("font-italic.woff", 400, italic),
-  ("font-bold.woff", 700),
+  ("font-bold.woff", 700), // always append comma
 ));
 */
 

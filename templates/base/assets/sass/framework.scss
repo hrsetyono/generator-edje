@@ -1,17 +1,23 @@
 // Put styles that you might reuse in other projects here
 @import "setting";
-@import "edje-framework";
+$output-framework: true;
+@import "edje-v15";
+
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
+
 ///// FONT /////
 
-// @include font-faces("Font Name", (
-//   ("font-file.woff", 400),
-//   ("font-file-bold.woff", 700),
-// ));
+/*
+@include font-faces("Font Name", (
+  ("font.woff", 400),
+  ("font-italic.woff", 400, italic),
+  ("font-bold.woff", 700), // always append comma
+));
+*/
 
 ///// BUTTON /////
 

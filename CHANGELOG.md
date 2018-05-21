@@ -1,3 +1,7 @@
+## 0.7.4
+
+- Add compatibility with Edje 1.5.0
+
 ## 0.7.3
 
 - Fixed not being able to select the template needed
