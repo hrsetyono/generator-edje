@@ -1,3 +1,8 @@
+## 0.7.5
+
+- Vendor JS are now placed in `assets/js-vendor/` instead of `assets/js/vendor/`.
+- [HTML] Added sample navigation bar.
+
 ## 0.7.4
 
 - Add compatibility with Edje 1.5.0

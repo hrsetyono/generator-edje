@@ -1,0 +1,364 @@
+.main-nav {
+  position: relative;
+  z-index: z(nav);
+  border-bottom: 1px solid $color-passive;
+
+  @include above(small) {
+    padding: 0.75em 0;
+  }
+}
+
+.nav-col {
+  @include column(12);
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+// MAIN LOGO
+
+.nav-logo {
+  @include below(small) {
+    order: 1;
+    margin: 0 auto;
+  }
+}
+
+.custom-logo-link {
+  img {
+    width: auto;
+    height: 2.5em;
+  }
+
+  @include below(small) {
+    display: none;
+  }
+}
+
+.mobile-logo {
+  img {
+    width: auto;
+    height: 32px;
+  }
+
+  @include above(small) {
+    display: none;
+  }
+}
+
+
+// NAV ITEM
+
+.menu-item {
+  position: relative;
+
+  > a {
+    display: block;
+    padding: 0.75em 1em;
+    color: $font-color;
+    transition: none;
+
+    &:hover { opacity: .7; }
+  }
+
+  // current page
+  &.current-menu-item,
+  &.current-page-ancestor,
+  &.current-menu-ancestor,
+  &.current-menu-parent {
+    > a { color: $color-main; }
+  }
+}
+
+.nav-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 1;
+
+  @include below(small) {
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+
+    position: fixed;
+    z-index: z(nav);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 3.5em 0 2em;
+    width: 180px;
+    background-color: white;
+
+    transition: $g-transition;
+    box-shadow: $shadow-z2;
+    @include transform(translateX(-100%) );
+  }
+
+  .nav-is-active & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+}
+
+// Nav Mobile
+
+body.nav-is-active,
+body.nav-dialog-is-active {
+  cursor: pointer; // fix iOS untap-able bug
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+.nav-toggle {
+  i {
+    line-height: 1;
+  }
+
+  i, b {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .dashicons-before::before {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+
+  @include above(small) {
+    display: none;
+  }
+}
+
+// Nav Children
+
+.nav-children {
+  visibility: hidden; opacity: 0;
+  position: absolute;
+  z-index: z(child_nav);
+  top: 100%;
+  left: 0;
+  padding: 4px;
+  min-width: 200px;
+
+  background-color: $color-passive-light;
+  white-space: nowrap;
+
+  border-radius: $g-radius;
+  transition: $g-transition;
+  box-shadow: $shadow-z1;
+  @include transform(translateY(10px) );
+
+
+  .menu-item:hover & {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+
+  a {
+    display: block;
+    padding: 0.25em 0.5em;
+    color: inherit;
+
+    border-radius: $g-radius;
+  }
+
+  a:hover {
+    background-color: $color-passive;
+  }
+
+  /////
+
+  @include below(small) {
+    top: 0;
+    left: 100%;
+    @include transform(translateX(10px) );
+
+    a {
+      padding: 0.5em 0.75em;
+    }
+  }
+}
+
+// NAV EXTRA
+
+.nav-extra {
+  @include display-flex;
+  order: 2;
+  align-items: center;
+
+  position: relative;
+  z-index: z(nav);
+  margin-left: auto;
+
+  > * {
+    margin-right: 5px;
+  }
+
+  .menu-item > a {
+    padding: 5px;
+    line-height: 1;
+    border-radius: $g-radius;
+  }
+}
+
+
+///// NAV DIALOG
+
+.nav-dialog {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  z-index: z(nav);
+  top: 100%;
+  right: 0;
+  width: 300px;
+  background-color: $body-background;
+  padding: 5px 0;
+
+  font-size: em(15px);
+
+  border-radius: $g-radius;
+  box-shadow: $shadow-z1;
+  transition: $g-transition;
+  @include transform(translateY(-1.5em) );
+
+  @include below(small) {
+    top: calc(100% + 10px);
+  }
+
+  &.nav-dialog--active {
+    visibility: visible;
+    opacity: 1;
+    @include transform(none);
+  }
+}
+
+///// SEARCH FORM
+
+.search-form {
+  @include display-flex;
+  position: relative;
+  z-index: z(nav);
+
+  label {
+    cursor: pointer;
+    position: relative;
+    z-index: z(nav);
+    padding: 5px;
+
+    border-radius: $g-radius;
+    transition: $g-transition;
+
+    &:hover {
+      background-color: $color-main-light;
+      color: white;
+    }
+  }
+}
+
+.search-form input {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.3em);
+  padding: 0.5em 0;
+  width: 0;
+  opacity: 0;
+
+  @include transform(translateX(-100%) translateY(-50%) );
+
+  &:focus {
+    opacity: 1;
+    padding-right: 2.5em;
+    padding-left: 0.5em;
+    width: 250px;
+  }
+
+  &:focus ~ label {
+    background-color: $color-main-dark;
+    color: white;
+  }
+}
+
+
+///// MAIN FOOTER /////
+
+.main-footer {
+  position: relative;
+  padding: 1.5em 0 3em;
+  background-color: $color-passive-light;
+  border-top: 1px solid $color-passive;
+  border-bottom: 1px solid $color-passive;
+}
+
+.footer-nav {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px dashed $color-passive;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    padding: 0 1em;
+    color: $font-color;
+  }
+
+  a:hover { color: $color-main; }
+
+  @include above(mini) {
+    a:first-child { padding-left: 0; }
+    a:last-child { padding-right: 0; }
+  }
+
+  @include below(mini) {
+    @include flex;
+    flex-wrap: wrap;
+
+    a {
+      width: 50%;
+    }
+  }
+}
+
+.footer-legal {
+  font-size: em($font-size-small);
+
+  a { margin-left: 1em; }
+}
+
+//// FOOTER SOCIAL LOGOS
+
+.footer-social {
+  text-align: right;
+
+  a + a { margin-left: 0.25em; }
+}
+
+.social-logo {
+  font-weight: normal;
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: top;
+  color: rgba($font-color, .4);
+}
+
+///// SHARE COLORS
+
+@each $name, $color in $social-colors {
+  .social-logo__#{ $name }:hover {
+    color: $color;
+  }
+
+  // Sharedaddy color
+  div.sharedaddy .sd-block .sd-content ul li a.sd-button.share-#{ $name } {
+    color: $color !important;
+    border-color: $color;
+
+    &:hover { border-color: darken( $color, 15% ); }
+  }
+}

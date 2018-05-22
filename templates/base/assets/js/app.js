@@ -6,111 +6,66 @@ $(document).on('page:load', start);
 $(window).load(startOnLoad);
 
 function start() {
-  app.init();
-  animateOnScroll.init();
+  myApp.init();
+  myNav.init();
 }
 
 // functions that needs to run only after everything loads
 function startOnLoad() {
-
 }
+
 
 /////
 
-// ----- GENERAL -----
 
-var app = {
+///// GENERAL LISTENERS
+var myApp = {
   init: function() {
-    this.mobileMenu();
-    this.searchMenu();
+    $('.sample-div').on( 'click', this.sampleListener );
   },
 
-  // Toggle Mobile menu
-  mobileMenu: function() {
-    $('.menu-toggle').on('click', open);
-    $('.menu-wrapper').on('click', preventClose);
-    $(document).on('click', close);
-
-    function open(e) {
-      e.stopPropagation();
-      $('body').addClass('menu-active');
-    }
-
-    function preventClose(e) { e.stopPropagation(); }
-    function close(e) { $('body').removeClass('menu-active'); }
-  },
-
-  // Toggle Search field
-  searchMenu: function() {
-    $('#search-toggle').on('click', toggle);
-
-    function toggle(e) {
-      e.preventDefault();
-
-      var $form = $(this).closest('form');
-      $form.toggleClass('search-active');
-    }
-  },
+  sampleListener: function( e ) {
+    // do something
+  }
 };
 
-/*
-  ANIMATE ON SCROLL
-  - Animate the element when visible, uses [data-animate] attribute
 
-  <div data-animate="fadeInUp">...</div>
-*/
-var animateOnScroll = {
+///// NAVIGATION
+
+var myNav = {
   init: function() {
-    var _this = this;
-    if($('[data-animate]').length <= 0) { return false; }
-
-    // Animate elements that already visible
-    $("[data-animate]").each(_this.run);
-
-    // Animate elements upon scrolling
-    $(window).scroll(function() {
-      $("[data-animate]").each(_this.run);
-    });
+    var self = this;
+    self.mobileNav();
+    $(document).on( 'click', self.closeNav );
   },
 
   /*
-    Check whether the element is visible on screen. If yes, start animating.
-
-    @param $element DOM
+    Toggle mobile nav
   */
-  run: function($element) {
-    var $element = $(this);
+  mobileNav: function() {
+    var self = this;
+    $('#nav-toggle').on( 'click', toggle );
+    $('.nav-wrapper').on( 'click', self.preventClose );
 
-    var topOfWindow = $(window).scrollTop();
-    var threshold = $(window).height() - 50;
-    var imagePos = $element.offset().top;
-
-    if (imagePos < topOfWindow + threshold) {
-      animate.startAnimating($element);
+    function toggle( e ) {
+      e.stopPropagation();
+      $('body').toggleClass( 'nav-is-active' );
     }
   },
 
-  /*
-    Start the animation with delay, if any
-
-    @param $element DOM
-  */
-  startAnimating: function($element) {
-    var animationData = $element.data("animate");
-    var animation = {
-      name: animationData.match(/^\S+/),
-      delay: animationData.match(/\d+/) || 0,
-    };
-
-    var addAnimateClass = function() {
-      $element.addClass("animated " + animation.name);
-    };
-
-    setTimeout(addAnimateClass, animation.delay);
+  // Close all nav when clicking outside
+  closeNav: function( e ) {
+    $('body').removeClass( 'nav-is-active' );
   },
-}
+
+  // Prevent nav closed when clicking this part
+  preventClose: function( e ) {
+    e.stopPropagation();
+  }
+};
+
 
 // Browser compatibility, leave this untouched
-if('registerElement' in document) { document.createElement('h-row'); document.createElement('h-column'); }
+if('registerElement' in document) { document.createElement( 'h-row' ); document.createElement( 'h-column' ); }
 
-})(jQuery);
+})( jQuery );

@@ -17,12 +17,64 @@
   <!-- STYLESHEET -->
   <link rel="stylesheet" href="assets/css/framework.css">
   <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/dashicons.css">
 
 </head>
 <body>
+
+<!-- NAVIGATION -->
+<section class="main-nav">
+  <h-row><h-column class="nav-col">
+    <!-- Logo -->
+    <div class="nav-logo">
+      <a href="/" class="custom-logo-link">
+        <img src="assets/images/icon-144x144.png" class="custom-logo" itemprop="logo">
+      </a>
+    </div>
+
+    <!-- Mobile toggle -->
+    <div id="nav-toggle" class="menu-item nav-toggle">
+      <a>
+        <i class="dashicons-before dashicons-menu"></i> Menu
+      </a>
+    </div>
+
+    <!-- Menu Item -->
+    <nav class="nav-wrapper">
+      <div class="menu-item current-menu-item">
+        <a href="/"> Home </a>
+      </div>
+      <div class="menu-item">
+        <a href="/about"> About </a>
+
+        <div class="nav-children">
+          <a href="/about#history"> History </a>
+          <a href="/about#location"> Location </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Menu Item aligned-right and still shown on mobile -->
+    <div class="nav-extra">
+      <form class="menu-item search-form" method="get" action="/search">
+        <input id="search" type="search" name="s" placeholder="Search">
+        <label for="search" class="search-toggle"> <i class="dashicons-before dashicons-search"></i> </label>
+      </form>
+    </div>
+
+</h-column></h-row>
+</section>
+
+<!-- MAIN CONTENT -->
 <div id="main-wrapper">
 
-  <!-- CONTENT HERE -->
+  <!-- Place content here -->
+  <h-row>
+    <h-column class="large-12">
+      <h1>Hello World</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos quae, nostrum quo esse, repellendus deleniti eligendi impedit voluptas voluptatibus obcaecati.</p>
+    </h-column>
+  </h-row>
 
   <div id="footer-push"></div>
 </div>
@@ -30,7 +82,7 @@
 
 <!-- JAVASCRIPT LIBRARY -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="assets/js/vendor/fastclick.min.js"></script>
+<script src="assets/js-vendor/fastclick.min.js"></script>
 <script src="assets/js/app.js"></script>
 
 </body>
