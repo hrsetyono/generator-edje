@@ -13,7 +13,7 @@
     { name: 'Email', value: 'email' }
   ];
 
-  var reqPlugins = {
+  var REQ_PLUGINS = {
     wordpress: ['wp-edje', 'timber-library-170'],
     woocommerce: ['wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje'],
   };
@@ -89,11 +89,8 @@
         case 'woocommerce':
           self.log( 'Downloading WordPress...' );
 
-          var pluginDest = 'wp-content/plugins/';
-          var plugins = reqPlugins[ self.template ];
-
           // copy installation file
-          self._copy( 'wp-install-test/wordpress.zip', 'wordpress.zip' );
+          self._copy( '../zip/wordpress-install.zip', 'wordpress.zip' );
           self.fs.commit( [], copyTheme );
           break;
 
@@ -124,27 +121,7 @@
           self._copy( 'wc-theme', themeDest );
         }
 
-        copyPlugins();
-      }
-
-      // Copy plugin files
-      function copyPlugins() {
-        for( var i in plugins ) {
-          var p = plugins[i] + '.zip';
-          self._copy( 'wp-plugins/' + p, pluginDest + p );
-        }
-
-        self.fs.commit( [], extractPlugins );
-      }
-
-      // Extract plugin files
-      function extractPlugins() {
-        self.log( 'Extracting plugins...' );
-
-        for( var i in plugins ) {
-          var source = pluginDest + plugins[i] + '.zip';
-          self._unzip( source, pluginDest );
-        }
+        self._copyPlugins( REQ_PLUGINS[ self.template ] );
       }
 
     },
@@ -162,6 +139,33 @@
       dest = dest ? self.destinationPath( dest ) : self.destinationRoot();
 
       self.fs.copy( source, dest );
+    },
+
+    /*
+
+    */
+    _copyPlugins: function( plugins ) {
+      var self = this;
+      var sourcePath = self.templatePath( '../zip/' );
+      var destPath = self.destinationPath( 'wp-content/plugins/' );
+
+      plugins.forEach( function( p ) {
+        p += '.zip';
+        self._copy( sourcePath + p, destPath + p );
+      } );
+
+      self.fs.commit( [], extractPlugins );
+
+      /////
+
+      // Extract plugin files
+      function extractPlugins() {
+        self.log( 'Extracting plugins...' );
+
+        plugins.forEach( function( p ) {
+          self._unzip( destPath + p + '.zip', destPath );
+        });
+      }
     },
 
     /*

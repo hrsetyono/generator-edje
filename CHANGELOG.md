@@ -1,3 +1,7 @@
+## 0.7.6
+
+- [WP] Fixed outputting wrong installation file.
+
 ## 0.7.5
 
 - Vendor JS are now placed in `assets/js-vendor/` instead of `assets/js/vendor/`.
