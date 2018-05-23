@@ -1,4 +1,4 @@
-## 0.7.6
+## 0.7.7
 
 - [WP] Fixed outputting wrong installation file.
 
