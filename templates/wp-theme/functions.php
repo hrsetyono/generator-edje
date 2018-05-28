@@ -6,7 +6,7 @@ require_once 'code/timber.php';
 
 add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 100 );
 add_action( 'after_setup_theme', 'my_after_load_theme' );
-add_action( 'init', 'my_init', 1 );
+add_action( 'init', 'my_init' );
 add_action( 'widgets_init', 'my_widgets' );
 
 new MyFilter();

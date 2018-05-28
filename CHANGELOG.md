@@ -1,3 +1,7 @@
+## 0.7.8
+
+- [WP] Removed priority 1 in `init` action because it serves no purpose other than clashing with plugins.
+
 ## 0.7.7
 
 - [WP] Fixed outputting wrong installation file.
