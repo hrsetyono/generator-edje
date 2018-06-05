@@ -60,6 +60,9 @@ function my_after_load_theme() {
   // Jetpack support
   add_theme_support( 'jetpack-responsive-videos' );
 
+  // Gutenberg support
+  add_theme_support( 'align-wide' );
+
   // Create Nav assignment
   register_nav_menu( 'main-nav', 'Main Nav' );
   register_nav_menu( 'social-nav', 'Social Nav' );

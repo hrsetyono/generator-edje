@@ -1,3 +1,8 @@
+## 0.7.9
+
+- [WP] New single post design
+- [PWA] Draft for Progressive Web App template
+
 ## 0.7.8
 
 - [WP] Removed priority 1 in `init` action because it serves no purpose other than clashing with plugins.

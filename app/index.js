@@ -10,6 +10,8 @@
     { name: 'HTML', value: 'html', },
     { name: 'WordPress', value: 'wordpress', },
     { name: 'WooCommerce', value: 'woocommerce', },
+    // { name: 'PWA with React', value: 'pwa-react' },
+    // { name: 'PWA with Handlebars', value: 'pwa-handlebars' },
     { name: 'Email', value: 'email' }
   ];
 

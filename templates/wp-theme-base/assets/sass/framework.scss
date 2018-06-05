@@ -66,6 +66,13 @@ a.button,
   }
 }
 
+// passive button
+
+.button-passive,
+a.button-passive {
+  @extend %button;
+}
+
 .button-passive,
 a.button-passive,
 .button.loading {
@@ -79,12 +86,6 @@ a.button-passive,
   }
 }
 
-
-.button-passive,
-a.button-passive {
-  @extend %button;
-}
-
 .button.loading {
   cursor: not-allowed;
   background-image: url( $spinner_path );
@@ -93,7 +94,15 @@ a.button-passive {
   color: transparent !important;
 }
 
+// line button
 
+.button-line {
+  @extend %button;
+
+  border-color: $color-main;
+  color: $color-main;
+  background-color: transparent;
+}
 
 ///// INPUT /////
 

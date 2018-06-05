@@ -3,15 +3,17 @@
 </figure>
 
 <div class="author-text">
-  <h4>
+  <h6>
     <a href="{{ author.link }}" title="See all posts by {{ author.display_name }}"> {{ author.display_name }} </a>
-  </h4>
+  </h6>
 
   <p>{{ author.description }}</p>
 
-  <p><a href="{{ author.user_url }}" class="author-url">
-    {{ author.user_url }}
-  </a></p>
+  <p>
+    <a href="{{ author.user_url }}" class="author-url">
+      {{ author.user_url }}
+    </a>
+  </p>
 </div>
 
 {% if author.facebook or author.twitter or author.googleplus %}

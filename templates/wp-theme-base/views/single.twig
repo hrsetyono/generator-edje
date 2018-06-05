@@ -1,23 +1,31 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-{# Banner #}
-{% if post.thumbnail %}
-  <section class="post-banner {{ post.thumbnail.width < 1280 ? 'post-banner-mini' : '' }}"
-    style="background-image: url('{{ post.thumbnail.src('large') }}');">
-  </section>
-{% endif %}
+{# Header #}
+<h-row {% if not post.thumbnail %} class="post-row" {% endif %}><h-column>
 
-{# Content #}
-<h-row class="post-row">
-<h-column class="post-col">
+  <header class="post-header">
+    {% if post.thumbnail %}
+      <div class="post-featured-image" style="background-image: url('{{ post.thumbnail.src('large') }}');"></div>
+    {% endif %}
 
-  <article class="post-content">
-    <header class="post-header">
+    <div class="post-title">
       <h1>{{ post.title }}</h1>
       {% include "partials/_post-meta.twig" %}
-    </header>
 
+      {% if post.post_excerpt %}
+        <p class="post-excerpt">{{ post.post_excerpt }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+</h-column></h-row>
+
+
+{# Content #}
+<h-row class="post-row"><h-column>
+
+  <article class="post-content">
     <section class="post-body">
       {{ post.content }}
     </section>
@@ -27,14 +35,15 @@
     </footer>
   </article>
 
-</h-column>
-</h-row>
+</h-column></h-row>
 
-
+{# Comments #}
 <section class="post-footer">
-  <h-row class="post-row"><h-column class="post-col">
+  <h-row class="post-row"><h-column>
+
     {% include "partials/_related-posts.twig" %}
     {% include "partials/_comments.twig" %}
+
   </h-column></h-row>
 </section>
 

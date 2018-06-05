@@ -1,4 +1,5 @@
 $blog-width: 600px;
+$blog-font-size: 18px;
 $blog-font-passive: #b5c0c5; // #bbc7cc;
 $blog-border: #c8d7e1;
 
@@ -14,13 +15,13 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 ///// GRID
 
 .post-row { @include row($width: $blog-width); margin: 0 auto; }
-.post-col { @include column(12); }
 
 
 ///// GENERIC ARTICLE
 
 .post-content {
   letter-spacing: 0.01 * $font-size;
+  font-size: $blog-font-size;
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
@@ -46,7 +47,7 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
     height: 1px;
     border: 0;
     border-top: 1px solid $color-passive;
-    margin: 2.5em 0;
+    margin: 2.5em auto;
     padding: 0;
   }
 
@@ -64,17 +65,17 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
   }
 }
 
-.post-content blockquote {
-  padding: 0.25em 1em;
-  margin-left: 1em;
-  border-left: 3px solid $color-passive;
-  font-style: italic;
+///// BLOCKQUOTE
 
-  p { margin-bottom: 0; }
+.post-content blockquote {
+  p {
+    margin-bottom: 0;
+  }
 
   cite {
     display: block;
-    text-align: right;
+    margin-top: 1em;
+    font-size: $font-size-small;
   }
 
   &.alignleft,
@@ -82,6 +83,28 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
     margin-left: 0;
   }
 }
+
+.wp-block-quote {
+  padding: 1em 1em 1em 2em;
+  background-color: $color-passive-light;
+  border-left: 4px solid $color-passive;
+}
+
+.wp-block-pullquote {
+  padding: 1em 0;
+  border-top: 2px solid $color-passive;
+  border-bottom: 2px solid $color-passive;
+  background-color: $color-passive-light;
+
+  @include font-sizes( $h4-sizes );
+  text-align: center;
+
+  cite {
+    text-align: center;
+  }
+}
+
+///// TABLE
 
 .post-content table {
   width: 100%;
@@ -104,6 +127,25 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
     margin-bottom: 0;
   }
 }
+
+///// PREFORMATTED & CODE
+
+.post-content pre,
+.post-content code {
+  background-color: $color-passive-light;
+  border: 1px solid $color-passive;
+  border-radius: $g-radius;
+}
+
+.post-content pre {
+  padding: 1em;
+}
+
+.post-content code {
+  padding: 0 0.5em;
+}
+
+
 
 ///// EDITOR STYLE
 
@@ -138,49 +180,8 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 }
 
-///// CAPTION
 
-.wp-caption {
-  position: relative;
-  margin-bottom: 1.5em;
-  width: auto !important;
-  text-align: center;
-
-  .wp-caption-text {
-    display: inline-block;
-    margin: 0.5em 0 0;
-    padding: 0 2em 0.5em;
-    border-bottom: 1px solid $color-passive;
-    font-size: em($font-size-small);
-  }
-}
-
-// Referencing only allowed above medium
-@include above(medium) {
-  .refleft .wp-caption-text {
-    left: -20px;
-    text-align: right;
-    @include transform(translateX(-100%) );
-  }
-
-  .refright .wp-caption-text {
-    right: -20px;
-    text-align: left;
-    @include transform(translateX(100%) );
-  }
-
-  .refleft .wp-caption-text,
-  .refright .wp-caption-text {
-    position: absolute;
-    top: 0;
-    border-top: 1px solid $color-passive;
-    margin-top: 0;
-    padding: 0.5em 0;
-    width: 150px;
-  }
-}
-
-///// GALLERY /////
+///// MEDIA & GALLERY /////
 
 .gallery,
 .tiled-gallery {
@@ -216,12 +217,116 @@ h1, h2, h3, h4, h5, h6 {
   .gallery-columns-8 & { width: percentage(1/8); }
 }
 
+// gutenberg media
+.alignfull,
+.alignwide {
+  width: auto;
+
+  @include above( small ) {
+    margin-right: -5em;
+    margin-left: -5em;
+  }
+}
+
+ul.wp-block-gallery {
+  padding-left: 0;
+}
+
+
+///// CAPTION
+
+.wp-caption,
+.wp-block-image,
+.wp-block-embed {
+  position: relative;
+  margin-bottom: 1.5em;
+  width: auto !important;
+  text-align: center;
+}
+
+.post-content figcaption,
+.wp-caption-text {
+  display: inline-block;
+  margin: 0.5em auto 0;
+  padding: 0 2em 0.5em;
+  border-bottom: 1px solid $color-passive;
+  font-size: em( $font-size-small );
+}
+
+// Referencing only allowed above medium
+@include above(medium) {
+  .refleft .wp-caption-text {
+    left: -20px;
+    text-align: right;
+    @include transform(translateX(-100%) );
+  }
+
+  .refright .wp-caption-text {
+    right: -20px;
+    text-align: left;
+    @include transform(translateX(100%) );
+  }
+
+  .refleft .wp-caption-text,
+  .refright .wp-caption-text {
+    position: absolute;
+    top: 0;
+    border-top: 1px solid $color-passive;
+    margin-top: 0;
+    padding: 0.5em 0;
+    width: 150px;
+  }
+}
+
 ///// SINGLE HEADER
 
 .post-header {
-  margin: 2em 0;
+  @include display-flex;
+  align-items: center;
 
-  h1 { margin-bottom: 0; }
+  @include above( small ) {
+    padding: 2em 0;
+  }
+
+  @include below( small ) {
+    flex-direction: column;
+  }
+}
+
+.post-featured-image {
+  background-size: cover;
+  background-position: center center;
+
+  @include above( small ) {
+    width: 50%;
+    min-height: 250px;
+    margin-right: 20px;
+    border-radius: $g-radius;
+  }
+
+  @include below( small ) {
+    height: 300px;
+  }
+
+  + .post-title {
+    padding: 1.5em 0 2.5em;
+  }
+}
+
+.post-title {
+  flex: 1;
+
+  @include below( small ) {
+    padding: 2em 0;
+  }
+}
+
+.post-excerpt {
+  margin-top: 2em;
+
+  @include below(small) {
+    display: none;
+  }
 }
 
 ///// POST META
@@ -274,7 +379,7 @@ h1, h2, h3, h4, h5, h6 {
   .post-header & {
     border-top: 1px solid $color-passive;
     border-bottom: 2px solid $font-color;
-    margin: 0.5em 0 2em;
+    margin-top: 0.5em;
     padding: 0.5em 0;
   }
 }
@@ -327,42 +432,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-///// GENERAL
-
-%post-button {
-  display: inline-block;
-  border: 1px solid $color-main;
-  border-radius: 20px;
-  background-color: transparent;
-  padding: 0 14px;
-
-  text-decoration: none;
-  font-size: $font-size-small;
-  line-height: 30px;
-  color: $color-main;
-
-  transition: $g-transition;
-
-  &:hover {
-    background-color: $color-main;
-    color: white;
-    box-shadow: none;
-  }
-}
-
-a.post-button,
-span.post-button {
-  @extend %post-button;
-}
-
 
 ///// POST BANNER /////
 
 .post-banner {
   position: relative;
   height: 400px;
-  margin: 0 auto;
-
   background-size: cover;
   background-position: center center;
 
@@ -379,9 +454,6 @@ span.post-button {
     width: 100%;
     height: 100%;
     background-color: rgba(black, .4);
-
-    // single page doesn't have the overlay
-    .single & { display: none; }
   }
 
   .post-row {
@@ -393,15 +465,11 @@ span.post-button {
     width: 100%;
     margin: 0 auto;
   }
-
-  .post-col {
-    padding-bottom: 2em;
-  }
 }
 
 // Banner content
 .post-banner {
-  h1, h2 {
+  h1 {
     font-size: em($h1);
     color: white;
     line-height: 1;
@@ -413,52 +481,25 @@ span.post-button {
 
   p {
     margin: 1rem 0;
-    font-size: em($font-size-small);
     color: white;
   }
 
-  .post-button {
+  .button-line {
     border-color: white;
     color: white;
   }
 
   .banner-body {
     display: block;
-
-    &:hover .post-button { background-color: $color-main; border-color: $color-main; }
+    margin-bottom: 2em;
   }
 }
 
-// Small Banner
 .post-banner-mini {
-  width: $blog-width + 100px;
   margin: 0 -50px 2em;
-
-  .single & {
-    margin: 0 auto;
-  }
-
-  @include below($blog-width + 120px) {
-    width: auto;
-    margin: 0 (-1 * $grid-rim);
-  }
+  border-radius: $g-radius;
 }
 
-// Banner without image
-.post-banner.banner-no-image {
-  &::before { display: none; }
-
-  h1, h2, p {
-    color: $font-color;
-  }
-
-  .post-button {
-    border-color: $color-main;
-    color: $color-main;
-
-    &:hover { color: white; }
-  }
-}
 
 ///// BLOG NAV /////
 
@@ -495,76 +536,17 @@ span.post-button {
   }
 }
 
-.blog-nav-tip {
-  display: none;
-
-  position: absolute;
-  z-index: z(menu);
-  top: 32px;
-  right: 0;
-
-  border: 1px solid $blog-border;
-  max-width: 260px;
-  width: 220px;
-  padding: 10px 0;
-  background-color: $body-background;
-
-  border-radius: $g-radius;
-  // box-shadow: 0 2px 5px rgba(black, 0.1), 0 0 56px rgba(black, 0.075);
-  box-shadow: $shadow-z0;
-
-  .category-menu:hover & {
-    display: block;
-  }
-
-  // arrow
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 10px;
-
-    @include transform(translateY(-10px) );
-  }
-
-  &::before {
-    top: -1px;
-    @include triangle($direction: top, $color: #c8d7e1, $width: 20px, $height: 10px);
-  }
-
-  &::after {
-    @include triangle($direction: top, $color: $body-background, $width: 20px, $height: 10px);
-  }
-
-  a {
-    display: block;
-    padding: 0.5em 1em;
-    text-transform: initial;
-    transition: none;
-
-    &:hover {
-      background-color: $color-main;
-      color: white;
-    }
-  }
-}
-
 ///// AUTHOR /////
 
 .post-author {
-  display: -webkit-flex;
-  display: flex;
-
-  position: relative;
+  @include display-flex;
   padding: 2em 0;
   margin-top: 1em;
   border-top: 1px solid $color-passive;
 
-  h4, h6 {
-    margin: 0 0 0.5em;
-    letter-spacing: 0.5px;
-    @include font-sizes($h6-sizes);
+  h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
   }
 
   @include below(mini) {
@@ -1170,7 +1152,6 @@ a.comment-reply-link {
   }
 
   input[type="submit"] {
-    @extend %post-button;
     align-self: flex-end;
     background-color: white;
     padding-right: 2em;
@@ -1195,6 +1176,7 @@ body[class^="paged-"] #infinite-footer {
     @include transform(translateX(-50%) );
   }
 }
+
 
 
 ///// SHARE (Jetpack) /////

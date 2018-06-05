@@ -3,7 +3,7 @@
   {# Featured Post #}
   {% if loop.first and post.thumbnail %}
     <article class="post-banner post-banner-mini" style="background-image: url('{{ post.thumbnail.src('large') }}');">
-      <h-row class="post-row"><h-column class="post-col">
+      <h-row class="post-row"><h-column>
 
         {% include "partials/_post-meta.twig" %}
         <a href="{{ post.link }}" class="banner-body">
@@ -11,7 +11,7 @@
 
           {{ post.get_preview(25, false, false) | wpautop }}
 
-          <span class="post-button">Read More</span>
+          <span class="button-line">Read More</span>
         </a>
 
       </h-column></h-row>

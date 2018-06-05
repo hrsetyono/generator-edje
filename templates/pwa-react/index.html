@@ -6,25 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- WEBSITE DETAIL -->
-  <title>My Website</title>
+  <title>My Web App</title>
   <meta name="theme-color" content="#00aadc">
   <meta name="description" content="This is a description of your website, only first 160 characters matters">
 
+  <!-- PWA Setting -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#00aadc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="My Web App">
+
   <!-- FAVICON -->
-  <link rel="icon" href="assets/images/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-big.png">
+  <link rel="icon" href="/assets/images/icon-128x128.png">
+  <link rel="apple-touch-icon" href="/assets/images/icon-192x192.png">
+  <link rel="apple-touch-icon-precomposed" href="/assets/images/icon-192x192.png">
 
   <!-- STYLESHEET -->
-  <link rel="stylesheet" href="assets/css/framework.css">
-  <link rel="stylesheet" href="assets/css/app.css">
-  <link rel="stylesheet" href="assets/css/dashicons.css">
-
+  <link rel="stylesheet" href="/assets/css/framework.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <section class="main-nav">
   <h-row><h-column class="nav-col">
+
     <!-- Logo -->
     <div class="nav-logo">
       <a href="/" class="custom-logo-link">
@@ -34,9 +41,7 @@
 
     <!-- Mobile toggle -->
     <div id="nav-toggle" class="menu-item nav-toggle">
-      <a>
-        <i class="dashicons-before dashicons-menu"></i> Menu
-      </a>
+      <a> Menu </a>
     </div>
 
     <!-- Menu Item -->
@@ -54,20 +59,11 @@
       </div>
     </nav>
 
-    <!-- Menu Item aligned-right and still shown on mobile -->
-    <div class="nav-extra">
-      <form class="menu-item search-form" method="get" action="/search">
-        <input id="search" type="search" name="s" placeholder="Search">
-        <label for="search" class="search-toggle"> <i class="dashicons-before dashicons-search"></i> </label>
-      </form>
-    </div>
-
 </h-column></h-row>
 </section>
 
 <!-- MAIN CONTENT -->
 <div id="main-wrapper">
-
   <!-- Place content here -->
   <h-row>
     <h-column class="large-12">

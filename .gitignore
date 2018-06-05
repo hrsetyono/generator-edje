@@ -17,6 +17,7 @@ templates/wc-theme/style.css
 
 templates/wc-theme/package.json
 
+
 templates/wp-theme/assets/css/*
 templates/wp-theme/assets/images/*
 templates/wp-theme/assets/js/*
