@@ -1,6 +1,6 @@
 {
   "name": "generator-edje",
-  "version": "0.7.9",
+  "version": "0.7.10",
   "description": "Yeoman Generator for project built with Edje Sass Framework",
   "files": [
     "app",

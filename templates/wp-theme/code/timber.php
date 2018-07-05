@@ -14,9 +14,6 @@ class MyTimber extends TimberSite {
     @filter timber_context
   */
   function add_to_context( $context ) {
-    global $woocommerce;
-    $context['woo'] = $woocommerce;
-
     $context['nav'] = new TimberMenu( 'main-nav' );
     $context['social_nav'] = new TimberMenu( 'social-nav' );
 

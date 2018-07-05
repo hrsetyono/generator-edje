@@ -52,9 +52,7 @@ $output-framework: true;
 
 
 .button,
-a.button,
 [type="submit"],
-[type="button"],
 [type="reset"] {
   @extend %button;
   border-color: $color-main-dark;

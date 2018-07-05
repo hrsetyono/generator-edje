@@ -32,6 +32,10 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
     text-decoration: underline;
   }
 
+  .button {
+    text-decoration: none;
+  }
+
   p,
   ul,
   ol,

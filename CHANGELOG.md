@@ -1,3 +1,7 @@
+## 0.7.10
+
+- Removed fastclick.js from all templates.
+
 ## 0.7.9
 
 - [WP] New single post design
