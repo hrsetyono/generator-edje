@@ -11,7 +11,9 @@ templates/wc-theme/assets/js/*
 
 templates/wc-theme/assets/js-vendor/*
 templates/wc-theme/assets/sass/*
-!templates/wc-theme/assets/sass/_app-woocommerce.scss
+!templates/wc-theme/assets/sass/_app-myaccount.scss
+!templates/wc-theme/assets/sass/_app-cart.scss
+!templates/wc-theme/assets/sass/_app-wc.scss
 !templates/wc-theme/assets/sass/app.scss
 templates/wc-theme/style.css
 

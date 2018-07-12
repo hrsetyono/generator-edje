@@ -1,0 +1,105 @@
+{
+    "key": "group_5b4718afc60b8",
+    "title": "Page Builder",
+    "fields": [
+        {
+            "key": "field_5b47195f053c1",
+            "label": "Layouts",
+            "name": "layouts",
+            "type": "flexible_content",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "5b471966e17cc": {
+                    "key": "5b471966e17cc",
+                    "name": "layout_a",
+                    "label": "Layout A",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5b471a1835d0a",
+                            "label": "",
+                            "name": "",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "group_5b47198402162"
+                            ],
+                            "display": "seamless",
+                            "layout": "",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "5b471a3135d0b": {
+                    "key": "5b471a3135d0b",
+                    "name": "layout_b",
+                    "label": "Layout B",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5b471a3135d0c",
+                            "label": "",
+                            "name": "",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "group_5b4719979b67d"
+                            ],
+                            "display": "seamless",
+                            "layout": "block",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add Layout",
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1531386429
+}

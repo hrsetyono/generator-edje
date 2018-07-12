@@ -53,13 +53,16 @@ function my_after_load_theme() {
   add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
-  add_theme_support( 'h-wc-checkout' );
 
   // Jetpack support
   add_theme_support( 'jetpack-responsive-videos' );
 
   // Gutenberg support
   add_theme_support( 'align-wide' );
+
+  // Edje support
+  add_theme_support( 'h-wholesale' );
+  add_theme_support( 'h-checkout' );
 
   // Create Nav assignment
   register_nav_menu( 'main-nav', 'Main Nav' );

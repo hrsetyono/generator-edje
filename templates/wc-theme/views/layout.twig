@@ -28,18 +28,20 @@
     </div>
   </div>
 
-  <div id="nav-toggle" class="menu-item nav-toggle">
-    <i class="dashicons-before"></i> <b>Menu</b>
+  <div id="nav-toggle" class="nav-item nav-item--toggle">
+    <a>
+      <i class="dashicons-before dashicons-menu"></i> <b>Menu</b>
+    </a>
   </div>
 
-  <nav class="nav-wrapper">
+  <nav class="nav-item-wrapper">
   {% for item in nav.items %}
-    <div class="{{ item.class }}">
+    <div class="nav-item {{ item.class }}">
       <a href="{{ item.url }}"> {{ item.title }} </a>
 
       {# child menu #}
       {% if item.children %}
-        <div class="nav-children">
+        <div class="nav-dialog nav-dialog--children">
           {% for child in item.children %}
             <a href="{{ child.url }}">{{ child.title }}</a>
           {% endfor %}
@@ -51,6 +53,10 @@
 
 
   <div class="nav-extra">
+    <a href="" class="button-passive">
+      <i class="dashicons-before dashicons-archive"></i> Wholesale
+    </a>
+
     {% include "woo/_cart-nav.twig" %}
 
     {# Search #}

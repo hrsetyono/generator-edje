@@ -1,8 +1,8 @@
 {# CART DIALOG #}
-<div class="menu-item">
-  {% include 'woo/_cart-nav-button.twig' %}
+<div class="nav-item-cart">
+  {% include 'woo/_cart-button.twig' %}
 
-  <aside class="nav-dialog cart-dialog" id="cart-dialog">
+  <aside class="nav-dialog nav-dialog--cart" id="cart-dialog">
     <h3>{{ __('Your Cart', 'my') }}</h3>
     {{ fn('the_widget', 'WC_Widget_Cart' ) }}
   </aside>

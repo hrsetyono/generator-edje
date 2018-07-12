@@ -1,3 +1,9 @@
+## 0.8.0
+
+- [WP] Added default ACF fields to theme.
+- [WP] Page template now using layout fields from ACF Pro.
+- [WC] Fixed MyAccount login and register broken styling.
+
 ## 0.7.10
 
 - Removed fastclick.js from all templates.

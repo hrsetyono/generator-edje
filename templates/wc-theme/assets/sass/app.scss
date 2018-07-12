@@ -1,5 +1,7 @@
 // Put styles that are unique for this project here
 @import "setting";
-@import "edje";
+@import "edje-v15";
 
-@import "app-woocommerce";
+@import "app-wc";
+@import "app-myaccount";
+@import "app-cart";

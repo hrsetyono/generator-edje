@@ -221,8 +221,8 @@ class MyCart {
     global $woocommerce;
     $context = array( 'woo' => $woocommerce );
 
-    Timber::render( 'woo/_cart-nav-button.twig', $context );
-    $fragments['.cart-nav'] = ob_get_clean();
+    Timber::render( 'woo/_cart-button.twig', $context );
+    $fragments['.cart-button'] = ob_get_clean();
 
     return $fragments;
   }

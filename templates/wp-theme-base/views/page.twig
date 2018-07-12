@@ -1,22 +1,11 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-<h-row><h-column class="large-12">
-
-<article>
-  <header>
-    <h1>{{ post.title }}</h1>
-
-    {% if fn('function_exists', 'jetpack_breadcrumbs') %}
-      {{ fn('jetpack_breadcrumbs') }}
-    {% endif %}
-  </header>
-
-  <section>
-    {{ post.content }}
+{# ACF Flexible content #}
+{% for layout in post.get_field( 'layouts' ) %}
+  <section class="layout {{ layout.acf_fc_layout | replace({"_": "-"}) }}">
+    {% include "layouts/_" ~ layout.acf_fc_layout | replace({"_": "-"}) ~ ".twig" %}
   </section>
-</article>
-
-</h-column></h-row>
+{% endfor %}
 
 {% endblock %}
