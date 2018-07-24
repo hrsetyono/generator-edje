@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{{ wp_title }}</title>
-  <meta name="theme-color" content=""> {# Use Hex Color #}
 
   {{ wp_head }}
 </head>
@@ -23,9 +22,11 @@
   <div class="main-logo">
     {{ fn('the_custom_logo') }}
 
-    <div class="mobile-logo">
-      <img src="{{ fn( 'get_option', 'logo_mobile' ) }}">
-    </div>
+    {% if logo_mobile %}
+      <div class="mobile-logo">
+        <a href="{{ home_url }}"> <img src="{{ logo_mobile }}"> </a>
+      </div>
+    {% endif %}
   </div>
 
   <div id="nav-toggle" class="nav-item nav-item--toggle">
@@ -53,8 +54,8 @@
 
 
   <div class="nav-extra">
-    <a href="" class="button-passive">
-      <i class="dashicons-before dashicons-archive"></i> Wholesale
+    <a href="/my-account/" class="button-passive">
+      <i class="dashicons-before dashicons-admin-users"></i> Login
     </a>
 
     {% include "woo/_cart-nav.twig" %}

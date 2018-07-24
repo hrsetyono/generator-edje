@@ -1,6 +1,14 @@
 {% extends "layout.twig" %}
 {% block content %}
 
+{% if post.content %}
+<section class="the-content post-content">
+  <h-row><h-column class="large-12">
+    {{ post.content }}
+  </h-column></h-row>
+</section>
+{% endif %}
+
 {# ACF Flexible content #}
 {% for layout in post.get_field( 'layouts' ) %}
   <section class="layout {{ layout.acf_fc_layout | replace({"_": "-"}) }}">

@@ -21,6 +21,7 @@ class MyTimber extends TimberSite {
 
     $context['nav'] = new TimberMenu( 'main-nav' );
     $context['social_nav'] = new TimberMenu( 'social-nav' );
+    $context['logo_mobile'] = get_option( 'logo_mobile' );
 
     $context['site'] = $this;
     $context['home_url'] = home_url();

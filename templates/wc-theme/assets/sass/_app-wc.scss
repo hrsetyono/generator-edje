@@ -517,6 +517,111 @@ ul.wc-tabs {
   }
 }
 
+///// PRODUCT RATING
+
+.woocommerce-Reviews {
+  h2 {
+    display: none;
+  }
+
+  ol {
+    list-style-type: none;
+    padding-left: 0;
+  }
+}
+
+.comment-review {
+  margin-bottom: 1em;
+  border: 1px solid rgba(black, .05);
+  border-radius: $g-radius;
+}
+
+.review-header {
+  @include display-flex;
+  align-items: center;
+
+  background-color: rgba(black, .05);
+  padding: 0.5em;
+  line-height: 1.25;
+
+
+  .meta {
+    margin-bottom: 0;
+    font-size: em( $font-size-small );
+  }
+
+  time {
+    display: inline-block;
+    color: $font-color-passive;
+    font-size: em( $font-size-small );
+  }
+}
+
+.review-text {
+  padding: 0.5em;
+
+  p {
+    margin-bottom: 0.5em;
+  }
+}
+
+///// STAR RATING
+
+.star-rating {
+  display: inline-block;
+  position: relative;
+  line-height: 1;
+
+  &::before,
+  span::before {
+    content: '★★★★★';
+    color: $font-color;
+    font-size: 1rem;
+  }
+
+  &::before {
+    opacity: .25;
+  }
+
+  span {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0;
+  }
+}
+
+.comment-form-rating {
+  margin-bottom: 1em;
+
+  a {
+    opacity: .25;
+    display: inline-block;
+    font-size: 0;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  a::before {
+    content: '★';
+    font-size: 1.25rem;
+  }
+
+  .stars {
+    display: inline-block;
+  }
+
+  .stars:hover a,
+  .selected a {
+    opacity: 1;
+  }
+
+  a:hover ~ a,
+  a.active ~ a {
+    opacity: .25 !important;
+  }
+}
 
 // PRODUCT VARIATION
 

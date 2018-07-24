@@ -1,3 +1,15 @@
+## 0.9.0
+
+- [Plugins] Updated WP-Edje plugin to v0.9.3, Woocommerce-Edje plugin to 1.4.0.
+- [WC] Moved codes that rearrange elements to Woocommerce-Edje plugin.
+- [WC and WP] New navigation markup. Child nav now uses Dialog markup.
+- [WC] Added support for Star Rating.
+- [WC] Better styling on Login & Register page.
+
+## 0.8.1
+
+- [Plugins] Updated WP-Edje plugin to v0.9.1, Woocommerce-Edje plugin to 1.3.5
+
 ## 0.8.0
 
 - [WP] Added default ACF fields to theme.

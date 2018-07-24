@@ -860,9 +860,9 @@ div#jp-relatedposts {
     padding: 1.25em;
     margin-bottom: 1.5em;
     background-color: $body-background;
+    border: 1px solid rgba(black , .1);
 
     border-radius: $g-radius;
-    box-shadow: $shadow-z0;
   }
 }
 
@@ -879,21 +879,21 @@ div#jp-relatedposts {
     }
   }
 
-  .comment-avatar {
-    width: 2.25em;
-    height: 2.25em;
+  .avatar {
+    width: 2.5em;
+    height: 2.5em;
     margin-right: 10px;
     border-radius: 50%;
     transition: $g-transition;
   }
+}
 
-  header {
-    margin-bottom: 1em;
-  }
+.comment-header {
+  margin-bottom: 1em;
 
   b, time {
     display: inline-block;
-    line-height: 1.25;
+    line-height: 1;
     vertical-align: middle;
   }
 
@@ -906,7 +906,9 @@ div#jp-relatedposts {
     font-size: em($font-size-small);
     color: $blog-font-passive;
   }
+}
 
+.comment-text {
   p {
     margin-bottom: 1em;
   }
@@ -977,6 +979,7 @@ a.comment-reply-link {
   padding: 1em;
   background-color: $body-background;
   box-shadow: $shadow-z0;
+  border-radius: $g-radius;
 
   .comments-list & {
     margin-top: 1.25em;

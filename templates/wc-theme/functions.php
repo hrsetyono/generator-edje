@@ -61,7 +61,7 @@ function my_after_load_theme() {
   add_theme_support( 'align-wide' );
 
   // Edje support
-  add_theme_support( 'h-wholesale' );
+  add_theme_support( 'h-woocommerce' );
   add_theme_support( 'h-checkout' );
 
   // Create Nav assignment

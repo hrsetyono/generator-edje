@@ -187,12 +187,16 @@
 
 // Cart Total
 .woocommerce-mini-cart__total {
-  padding: 0.75em 0.5em;
+  padding: 1em 0.5em;
   flex: 1;
   line-height: 1.25;
 
   .woocommerce-Price-amount {
     font-size: 1.125rem;
+  }
+
+  strong {
+    font-size: $font-size-small;
   }
 }
 

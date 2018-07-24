@@ -136,8 +136,8 @@ select {
   border-width: 1px 1px 2px;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+[type="radio"],
+[type="checkbox"] {
   cursor: pointer;
   border: 1px solid rgba(black, .2);
   width: 1rem;
@@ -160,11 +160,11 @@ input[type="checkbox"] {
   }
 }
 
-input[type="checkbox"] {
+[type="checkbox"] {
   border-radius: $g-radius;
 }
 
-input[type="radio"] {
+[type="radio"] {
   border-radius: 50%;
 }
 

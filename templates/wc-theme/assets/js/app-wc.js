@@ -7,6 +7,7 @@ $(window).load(startOnLoad);
 
 function start() {
   myShop.init();
+  myAccount.init();
 }
 
 // functions that needs to run only after everything loads
@@ -22,6 +23,18 @@ var myShop = {
   closeToast: function() {
     $(this).hide();
   }
+};
+
+
+var myAccount = {
+  init: function() {
+    // toggle between Register and Login form
+    $('.h-toggle-form').on( 'click', this.toggleForm );
+  },
+
+  toggleForm: function() {
+    $(this).closest( '.u-columns' ).find( '.u-column1, .u-column2' ).toggle();
+  },
 };
 
 

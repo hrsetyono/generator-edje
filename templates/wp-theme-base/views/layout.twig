@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{{ wp_title }}</title>
-  <meta name="theme-color" content=""> {# Use Hex Color #}
 
   {{ wp_head }}
 </head>
@@ -23,27 +22,27 @@
   <div class="nav-logo">
     {{ fn('the_custom_logo') }}
 
-    <div class="mobile-logo">
-      <a href="{{ home_url }}">
-        <img src="{{ fn( 'get_option', 'logo_mobile' ) }}">
-      </a>
-    </div>
+    {% if logo_mobile %}
+      <div class="mobile-logo">
+        <a href="{{ home_url }}"> <img src="{{ logo_mobile }}"> </a>
+      </div>
+    {% endif %}
   </div>
 
-  <div id="nav-toggle" class="menu-item nav-toggle">
+  <div id="nav-toggle" class="nav-item nav-item--toggle">
     <a>
       <i class="dashicons-before dashicons-menu"></i> <b>Menu</b>
     </a>
   </div>
 
-  <nav class="nav-wrapper">
+  <nav class="nav-item-wrapper">
   {% for item in nav.items %}
-    <div class="{{ item.class }}">
+    <div class="nav-item {{ item.class }}">
       <a href="{{ item.url }}"> {{ item.title }} </a>
 
       {# child menu #}
       {% if item.children %}
-        <div class="nav-children">
+        <div class="nav-dialog nav-dialog--children">
           {% for child in item.children %}
             <a href="{{ child.url }}">{{ child.title }}</a>
           {% endfor %}

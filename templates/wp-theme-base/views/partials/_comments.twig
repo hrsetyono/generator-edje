@@ -1,4 +1,4 @@
-{% if post.comment_status != "closed" %}
+{% if post.comment_status != 'closed' %}
 <section class="post-comments">
 
   {% if post.comment_count %}
@@ -26,14 +26,17 @@
 
   <article id="comment-{{ c.id }}"
     class="comment depth-{{ c.depth }} {{ post.post_author == c.user_id ? 'bypostauthor' : '' }}">
-    <header>
-      <img class="comment-avatar" src="{{ c.avatar }}"
+
+    <header class="comment-header">
+      <img class="avatar" src="{{ c.avatar }}"
         title="{{ post.post_author == c.user_id ? 'Author of this Post' : '' }}">
       <b>{{ c.author.name }}</b>
       <time>{{ c.comment_date_gmt | time_ago }}</time>
     </header>
 
-    {{ c.comment_content | wpautop }}
+    <div class="comment-text">
+      {{ c.comment_content | wpautop }}
+    </div>
 
     {% if fn('get_option', 'thread_comments') and fn('get_option', 'thread_comments_depth') > c.depth + 1 %}
       {{ c.reply_link }}

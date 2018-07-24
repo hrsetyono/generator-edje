@@ -6,14 +6,26 @@ body.woocommerce-account {
 }
 
 
-///// MY ACCOUNT - FORM
+///// FORM
 
-.woocommerce-address-fields__field-wrapper,
-.woocommerce-EditAccountForm,
-.woocommerce-form-register {
+%woocommerce_form {
   @include display-flex;
   flex-wrap: wrap;
-  margin: 1em -0.5em 0;
+  margin: 1em 0 0;
+
+  label {
+    cursor: pointer;
+    margin-bottom: 2px;
+  }
+
+  em {
+    display: inline-block;
+    font-size: em( $font-size-small );
+  }
+
+  @include below(medium) {
+    padding: 1em;
+  }
 }
 
 .form-row {
@@ -25,6 +37,10 @@ body.woocommerce-account {
     align-self: center;
     color: $font-color-passive;
     font-size: em( $font-size-small );
+  }
+
+  @include below(medium) {
+    padding: 0 0.25em;
   }
 
   @include below( small ) {
@@ -87,12 +103,10 @@ body.woocommerce-account {
   input { display: none; }
 }
 
-///// MY ACCOUNT LOGIN / REGISTER
+///// ACCOUNT FORM
 
-// custom wrapper
-.woocommerce-account-wrapper {
+.h-myaccount-wrapper {
   @include clearfix;
-
   width: 100%;
   padding: 1em 2em 2em;
   margin: 2em 0 3em;
@@ -106,40 +120,63 @@ body.woocommerce-account {
     text-align: center;
   }
 
+  // login and register wrapper
   .u-column1,
   .u-column2 {
+    position: relative;
     width: 50%;
-    float: left;
+    margin: 0 auto;
 
     @include below(small) {
       width: 100%;
     }
   }
+
+  // hide register
+  .u-column2 {
+    display: none;
+  }
+
+  // show register if URL has #register
+  .u-column2:target {
+    display: block;
+
+    ~ .u-column1 {
+      display: none;
+    }
+  }
+}
+
+// Toggle form button
+.h-toggle-form {
+  .u-column1 & {
+    margin-top: 1em;
+  }
+
+  .u-column2 & {
+    position: absolute;
+    top: 0.25em;
+  }
 }
 
 
-// login, register, forgot password
 .woocommerce-form-login,
 .woocommerce-form-register,
 .woocommerce-ResetPassword {
-  margin: 0 auto;
-  padding: 1.5em;
+  @extend %woocommerce_form;
   border: 1px solid $color-passive;
-  background-color: white;
-
-  label {
-    cursor: pointer;
-    margin-bottom: 2px;
-  }
-
-  em {
-    font-size: em( $font-size-small );
-  }
 }
 
-// login and forgot password
+///// LOGIN & FORGOT PASSWORD
+
 .woocommerce-form-login,
 .woocommerce-ResetPassword {
+  margin-right: auto;
+  margin-left: auto;
+  width: 320px;
+  padding: 1.5em;
+  background-color: white;
+
   .form-row {
     @include display-flex;
     flex-wrap: wrap;
@@ -155,8 +192,6 @@ body.woocommerce-account {
 
 // login
 .woocommerce-form-login {
-  width: 320px;
-
   .woocommerce-LostPassword {
     font-size: em( $font-size-small );
   }
@@ -167,26 +202,8 @@ body.woocommerce-account {
   }
 }
 
-// register
-.woocommerce-form-register {
-  background-color: transparent;
-
-  .woocommerce-privacy-policy-text {
-    margin-bottom: 1em;
-    padding: 0 0.5em;
-    font-size: em($font-size-small);
-  }
-
-  .woocommerce-input-wrapper {
-    display: block;
-    width: 100%;
-  }
-}
-
 // reset password
-
 .woocommerce-ResetPassword {
-  width: 320px;
   margin-top: 4em;
   margin-bottom: 4em;
 
@@ -213,6 +230,23 @@ body.woocommerce-account {
   }
 }
 
+
+///// REGISTER
+
+.woocommerce-form-register {
+  padding: 1em;
+
+  .woocommerce-privacy-policy-text {
+    margin-bottom: 1em;
+    padding: 0 0.5em;
+    font-size: em($font-size-small);
+  }
+
+  .woocommerce-input-wrapper {
+    display: block;
+    width: 100%;
+  }
+}
 
 .woocommerce-password-strength {
   margin-top: 0.5em;
@@ -381,6 +415,12 @@ body.woocommerce-account {
     flex-direction: column;
   }
 }
+
+// form
+.woocommerce-address-fields__field-wrapper {
+  @extend %woocommerce_form;
+}
+
 
 // column
 .woocommerce-Address,
@@ -560,9 +600,12 @@ body.woocommerce-account {
   }
 }
 
+
 ///// MY ACCOUNT - EDIT ACCOUNT
 
 .woocommerce-EditAccountForm {
+  @extend %woocommerce_form;
+
   // first name, last name
   > .form-row:nth-child(1),
   > .form-row:nth-child(2) {

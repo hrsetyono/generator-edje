@@ -8,38 +8,12 @@ function timber_set_product( $post ) {
 }
 
 
-/*
-  Functions for SHOP or CATALOG page
-*/
 class MyShop {
-  function __construct() {
-    // disable woocommerce CSS
-    add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
-
-    // remove breadcrumb
-    add_filter( 'woocommerce_get_breadcrumb', '__return_false' );
-
-    // remove default image in product thumb
-    remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail' );
-
-    // change the amount of products per page
-    add_filter( 'loop_shop_per_page', array($this, 'change_products_per_page') );
-
+  function construct() {
     // replace default pagination
     remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
     add_action( 'woocommerce_after_shop_loop', array($this, 'custom_woocommerce_pagination'), 10 );
   }
-
-  /*
-    Change Products-per-page
-    @filter loop_shop_per_page
-
-    @param int $num - Current number of products per page
-  */
-  function change_products_per_page( $num ) {
-    return get_option( 'posts_per_page' );
-  }
-
 
   /*
     Change the HTML markup of WC Pagination
@@ -57,8 +31,6 @@ class MyShop {
     );
     Timber::render( '/partials/_pagination.twig', $context );
   }
-
-  /////
 
   /*
     Get categories data to be displayed as Thumbnail in SHOP page
@@ -116,28 +88,8 @@ class MyShop {
 */
 class MyProduct {
   function __construct() {
-    // Move UPSELL and RELATED products to bottom
-    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
-    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-
-    // Move DESCRIPTION to center panel
-    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
-    add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs' );
-
-    // move TITLE and SHARING to top
-    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
-    add_action( 'woocommerce_before_single_product', 'woocommerce_template_single_title' );
-    add_action( 'woocommerce_before_single_product', 'woocommerce_template_single_sharing' );
-
-    // move the PRICE and VARIATION to right-sidebar
-    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-    add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_price' );
-    add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_add_to_cart' );
+    // ....
   }
-
-  /////
 }
 
 
@@ -146,68 +98,12 @@ class MyProduct {
 */
 class MyCart {
   function __construct() {
-    // remove alert when removing item from cart
-    add_filter( 'woocommerce_add_success', array($this, 'disable_alert_remove_cart') );
-
-
-    // Add close button in message
-    add_filter( 'woocommerce_add_to_cart_validation', array($this, 'add_close_button_in_message') );
-    add_filter( 'wc_add_to_cart_message_html', array($this, 'add_close_button_in_message') );
-    add_filter( 'woocommerce_add_error', array($this, 'add_close_button_in_message') );
-
-    // change the button in alert to go straight to checkout
-    add_filter( 'wc_add_to_cart_message_html', array($this, 'added_to_cart_message'), null, 2 );
-
     // Cart navigation widget
     add_filter( 'woocommerce_add_to_cart_fragments', array($this, 'update_cart_widget_fragment') );
 
     // replace default cross-sell
     remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
     add_action( 'woocommerce_cart_collaterals', array($this, 'custom_cross_sell_display') );
-  }
-
-  /*
-    Remove the alert when removing item from cart
-    @filter woocommerce_add_success
-
-    @param $message (str) - Default message
-    @return str - Modified message
-  */
-  function disable_alert_remove_cart( $message ) {
-    if( strpos( $message, 'Undo' ) ) {
-      return false;
-    }
-
-    return $message;
-  }
-
-  /*
-    Add X button to dismiss the message
-
-    @filter woocommerce_add_to_cart_validation
-    @filter wc_add_to_cart_message
-  */
-  function add_close_button_in_message( $message ) {
-    $button = '<span class="woocommerce-message-close">×</span>';
-    return $button . $message;
-  }
-
-  /*
-    Change the alert message after adding to cart
-    @filter wc_add_to_cart_message
-
-    @param $message (str) - The default message
-    @param $product_id (int) - The product that's just added to cart
-    @return str - Modified message
-  */
-  function added_to_cart_message( $message, $product_id ) {
-    $real_message = preg_replace( '/<a\D+a>/', '', $message ); // without <a> tag
-    $button = sprintf(
-      '<a href="%s" class="button wc-forward">%s</a> ',
-      esc_url( wc_get_page_permalink('checkout') ), esc_html__( 'Continue Payment', 'my' )
-    );
-
-    return $button . $real_message;
   }
 
   /*
