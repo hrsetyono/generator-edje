@@ -1,3 +1,7 @@
+## 0.9.1
+
+- [Plugins] Fixed WP-Edje and Woocommerce-Edje not contained in folder when extracted
+
 ## 0.9.0
 
 - [Plugins] Updated WP-Edje plugin to v0.9.3, Woocommerce-Edje plugin to 1.4.0.
