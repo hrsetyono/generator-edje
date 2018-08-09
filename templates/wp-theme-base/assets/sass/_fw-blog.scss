@@ -502,6 +502,11 @@ ul.wp-block-gallery {
 .post-banner-mini {
   margin: 0 -50px 2em;
   border-radius: $g-radius;
+
+  @include below(medium) {
+    margin-right: -$grid-rim;
+    margin-left: -$grid-rim;
+  }
 }
 
 

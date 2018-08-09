@@ -115,13 +115,9 @@
 
         // setup theme and plugins
         self._copy( 'base', themeDest );
-        self._copy( 'wp-theme-base', themeDest );
         self._copy( 'wp-theme', themeDest );
-
-        // if woocommerce, add extra
-        if( self.template === 'woocommerce' ) {
-          self._copy( 'wc-theme', themeDest );
-        }
+        self.template === 'woocommerce' ? self._copy( 'wc-theme', themeDest ) : '';
+        self._copy( 'wp-theme-base', themeDest );
 
         self._copyPlugins( REQ_PLUGINS[ self.template ] );
       }

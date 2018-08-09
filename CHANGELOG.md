@@ -1,3 +1,7 @@
+## 0.9.2
+
+- Update WP to 4.9.8
+
 ## 0.9.1
 
 - [Plugins] Fixed WP-Edje and Woocommerce-Edje not contained in folder when extracted
