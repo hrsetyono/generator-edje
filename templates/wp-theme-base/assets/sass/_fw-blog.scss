@@ -14,12 +14,15 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 
 ///// GRID
 
-.post-row { @include row($width: $blog-width); margin: 0 auto; }
+.post-row {
+  @include row($width: $blog-width);
+  margin: 0 auto;
+}
 
 
 ///// GENERIC ARTICLE
 
-.post-content {
+article {
   letter-spacing: 0.01 * $font-size;
   font-size: $blog-font-size;
 
@@ -30,10 +33,6 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 
   a {
     text-decoration: underline;
-  }
-
-  .button {
-    text-decoration: none;
   }
 
   p,
@@ -71,7 +70,11 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 
 ///// BLOCKQUOTE
 
-.post-content blockquote {
+blockquote {
+  padding: 1em 1em 1em 2em;
+  background-color: $color-passive-light;
+  border-left: 4px solid $color-passive;
+
   p {
     margin-bottom: 0;
   }
@@ -86,12 +89,6 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
   &.align-right {
     margin-left: 0;
   }
-}
-
-.wp-block-quote {
-  padding: 1em 1em 1em 2em;
-  background-color: $color-passive-light;
-  border-left: 4px solid $color-passive;
 }
 
 .wp-block-pullquote {
@@ -110,7 +107,7 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 
 ///// TABLE
 
-.post-content table {
+article table {
   width: 100%;
 
   tr {
@@ -134,18 +131,18 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 
 ///// PREFORMATTED & CODE
 
-.post-content pre,
-.post-content code {
+pre,
+code {
   background-color: $color-passive-light;
   border: 1px solid $color-passive;
   border-radius: $g-radius;
 }
 
-.post-content pre {
+pre {
   padding: 1em;
 }
 
-.post-content code {
+code {
   padding: 0 0.5em;
 }
 
@@ -248,7 +245,6 @@ ul.wp-block-gallery {
   text-align: center;
 }
 
-.post-content figcaption,
 .wp-caption-text {
   display: inline-block;
   margin: 0.5em auto 0;
@@ -262,13 +258,13 @@ ul.wp-block-gallery {
   .refleft .wp-caption-text {
     left: -20px;
     text-align: right;
-    @include transform(translateX(-100%) );
+    @include transform( translateX(-100%) );
   }
 
   .refright .wp-caption-text {
     right: -20px;
     text-align: left;
-    @include transform(translateX(100%) );
+    @include transform( translateX(100%) );
   }
 
   .refleft .wp-caption-text,
@@ -1174,7 +1170,6 @@ a.comment-reply-link {
 
 ///// INFINITE SCROLL (Jetpack)
 
-
 // if infinite-footer is turned on (in theme_support), hide it in paged list.
 body[class^="paged-"] #infinite-footer {
   display: none;
@@ -1189,29 +1184,12 @@ body[class^="paged-"] #infinite-footer {
   }
 }
 
-
-
-///// SHARE (Jetpack) /////
-
+///// SHARING
 
 div.sharedaddy {
   margin: 2em 0 2em;
   padding-top: 2em;
   border-top: 1px solid $color-passive;
-
-  .sd-block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sd-content ul {
-    margin: 0 -4px !important;
-  }
-
-  .sd-content ul li {
-    padding: 0 4px;
-    margin: 0;
-  }
 
   .sd-block h3.sd-title {
     margin: 0 0 1em 0;
@@ -1221,87 +1199,5 @@ div.sharedaddy {
     white-space: nowrap;
 
     &::before { display: none; }
-  }
-
-  .share-end { display: none; }
-}
-
-// button general (needs to override)
-div.sharedaddy .sd-block.sd-social .sd-content ul li a.sd-button {
-  @extend %button;
-
-  background-color: transparent;
-  border-color: $font-color;
-  margin-top: 0;
-
-  &:hover {
-    background-color: inherit;
-    border-color: darken( $font-color, 15% );
-    opacity: 1;
-  }
-
-  // Coloring is handled in framework.scss - SOCIAL LOGO section
-}
-
-// icon only
-div.sharedaddy .sd-social-icon {
-  flex-direction: row;
-
-  .sd-content ul li[class*='share-'] a.sd-button:before {
-    top: 0;
-  }
-
-  h3.sd-title {
-    align-self: center;
-    margin: 0 0.5em 0 0;
-  }
-
-  ul li {
-    margin-bottom: 0;
-  }
-}
-
-// icon-text and text only
-div.sharedaddy .sd-social-icon-text,
-div.sharedaddy .sd-social-text,
-div.sharedaddy .sd-social-official {
-
-  ul li a.sd-button {
-    padding: 4px 10px 3px 8px;
-    border-radius: $g-radius;
-    font-size: em($font-size-small);
-  }
-}
-
-// share email popup
-div#sharing_email {
-  border-radius: $g-radius;
-  box-shadow: $shadow-z1, inset 0 3px $color-main;
-  @include transform(translateY(-1em) );
-
-  label {
-    font-size: em($font-size-small);
-    font-weight: $font-weight;
-  }
-}
-
-// hidden popup
-div.sharedaddy .sharing-hidden {
-  .inner {
-    width: 260px;
-    padding: 0.5em 0.5em 0;
-  }
-
-  ul {
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  ul li {
-    width: 50%;
-    padding: 0 0.25em;
-    margin: 0 0 0.5em;
-    text-align: center;
   }
 }

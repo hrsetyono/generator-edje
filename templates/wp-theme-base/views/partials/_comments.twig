@@ -24,7 +24,7 @@
 
 {% macro comment(c, post) %}
 
-  <article id="comment-{{ c.id }}"
+  <div id="comment-{{ c.id }}"
     class="comment depth-{{ c.depth }} {{ post.post_author == c.user_id ? 'bypostauthor' : '' }}">
 
     <header class="comment-header">
@@ -41,7 +41,7 @@
     {% if fn('get_option', 'thread_comments') and fn('get_option', 'thread_comments_depth') > c.depth + 1 %}
       {{ c.reply_link }}
     {% endif %}
-  </article>
+  </div>
 
   {# Child comments #}
   {% if c.children %}

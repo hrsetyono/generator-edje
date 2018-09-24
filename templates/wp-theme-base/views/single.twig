@@ -25,10 +25,8 @@
 {# Content #}
 <h-row class="post-row"><h-column>
 
-  <article class="post-content">
-    <section class="post-body">
-      {{ post.content }}
-    </section>
+  <article>
+    {{ post.content }}
 
     <footer class="post-author">
       {% include "partials/_author-info.twig" with { author: post.author } %}

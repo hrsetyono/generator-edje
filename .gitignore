@@ -21,11 +21,7 @@ templates/wc-theme/style.css
 templates/wc-theme/package.json
 
 
-templates/wp-theme/assets/css/*
-templates/wp-theme/assets/images/*
-templates/wp-theme/assets/js/*
-templates/wp-theme/assets/js-vendor/*
-templates/wp-theme/assets/sass/*
+templates/wp-theme/assets
 templates/wp-theme/style.css
 templates/wp-theme/package.json
 

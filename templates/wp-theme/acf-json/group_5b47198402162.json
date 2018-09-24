@@ -1,11 +1,11 @@
 {
     "key": "group_5b47198402162",
-    "title": "_Layout A",
+    "title": "Layout - Sample",
     "fields": [
         {
             "key": "field_5b4719f999f3b",
-            "label": "Sample Field A",
-            "name": "sample_field_a",
+            "label": "Sample Field",
+            "name": "sample_field",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -39,5 +39,5 @@
     "hide_on_screen": "",
     "active": 0,
     "description": "",
-    "modified": 1531386597
+    "modified": 1533802388
 }

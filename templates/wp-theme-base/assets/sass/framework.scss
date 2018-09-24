@@ -4,7 +4,7 @@ $output-framework: true;
 @import "edje-v15";
 
 @import "fw-blog";
-@import "fw-magnific";
+@import "fw-photoswipe";
 @import "fw-slick";
 @import "fw-nav";
 
@@ -47,6 +47,7 @@ $output-framework: true;
 
 
 .button,
+[type="button"],
 [type="submit"],
 [type="reset"] {
   @extend %button;
@@ -254,6 +255,3 @@ form.wpcf7-form {
 .wpcf7-form-control-wrap {
 
 }
-
-
-/////

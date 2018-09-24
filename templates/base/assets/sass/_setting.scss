@@ -26,30 +26,6 @@ $color-passive-light: #f3f6f8;
 // $body-background: #fff;
 // $text-highlight: null;
 
-// Colors for Jetpack Shared and Social Nav
-$social-colors: (
-  twitter: #28a9e0,
-  twitter-alt: #28a9e0,
-  facebook: #3b5998,
-  google-plus-1: #dd4b39,
-  google-plus: #dd4b39,
-  google-plus-alt: #dd4b39,
-
-  pinterest: #bd081c,
-  pinterest-alt: #bd081c,
-  jetpack-whatsapp: #25d366,
-  whatsapp: #25d366,
-
-  skype: #0bbff2,
-  pocket: #ed4054,
-  linkedin: #0077b5,
-  reddit: #f54b00,
-  tumblr: #324f6d,
-  telegram: #34abe3,
-  custom-line: #03c302,
-);
-
-
 // ----- SIZING -----
 // $size-mini   : 480px;
 // $size-small  : 767px;
@@ -62,14 +38,7 @@ $social-colors: (
 // $adaptive-breakpoints : large, medium, small, mini;
 
 // ----- Z INDEX -----
-// .sample-usage { z-index: z(nav); }
-
-$z-indexes: (
-  nav: 1010,
-  nav_overlay: 900,
-  child_nav: 1020,
-  above_normal: 10,
-);
+$z-nav: 1000;
 
 // ----- GLOBAL VALUE -----
 $g-radius     : 4px;

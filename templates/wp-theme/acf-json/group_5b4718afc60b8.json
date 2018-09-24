@@ -18,8 +18,8 @@
             "layouts": {
                 "5b471966e17cc": {
                     "key": "5b471966e17cc",
-                    "name": "layout_a",
-                    "label": "Layout A",
+                    "name": "sample_layout",
+                    "label": "Sample",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -49,8 +49,8 @@
                 },
                 "5b471a3135d0b": {
                     "key": "5b471a3135d0b",
-                    "name": "layout_b",
-                    "label": "Layout B",
+                    "name": "sample_layout_2",
+                    "label": "Sample 2",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -101,5 +101,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1531386429
+    "modified": 1533802445
 }

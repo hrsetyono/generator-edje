@@ -1,6 +1,17 @@
+## 0.10.0
+
+- [Ghost] Removed due to lack of use.
+- [WP] Removed custom CSS for Jetpack Sharing. Now is handled in WP Edje plugin.
+
+## 0.9.3
+
+- [WP] Removed custom color for Social Sharing.
+- [WP] Replaced Z-Indexes list in Sass and replace it with individual variable.
+
 ## 0.9.2
 
 - Update WP to 4.9.8
+- [WP] Removed reference to parent theme inside `style.css`.
 
 ## 0.9.1
 

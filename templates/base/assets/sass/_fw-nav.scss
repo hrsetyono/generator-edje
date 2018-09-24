@@ -1,7 +1,7 @@
 
 .main-nav {
   position: relative;
-  z-index: z(nav);
+  z-index: $z-nav;
   border-bottom: 1px solid $color-passive;
 
   @include above(small) {
@@ -84,7 +84,7 @@
     opacity: 0;
 
     position: fixed;
-    z-index: z(nav);
+    z-index: $z-nav;
     top: 0;
     left: 0;
     bottom: 0;
@@ -141,7 +141,6 @@ body.nav-dialog-is-active {
   align-items: center;
 
   position: relative;
-  z-index: z(nav);
   margin-left: auto;
 
   > * {
@@ -163,7 +162,6 @@ body.nav-dialog-is-active {
   opacity: 0;
 
   position: absolute;
-  z-index: z(nav);
   top: 100%;
   right: 0;
   width: 300px;
@@ -227,12 +225,10 @@ body.nav-dialog-is-active {
 .search-form {
   @include display-flex;
   position: relative;
-  z-index: z(nav);
 
   label {
     cursor: pointer;
     position: relative;
-    z-index: z(nav);
     padding: 5px;
 
     border-radius: $g-radius;
@@ -270,6 +266,8 @@ body.nav-dialog-is-active {
 
 
 ///// MAIN FOOTER /////
+
+@include sticky-footer(160px);
 
 .main-footer {
   position: relative;
@@ -328,20 +326,4 @@ body.nav-dialog-is-active {
   line-height: 1;
   vertical-align: top;
   color: rgba($font-color, .4);
-}
-
-///// SHARE COLORS
-
-@each $name, $color in $social-colors {
-  .social-logo__#{ $name }:hover {
-    color: $color;
-  }
-
-  // Sharedaddy color
-  div.sharedaddy .sd-block .sd-content ul li a.sd-button.share-#{ $name } {
-    color: $color !important;
-    border-color: $color;
-
-    &:hover { border-color: darken( $color, 15% ); }
-  }
 }
