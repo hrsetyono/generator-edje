@@ -27,7 +27,6 @@ class MyShortcode {
 class MyFilter {
   function __construct() {
     add_action( 'after_setup_theme', array($this, 'default_theme_support') );
-    add_action( 'after_switch_theme', array($this, 'change_editor_cap') );
   }
 
 
@@ -45,19 +44,10 @@ class MyFilter {
     add_theme_support( 'title_tag' );
     add_theme_support( 'html5', array('search-form', 'comment-form', 'gallery', 'caption') );
     add_theme_support( 'automatic-feed-links' );
+
+    add_theme_support( 'jetpack-responsive-videos' );
+
     add_post_type_support( 'page', 'excerpt' ); // allow page to have excerpt
-  }
-
-  /*
-    Allow editor to edit Appearance
-    @action after_switch_theme
-  */
-  function change_editor_cap() {
-    $role = get_role( 'editor' );
-    $role ? $role->add_cap( 'edit_theme_options' ) : false;
-
-    $role = get_role( 'shop_manager' );
-    $role ? $role->add_cap( 'edit_theme_options' ) : false;
   }
 }
 

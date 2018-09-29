@@ -1,3 +1,9 @@
+## 0.10.1
+
+- [WP] Replace Magnify with Photoswipe (still in beta).
+- [WC] Separate Woocommerce CSS from app.scss
+- [Plugins] Update WP-Edje, WC-Edje, and Woocommerce to latest version
+
 ## 0.10.0
 
 - [Ghost] Removed due to lack of use.

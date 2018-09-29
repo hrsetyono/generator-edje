@@ -1,14 +1,13 @@
 (function($) {
 'use strict';
 
-$(document).ready(start);
-$(document).on('page:load', start);
-$(window).load(startOnLoad);
+$(document).ready( start );
+$(document).on( 'page:load', start );
+$(window).load( startOnLoad );
 
 function start() {
   myApp.init();
   myNav.init();
-  myBlog.init();
 }
 
 // functions that needs to run only after everything loads
@@ -16,10 +15,8 @@ function startOnLoad() {
 }
 
 
-/////
-
-
 ///// GENERAL LISTENERS
+
 var myApp = {
   init: function() {
     $('.sample-div').on( 'click', this.sampleListener );
@@ -27,36 +24,6 @@ var myApp = {
 
   sampleListener: function( e ) {
     // do something
-  }
-};
-
-
-///// BLOG POSTS
-
-var myBlog = {
-  init: function() {
-    this.commentFormToggle();
-  },
-
-
-  // Open Comment Form and add Placeholder to the textarea
-  commentFormToggle: function() {
-    // exit if comment form not found
-    if( $('#reply-title').length <= 0 ) { return false; }
-
-    var replyTitle = document.getElementById( 'reply-title' ).childNodes;
-    var replyTo = replyTitle[1].childNodes[0].nodeValue;
-    var placeholder = replyTitle[0].nodeValue + (replyTo ? replyTo : '') + '…';
-
-    $('.comment-form textarea').attr( 'placeholder', placeholder );
-    $('.comment-form').on( 'click', activateForm );
-    $('.comment-reply-link').on( 'click', activateForm );
-
-    function activateForm(e) {
-      var $form = $('.comment-form');
-      $form.addClass('active');
-      $form.off('click').find('textarea').focus();
-    }
   }
 };
 
@@ -127,5 +94,4 @@ var myNav = {
 
 // Browser compatibility, leave this untouched
 if('registerElement' in document) { document.createElement( 'h-row' ); document.createElement( 'h-column' ); }
-
 })( jQuery );

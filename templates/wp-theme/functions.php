@@ -5,15 +5,11 @@ if( !MyHelper::has_required_plugins() ) { return false; }
 require_once 'code/timber.php';
 
 add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 100 );
-add_action( 'after_setup_theme', 'my_after_load_theme' );
+add_action( 'after_setup_theme', 'my_after_setup_theme' );
 add_action( 'init', 'my_init' );
 add_action( 'widgets_init', 'my_widgets' );
 
 new MyFilter();
-
-// add_filter( 'network-media-library/site_id', function( $site_id ) {
-//   return 3;
-// } );
 
 /////
 
@@ -42,12 +38,11 @@ function my_enqueue_scripts() {
   Run after theme is loaded
   @action after_setup_theme
 */
-function my_after_load_theme() {
-  $GLOBALS['content_width'] = 600; // Blog wi dth, affect Jetpack Gallery size
+function my_after_setup_theme() {
+  $GLOBALS['content_width'] = 600; // Blog width, affect Jetpack Tiled-Gallery size
   add_theme_support( 'widgets' );
 
   // Jetpack support
-  add_theme_support( 'jetpack-responsive-videos' );
   add_theme_support( 'infinite-scroll', array(
     'footer' => false,
     'posts_per_page' => false,

@@ -1,7 +1,12 @@
 // SETTING
+@import "setting";
+@import "edje-v15";
 
 $wc-panel: $color-passive-light;
 $wc-panel-dark: darken($wc-panel, 5%);
+
+@import "shop-myaccount";
+@import "shop-cart";
 
 ///// GENERAL
 

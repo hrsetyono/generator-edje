@@ -1,1 +1,107 @@
-C:/Users/hrsetyono/Documents/_open/generator-edje/templates/base/assets/sass/_setting.scss
+// Customize the framework by changing these variables
+// Put your custom variables and mixins here too
+
+// ----- FONT -----
+$font-family : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-header : $font-family;
+
+// ----- COLORS -----
+$color-main : #00aadc;
+$color-sub  : #607d8b;
+
+// $color-main-dark : #008ab3;
+// $color-main-light : #78dcfa;
+
+$color-link : $color-main;
+// $color-link-hover : lighten($color-main, 10%);
+
+$color-passive : #c8d7e1;
+$color-passive-light: #f3f6f8;
+
+// $color-red : #f45b4f;
+// $color-yellow : #ffeb3b;
+// $color-green : #4caf50;
+// $color-blue: #2196f3;
+
+// $body-background: #fff;
+// $text-highlight: null;
+
+// ----- SIZING -----
+// $size-mini   : 480px;
+// $size-small  : 767px;
+// $size-medium : 960px;
+// $size-large  : 1120px;
+
+// ----- RESPONSIVE -----
+// $responsive : true;
+// $adaptive   : false;
+// $adaptive-breakpoints : large, medium, small, mini;
+
+// ----- Z INDEX -----
+$z-nav: 1000;
+
+// ----- GLOBAL VALUE -----
+$g-radius     : 4px;
+// $g-transition : all .25s ease-in-out;
+
+
+// ----- GRID -----
+// $grid-max-width : $size-large;
+// $grid-columns : 12;
+// $grid-gutter  : 20px; // distance between columns
+// $grid-rim     : $grid-gutter / 2; // min distance from edge of screen
+
+// ----- TILE -----
+// $tile-max    : 8;
+// $tile-gutter : 20px;
+
+
+// ----- TYPOGRAPHY -----
+$font-color  : #2e4453;
+// $font-color-passive : #888;
+
+// $font-weight : 400;
+// $font-line : 1.65;
+$font-size : 16px;
+$font-size-small : 14px;
+
+
+// ----- HEADER -----
+// $header-color  : $font-color;
+// $header-weight : 700;
+// $header-line   : 1.25;
+// $header-spacing : 0;
+// $header-transform : none;
+
+$h1 : 42px;
+$h2 : 36px;
+$h3 : 30px;
+$h4 : 24px;
+$h5 : 20px;
+$h6 : $font-size;
+
+// ----- RESPONSIVE HEADER -----
+// the header size below that media query
+
+// $h1-sizes: (base: $h1, small: 30px);
+// $h2-sizes: (base: $h2, small: 26px);
+// $h3-sizes: (base: $h3, small: 22px);
+// $h4-sizes: (base: $h4, small: 20px);
+// $h5-sizes: (base: $h5, small: 18px);
+// $h6-sizes: (base: $h6, small: $h6);
+
+
+// ----- SHADOW -----
+// $shadow-z0: 0 0.5px 2px rgba(black, .18), 0 1.5px 6px rgba(black, .08);
+// $shadow-z1: 0 1.5px 4px rgba(black, .24), 0 1.5px 6px rgba(black, .12);
+// $shadow-z2: 0 3px 12px rgba(black, .23), 0 3px 12px rgba(black, .16);
+// $shadow-z3: 0 6px 12px rgba(black, .23), 0 10px 40px rgba(black, .19);
+
+
+
+$spinner_path: '../../../../../wp-admin/images/spinner.gif';
+
+
+///// CUSTOM MIXIN
+
+@mixin your-custom-mixin() { }

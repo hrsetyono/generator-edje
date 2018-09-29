@@ -6,10 +6,9 @@ require_once 'code/timber.php';
 require_once 'code/addon-wc.php';
 
 add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 100 );
-add_action( 'after_setup_theme', 'my_after_load_theme' );
+add_action( 'after_setup_theme', 'my_after_setup_theme' );
 add_action( 'init', 'my_init' );
 add_action( 'widgets_init', 'my_widgets' );
-
 
 new MyFilter();
 
@@ -26,13 +25,14 @@ function my_enqueue_scripts() {
   // Stylesheet
   wp_enqueue_style( 'my-framework', $css_dir . '/framework.css' );
   wp_enqueue_style( 'my-app', $css_dir . '/app.css' );
+  wp_enqueue_style( 'my-shop', $css_dir . '/shop.css' );
   wp_enqueue_style( 'dashicons', get_stylesheet_uri(), 'dashicons' ); // WP native icons
 
   // JavaScript
   wp_enqueue_script( 'my-photoswipe', $js_dir . '-vendor/photoswipe.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-slick', $js_dir . '-vendor/slick.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
-  wp_enqueue_script( 'my-app-wc', $js_dir . '/app-wc.js', array('jquery'), false, true );
+  wp_enqueue_script( 'my-shop', $js_dir . '/shop.js', array('jquery'), false, true );
 }
 
 
@@ -41,7 +41,7 @@ function my_enqueue_scripts() {
   Run after theme is loaded
   @action after_setup_theme
 */
-function my_after_load_theme() {
+function my_after_setup_theme() {
   $GLOBALS['content_width'] = 600; // Blog width, affect Jetpack Gallery size
   add_theme_support( 'widgets' );
 
@@ -53,9 +53,6 @@ function my_after_load_theme() {
   add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
-
-  // Jetpack support
-  add_theme_support( 'jetpack-responsive-videos' );
 
   // Gutenberg support
   add_theme_support( 'align-wide' );
