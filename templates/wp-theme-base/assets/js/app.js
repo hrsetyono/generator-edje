@@ -93,5 +93,5 @@ var myNav = {
 };
 
 // Browser compatibility, leave this untouched
-if('registerElement' in document) { document.createElement( 'h-row' ); document.createElement( 'h-column' ); }
+if('registerElement' in document) { document.createElement( 'h-grid' ); document.createElement( 'h-tile' ); }
 })( jQuery );

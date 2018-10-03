@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Updated WP Edje plugin
+
 ## 1.0.0
 
 - Compatibility with Edje 2.0
