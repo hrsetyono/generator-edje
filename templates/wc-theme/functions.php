@@ -42,7 +42,7 @@ function my_enqueue_scripts() {
   @action after_setup_theme
 */
 function my_after_setup_theme() {
-  $GLOBALS['content_width'] = 600; // Blog width, affect Jetpack Gallery size
+  $GLOBALS['content_width'] = 650; // Blog width, affect Jetpack Gallery size
   add_theme_support( 'widgets' );
 
   // Woocommerce support

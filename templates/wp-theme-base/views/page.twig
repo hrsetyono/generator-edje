@@ -2,11 +2,11 @@
 {% block content %}
 
 {% if post.content %}
-<article class="the-content">
-  <h-row><h-column class="large-12">
+<h-grid>
+  <article class="the-content large-12">
     {{ post.content }}
-  </h-column></h-row>
-</article>
+  </article>
+</h-grid>
 {% endif %}
 
 {# ACF Flexible content #}

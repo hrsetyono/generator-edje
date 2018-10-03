@@ -35,7 +35,7 @@
     </header>
 
     <div class="comment-text">
-      {{ c.comment_content | wpautop }}
+      {{ c.comment_content | markdown }}
     </div>
 
     {% if fn('get_option', 'thread_comments') and fn('get_option', 'thread_comments_depth') > c.depth + 1 %}

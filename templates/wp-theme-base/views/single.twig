@@ -2,47 +2,42 @@
 {% block content %}
 
 {# Header #}
-<h-row {% if not post.thumbnail %} class="post-row" {% endif %}><h-column>
+<h-grid class="post-grid">
+  <div class="post-header large-4">
+    <h1>{{ post.title }}</h1>
+    {% include "partials/_post-meta.twig" %}
 
-  <header class="post-header">
-    {% if post.thumbnail %}
-      <div class="post-featured-image" style="background-image: url('{{ post.thumbnail.src('large') }}');"></div>
+    {% if post.post_excerpt %}
+      <p class="post-excerpt">{{ post.post_excerpt }}</p>
     {% endif %}
+  </div>
+</h-grid>
 
-    <div class="post-title">
-      <h1>{{ post.title }}</h1>
-      {% include "partials/_post-meta.twig" %}
-
-      {% if post.post_excerpt %}
-        <p class="post-excerpt">{{ post.post_excerpt }}</p>
-      {% endif %}
-    </div>
-  </header>
-
-</h-column></h-row>
+{% if post.thumbnail %}
+  <figure class="post-featured-image">
+    <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.title }} Banner">
+  </figure>
+{% endif %}
 
 
 {# Content #}
-<h-row class="post-row"><h-column>
-
-  <article>
+<h-grid class="post-grid">
+  <article class="post-content large-4">
     {{ post.content }}
 
     <footer class="post-author">
       {% include "partials/_author-info.twig" with { author: post.author } %}
     </footer>
   </article>
-
-</h-column></h-row>
+</h-grid>
 
 {# Comments #}
 <section class="post-footer">
-  <h-row class="post-row"><h-column>
+  <h-grid class="post-footer-grid"> <div class="large-4">
 
     {% include "partials/_related-posts.twig" %}
     {% include "partials/_comments.twig" %}
-
-  </h-column></h-row>
+  </div> </h-grid>
 </section>
 
 

@@ -1,3 +1,8 @@
+## 1.0.0
+
+- Compatibility with Edje 2.0
+- Changed all floating rows into CSS3 Grids.
+
 ## 0.10.1
 
 - [WP] Replace Magnify with Photoswipe (still in beta).

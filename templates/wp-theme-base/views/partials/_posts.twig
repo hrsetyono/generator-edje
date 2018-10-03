@@ -2,30 +2,25 @@
 
   {# Featured Post #}
   {% if loop.first and post.thumbnail %}
-    <article class="post-banner post-banner-mini" style="background-image: url('{{ post.thumbnail.src('large') }}');">
-      <h-row class="post-row"><h-column>
-
+    <article class="post-banner" style="background-image: url('{{ post.thumbnail.src('large') }}');">
+      <div class="post-banner-overlay">
         {% include "partials/_post-meta.twig" %}
         <a href="{{ post.link }}" class="banner-body">
-          <h1>{{ post.title }}</h1>
+          <h2>{{ post.title }}</h2>
 
           {{ post.get_preview(25, false, false) | wpautop }}
-
-          <span class="button-line">Read More</span>
         </a>
-
-      </h-column></h-row>
+      </div>
     </article>
 
   {# Standard List #}
   {% else %}
 
     <article class="post-tease">
-
       {% if post.thumbnail %}
-      <figure>
-        <img src="{{ post.thumbnail.src('thumbnail') }}" alt="{{ post.title }}">
-      </figure>
+        <figure>
+          <img src="{{ post.thumbnail.src('thumbnail') }}" alt="{{ post.title }}">
+        </figure>
       {% endif %}
 
       <div class="tease-body">
@@ -36,7 +31,6 @@
 
         {% include "partials/_post-meta.twig" %}
       </div>
-
     </article>
   {% endif %}
 

@@ -17,7 +17,7 @@
 {# MAIN NAV #}
 {% block nav %}
 <section class="main-nav">
-<h-row><h-column class="nav-col">
+<h-grid> <div class="nav-col">
 
   <div class="nav-logo">
     {{ fn('the_custom_logo') }}
@@ -60,7 +60,8 @@
     </form>
   </div>
 
-</h-column></h-row>
+</div> </h-grid>
+
 </section>
 {% endblock %}
 
@@ -74,40 +75,40 @@
 {# MAIN FOOTER #}
 {% block footer %}
 <footer class="main-footer">
-<h-row>
-  <h-column class="large-12">
 
-    <nav class="footer-nav">
-      {% for item in nav.items %}
-        <a href="{{ item.link }}">{{ item.title }}</a>
-      {% endfor %}
-    </nav>
-
-  </h-column>
-</h-row>
-
-<h-row>
-  <h-column class="large-8">
-
-    <div class="footer-legal">
-      &copy; {{ "now" | date("Y") }} {{ site.name }}
-
-      <a href="/privacy-policy">Privacy Policy</a>
-      <a href="/sitemap.xml">Sitemap</a>
+  {# widgets #}
+  {% if footer_widgets %}
+    <div class="footer-widgets">
+      <h-grid> {{ footer_widgets }} </h-grid>
     </div>
+  {% endif %}
 
-  </h-column>
-  <h-column class="large-4">
+  {# copyright bar #}
+  <div class="footer-bar">
+    <h-grid>
+      <div class="copyright large-6">
+        <header> Copyright &copy; {{ "now" | date("Y") }} {{ site.name }} </header>
 
-    {# https://github.com/hrsetyono/generator-edje/wiki/(Jetpack)-Social-Menu #}
-    <div class="footer-social">
-      {% for item in social_nav.items %}
-        <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
-      {% endfor %}
-    </div>
+        {% for i in social_nav.items %}
+          <a href="{{ i.url }}" target="_blank" class="social-logo social-logo__{{ i.title }}"> </a>
+        {% endfor %}
+      </div>
 
-  </h-column>
-</h-row>
+      <div class="partners large-6">
+        <header>Created by:</header>
+        <a href="https://pixelstudio.id" target="_blank">
+          <img src="http://cdn.setyono.net/pixelstudio/partner-logo.png" alt="Pixel Studio Logo">
+
+          <div class="partner-caption">
+            <h5>Pixel Studio</h5>
+            <p>Web & App Design</p>
+          </div>
+        </a>
+      </div>
+
+    </div> </h-grid>
+  </div>
+
 </footer>
 {% endblock %}
 

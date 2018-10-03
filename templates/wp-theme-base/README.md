@@ -4,11 +4,11 @@ Write your project description here.
 
 **Specs**:
 
-- PHP 5.6
+- PHP 7.0
 - WordPress 4.9
-- Timber 1.5
-- Edje 1.2
-- EdjeWP 0.6.1
+- Timber 1.7
+- Edje 2.0
+- EdjeWP 0.9.6
 
 ## Useful Links
 

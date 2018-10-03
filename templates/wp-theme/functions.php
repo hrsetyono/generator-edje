@@ -39,18 +39,8 @@ function my_enqueue_scripts() {
   @action after_setup_theme
 */
 function my_after_setup_theme() {
-  $GLOBALS['content_width'] = 600; // Blog width, affect Jetpack Tiled-Gallery size
+  $GLOBALS['content_width'] = 650; // Blog width, affect Jetpack Tiled-Gallery size
   add_theme_support( 'widgets' );
-
-  // Jetpack support
-  add_theme_support( 'infinite-scroll', array(
-    'footer' => false,
-    'posts_per_page' => false,
-    'render' => function() {
-      $context = array( 'posts' => Timber::get_posts() );
-      Timber::render( 'partials/_posts.twig', $context );
-    },
-  ) );
 
   // Gutenberg support
   add_theme_support( 'align-wide' );
@@ -90,5 +80,5 @@ function my_init() {
   @action widgets_init
 */
 function my_widgets() {
-  register_sidebar( array('name' => 'My Sidebar', 'id' => 'my-sidebar') );
+  register_sidebar( array('name' => 'My Footer', 'id' => 'my-footer') );
 }

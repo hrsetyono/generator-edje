@@ -17,7 +17,7 @@
 {# MAIN NAV #}
 {% block nav %}
 <section class="main-nav">
-<h-row><h-column class="nav-col">
+<h-grid> <div class="nav-col">
 
   <div class="main-logo">
     {{ fn('the_custom_logo') }}
@@ -67,7 +67,7 @@
     </form>
   </div>
 
-</h-column></h-row>
+</div> </h-grid>
 </section>
 
 {% endblock %}
@@ -82,40 +82,29 @@
 {# MAIN FOOTER #}
 {% block footer %}
 <footer class="main-footer">
-<h-row>
-  <h-column class="large-12">
+<h-grid>
+  <nav class="footer-nav large-12">
+    {% for item in nav.items %}
+      <a href="{{ item.link }}">{{ item.title }}</a>
+    {% endfor %}
+  </nav>
+</h-grid>
 
-    <nav class="footer-nav">
-      {% for item in nav.items %}
-        <a href="{{ item.link }}">{{ item.title }}</a>
-      {% endfor %}
-    </nav>
+<h-grid>
+  <div class="footer-legal large-8">
+    &copy; {{ "now" | date("Y") }} {{ site.name }}
 
-  </h-column>
-</h-row>
-
-<h-row>
-  <h-column class="large-8">
-
-    <div class="footer-legal">
-      &copy; {{ "now" | date("Y") }} {{ site.name }}
-
-      <a href="/privacy-policy">Privacy Policy</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </div>
-
-  </h-column>
-  <h-column class="large-4">
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/sitemap.xml">Sitemap</a>
+  </div>
 
     {# https://github.com/hrsetyono/generator-edje/wiki/(Jetpack)-Social-Menu #}
-    <div class="footer-social">
-      {% for item in social_nav.items %}
-        <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
-      {% endfor %}
-    </div>
-
-  </h-column>
-</h-row>
+  <div class="footer-social large-4">
+    {% for item in social_nav.items %}
+      <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
+    {% endfor %}
+  </div>
+</h-grid>
 </footer>
 {% endblock %}
 

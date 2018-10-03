@@ -7,14 +7,15 @@
   </ul>
 
   {% if not products %}
-    <h-row><h-column class="large-5 centered">
-      <article class="content-error">
+    <h-grid>
+      <div class="large-4"></div>
+      <article class="large-4 content-error">
         <h1>Product <span>Not Found</span></h1>
         <p>
           Sorry, there is no product listed here yet
         </p>
       </article>
-    </h-column></h-row>
+    </h-grid>
   {% endif %}
 
 </section>

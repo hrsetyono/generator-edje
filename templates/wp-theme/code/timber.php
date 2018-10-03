@@ -19,7 +19,7 @@ class MyTimber extends TimberSite {
 
     $context['site'] = $this;
     $context['home_url'] = home_url();
-    $context['sidebar'] = Timber::get_widgets( 'my-sidebar' );
+    $context['footer_widgets'] = Timber::get_widgets( 'my-footer' );
 
     $root = get_template_directory_uri();
     $context['images'] = $root.'/assets/images';

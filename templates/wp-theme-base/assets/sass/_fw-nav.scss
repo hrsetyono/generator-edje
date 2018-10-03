@@ -11,8 +11,7 @@
 
 .nav-col {
   @include column(12);
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex;
   justify-content: flex-start;
   align-items: center;
 }
@@ -267,53 +266,151 @@ body.nav-dialog-is-active {
 
 ///// MAIN FOOTER /////
 
-@include sticky-footer(160px);
+// @include sticky-footer( $footer-height-px );
 
 .main-footer {
   position: relative;
-  padding: 1.5em 0 3em;
-  background-color: $color-passive-light;
-  border-top: 1px solid $color-passive;
-  border-bottom: 1px solid $color-passive;
+  background-color: rgba( black, .88 );
+  color: white;
 }
 
-.footer-nav {
-  padding-bottom: 1em;
-  margin-bottom: 1em;
-  border-bottom: 1px dashed $color-passive;
-  text-align: center;
+// widgets
 
-  a {
-    display: inline-block;
-    padding: 0 1em;
-    color: $font-color;
-  }
+.footer-widgets {
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
 
-  a:hover { color: $color-main; }
-
-  @include above(mini) {
-    a:first-child { padding-left: 0; }
-    a:last-child { padding-right: 0; }
-  }
-
-  @include below(mini) {
-    @include flex;
-    flex-wrap: wrap;
-
-    a {
-      width: 50%;
-    }
-  }
-}
-
-.footer-legal {
+  color: rgba(white, .5);
   font-size: em($font-size-small);
 
-  a { margin-left: 1em; }
+  h-grid {
+    grid-row-gap: $grid-gap;
+  }
+
+  .widget {
+    @include column(4);
+    list-style-type: none;
+  }
+
+  .widgettitle {
+    margin-bottom: 0.25rem;
+    font-size: em(21px, $font-size-small);
+    color: rgba(white, .85);
+  }
+
+  ul {
+    padding-left: 1.25em;
+  }
 }
 
-//// FOOTER SOCIAL LOGOS
+///// FOOTER BAR
 
+.footer-bar {
+  padding: 0.5em 0;
+  background-color: rgba($color-main, .1);
+  color: rgba(white, .5);
+  font-size: em($font-size-small);
+}
+
+.copyright,
+.partners {
+  @include display-flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  header {
+    line-height: 1.4;
+  }
+
+  @include below(medium) {
+    header { width: 100%; }
+  }
+}
+
+.copyright {
+  @include above(small) {
+    header {
+      margin-right: 1.5em;
+    }
+  }
+
+  a {
+    margin-right: 0.5em;
+  }
+}
+
+// partners
+.partners {
+  justify-content: flex-end;
+
+  img {
+    width: 32px;
+    padding: 4px;
+  }
+
+  a {
+    display: block;
+    position: relative;
+    margin: 0 4px;
+    background-color: rgba($color-main, .2);
+    border-radius: 50%;
+    transition: $g-transition;
+  }
+
+  a:hover {
+    background-color: rgba($color-main, .3);
+    color: white;
+  }
+}
+
+.partner-caption {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+
+  padding: 0.5em 1em;
+  background-color: rgba($color-main, .2);
+  color: white;
+  text-align: center;
+
+  border-radius: $g-radius $g-radius 0 $g-radius;
+  transition: $g-transition;
+  @include transform( translateY(20px) );
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    @include triangle( 12px, bottom, rgba($color-main, .3), 5px );
+  }
+
+  a:hover & {
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba($color-main, .3);
+    @include transform( none );
+  }
+
+  h5 {
+    font-weight: 700;
+    font-size: 14px;
+    font-family: $font-family;
+    color: white;
+    white-space: nowrap;
+  }
+
+  p {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+}
+
+
+// social icon
 .footer-social {
   text-align: right;
 
@@ -325,5 +422,5 @@ body.nav-dialog-is-active {
   font-size: 1.5em;
   line-height: 1;
   vertical-align: top;
-  color: rgba($font-color, .4);
+  color: rgba(white, .4);
 }

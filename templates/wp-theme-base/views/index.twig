@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-<h-row class="post-row"><h-column class="post-col" id="content">
+<h-grid class="post-grid"> <div class="large-4" id="content">
 
   {# Blog Nav #}
   <nav class="blog-nav">
@@ -15,6 +15,6 @@
   {% include "partials/_posts.twig" %}
   {% include "partials/_pagination.twig" %}
 
-</h-column></h-row>
+</div> </h-grid>
 
 {% endblock %}

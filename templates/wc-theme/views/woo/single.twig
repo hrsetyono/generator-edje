@@ -2,38 +2,29 @@
 {% block content %}
   {{ fn('the_post') }}
 
-<h-row><h-column class="large-12">
+<h-grid> <div class="large-12">
 
   <section class="product">
     <header class="product-header">
       {% do action("woocommerce_before_single_product") %}
     </header>
 
-    <h-row>
+    <h-grid>
       {# Gallery #}
-      <h-column class="large-4">
-        <figure class="product-figure">
-          {% do action("woocommerce_before_single_product_summary") %}
-        </figure>
-      </h-column>
+      <figure class="product-figure large-4">
+        {% do action("woocommerce_before_single_product_summary") %}
+      </figure>
 
       {# Price & Buy button #}
-      <h-column class="large-3">
-        <aside class="product-purchase">
-          {% do action("woocommerce_after_single_product_summary") %}
-        </aside>
-      </h-column>
+      <aside class="product-purchase large-3">
+        {% do action("woocommerce_after_single_product_summary") %}
+      </aside>
 
       {# Description tab #}
-      <h-column class="large-5">
-        <article class="product-article">
-          {% do action("woocommerce_single_product_summary") %}
-        </article>
-      </h-column>
-
-
-    </h-row>
-
+      <article class="product-article large-5">
+        {% do action("woocommerce_single_product_summary") %}
+      </article>
+    </h-grid>
   </section>
 
   {% do action("woocommerce_after_single_product") %}
@@ -44,6 +35,6 @@
     {% include "woo/_products.twig" with { products: related_products } %}
   </section>
 
-</h-column></h-row>
+</div> </h-grid>
 
 {% endblock %}

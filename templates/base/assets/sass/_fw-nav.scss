@@ -11,8 +11,7 @@
 
 .nav-col {
   @include column(12);
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex;
   justify-content: flex-start;
   align-items: center;
 }
@@ -267,26 +266,25 @@ body.nav-dialog-is-active {
 
 ///// MAIN FOOTER /////
 
-@include sticky-footer(160px);
+// @include sticky-footer( $footer-height-px );
 
 .main-footer {
   position: relative;
-  padding: 1.5em 0 3em;
-  background-color: $color-passive-light;
-  border-top: 1px solid $color-passive;
-  border-bottom: 1px solid $color-passive;
+  padding: 2.5em 0 3em;
+  background-color: rgba( black, .88 );
+  color: white;
 }
 
 .footer-nav {
   padding-bottom: 1em;
   margin-bottom: 1em;
-  border-bottom: 1px dashed $color-passive;
+  border-bottom: 1px dashed rgba(white, .2);
   text-align: center;
 
   a {
     display: inline-block;
     padding: 0 1em;
-    color: $font-color;
+    color: rgba(white, .5);
   }
 
   a:hover { color: $color-main; }

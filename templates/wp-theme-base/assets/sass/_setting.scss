@@ -47,13 +47,13 @@ $g-radius     : 4px;
 
 // ----- GRID -----
 // $grid-max-width : $size-large;
-// $grid-columns : 12;
-// $grid-gutter  : 20px; // distance between columns
-// $grid-rim     : $grid-gutter / 2; // min distance from edge of screen
+// $grid-columns   : 12;
+// $grid-gap       : 20px; // distance between columns
+// $grid-rim       : 10px; // min distance from edge of screen
 
 // ----- TILE -----
-// $tile-max    : 8;
-// $tile-gutter : 20px;
+// $tile-max  : 8;
+// $tile-gap  : 20px;
 
 
 // ----- TYPOGRAPHY -----
@@ -97,11 +97,12 @@ $h6 : $font-size;
 // $shadow-z2: 0 3px 12px rgba(black, .23), 0 3px 12px rgba(black, .16);
 // $shadow-z3: 0 6px 12px rgba(black, .23), 0 10px 40px rgba(black, .19);
 
+// ----- ANIMATION -----
 
-
-$spinner_path: '../../../../../wp-admin/images/spinner.gif';
-
+$animation-duration: 1s;
 
 ///// CUSTOM MIXIN
+
+$spinner_path: '../../../../../wp-admin/images/spinner.gif';
 
 @mixin your-custom-mixin() { }

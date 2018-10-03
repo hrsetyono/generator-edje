@@ -16,20 +16,19 @@
   </p>
 </div>
 
-{% if author.facebook or author.twitter or author.googleplus %}
+{# Author Social Media #}
+{% set user_facebook = attribute( author, 'autodescription-user-settings').facebook_page %}
+{% set user_twitter = attribute( author, 'autodescription-user-settings').twitter_page %}
+{% if user_facebook or user_twitter %}
   <div class="author-links">
     <h6>Follow Me</h6>
-    {{ _self.author_link(author.facebook, 'facebook') }}
-    {{ _self.author_link('https://twitter.com/' ~ author.twitter, 'twitter') }}
-    {{ _self.author_link(author.googleplus, 'google-plus') }}
+
+    {% if user_facebook %}
+      <a href="{{ user_facebook }}" class="social-logo social-logo__facebook" target="_blank"></a>
+    {% endif %}
+
+    {% if user_twitter %}
+      <a href="https://twitter.com/{{ user_twitter | trim('@') }}" class="social-logo social-logo__twitter" target="_blank"></a>
+    {% endif %}
   </div>
 {% endif %}
-
-
-{# ///// #}
-
-{% macro author_link(url, icon) %}
-  {% if url %}
-    <a href="{{ url }}" class="social-logo social-logo__{{ icon }}" target="_blank"></a>
-  {% endif %}
-{% endmacro %}

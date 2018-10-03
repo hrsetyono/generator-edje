@@ -1,11 +1,11 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-  <h-row class="post-row"><h-column class="post-col">
+<h-grid class="post-grid"> <div class="large-4">
 
-    <h1>Search result for {{ query }}</h1>
-    {% include "partials/_posts.twig" %}
+  <h1>Search result for {{ query }}</h1>
+  {% include "partials/_posts.twig" %}
 
-  </h-column></h-row>
+</div> </h-grid>
 
 {% endblock %}

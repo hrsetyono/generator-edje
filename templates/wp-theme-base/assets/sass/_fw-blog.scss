@@ -1,4 +1,4 @@
-$blog-width: 600px;
+$blog-width: 650px;
 $blog-font-size: 18px;
 $blog-font-passive: #b5c0c5; // #bbc7cc;
 $blog-border: #c8d7e1;
@@ -6,7 +6,7 @@ $blog-border: #c8d7e1;
 $table-border: 1px solid #efefef;
 $share-bg: #444;
 
-$related-bp: $blog-width + 270px; // breakpoint of related posts
+$related-bp: 870px;
 
 /* ---------
   BLOG
@@ -14,17 +14,19 @@ $related-bp: $blog-width + 270px; // breakpoint of related posts
 
 ///// GRID
 
-.post-row {
-  @include row($width: $blog-width);
-  margin: 0 auto;
+.post-grid {
+  @include grid( 4, $width: $blog-width );
 }
 
 
 ///// GENERIC ARTICLE
 
+.post-content {
+  font-size: em($blog-font-size);
+}
+
 article {
   letter-spacing: 0.01 * $font-size;
-  font-size: $blog-font-size;
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
@@ -280,45 +282,17 @@ ul.wp-block-gallery {
 
 ///// SINGLE HEADER
 
-.post-header {
-  @include display-flex;
-  align-items: center;
-
-  @include above( small ) {
-    padding: 2em 0;
-  }
-
-  @include below( small ) {
-    flex-direction: column;
-  }
-}
-
 .post-featured-image {
-  background-size: cover;
-  background-position: center center;
+  margin-bottom: 2em;
+  text-align: center;
 
-  @include above( small ) {
-    width: 50%;
-    min-height: 250px;
-    margin-right: 20px;
+  img {
     border-radius: $g-radius;
   }
-
-  @include below( small ) {
-    height: 300px;
-  }
-
-  + .post-title {
-    padding: 1.5em 0 2.5em;
-  }
 }
 
-.post-title {
-  flex: 1;
-
-  @include below( small ) {
-    padding: 2em 0;
-  }
+.post-header {
+  margin: 2em 0;
 }
 
 .post-excerpt {
@@ -333,10 +307,8 @@ ul.wp-block-gallery {
 // Appear in Tease, Tease banner, and Single header
 
 .post-meta {
-  font-size: em($font-size-small);
-
   .meta-author {
-    padding-right: 1em;
+    padding-right: 0.5em;
 
     @include below(small) { padding-right: 0.5em; }
   }
@@ -348,7 +320,7 @@ ul.wp-block-gallery {
   time,
   .meta-comments {
     display: inline-block;
-    padding: 0 1em;
+    padding: 0 0.5em;
     border-left: 1px solid $color-passive;
 
     @include below(small) { padding: 0 0.5em; }
@@ -387,8 +359,7 @@ ul.wp-block-gallery {
 ///// POST TEASE /////
 
 .post-tease {
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex;
   flex-direction: row-reverse;
 
   position: relative;
@@ -402,6 +373,7 @@ ul.wp-block-gallery {
   }
 
   figure {
+    margin-bottom: 0;
     margin-left: 10px;
   }
 
@@ -436,10 +408,23 @@ ul.wp-block-gallery {
 ///// POST BANNER /////
 
 .post-banner {
+  @include display-flex;
+  align-items: flex-end;
+
   position: relative;
-  height: 400px;
+  overflow: hidden;
   background-size: cover;
   background-position: center center;
+  margin: 0 -50px 2em;
+  padding: 1.5em 50px;
+  height: 350px;
+
+  border-radius: $g-radius;
+
+  @include below(medium) {
+    margin-right: -$grid-rim;
+    margin-left: -$grid-rim;
+  }
 
   @include below(small) {
     height: 300px;
@@ -455,53 +440,21 @@ ul.wp-block-gallery {
     height: 100%;
     background-color: rgba(black, .4);
   }
-
-  .post-row {
-    position: absolute;
-    z-index: 5;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    margin: 0 auto;
-  }
 }
 
-// Banner content
-.post-banner {
-  h1 {
-    font-size: em($h1);
-    color: white;
-    line-height: 1;
+.post-banner-overlay {
+  position: relative;
+  z-index: 10;
 
-    @include below(small) {
-      font-size: em(24px);
-    }
-  }
-
-  p {
-    margin: 1rem 0;
+  * {
+    margin-top: 0;
     color: white;
   }
 
-  .button-line {
-    border-color: white;
-    color: white;
-  }
+  a {
+    text-decoration: none;
 
-  .banner-body {
-    display: block;
-    margin-bottom: 2em;
-  }
-}
-
-.post-banner-mini {
-  margin: 0 -50px 2em;
-  border-radius: $g-radius;
-
-  @include below(medium) {
-    margin-right: -$grid-rim;
-    margin-left: -$grid-rim;
+    &:hover h2 { text-decoration: underline; }
   }
 }
 
@@ -634,22 +587,15 @@ ul.wp-block-gallery {
   }
 }
 
-.author-links {
-  text-align: center;
-
-  .social-logo {
-    margin: 0;
-    text-decoration: none;
-    color: $blog-font-passive;
-  }
-}
-
 ///// FOOTER /////
 
 .post-footer {
-  padding-top: 2em;
-  position: relative;
+  padding-top: 1em;
   background-color: rgba(black, 0.03);
+}
+
+.post-footer-grid {
+  @include grid( 4, $width: $blog-width * 0.9 );
 }
 
 // heading
@@ -838,6 +784,10 @@ div#jp-relatedposts {
         margin-top: 1em;
 
         @include below(small) { display: none; }
+      }
+
+      .jp-relatedposts-nothumb-excerpt a {
+        display: block;
       }
     }
   }

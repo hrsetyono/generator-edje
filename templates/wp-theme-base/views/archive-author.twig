@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-<h-row class="post-row"><h-column class="post-col" id="content">
+<h-grid class="post-grid">
 
   <div class="banner-author">
     {% include "partials/_author-info.twig" with { author: user } %}
@@ -10,6 +10,6 @@
   {% include "partials/_posts.twig" %}
   {% include "partials/_pagination.twig" %}
 
-</h-column></h-row>
+</h-grid>
 
 {% endblock %}

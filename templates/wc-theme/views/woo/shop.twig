@@ -1,14 +1,15 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-<section class="shop-title">
-  <h-row><h-column class="large-8">
+<h-grid>
+  <div class="large-4"></div>
+  <section class="shop-title large-8">
     <h1>{{ title }}</h1>
     {{ content }}
-  </h-column></h-row>
-</section>
+  </section>
+</h-grid>
 
-<h-row><h-column class="large-12">
+<h-grid> <div class="large-12">
   {% do action("woocommerce_before_main_content") %}
 
   {% if categories %}
@@ -26,6 +27,6 @@
   {% do action("woocommerce_after_shop_loop") %}
   {% do action("woocommerce_after_main_content") %}
 
-</h-column></h-row>
+</div> </h-grid>
 
 {% endblock %}
