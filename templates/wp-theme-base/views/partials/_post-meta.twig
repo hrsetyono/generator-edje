@@ -8,7 +8,8 @@
 
   {% if post.comment_count %}
     <span class="meta-comments">
-      <i class="dashicons-before dashicons-admin-comments"></i> {{ post.comment_count }} Comments
+      <i class="dashicons-before dashicons-admin-comments"></i>
+      <a href="{{ post.link }}#comments"> {{ post.comment_count }} Comments </a>
     </span>
   {% endif %}
 

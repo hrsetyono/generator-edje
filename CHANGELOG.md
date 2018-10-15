@@ -1,6 +1,9 @@
 ## 1.0.1
 
 - Updated WP Edje plugin
+- [JS] Replaced Photoswipe with jQuery.Photoswipe with example in `app.js`.
+- [JS] Updated Slick JS default styling
+- [Sharedaddy] Added default styling of Jetpack Share buttons in `_fw-sharing.scss`.
 
 ## 1.0.0
 

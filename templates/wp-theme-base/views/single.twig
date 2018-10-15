@@ -3,14 +3,10 @@
 
 {# Header #}
 <h-grid class="post-grid">
-  <div class="post-header large-4">
+  <header class="post-header large-4">
     <h1>{{ post.title }}</h1>
     {% include "partials/_post-meta.twig" %}
-
-    {% if post.post_excerpt %}
-      <p class="post-excerpt">{{ post.post_excerpt }}</p>
-    {% endif %}
-  </div>
+  </header>
 </h-grid>
 
 {% if post.thumbnail %}
@@ -32,13 +28,13 @@
 </h-grid>
 
 {# Comments #}
-<section class="post-footer">
+<footer class="post-footer">
   <h-grid class="post-footer-grid"> <div class="large-4">
 
     {% include "partials/_related-posts.twig" %}
     {% include "partials/_comments.twig" %}
   </div> </h-grid>
-</section>
+</footer>
 
 
 {% endblock %}

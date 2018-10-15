@@ -28,9 +28,11 @@ $color-passive-light: #f3f6f8;
 
 // ----- SIZING -----
 // $size-mini   : 480px;
-// $size-small  : 767px;
+$size-small  : 767px;
 // $size-medium : 960px;
 // $size-large  : 1120px;
+
+$nav-bp: $size-small;
 
 // ----- RESPONSIVE -----
 // $responsive : true;

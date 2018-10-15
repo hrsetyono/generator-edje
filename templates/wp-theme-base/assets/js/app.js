@@ -19,11 +19,15 @@ function startOnLoad() {
 
 var myApp = {
   init: function() {
-    $('.sample-div').on( 'click', this.sampleListener );
+    this.lightbox();
   },
 
-  sampleListener: function( e ) {
-    // do something
+  // Add lightbox on WP Gallery
+  lightbox: function() {
+    $('.gallery, .tiled-gallery').photoSwipe( 'a', {
+      shareEl: false,
+      fullscreenEl: false,
+    } );
   }
 };
 

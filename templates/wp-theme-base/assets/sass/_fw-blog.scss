@@ -191,8 +191,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.5em;
 
   a {
-    img { cursor: pointer; transition: $g-transition; }
-    img:hover { opacity: 0.7; }
+    display: block;
+
+    img {
+      cursor: pointer;
+      transition: $g-transition;
+    }
+
+    &:hover img { opacity: .7; }
   }
 }
 
@@ -218,6 +224,7 @@ h1, h2, h3, h4, h5, h6 {
   .gallery-columns-6 & { width: percentage(1/6); }
   .gallery-columns-7 & { width: percentage(1/7); }
   .gallery-columns-8 & { width: percentage(1/8); }
+  .gallery-columns-9 & { width: percentage(1/9); }
 }
 
 // gutenberg media
@@ -255,31 +262,6 @@ ul.wp-block-gallery {
   font-size: em( $font-size-small );
 }
 
-// Referencing only allowed above medium
-@include above(medium) {
-  .refleft .wp-caption-text {
-    left: -20px;
-    text-align: right;
-    @include transform( translateX(-100%) );
-  }
-
-  .refright .wp-caption-text {
-    right: -20px;
-    text-align: left;
-    @include transform( translateX(100%) );
-  }
-
-  .refleft .wp-caption-text,
-  .refright .wp-caption-text {
-    position: absolute;
-    top: 0;
-    border-top: 1px solid $color-passive;
-    margin-top: 0;
-    padding: 0.5em 0;
-    width: 150px;
-  }
-}
-
 ///// SINGLE HEADER
 
 .post-featured-image {
@@ -293,14 +275,6 @@ ul.wp-block-gallery {
 
 .post-header {
   margin: 2em 0;
-}
-
-.post-excerpt {
-  margin-top: 2em;
-
-  @include below(small) {
-    display: none;
-  }
 }
 
 ///// POST META
@@ -462,8 +436,7 @@ ul.wp-block-gallery {
 ///// BLOG NAV /////
 
 .blog-nav {
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex;
   flex-wrap: wrap;
 
   margin: 2em 0 2em;
@@ -795,9 +768,7 @@ div#jp-relatedposts {
 }
 
 
-
 ///// COMMENTS /////
-
 .post-comments {
   ul {
     list-style-type: none;
@@ -1039,7 +1010,6 @@ a.comment-reply-link {
   }
 }
 
-
 ///// PAGINATION /////
 
 .pagination {
@@ -1131,23 +1101,5 @@ body[class^="paged-"] #infinite-footer {
   .spinner {
     left: 50% !important;
     @include transform(translateX(-50%) );
-  }
-}
-
-///// SHARING
-
-div.sharedaddy {
-  margin: 2em 0 2em;
-  padding-top: 2em;
-  border-top: 1px solid $color-passive;
-
-  .sd-block h3.sd-title {
-    margin: 0 0 1em 0;
-    letter-spacing: 0.5px;
-    font-size: em($font-size-small);
-    text-transform: uppercase;
-    white-space: nowrap;
-
-    &::before { display: none; }
   }
 }

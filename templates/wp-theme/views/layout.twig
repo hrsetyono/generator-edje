@@ -21,21 +21,15 @@
 
   <div class="nav-logo">
     {{ fn('the_custom_logo') }}
-
-    {% if logo_mobile %}
-      <div class="mobile-logo">
-        <a href="{{ home_url }}"> <img src="{{ logo_mobile }}"> </a>
-      </div>
-    {% endif %}
   </div>
 
-  <div id="nav-toggle" class="nav-item nav-item--toggle">
+  <div id="nav-toggle" class="nav-toggle">
     <a>
       <i class="dashicons-before dashicons-menu"></i> <b>Menu</b>
     </a>
   </div>
 
-  <nav class="nav-item-wrapper">
+  <nav class="nav-wrapper">
   {% for item in nav.items %}
     <div class="nav-item {{ item.class }}">
       <a href="{{ item.url }}"> {{ item.title }} </a>
@@ -52,12 +46,20 @@
   {% endfor %}
   </nav>
 
-
   <div class="nav-extra">
-    <form class="menu-item search-form" method="get" action="{{ home_url }}">
-      <input id="search" type="search" name="s" placeholder="Search">
-      <label for="search" class="search-toggle"> <i class="dashicons-before dashicons-search"></i> </label>
+    <form class="nav-search" method="get" action="{{ home_url }}">
+      <input id="search" type="search" name="s" placeholder="Press Enter to search">
+
+      <label for="search" class="button">
+        <i class="dashicons-before dashicons-search"></i>
+        <span>Search</span>
+      </label>
     </form>
+
+    <a href="tel:+1234567890" class="button button--passive">
+      <i class="dashicons-before dashicons-phone"></i>
+      <span>+12 3456 7890</span>
+    </a>
   </div>
 
 </div> </h-grid>
@@ -97,7 +99,7 @@
       <div class="partners large-6">
         <header>Created by:</header>
         <a href="https://pixelstudio.id" target="_blank">
-          <img src="http://cdn.setyono.net/pixelstudio/partner-logo.png" alt="Pixel Studio Logo">
+          <img src="https://cdn.setyono.net/pixelstudio/partner-logo.png">
 
           <div class="partner-caption">
             <h5>Pixel Studio</h5>
