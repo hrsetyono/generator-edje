@@ -3,7 +3,6 @@
   position: relative;
   z-index: $z-nav;
   padding: 0.75em 0;
-  border-bottom: 1px solid $color-passive;
 }
 
 .nav-col {
@@ -121,25 +120,44 @@ body.nav-dialog-is-active {
   @include display-flex;
   order: 2;
   align-items: center;
-
   position: relative;
 
-  > * {
-    margin-right: 5px;
-  }
 
-  .menu-item > a {
-    padding: 5px;
+  .button {
     line-height: 1;
-    border-radius: $g-radius;
-  }
-
-  @include below( $nav-bp ) {
-    span {
-      display: none;
-    }
+    margin-left: 5px;
   }
 }
+
+///// SEARCH FORM
+
+.nav-search {
+  @include display-flex;
+  position: relative;
+}
+
+.nav-search [type="search"] {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  padding: 0.625em 0;
+  width: 0;
+  opacity: 0;
+
+  @include transform(translateX(-100%) translateY(-50%) );
+
+  &:focus {
+    opacity: 1;
+    padding-right: 2.5em;
+    padding-left: 0.5em;
+    width: 250px;
+  }
+
+  &:focus ~ label {
+    display: none;
+  }
+}
+
 
 
 ///// NAV DIALOG
@@ -207,46 +225,10 @@ body.nav-dialog-is-active {
   }
 }
 
-///// SEARCH FORM
-
-.nav-search {
-  @include display-flex;
-  position: relative;
-
-  label {
-    padding: 5px;
-  }
-}
-
-.nav-search [type="search"] {
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  padding: 0.625em 0;
-  width: 0;
-  opacity: 0;
-
-  @include transform(translateX(-100%) translateY(-50%) );
-
-  &:focus {
-    opacity: 1;
-    padding-right: 2.5em;
-    padding-left: 0.5em;
-    width: 250px;
-  }
-
-  &:focus ~ label {
-    display: none;
-  }
-}
-
-
 ///// MAIN FOOTER /////
 
-// @include sticky-footer( $footer-height-px );
-
 .main-footer {
-  position: relative;
+  margin-top: auto;
   background-color: rgba( black, .88 );
   color: white;
 }

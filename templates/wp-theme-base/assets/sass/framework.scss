@@ -12,8 +12,23 @@ $output-framework: true;
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-#main-wrapper {
+// push footer down
+body {
+  @include display-flex;
+  flex-direction: column;
   overflow-x: hidden;
+  height: 100vh;
+}
+
+
+@include below(782px) {
+  html[lang] {
+    margin-top: 0 !important;
+  }
+
+  #wpadminbar {
+    display: none;
+  }
 }
 
 ///// FONT /////
@@ -29,6 +44,7 @@ $output-framework: true;
 ///// BUTTON /////
 
 %button {
+  cursor: pointer;
   display: inline-block;
   outline: none;
   overflow: hidden;
@@ -91,15 +107,6 @@ $output-framework: true;
   color: transparent !important;
 }
 
-// line button
-
-.button-line {
-  @extend %button;
-
-  border-color: $color-main;
-  color: $color-main;
-  background-color: transparent;
-}
 
 ///// INPUT /////
 

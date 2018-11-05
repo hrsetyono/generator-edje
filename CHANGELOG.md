@@ -1,3 +1,8 @@
+## 1.0.2
+
+- Removed main-wrapper because its only purpose is to stick footer to bottom. And we can use flexbox to easily achieve that.
+- Changed markup in search bar.
+
 ## 1.0.1
 
 - Updated WP Edje plugin
