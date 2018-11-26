@@ -8,22 +8,15 @@ $share-bg: #444;
 
 $related-bp: 870px;
 
-/* ---------
-  BLOG
----------- */
-
-///// GRID
-
-.post-grid {
-  @include grid( 4, $width: $blog-width );
-}
+$output-gallery : true;
+$output-blog    : true;
+$output-related : true;
+$output-comment : true;
+$output-password-form   : false;
+$output-infinite-scroll : false;
 
 
-///// GENERIC ARTICLE
-
-.post-content {
-  font-size: em($blog-font-size);
-}
+///// ARTICLE
 
 article {
   letter-spacing: 0.01 * $font-size;
@@ -138,6 +131,13 @@ code {
   background-color: $color-passive-light;
   border: 1px solid $color-passive;
   border-radius: $g-radius;
+  font-size: 0.875rem;
+}
+
+pre code {
+  padding: 0;
+  border: none;
+  background-color: transparent;
 }
 
 pre {
@@ -183,8 +183,42 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 }
 
+// gutenberg media
+.alignfull,
+.alignwide {
+  width: auto;
+
+  @include above( small ) {
+    margin-right: -5em;
+    margin-left: -5em;
+  }
+}
+
+///// CAPTION
+
+.wp-caption,
+.wp-block-image,
+.wp-block-embed {
+  position: relative;
+  margin-bottom: 1.5em;
+  width: auto !important;
+  text-align: center;
+}
+
+.wp-caption-text {
+  display: inline-block;
+  margin: 0.5em auto 0;
+  padding: 0 2em 0.5em;
+  border-bottom: 1px solid $color-passive;
+  font-size: em( $font-size-small );
+}
+
+
+
 
 ///// MEDIA & GALLERY /////
+
+@if $output-gallery {
 
 .gallery,
 .tiled-gallery {
@@ -227,42 +261,25 @@ h1, h2, h3, h4, h5, h6 {
   .gallery-columns-9 & { width: percentage(1/9); }
 }
 
-// gutenberg media
-.alignfull,
-.alignwide {
-  width: auto;
-
-  @include above( small ) {
-    margin-right: -5em;
-    margin-left: -5em;
-  }
-}
-
 ul.wp-block-gallery {
   padding-left: 0;
 }
 
+} // @if $output-gallery
 
-///// CAPTION
+///// BLOG
 
-.wp-caption,
-.wp-block-image,
-.wp-block-embed {
-  position: relative;
-  margin-bottom: 1.5em;
-  width: auto !important;
-  text-align: center;
+@if $output-blog {
+
+// Generic
+
+.post-grid {
+  @include grid( 4, $width: $blog-width );
 }
 
-.wp-caption-text {
-  display: inline-block;
-  margin: 0.5em auto 0;
-  padding: 0 2em 0.5em;
-  border-bottom: 1px solid $color-passive;
-  font-size: em( $font-size-small );
+.post-content {
+  font-size: em($blog-font-size);
 }
-
-///// SINGLE HEADER
 
 .post-featured-image {
   margin-bottom: 2em;
@@ -560,7 +577,12 @@ ul.wp-block-gallery {
   }
 }
 
+} // @if $output-blog
+
+
 ///// FOOTER /////
+
+@if $output-related {
 
 .post-footer {
   padding-top: 1em;
@@ -767,8 +789,13 @@ div#jp-relatedposts {
 
 }
 
+} // @if $output-related
+
 
 ///// COMMENTS /////
+
+@if $output-comment {
+
 .post-comments {
   ul {
     list-style-type: none;
@@ -1010,6 +1037,8 @@ a.comment-reply-link {
   }
 }
 
+} // @if $output-comment
+
 ///// PAGINATION /////
 
 .pagination {
@@ -1049,6 +1078,8 @@ a.comment-reply-link {
 
 ///// POST PASSWORD FORM /////
 
+@if $output-password-form {
+
 .post-password-form {
   padding: 2em 4em;
   background-color: rgba(black, 0.03);
@@ -1087,8 +1118,13 @@ a.comment-reply-link {
   }
 }
 
+} // @if $output-password-form
+
 
 ///// INFINITE SCROLL (Jetpack)
+
+
+@if $output-infinite-scroll {
 
 // if infinite-footer is turned on (in theme_support), hide it in paged list.
 body[class^="paged-"] #infinite-footer {
@@ -1103,3 +1139,5 @@ body[class^="paged-"] #infinite-footer {
     @include transform(translateX(-50%) );
   }
 }
+
+} // @if $output-infinite-scroll

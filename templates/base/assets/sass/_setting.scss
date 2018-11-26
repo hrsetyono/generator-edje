@@ -3,17 +3,18 @@
 
 // ----- FONT -----
 $font-family : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$font-family-header : $font-family;
+
+$font-family-header : "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", "Times","Source Serif Pro", serif;
 
 // ----- COLORS -----
-$color-main : #00aadc;
+$color-main : #2196f3;
 $color-sub  : #607d8b;
 
-// $color-main-dark : #008ab3;
-// $color-main-light : #78dcfa;
+$color-main-dark : darken($color-main, 10%);
+$color-main-light : lighten($color-main, 10%);
 
-$color-link : $color-main;
-// $color-link-hover : lighten($color-main, 10%);
+$color-link : #0366d6;
+$color-link-hover : lighten($color-link, 10%);
 
 $color-passive : #c8d7e1;
 $color-passive-light: #f3f6f8;
