@@ -1,0 +1,209 @@
+.main-nav
+  +h( relative z100 pv075 )
+
+.nav-col
+  +h( f ai-center )
+  +column(12)
+
+// MAIN LOGO
+.nav-logo
+  @media ($below-nav-bp)
+    +h( order1 mv0 mh-auto )
+
+.custom-logo-link
+  img
+    +h( w-auto )
+    height: 2.5em
+
+// NAV ITEM
+.nav-item
+  +h( relative )
+
+  > a
+    +h( d-block pv075 ph1 c-body transition-none )
+
+    &:hover
+      +h( o70 )
+
+  // current page
+  &.current-menu-item,
+  &.current-page-ancestor,
+  &.current-menu-ancestor,
+  &.current-menu-parent
+    > a
+      +h( c-main )
+
+  
+// NAV WRAPPER
+.nav-wrapper
+  +h( f flex1 jc-start fw-wrap  )
+
+  @media ($below-nav-bp)
+    +h( fd-column v-hidden fixed o0 z100 top0 left0 bottom0 )
+    +h( pt3 pb2 ph0 bg-white transition-none shadow2 )
+    width: 180px
+    +transform(translateX(-100%))
+
+  .nav-is-active &
+    +h( v-visible o100 )
+    +transform(none)
+
+// NAV MOBILE
+body.nav-is-active,
+body.nav-dialog-is-active
+  +h( cursor-pointer )
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) // fix iOS untap-able bug
+
+.nav-toggle
+  i
+    +h( lh-base )
+
+  i, b
+    +h( d-iblock va-middle )
+
+  .dashicons-before::before
+    +h( fs-m )
+    width: 18px
+    height: 18px
+
+  @media ($above-nav-bp)
+    +h( d-none )
+
+
+// NAV EXTRA
+.nav-extra
+  +h( f order2 ai-center relative )
+
+  .button
+    +h( lh-base ml025 )
+  span
+    line-height: 20px
+
+
+///// SEARCH FORM
+.nav-search
+  +h( f relative )
+
+.nav-search [type="search"]
+  +h( absolute top50 left100 pv05 ph0 w0 o0 ) 
+  +transform( translateX(-100%) translateY(-50%) )
+
+  &:focus
+    +h( o100 pr25 pl05 )
+    width: 250px
+  &:focus ~ label
+    +h( d-none )
+
+///// NAV DIALOG
+.nav-dialog
+  +h( absolute v-hidden o0 top100 right0 bg-body )
+  +h( p025 br shadow1 transition )
+  width: 300px
+  +transform( translateY(-1.5em) )
+
+  @media ($below-nav-bp)
+    top: calc(100% + 10px)
+
+  &.nav-dialog--active,
+  .nav-item:hover &
+    +h( v-visible o100 )
+    +transform(none)
+
+// Nav Dialog Children
+
+.nav-dialog--children
+  +h( left0 right-auto bg-gray-light nowrap )
+  width: 200px
+
+  a
+    +h( d-block pv025 ph05 c-inherit br )
+  a:hover
+    +h( bg-gray )
+
+  //
+  @media ($below-nav-bp)
+    +h( top0 left100 )
+    +transform(translateX(-10px))
+    
+    a
+      +h( pv05 ph075)
+
+///// MAIN FOOTER /////
+
+.main-footer
+  +h( mt-auto bg-black75 c-white )
+
+// widgets
+.footer-widgets
+  +h( pv25 c-white50 fs-s )
+
+  h-grid
+    grid-row-gap: $grid-gap
+
+  .widget
+    +h( list-none )
+    +column(4)
+
+  .widgettitle
+    +h( mb025 c-white75 fs-h5 )
+
+  ul
+    +h( pl125 )
+
+///// FOOTER BAR
+
+.footer-bar
+  +h( pv05 bg-main10 c-white50 fs-s )
+
+.copyright,
+.partners
+  +h( f fw-wrap ai-center )
+
+  header
+    +h( fw700 )
+    line-height: 1.4
+
+.copyright
+  a
+    +h( mr05 )
+
+  @media ($above-s)
+    header
+      +h( mr15 )
+
+// partners
+.partners
+  +h( jc-end )
+
+  img
+    +h( p025 )
+    width: 32px
+
+  a
+    +h( d-block relative mh025 bg-main25 br-circle transition )
+    
+  a:hover
+    +h( bg-main50 c-white )
+
+.partner-caption
+  +h( v-hidden o0 absolute right0 pv05 ph1 bg-main )
+  +h( c-white ta-center br transition )
+  bottom: calc(100% + 8px)
+  +transform(translateY(20px))
+
+  &::after
+    content: ""
+    +h( absolute top100 )
+    right: 10px
+    +triangle(12px, bottom, $main, 5px)
+
+  a:hover &
+    +h( v-visible o100 )
+    +transform(none)
+
+  h5
+    +h( fs-s ff-body c-white nowrap )
+
+  p
+    +h( nowrap )
+    font-size: 12px

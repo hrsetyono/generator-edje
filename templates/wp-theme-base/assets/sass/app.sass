@@ -1,0 +1,15 @@
+// Put styles that are unique for this project here
+@import "setting"
+@import "edje-v20"
+@import "app-nav"
+
+// General styles
+body
+  +h( ovx-hidden )
+
+@media ( below(782px) )
+  html[lang]
+    margin-top: 0 !important
+
+  #wpadminbar
+    +h( d-none )

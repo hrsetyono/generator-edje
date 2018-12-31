@@ -1,7 +1,7 @@
 
 .main-nav {
   position: relative;
-  z-index: $z-nav;
+  z-index: 100;
   padding: 0.75em 0;
 }
 
@@ -14,7 +14,7 @@
 // MAIN LOGO
 
 .nav-logo {
-  @include below(small) {
+  @include below( $nav-bp ) {
     order: 1;
     margin: 0 auto;
   }
@@ -59,13 +59,13 @@
   flex-wrap: wrap;
   flex: 1;
 
-  @include below(small) {
+  @include below( $nav-bp ) {
     flex-direction: column;
     visibility: hidden;
     opacity: 0;
 
     position: fixed;
-    z-index: $z-nav;
+    z-index: 100;
     top: 0;
     left: 0;
     bottom: 0;
@@ -109,7 +109,7 @@ body.nav-dialog-is-active {
     font-size: 18px;
   }
 
-  @include above(small) {
+  @include above( $nav-bp ) {
     display: none;
   }
 }
@@ -122,10 +122,13 @@ body.nav-dialog-is-active {
   align-items: center;
   position: relative;
 
-
   .button {
     line-height: 1;
     margin-left: 5px;
+  }
+
+  span {
+    line-height: 20px;
   }
 }
 
@@ -178,7 +181,7 @@ body.nav-dialog-is-active {
   transition: $g-transition;
   @include transform(translateY(-1.5em) );
 
-  @include below(small) {
+  @include below( $nav-bp ) {
     top: calc(100% + 10px);
   }
 
@@ -214,7 +217,7 @@ body.nav-dialog-is-active {
 
   /////
 
-  @include below(small) {
+  @include below( $nav-bp ) {
     top: 0;
     left: 100%;
     @include transform(translateX(-10px) );
@@ -240,7 +243,7 @@ body.nav-dialog-is-active {
   padding-bottom: 2.5em;
 
   color: rgba(white, .5);
-  font-size: em($font-size-small);
+  font-size: em($font-size-s);
 
   h-grid {
     grid-row-gap: $grid-gap;
@@ -253,7 +256,7 @@ body.nav-dialog-is-active {
 
   .widgettitle {
     margin-bottom: 0.25rem;
-    font-size: em(21px, $font-size-small);
+    font-size: em(21px, $font-size-s);
     color: rgba(white, .85);
   }
 
@@ -268,7 +271,7 @@ body.nav-dialog-is-active {
   padding: 0.5em 0;
   background-color: rgba($color-main, .1);
   color: rgba(white, .5);
-  font-size: em($font-size-small);
+  font-size: em($font-size-s);
 }
 
 .copyright,
@@ -284,7 +287,7 @@ body.nav-dialog-is-active {
 }
 
 .copyright {
-  @include above(small) {
+  @include above( s ) {
     header {
       margin-right: 1.5em;
     }

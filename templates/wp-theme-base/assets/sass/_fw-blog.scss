@@ -6,7 +6,7 @@ $blog-border: #c8d7e1;
 $table-border: 1px solid #efefef;
 $share-bg: #444;
 
-$related-bp: 870px;
+$below-related-bp: "max-width:870px";
 
 $output-gallery : true;
 $output-blog    : true;
@@ -44,7 +44,7 @@ article {
     display: block;
     height: 1px;
     border: 0;
-    border-top: 1px solid $color-passive;
+    border-top: 1px solid $gray;
     margin: 2.5em auto;
     padding: 0;
   }
@@ -67,8 +67,8 @@ article {
 
 blockquote {
   padding: 1em 1em 1em 2em;
-  background-color: $color-passive-light;
-  border-left: 4px solid $color-passive;
+  background-color: $gray-light;
+  border-left: 4px solid $gray;
 
   p {
     margin-bottom: 0;
@@ -77,7 +77,7 @@ blockquote {
   cite {
     display: block;
     margin-top: 1em;
-    font-size: $font-size-small;
+    font-size: $font-size-s;
   }
 
   &.alignleft,
@@ -86,19 +86,6 @@ blockquote {
   }
 }
 
-.wp-block-pullquote {
-  padding: 1em 0;
-  border-top: 2px solid $color-passive;
-  border-bottom: 2px solid $color-passive;
-  background-color: $color-passive-light;
-
-  @include font-sizes( $h4-sizes );
-  text-align: center;
-
-  cite {
-    text-align: center;
-  }
-}
 
 ///// TABLE
 
@@ -128,8 +115,8 @@ article table {
 
 pre,
 code {
-  background-color: $color-passive-light;
-  border: 1px solid $color-passive;
+  background-color: $gray-light;
+  border: 1px solid $gray;
   border-radius: $g-radius;
   font-size: 0.875rem;
 }
@@ -171,7 +158,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 50%;
   margin-bottom: 1em;
 
-  @include below(small) {
+  @media ($below-s ) {
     float: none;
     max-width: none;
   }
@@ -183,14 +170,29 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 }
 
-// gutenberg media
+///// GUTENBER
+
 .alignfull,
 .alignwide {
   width: auto;
 
-  @include above( small ) {
+  @media ($above-s ) {
     margin-right: -5em;
     margin-left: -5em;
+  }
+}
+
+
+.wp-block-pullquote {
+  @extend %h4;
+  padding: 1em 0;
+  border-top: 2px solid $gray;
+  border-bottom: 2px solid $gray;
+  background-color: $gray-light;
+  text-align: center;
+
+  cite {
+    text-align: center;
   }
 }
 
@@ -209,8 +211,8 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   margin: 0.5em auto 0;
   padding: 0 2em 0.5em;
-  border-bottom: 1px solid $color-passive;
-  font-size: em( $font-size-small );
+  border-bottom: 1px solid $gray;
+  font-size: em( $font-size-s );
 }
 
 
@@ -301,7 +303,7 @@ ul.wp-block-gallery {
   .meta-author {
     padding-right: 0.5em;
 
-    @include below(small) { padding-right: 0.5em; }
+    @media ($below-s ) { padding-right: 0.5em; }
   }
 
   .meta-category {
@@ -312,9 +314,9 @@ ul.wp-block-gallery {
   .meta-comments {
     display: inline-block;
     padding: 0 0.5em;
-    border-left: 1px solid $color-passive;
+    border-left: 1px solid $gray;
 
-    @include below(small) { padding: 0 0.5em; }
+    @media ($below-s ) { padding: 0 0.5em; }
   }
 
   a { color: inherit; text-decoration: none;
@@ -324,7 +326,7 @@ ul.wp-block-gallery {
   .dashicons-before::before {
     width: 1em;
     height: 1em;
-    font-size: em($font-size, $font-size-small);
+    font-size: em($font-size, $font-size-s);
     vertical-align: middle;
   }
 
@@ -340,7 +342,7 @@ ul.wp-block-gallery {
   }
 
   .post-header & {
-    border-top: 1px solid $color-passive;
+    border-top: 1px solid $gray;
     border-bottom: 2px solid $font-color;
     margin-top: 0.5em;
     padding: 0.5em 0;
@@ -356,7 +358,7 @@ ul.wp-block-gallery {
   position: relative;
   padding-bottom: 2em;
   margin: 2em 0;
-  border-bottom: 1px solid $color-passive;
+  border-bottom: 1px solid $gray;
 
   a {
     text-decoration: none;
@@ -368,14 +370,14 @@ ul.wp-block-gallery {
     margin-left: 10px;
   }
 
-  @include below(small) {
+  @media ($below-s ) {
     display: block;
 
     figure { float: right; }
     img { width: 150px; }
   }
 
-  @include below(mini) {
+  @media ($below-m ) {
     img { width: 100px; }
   }
 }
@@ -390,7 +392,7 @@ ul.wp-block-gallery {
   h3 { margin: 0 0 0.5rem; }
   p { margin-bottom: 1em; }
 
-  @include below(small) {
+  @media ($below-s ) {
     h3 { clear: none; }
   }
 }
@@ -412,12 +414,12 @@ ul.wp-block-gallery {
 
   border-radius: $g-radius;
 
-  @include below(medium) {
+  @media ($below-m ) {
     margin-right: -$grid-rim;
     margin-left: -$grid-rim;
   }
 
-  @include below(small) {
+  @media ($below-s ) {
     height: 300px;
   }
 
@@ -459,7 +461,7 @@ ul.wp-block-gallery {
   margin: 2em 0 2em;
   padding: 0.5em 0;
   border-bottom: 2px solid $font-color;
-  border-top: 1px solid $color-passive;
+  border-top: 1px solid $gray;
 
   a {
     display: inline-block;
@@ -467,18 +469,18 @@ ul.wp-block-gallery {
 
     color: $font-color;
     text-transform: uppercase;
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
     letter-spacing: 0.5px;
 
     border-radius: $g-radius;
     transition: $g-transition;
 
     &:hover {
-      color: $color-main;
+      color: $main;
     }
 
     &.active {
-      background-color: $color-main;
+      background-color: $main;
       color: white;
     }
   }
@@ -490,14 +492,14 @@ ul.wp-block-gallery {
   @include display-flex;
   padding: 2em 0;
   margin-top: 1em;
-  border-top: 1px solid $color-passive;
+  border-top: 1px solid $gray;
 
   h6 {
     margin-top: 0;
     margin-bottom: 0.5em;
   }
 
-  @include below(mini) {
+  @media ($below-xs ) {
     flex-direction: column;
     text-align: center;
   }
@@ -512,7 +514,7 @@ ul.wp-block-gallery {
 
 .author-image {
   img {
-    border: 1px solid $color-passive;
+    border: 1px solid $gray;
     padding: 0.25em;
     height: 4em;
     width: 4em;
@@ -523,7 +525,7 @@ ul.wp-block-gallery {
     margin-bottom: 1em;
   }
 
-  @include below(mini) {
+  @media ($below-xs ) {
     margin-bottom: 1em;
   }
 }
@@ -537,7 +539,7 @@ ul.wp-block-gallery {
 
     p {
       margin-bottom: 0;
-      font-size: em( $font-size-small );
+      font-size: em( $font-size-s );
     }
   }
 
@@ -560,7 +562,7 @@ ul.wp-block-gallery {
   b {
     text-transform: uppercase;
     font-weight: $font-weight;
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
     letter-spacing: 0.5px;
 
     .post-author & { display: none; }
@@ -569,10 +571,10 @@ ul.wp-block-gallery {
   .author-url {
     color: $blog-font-passive;
 
-    .banner-author & { color: $color-main; }
+    .banner-author & { color: $main; }
   }
 
-  @include below(mini) {
+  @media ($below-xs ) {
     margin-bottom: 1em;
   }
 }
@@ -596,16 +598,15 @@ ul.wp-block-gallery {
 // heading
 div#jp-relatedposts h3.jp-relatedposts-headline,
 .post-comments h4 {
+  @extend %h5;
   display: block;
   float: none;
 
   margin: 2rem 0;
-  font-size: em($h5);
-  font-weight: $font-weight;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 
-  @include below(small) {
+  @media ($below-s ) {
     font-size: em(18px);
   }
 }
@@ -622,16 +623,25 @@ div#jp-relatedposts {
     display: -webkit-flex;
     display: flex;
     margin: 0 -125px;
-    @include clearfix;
 
-    @include below($related-bp) { margin: 0 -5px; }
-    @include below(small) { flex-direction: column; margin: 0; }
+    @media ($below-related-bp) { margin: 0 -5px; }
+    @media ($below-s ) { flex-direction: column; margin: 0; }
+
+    &::before,
+    &::after {
+      content: "";
+      display: table;
+    }
+
+    &::after {
+      clear: both;
+    }
   }
 
   // main title
   h3.jp-relatedposts-headline {
     em {
-      font-style: normal; font-weight: $font-weight;
+      font-style: normal;
       &::before { display: none; }
     }
   }
@@ -652,11 +662,11 @@ div#jp-relatedposts {
     // hide underline when hovering the whole box
     &:hover .jp-relatedposts-post-title .jp-relatedposts-post-a { text-decoration: none; }
 
-    @include below($related-bp) {
+    @media ($below-related-bp) {
       margin: 0 5px;
     }
 
-    @include below(small) {
+    @media ($below-s ) {
       width: 100%;
       margin: 0;
       margin-bottom: 1em;
@@ -692,7 +702,7 @@ div#jp-relatedposts {
       color: inherit;
     }
 
-    @include below(mini) {
+    @media ($below-xs ) {
       font-size: em(16px);
     }
   }
@@ -702,7 +712,7 @@ div#jp-relatedposts {
     p, span {
       overflow: initial;
       max-width: 100%;
-      font-size: em($font-size-small);
+      font-size: em($font-size-s);
     }
 
     .jp-relatedposts-post-excerpt,
@@ -712,7 +722,7 @@ div#jp-relatedposts {
       display: inline-block;
       opacity: 0.6;
 
-      @include below(mini) {
+      @media ($below-xs ) {
         font-size: em(12px);
       }
     }
@@ -722,11 +732,11 @@ div#jp-relatedposts {
 
   // visual layout
   div.jp-relatedposts-items div.jp-relatedposts-post-thumbs {
-    @include below($related-bp) {
-      font-size: em($font-size-small);
+    @media ($below-related-bp) {
+      font-size: em($font-size-s);
     }
 
-    @include below(small) {
+    @media ($below-s ) {
       padding-bottom: 0;
 
       > .jp-relatedposts-post-a {
@@ -749,10 +759,10 @@ div#jp-relatedposts {
       margin: 0 10px;
       width: 50%;
 
-      @include below(small) { padding: 0.5em; }
+      @media ($below-s ) { padding: 0.5em; }
     }
 
-    @include below(small) {
+    @media ($below-s ) {
       .jp-relatedposts-post > .jp-relatedposts-post-a {
         margin: -0.5em;
         margin-bottom: 0.5em;
@@ -770,7 +780,7 @@ div#jp-relatedposts {
       .jp-relatedposts-post-title {
         font-size: em(24px);
 
-        @include below(small) {
+        @media ($below-s ) {
           font-size: em(20px);
         }
       }
@@ -778,7 +788,7 @@ div#jp-relatedposts {
       .jp-relatedposts-nothumb-excerpt {
         margin-top: 1em;
 
-        @include below(small) { display: none; }
+        @media ($below-s ) { display: none; }
       }
 
       .jp-relatedposts-nothumb-excerpt a {
@@ -852,7 +862,7 @@ div#jp-relatedposts {
 
   time {
     margin-left: 0.5em;
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
     color: $blog-font-passive;
   }
 }
@@ -875,7 +885,7 @@ div#jp-relatedposts {
   border-left: 2px solid rgba($font-color, .1);
 
   .comment {
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
   }
 
   .comment-avatar { display: none; }
@@ -896,7 +906,7 @@ a.comment-reply-link {
 
   font-size: 0.75rem;
   font-weight: $header-weight;
-  color: rgba($font-color-passive , .7);
+  color: rgba($font-passive , .7);
   text-decoration: none;
   text-transform: uppercase;
   transition: $g-transition;
@@ -938,7 +948,7 @@ a.comment-reply-link {
   label {
     margin-bottom: 0.5em;
     text-transform: uppercase;
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
     letter-spacing: 1px;
   }
 
@@ -956,7 +966,7 @@ a.comment-reply-link {
 
     margin-bottom: 1em;
     color: $blog-font-passive;
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
 
     a { color: inherit; }
   }
@@ -993,7 +1003,7 @@ a.comment-reply-link {
 
     .comment-form:not(.active):hover & {
       @include placeholder {
-        color: $color-main;
+        color: $main;
       }
     }
   }
@@ -1017,7 +1027,7 @@ a.comment-reply-link {
     display: block;
   }
 
-  @include below(small) {
+  @media ($below-s ) {
     display: block;
     width: 100%;
     padding: 0;
@@ -1045,8 +1055,8 @@ a.comment-reply-link {
   @include display-flex;
   margin: 2em 0;
 
-  font-size: em($font-size-small);
-  color: $font-color-passive;
+  font-size: em($font-size-s);
+  color: $font-passive;
   text-align: center;
 
   a,
@@ -1088,13 +1098,13 @@ a.comment-reply-link {
   p:last-child {
     display: -webkit-flex;
     display: flex;
-    border-bottom: 1px solid $color-passive;
+    border-bottom: 1px solid $gray;
     padding-bottom: 0.5em;
   }
 
   label {
     flex: 1;
-    color: $font-color-passive;
+    color: $font-passive;
   }
 
   input[type="password"] {

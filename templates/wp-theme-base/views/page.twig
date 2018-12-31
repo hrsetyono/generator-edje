@@ -1,19 +1,6 @@
 {% extends "layout.twig" %}
 {% block content %}
 
-{% if post.content %}
-<h-grid>
-  <article class="the-content large-12">
-    {{ post.content }}
-  </article>
-</h-grid>
-{% endif %}
-
-{# ACF Flexible content #}
-{% for layout in post.get_field( 'layouts' ) %}
-  <section class="layout {{ layout.acf_fc_layout | replace({"_": "-"}) }}">
-    {% include "layouts/_" ~ layout.acf_fc_layout | replace({"_": "-"}) ~ ".twig" %}
-  </section>
-{% endfor %}
+{{ post.content }}
 
 {% endblock %}

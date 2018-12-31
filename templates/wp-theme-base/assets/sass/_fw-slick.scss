@@ -171,7 +171,7 @@
     height: 15px;
     padding: 0;
     margin: 0;
-    border: 1px solid $color-main;
+    border: 1px solid $main;
     background-color: white;
     color: transparent;
 
@@ -186,8 +186,8 @@
 
   .slick-active {
     button {
-      background-color: $color-main;
-      box-shadow: 0 0 0 2px $color-main;
+      background-color: $main;
+      box-shadow: 0 0 0 2px $main;
     }
   }
 

@@ -24,9 +24,12 @@ var myApp = {
 
   // Add lightbox on WP Gallery
   lightbox: function() {
-    $('.gallery, .tiled-gallery').photoSwipe( 'a', {
-      shareEl: false,
-      fullscreenEl: false,
+    $('.gallery a, .tiled-gallery a').on( 'click', (e) => {
+      e.preventDefault();
+      
+      var imgSrc = $( e.currentTarget ).attr( 'href' );
+      var content = basicLightbox.create( `<img src="${ imgSrc }">` );
+      content.show();
     } );
   }
 };
