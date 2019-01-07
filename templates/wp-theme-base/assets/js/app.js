@@ -52,12 +52,12 @@ var myNav = {
   mobileNav: function() {
     var self = this;
     $('#nav-toggle').on( 'click', toggle );
-    $('.nav-wrapper').on( 'click', self.preventClose );
+    $('.nav-items').on( 'click', self.preventClose );
 
 
     function toggle( e ) {
       e.stopPropagation();
-      $('body').removeClass( 'nav-dialog-is-active' ).toggleClass( 'nav-is-active' );
+      $('body').removeClass( 'dialog-is-active' ).toggleClass( 'nav-is-active' );
     }
   },
 
@@ -65,31 +65,32 @@ var myNav = {
   /*
     Toggle dialog nav
 
-    <a data-nav-toggle="my-dialog-id"> Click me </a>
-    <div id="my-dialog-id" class="nav-dialog">
+    <a data-dialog="my-dialog-id"> Click me </a>
+    <div id="my-dialog-id" class="dialog">
       ...
     </div>
   */
   dialogNav: function() {
     var self = this;
-    $('.main-nav').on( 'click', '[data-nav-dialog]', toggle );
-    $( document.body ).on( 'click', '.nav-dialog', self.preventClose );
+    $( document.body ).on( 'click', '[data-dialog]', toggle );
+    $( document.body ).on( 'click', '.dialog', self.preventClose );
 
+    //
     function toggle( e ) {
       e.preventDefault();
       e.stopPropagation();
-      var $target = $( '#' + $(this).data( 'nav-dialog' ) );
+      var $target = $( '#' + $(this).data( 'dialog' ) );
 
-      $('.nav-dialog--active').not( $target ).removeClass( 'nav-dialog--active' ); // close other nav dialog
-      $('body').removeClass( 'nav-is-active' ).toggleClass( 'nav-dialog-is-active' ); // close main menu, toggle dialog menu
-      $target.toggleClass( 'nav-dialog--active' ); // toggle selected dialog menu
+      $('.dialog--active').not( $target ).removeClass( 'dialog--active' ); // close other nav dialog
+      $('body').removeClass( 'nav-is-active' ).toggleClass( 'dialog-is-active' ); // close main menu, toggle dialog menu
+      $target.toggleClass( 'dialog--active' ); // toggle selected dialog menu
      }
   },
 
   // Close all nav when clicking outside
   closeNav: function( e ) {
-    $('.nav-dialog--active').removeClass( 'nav-dialog--active' );
-    $('body').removeClass( 'nav-is-active nav-dialog-is-active' );
+    $('.dialog--active').removeClass( 'dialog--active' );
+    $('body').removeClass( 'nav-is-active  dialog-is-active' );
   },
 
 

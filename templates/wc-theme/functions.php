@@ -29,8 +29,8 @@ function my_enqueue_scripts() {
   wp_enqueue_style( 'dashicons', get_stylesheet_uri(), 'dashicons' ); // WP native icons
 
   // JavaScript
-  wp_enqueue_script( 'my-photoswipe', $js_dir . '-vendor/photoswipe.min.js', array('jquery'), false, true );
-  wp_enqueue_script( 'my-slick', $js_dir . '-vendor/slick.min.js', array('jquery'), false, true );
+  wp_enqueue_script( 'my-lightbox', $js_dir . '-vendor/basic-lightbox.min.js', array('jquery'), false, true );
+  // wp_enqueue_script( 'my-slick', $js_dir . '-vendor/slick.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-shop', $js_dir . '/shop.js', array('jquery'), false, true );
 }

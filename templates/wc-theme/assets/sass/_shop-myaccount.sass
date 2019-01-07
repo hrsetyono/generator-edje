@@ -1,0 +1,449 @@
+body.woocommerce-account
+  div.woocommerce
+    +h( d-flex relative )
+
+
+///// FORM
+%woocommerce_form
+  +h( d-flex fw-wrap m0 mt1 )
+
+  label
+    +h( cursor-pointer )
+    margin-bottom: 2px
+
+  em
+    +h( d-inline-block fs-s )
+
+  @media ($below-m)
+    +h( p1 )
+
+.form-row
+  +h( ph05 mb1 w50 )
+
+  label
+    +h( as-center c-passive fs-s )
+  
+  //
+  @media ($below-m)
+    +h( ph025 )
+  //
+  @media ($below-s)
+    +h( w100 )
+
+
+// Select field
+.select2-container .select2-selection--single
+  +h( pv025 h-auto )
+
+.select2-container--default .select2-selection--single .select2-selection__arrow
+  +h( top50 )
+  right: 10px
+  width: 20px
+  +transform(translateY(-50%))
+  
+  b
+    +h( m0 )
+
+
+///// SINGLE FIELD
+@media ($above-s)
+  [id*="_email_field"]
+    +h( w40 )
+
+  [id*="_first_name_field"],
+  [id*="_last_name_field"]
+    .woocommerce-address-fields &
+      +h( w30 )
+      
+    .woocommerce-form-register &
+      +h( w50 )
+
+  [id*="_address_1_field"]
+    +h( w66 )
+
+  [id*="_address_2_field"]
+    +h( w33 )
+
+  [id*="_country_field"],
+  [id*="_state_field"]
+    width: 37.5%
+
+  [id*="_postcode_field"]
+    +h( w25 )
+
+
+// hide the label of Address 2
+.form-row[id*="_address_2_field"]
+  label
+    +h( v-hidden )
+    letter-spacing: -1em
+
+.form-row[id*="separator_field"]
+  +h( w100 bt1-solid bc-gray mt15 mb2 )
+
+  input
+    +h( d-none )
+
+
+///// ACCOUNT FORM
+.h-myaccount-wrapper
+  +h( clearfix w100 pt1 pb2 ph2 mt2 mb3 )
+  background-color: $wc-panel
+  border: 1px solid $wc-panel-dark
+
+  h2
+    +h( fs-h3 mb1 fw-body ta-center )
+
+  // login and register wrapper
+  .u-column1,
+  .u-column2
+    +h( relative w50 mv0 mh-auto )
+
+    @media ($below-s)
+      +h( w100 )
+
+  // hide register
+  .u-column2
+    +h( d-none )
+  
+  // show register if URL has #register
+  .u-column2:target
+    +h( d-block )
+
+    ~ .u-column1
+      +h( d-none )
+
+
+// Toggle form button
+.h-toggle-form
+  .u-column1 &
+    +h( mt1 )
+
+  .u-column2 &
+    +h( absolute )
+    top: 0.25em
+
+.woocommerce-form-login,
+.woocommerce-form-register,
+.woocommerce-ResetPassword
+  @extend %woocommerce_form
+  +h( bt1-solid bc-gray )
+
+///// LOGIN & FORGOT PASSWORD
+
+.woocommerce-form-login,
+.woocommerce-ResetPassword
+  +h( mh-auto p15 bg-white )
+  width: 320px
+
+  .form-row
+    +h( d-flex fw-wrap p0 w100 )
+
+  p:last-of-type
+    +h( mb0 )
+
+
+// login
+.woocommerce-form-login
+  .woocommerce-LostPassword
+    +h( fs-s )
+
+  [name="login"] + label // Remember me
+    +h( ml-auto )
+
+// reset password
+.woocommerce-ResetPassword
+  +h( mt4 mb4 )
+
+  p + p
+    +h( mt1 )
+
+  p:first-of-type
+    +h( fs-s )
+
+  &::before
+    content: ""
+    +h( d-block absolute z-1 left0 right0 )
+    top: 2em
+    bottom: 2em
+    background-color: $wc-panel
+    border: 1px solid $wc-panel-dark
+
+
+///// REGISTER
+.woocommerce-form-register
+  +h( p1 )
+
+  .woocommerce-privacy-policy-text
+    +h( mb1 ph05 fs-s )
+
+  .woocommerce-input-wrapper
+    +h( d-block w100 )
+
+.woocommerce-password-strength
+  +h( mt05 mb1 fs-s )
+
+  &.short,
+  &.bad
+    +h( c-red )
+
+  &.good,
+  &.strong
+    +h( fw-header tt-uppercase )
+
+  &.good
+    +h( c-yellow )
+
+  &.strong
+    +h( c-green )
+
+//// Sidebar navigation
+
+.woocommerce-MyAccount-navigation
+  +h( w20 mv2 ml0 )
+  margin-right: 40px
+  background-color: $wc-panel
+  
+  ul
+    +h( d-flex fd-column fw-wrap h100 list-none )
+    
+  @media ($below-s)
+    +h( w100 mb1 )
+
+    li
+      +h( w50 )
+
+
+.woocommerce-MyAccount-navigation-link
+  +h( w100 )
+
+  + .woocommerce-MyAccount-navigation-link
+    border-top: 1px solid darken($wc-panel, 10%)
+
+  &.is-active
+    a
+      +h( bc-main c-main )
+      background-color: $wc-panel-dark
+
+    a::after
+      +h( c-main )
+  
+  a
+    +h( d-flex ai-center pv075 ph1 w100 c-body transition  )
+    border-left: 4px solid transparent
+
+    &:hover
+      background-color: $wc-panel-dark
+    
+    &::after
+      +h( ml-auto o70 fs-m )
+      font-family: "dashicons"
+
+  @media ($below-s)
+    +h( w50 )
+
+
+.woocommerce-MyAccount-navigation-link--orders
+  a::after
+    content: "\f174"
+
+.woocommerce-MyAccount-navigation-link--edit-address
+  a::after
+    content: "\f102"
+
+.woocommerce-MyAccount-navigation-link--edit-account
+  +h( mb3 )
+
+  a::after
+    content: "\f110"
+
+.woocommerce-MyAccount-navigation-link--customer-logout
+  +h( mt-auto )
+
+  a::after
+    content: "\f153"
+
+
+///// MY ACCOUNT CONTENT
+.woocommerce-MyAccount-content
+  +h( flex1 mv2 )
+
+  body.woocommerce-orders &
+    +h( maxw100 ovx-auto )
+
+.woocommerce-pagination
+  +h( d-flex mt2 ta-center )
+
+  a
+    +h( bg-inherit c-main )
+
+  a:hover
+    +h( c-main )
+
+  .woocommerce-button--previous::before
+    content: "\00AB"
+    +h( d-inline-block mr025 )
+  
+  .woocommerce-button--next
+    +h( ml-auto )
+
+    &::after
+      content: "\00BB"
+      +h( d-inline-block ml025 )
+
+  
+///// MY ACCOUNT - ADDRESS and CUSTOMER DETAIL
+
+// wrapper
+.woocommerce-Addresses,
+.woocommerce-customer-details
+  +h( mt1 )
+
+.woocommerce-Addresses,
+.woocommerce-columns--addresses
+  +h( d-flex )
+
+  @media ($below-s)
+    +h( fd-column )
+
+
+// form
+.woocommerce-address-fields__field-wrapper
+  @extend %woocommerce_form
+
+
+// column
+.woocommerce-Address,
+.woocommerce-column--billing-address,
+.woocommerce-column--shipping-address
+  +h( flex1 )
+
+  .title
+    +h( d-flex ai-center )
+
+  @media ($below-s)
+    +h( mb1 )
+
+
+// title
+.woocommerce-Address h3,
+.woocommerce-column__title
+  +h( fs-h3 fw-body mb05 )
+
+
+// edit button
+.woocommerce-Address
+  .edit
+    +h( d-inline-block ml1 b1-solid bc-main pv025 ph05 )
+    +h( fs-s tt-uppercase lh-base brad )
+
+  .edit:hover
+    +h( bg-main c-white )
+
+
+///// MY ACCOUNT - ORDER
+.account-orders-table
+  +h( fs-s )
+
+.woocommerce-order-details
+  +h( mv2 )
+
+  h2
+    +h( mb1 fw-body )
+
+  table, thead, tbody, tfoot, tr, td, th
+    +h( d-block p0 bg-inherit b0 )
+
+  thead
+    +h( d-none )
+
+.order-again
+  +h( mt2 )
+
+.woocommerce-order-details table
+  +h( ov-hidden brad shadow0 )
+  max-width: 600px
+  border: 1px solid $wc-panel-dark
+
+.woocommerce-order-details tbody
+  +h( d-flex fw-wrap p1 )
+
+  tr
+    +h( d-flex ai-center w100 p05 )
+    border: 1px solid $wc-panel-dark
+
+  tr + tr
+    +h( mt05 )
+  
+  img
+    +h( mr1 )
+
+  td:first-child
+    +h( flex1 )
+
+  .product-quantity
+    +h( d-inline-block ph025 ml05 b1-solid bc-main )
+    +h( c-main lh-base fw-body brad )
+    padding-top: 2px
+    padding-bottom: 2px
+
+
+.woocommerce-order-details tfoot
+  +h( d-flex fw-wrap w100 p1 )
+  background-color: $wc-panel
+
+  th
+    +h( tt-uppercase ls25 fs-s )
+
+  td
+  tr
+    +h( w25 )
+
+  // total
+  tr:last-child
+    +h( w100 mt1 )
+
+    th
+      +h( lh-base )
+
+    th, td
+      +h( ta-center )
+
+    td
+      +h( fs-h3 fw-header )
+
+  .shipped_via
+    +h( d-block )
+
+
+.h-customer-note
+  +h( mt2 )
+  
+  h3
+    +h( mb1 fw-body )
+
+///// MY ACCOUNT - EDIT ACCOUNT
+
+.woocommerce-EditAccountForm
+  @extend %woocommerce_form
+  
+  // first name, last name
+  > .form-row:nth-child(1),
+  > .form-row:nth-child(2)
+    @media ($above-s)
+      +h( w30 )
+
+  > .form-row:nth-child(4)
+    +h( w40 )
+
+    @media ($below-s)
+      +h( w100 )
+
+  fieldset
+    +h( w100 )
+
+  legend
+    +h( fs-h5 fw-header pl05 )
+
+  [type="submit"]
+    +h( ml05 )

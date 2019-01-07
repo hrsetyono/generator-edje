@@ -82,22 +82,6 @@ body.dialog-is-active
       +h( pv05 ph075 )
 
 
-// NAV DIALOG
-.nav-dialog
-  +h( absolute v-hidden o0 top100 right0 bg-body )
-  +h( p025 brad shadow1 transition )
-  width: 300px
-  +transform( translateY(-1.5em) )
-
-  @media ($below-nav-s)
-    top: calc(100% + 10px)
-
-  &.nav-dialog--active,
-  .nav-item:hover &
-    +h( v-visible o100 )
-    +transform(none)
-
-
 // NAV MOBILE TOGGLE
 .nav-toggle
   i
@@ -146,6 +130,21 @@ body.dialog-is-active
   &:focus ~ label
     +h( d-none )
 
+
+// DIALOG
+.dialog
+  +h( absolute v-hidden o0 top100 right0 bg-body )
+  +h( p025 brad shadow1 transition )
+  width: 300px
+  +transform( translateY(-1.5em) )
+
+  @media ($below-nav-s)
+    top: calc(100% + 10px)
+
+  &.dialog--active
+    +h( v-visible o100 )
+    +transform(none)
+    
 
 ///// MAIN FOOTER /////
 

@@ -1,0 +1,419 @@
+// SETTING
+@import setting
+@import edje-v20
+
+$wc-panel: $gray-light
+$wc-panel-dark: darken($wc-panel, 5%)
+
+@import shop-myaccount
+@import shop-cart
+
+
+///// GENERAL
+
+.price
+  del
+    +h( d-block o50 fs-s )
+
+  ins
+    +h( d-block td-none )
+
+.woocommerce-Price-currencySymbol // Change currency to be smaller
+  +h( fw-body fs-s )
+
+// Toast alert
++animate( flipInX )
+  from
+    +transform(perspective(400px) rotate3d(1, 0, 0, 90deg))
+    +animation-timing-function(ease-in)
+  40%
+    +transform(perspective(400px) rotate3d(1, 0, 0, -20deg))
+    +animation-timing-function(ease-in)
+  60%
+    +transform(perspective(400px) rotate3d(1, 0, 0, 10deg))
+  80%
+    +transform(perspective(400px) rotate3d(1, 0, 0, -5deg))
+  to
+    +transform(perspective(400px))
+
+
+.woocommerce-info,
+.woocommerce-message,
+.woocommerce-error
+  +h( d-flex fd-column-reverse ai-end events-none )
+  +h( fixed z100 p125 bg-gray-light shadow2 brad backface-hidden )
+  bottom: 1em
+  right: 1em
+
+  +animation-name(flipInX)
+  +animation-duration(1s)
+  +animation-fill-mode(both)
+
+  .button
+    +h( events-all mt05 pv025 )
+
+  &::before
+    content: "×"
+
+.woocommerce-error
+  +h( bg-red list-none c-white )
+
+.woocommerce-message-close,
+.woocommerce-info::before,
+.woocommerce-message::before,
+.woocommerce-error::before
+  +h( cursor-pointer absolute top0 left0 )
+  +h( ta-center lh-base fs-h5 fw-header  )
+  width: 24px
+  height: 24px
+
+  &:hover
+    +h( bg-main10 )
+
+// store-wide notice
+.woocommerce-store-notice
+  +h( fixed bottom0 left0 right0 bg-main pv05 ph1 )
+  +h( ta-center c-white shadow2 )
+  
+  a
+    +h( d-inline-block float-right bg-main-dark pv05 ph2 )
+    +h( c-white td-underline )
+    margin: -0.5em -1em
+
+    &:hover
+      +h( o70 )
+
+///// CATEGORY LISTING
+
+.shop-categories
+  +h( m0 mt2 mb3 )
+
+  h2
+    +h( mb1 fw-body ta-center )
+
+.category-tease
+  a:hover
+    figure
+      +h( o80 )
+    h3
+      +h( td-underline )
+
+  figure
+    +h( mb1 transition )
+
+  img
+    +h( brad )
+
+  h3
+    +h( fs-h5 c-body ta-center )
+
+///// PRODUCT LISTING
+
+.products-tile
+  @media ($below-s)
+    +tile(2, $gap: 10px)
+
+.shop-before-products
+  +h( d-flex ai-center mv2 )
+
+  p
+    +h( mr1 ml-auto fs-s )
+
+.shop-products
+  +h( mv2 mh0 )
+
+.product-tease
+  +h( relative mb15 ta-center )
+
+  figure
+    +h( mb1 transition )
+
+    &:hover
+      +h( o80 )
+      
+  h3
+    +h( fs-h5 )
+    a
+      +h( d-block c-body )
+    a:hover
+      +h( td-underline )
+
+  .price
+    +h( d-block )
+
+  // Tease button
+  .button
+    +h( mt05 fs-s va-middle )
+
+  .button.added
+    +h( relative bg-green c-transparent )
+    border-color: darken($green, 10%)
+
+    &::after
+      content: "\f147"
+      +h( absolute top50 left50 c-white )
+      font-family: "dashicons"
+      font-size: 1.25em
+      +transform(translateX(-50%) translateY(-50%))
+  
+  .added_to_cart
+    +h( d-none )
+
+
+///// ON SALE LABEL
+
+.onsale
+  +h( d-inline-block pv0 ph1 b1-dashed bc-white bg-red )
+  +h( c-white fw-header fs-s tt-uppercase brad )
+  box-shadow: 0 0 0 2px $red
+
+  .product-tease &
+    +h( absolute )
+    top: 5px
+    right: 15px
+
+  .product-figure &
+    +h( absolute z5 )
+    top: 10px
+    left: 10px
+
+///// SINGLE PRODUCT
+
+// The wrapper, need to be named "product" to make the gallery works
+.product
+  +h( mv2 mh0 )
+
+.product_meta
+  +h( mt0 fs-s )
+  
+  > span
+    +h( d-block )
+
+
+// product header
+.product-header
+  +h( mb2 )
+
+  .sharedaddy  // Jetpack Sharing
+    +h( pv05 ph0 m0 mt075 bb1-solid bc-gray )
+
+  div.sd-block
+    +h( fd-row ai-center )
+
+  div.sd-block h3.sd-title
+    +h( mb0 mr1 )
+
+
+// product gallery
+.product-figure
+  +h( relative )
+  
+  .flex-viewport
+    +h( mb025 b2-solid bc-black05 brad )
+
+  @media ($below-s)
+    +h( mb2 )
+
+.woocommerce-product-gallery
+  +h( relative )
+
+.woocommerce-product-gallery__image
+  img
+    +h( brad )
+
+// full screen zoom
+.woocommerce-product-gallery__trigger
+  +h( absolute z10 )
+  top: 0.5rem
+  right: 0.5rem
+  font-size: 0
+
+  &::before
+    content: "\f504"
+    +h( d-inline-block bg-white p025 )
+    +h( lh-base c-body brad shadow0 )
+    font-family: "dashicons"
+    font-size: 1.5rem
+
+  &:hover::before
+    background-color: darken(white, 5%)
+
+// drag zoom
+.zoomImg
+  +h( cursor-zoom-in )
+
+  &[style*="opacity: 1"]
+    +h( cursor-zoom-out )
+
+.flex-control-nav
+  +h( d-flex fw-wrap list-none )
+  margin: 1em -0.25em 0
+
+  li
+    +h( cursor-pointer w25 ph025 )
+
+  li:hover img
+    +h( o100 )
+  
+  img
+    +h( o50 brad transition backface-hidden )
+
+  .flex-active
+    +h( o100 )
+    box-shadow: 0 0 0 3px $main
+
+///// PRODUCT TABS
+
+ul.wc-tabs
+  +h(d-flex fw-wrap pl0 list-none )
+
+  a
+    +h( d-inline-block pv025 ph05 td-none )
+
+  .active a
+    +h( bg-main25 )
+
+.wc-tab
+  > h2:first-child
+    +h( d-none )
+
+
+// product purchase
+.product-purchase
+  +h( pv0 ph1 )
+
+  form.cart
+    +h( d-flex fw-wrap )
+
+  .price
+    +h( d-block bg-main10 p075 b1-solid bc-main-light )
+    +h( ta-center brad )
+    line-height: 1.15
+
+  > .price
+    +h( mb15 )
+
+  .quantity
+    +h( flex1 mr1 )
+
+  .amount
+    +h( d-block fs-h5 fw-header )
+
+  label
+    +h( fs-s )
+
+  .single_add_to_cart_button
+    +h( as-end )
+
+  //
+  @media ($below-s)
+    +h( mb15 )
+
+///// PRODUCT RATING
+
+.woocommerce-Reviews
+  h2
+    +h( d-none )
+  ol
+    +h( list-none pl0 )
+
+.comment-review
+  +h( mb1 b1-solid bc-black05 brad )
+
+.review-header
+  +h( d-flex ai-center bg-black05 p05 )
+  line-height: 1.25
+
+  .meta
+    +h( mb0 fs-s )
+
+  time
+    +h( d-inline-block c-passive fs-s )
+
+.review-text
+  +h( p05 )
+
+  p
+    +h( mb05 )
+
+
+///// STAR RATING
+
+.star-rating
+  +h( d-inline-block relative lh-base )
+
+  &::before,
+  span::before
+    content: '★★★★★'
+    +h( c-body fs-body )
+
+  &::before
+    +h( o30 )
+
+  span
+    +h( ov-hidden absolute top0 left0 )
+    font-size: 0
+
+.comment-form-rating
+  +h( mb1 )
+
+  a
+    +h( o30 d-inline-block lh-base td-none )
+    font-size: 0
+
+  a::before
+    content: '★'
+    font-size: 1.25rem
+
+  .stars
+    +h( d-inline-block )
+
+  .stars:hover a,
+  .selected a
+    +h( o100 )
+
+  a:hover ~ a,
+  a.active ~ a
+    opacity: .25 !important
+
+
+// PRODUCT VARIATION
+.single-variation-wrap
+  +h( mb15 )
+
+// Div that appears after selecting variation
+.single_variation
+  +h( d-flex fd-column )
+
+  .out-of-stock
+    +h( c-red )
+
+  .woocommerce-variation-price
+    +h( order1 mb1 )
+
+  .woocommerce-variation-availability
+    +h( order2 )
+
+  .woocommerce-variation-description
+    +h( order3 )    
+    p
+      +h( mb1 )
+
+
+.woocommerce-variation-add-to-cart
+  +h( d-flex )
+
+table.variations
+  +h( mt15 w100 )
+
+  label,
+  select
+    +h( mb05 )
+
+
+///// RELATED PRODUCT
+.product-related
+  +h( mt4 mb2 mh0 )
+
+  h2
+    +h( ta-center fw-body )
