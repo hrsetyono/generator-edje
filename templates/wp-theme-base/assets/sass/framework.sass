@@ -13,9 +13,9 @@ $output-framework: true
 .button,
 [type="submit"],
 [type="reset"]
-  +h( cursor-pointer ov-hidden d-iblock )
-  +h( bc-main-dark bg-main b1-solid bb2-solid br pv025 ph075 )
-  +h( fw600 lh-normal va-top c-white transition-none )
+  +h( cursor-pointer ov-hidden d-inline-block )
+  +h( bg-main b1-solid bb2-solid bc-main-dark pv025 ph075 )
+  +h( fw600 lh-normal va-top c-white brad transition-none )
   outline: none
   
   &:hover
@@ -59,7 +59,7 @@ $output-framework: true
 [type="time"],
 textarea,
 select
-  +h( d-block w100 pv075 ph05 b2-solid bc-gray br )
+  +h( d-block w100 pv075 ph05 b2-solid bc-gray brad )
   +h( lh-normal transition )
   
   &:focus
@@ -83,10 +83,10 @@ select
     box-shadow: inset 0 0 0 4.5px $main
 
 [type="checkbox"]
-  +h( br )
+  +h( brad )
 
 [type="radio"]
-  +h( br-circle )
+  +h( brad-circle )
 
 
 ///// WORDPRESS General
@@ -123,7 +123,7 @@ div.wpcf7
     +h( c-red fs-s )
 
   div.wpcf7-response-output
-    +h( m0 mt1 br ta-center )
+    +h( m0 mt1 ta-center brad )
     border-width: 1px
   
   .wpcf7-validation-errors

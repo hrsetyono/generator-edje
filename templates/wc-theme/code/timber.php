@@ -21,11 +21,10 @@ class MyTimber extends TimberSite {
 
     $context['nav'] = new TimberMenu( 'main-nav' );
     $context['social_nav'] = new TimberMenu( 'social-nav' );
-    $context['logo_mobile'] = get_option( 'logo_mobile' );
 
     $context['site'] = $this;
     $context['home_url'] = home_url();
-    $context['sidebar'] = Timber::get_widgets( 'my-sidebar' );
+    $context['footer_widgets'] = Timber::get_widgets( 'my-footer' );
 
     $root = get_template_directory_uri();
     $context['images'] = $root.'/assets/images';
@@ -38,10 +37,10 @@ class MyTimber extends TimberSite {
       $context['blog_nav'] = Timber::get_terms( 'category', array('parent' => 0) );
     }
 
-    // if ACF installed
-    if(function_exists( 'acf_add_options_page' )) {
-      $context['options'] = get_fields( 'options' );
-    }
+    // ACF Options Page, enable if you're using it
+    // if( function_exists( 'acf_add_options_page' )) {
+    //   $context['options'] = get_fields( 'options' );
+    // }
 
     return $context;
   }

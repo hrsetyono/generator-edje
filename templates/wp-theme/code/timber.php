@@ -32,10 +32,10 @@ class MyTimber extends TimberSite {
       $context['blog_nav'] = Timber::get_terms( 'category', array('parent' => 0) );
     }
 
-    // if ACF installed
-    if(function_exists( 'acf_add_options_page' )) {
-      $context['options'] = get_fields( 'options' );
-    }
+    // ACF Options Page, enable if you're using it
+    // if( function_exists( 'acf_add_options_page' )) {
+    //   $context['options'] = get_fields( 'options' );
+    // }
 
     return $context;
   }

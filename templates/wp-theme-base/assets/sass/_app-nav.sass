@@ -1,19 +1,43 @@
 .main-nav
-  +h( relative z100 pv075 )
+  +h( relative bg-white bb1-solid bc-gray z100 pv075 )
 
-.nav-col
-  +h( f ai-center )
-  +column(12)
+  .has-fixed-nav &
+    +h( fixed w100 )
+
+.nav-wrapper
+  +h( d-flex ai-center )
+
+// make body clickable to close the NAV when it's active
+body.nav-is-active,
+body.dialog-is-active
+  +h( cursor-pointer )
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+
 
 // MAIN LOGO
 .nav-logo
-  @media ($below-nav-bp)
-    +h( order1 mv0 mh-auto )
-
-.custom-logo-link
   img
     +h( w-auto )
     height: 2.5em
+
+  @media ($below-nav-s)
+    +h( order1 mv0 mh-auto )
+
+
+// NAV ITEMS WRAPPER
+.nav-items
+  +h( d-flex flex1 jc-start fw-wrap transition )
+
+  @media ($below-nav-s)
+    +h( fd-column v-hidden fixed o0 z100 top0 left0 bottom0 )
+    +h( pt3 pb2 ph0 bg-white transition shadow2 )
+    width: 180px
+    +transform(translateX(-100%))
+
+  .nav-is-active &
+    +h( v-visible o100 )
+    +transform( none )
+
 
 // NAV ITEM
 .nav-item
@@ -33,40 +57,61 @@
     > a
       +h( c-main )
 
-  
-// NAV WRAPPER
-.nav-wrapper
-  +h( f flex1 jc-start fw-wrap  )
 
-  @media ($below-nav-bp)
-    +h( fd-column v-hidden fixed o0 z100 top0 left0 bottom0 )
-    +h( pt3 pb2 ph0 bg-white transition-none shadow2 )
-    width: 180px
-    +transform(translateX(-100%))
+// NAV ITEM CHILDREN
+.nav-children
+  +h( absolute v-hidden o0 top100 left0 bg-gray-light nowrap )
+  +h( p025 shadow1 brad transition )
+  width: 200px
 
-  .nav-is-active &
+  .nav-item:hover &
+    +h( v-visible o100 )
+
+  a
+    +h( d-block pv025 ph05 c-inherit brad )
+
+  a:hover
+    +h( bg-gray )
+
+  //
+  @media ($below-nav-s)
+    +h( top0 left100 )
+    +transform(translateX(-10px))
+    
+    a
+      +h( pv05 ph075 )
+
+
+// NAV DIALOG
+.nav-dialog
+  +h( absolute v-hidden o0 top100 right0 bg-body )
+  +h( p025 brad shadow1 transition )
+  width: 300px
+  +transform( translateY(-1.5em) )
+
+  @media ($below-nav-s)
+    top: calc(100% + 10px)
+
+  &.nav-dialog--active,
+  .nav-item:hover &
     +h( v-visible o100 )
     +transform(none)
 
-// NAV MOBILE
-body.nav-is-active,
-body.nav-dialog-is-active
-  +h( cursor-pointer )
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) // fix iOS untap-able bug
 
+// NAV MOBILE TOGGLE
 .nav-toggle
   i
     +h( lh-base )
 
   i, b
-    +h( d-iblock va-middle )
+    +h( d-inline-block va-middle )
 
   .dashicons-before::before
     +h( fs-m )
     width: 18px
     height: 18px
 
-  @media ($above-nav-bp)
+  @media ($above-nav-s)
     +h( d-none )
 
 
@@ -76,11 +121,17 @@ body.nav-dialog-is-active
 
   .button
     +h( lh-base ml025 )
+
   span
     line-height: 20px
 
+  //
+  @media ($below-s)
+    span
+      +h( d-none )
 
-///// SEARCH FORM
+
+// SEARCH FORM
 .nav-search
   +h( f relative )
 
@@ -91,42 +142,10 @@ body.nav-dialog-is-active
   &:focus
     +h( o100 pr25 pl05 )
     width: 250px
+
   &:focus ~ label
     +h( d-none )
 
-///// NAV DIALOG
-.nav-dialog
-  +h( absolute v-hidden o0 top100 right0 bg-body )
-  +h( p025 br shadow1 transition )
-  width: 300px
-  +transform( translateY(-1.5em) )
-
-  @media ($below-nav-bp)
-    top: calc(100% + 10px)
-
-  &.nav-dialog--active,
-  .nav-item:hover &
-    +h( v-visible o100 )
-    +transform(none)
-
-// Nav Dialog Children
-
-.nav-dialog--children
-  +h( left0 right-auto bg-gray-light nowrap )
-  width: 200px
-
-  a
-    +h( d-block pv025 ph05 c-inherit br )
-  a:hover
-    +h( bg-gray )
-
-  //
-  @media ($below-nav-bp)
-    +h( top0 left100 )
-    +transform(translateX(-10px))
-    
-    a
-      +h( pv05 ph075)
 
 ///// MAIN FOOTER /////
 
@@ -180,14 +199,14 @@ body.nav-dialog-is-active
     width: 32px
 
   a
-    +h( d-block relative mh025 bg-main25 br-circle transition )
+    +h( d-block relative mh025 bg-main25 brad-circle transition )
     
   a:hover
     +h( bg-main50 c-white )
 
 .partner-caption
   +h( v-hidden o0 absolute right0 pv05 ph1 bg-main )
-  +h( c-white ta-center br transition )
+  +h( c-white ta-center brad transition )
   bottom: calc(100% + 8px)
   +transform(translateY(20px))
 

@@ -7,13 +7,13 @@ $font-family : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ub
 $font-family-header : "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", "Times","Source Serif Pro", serif;
 
 // Automatically create @font-face declaration
-// $font-faces: (
+$font-faces: (
 //   'Sample Font': (
 //     ("font.woff", 400),
 //     ("font-italic.woff", 400, italic),
 //     ("font-bold.woff", 700),
 //   ),
-// );
+);
 
 ///// COLOR
 $main : #2196f3;
@@ -41,12 +41,13 @@ $text-highlight: null; // change highlight background
 
 
 ///// SIZING
-// $size-xs : 480px;
+$size-xs : 480px;
 $size-s  : 767px;
-// $size-m  : 960px;
-// $size-l  : 1120px;
+$size-m  : 960px;
+$size-l  : 1120px;
 
-$nav-bp: $size-s; // navigation breakpoint
+$below-nav-s: "max-width:#{ $size-s }"; // mobile navigation breakpoint
+$above-nav-s: "min-width:#{ $size-s + 1px }";
 
 
 ///// GLOBAL VALUE
@@ -73,7 +74,6 @@ $font-gray : #888;
 // $font-weight : 400;
 // $font-line : 1.65;
 $font-size : 16px;
-$font-size-s : 14px;
 
 // $header-color  : $font-color;
 // $header-weight : 700;
@@ -118,6 +118,8 @@ $h-custom: (
 //   )
 // );
 
+
+
 // $h-width: (
 //   names: ( w: width ),
 //   values: (
@@ -139,6 +141,8 @@ $h-custom: (
 //     100vw: 100vw,
 //   )
 // );
+
+
 
 // $h-position-move: (
 //   names: (
@@ -280,19 +284,20 @@ $h-custom: (
 
 // TYPOGRAPHY -----
 
-// $h-font-size: (
-//   names: ( fs-: font-size ),
-//   values: (
-//     h1: '%h1',
-//     h2: '%h2',
-//     h3: '%h3',
-//     h4: '%h4',
-//     h5: '%h5',
-//     h6: '%h6',
-//     body: em( $font-size ),
-//     s: em( $font-size-s ),
-//   ),
-// );
+$h-font-size: (
+  names: ( fs-: font-size ),
+  values: (
+    h1: '%h1',
+    h2: '%h2',
+    h3: '%h3',
+    h4: '%h4',
+    h5: '%h5',
+    h6: '%h6',
+    body: $font-size,
+    s: 0.875em,
+    m: 1.125em,
+  ),
+);
 
 // $h-color: (
 //   names: ( c-: color ),
