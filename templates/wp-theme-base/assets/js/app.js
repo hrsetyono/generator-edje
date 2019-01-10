@@ -18,19 +18,41 @@ function startOnLoad() {
 ///// GENERAL LISTENERS
 
 var myApp = {
-  init: function() {
-    this.lightbox();
+  init() {
+    var self = this;
+    self.slider();
+    // self.lightbox();
   },
 
-  // Add lightbox on WP Gallery
-  lightbox: function() {
-    $('.gallery a, .tiled-gallery a').on( 'click', (e) => {
-      e.preventDefault();
-      
-      var imgSrc = $( e.currentTarget ).attr( 'href' );
-      var content = basicLightbox.create( `<img src="${ imgSrc }">` );
-      content.show();
-    } );
+  /*
+    hSLider Example
+    - Open the JS file to see the documentation.
+  */
+  slider() {
+    var instance = $('.wp-block-gallery').hSlider({
+      index: 0,
+      arrows: true,
+      dots: true,
+      itemsPerSlide: 2,
+    });
+
+    // What "instance" object can do: https://github.com/electerious/basicSlider#instance-api
+  },
+
+  /*
+    hLightbox Example
+    - Open the JS file to see the documentation.
+  */
+  lightbox() {
+    $('.wp-block-gallery a').hLightbox({
+      closeButton: true,
+      onOpen: (i) => {
+        console.log('lightbox opened');
+      },
+      onClose: (i) => {
+        console.log('lightbox closed');
+      }
+    });
   }
 };
 
@@ -38,7 +60,7 @@ var myApp = {
 ///// NAVIGATION
 
 var myNav = {
-  init: function() {
+  init() {
     var self = this;
     self.mobileNav();
     self.dialogNav();
@@ -49,11 +71,11 @@ var myNav = {
   /*
     Toggle mobile nav
   */
-  mobileNav: function() {
+  mobileNav() {
     var self = this;
     $('#nav-toggle').on( 'click', toggle );
     $('.nav-items').on( 'click', self.preventClose );
-
+    
 
     function toggle( e ) {
       e.stopPropagation();
@@ -70,7 +92,7 @@ var myNav = {
       ...
     </div>
   */
-  dialogNav: function() {
+  dialogNav() {
     var self = this;
     $( document.body ).on( 'click', '[data-dialog]', toggle );
     $( document.body ).on( 'click', '.dialog', self.preventClose );
@@ -84,18 +106,18 @@ var myNav = {
       $('.dialog--active').not( $target ).removeClass( 'dialog--active' ); // close other nav dialog
       $('body').removeClass( 'nav-is-active' ).toggleClass( 'dialog-is-active' ); // close main menu, toggle dialog menu
       $target.toggleClass( 'dialog--active' ); // toggle selected dialog menu
-     }
+    }
   },
 
   // Close all nav when clicking outside
-  closeNav: function( e ) {
+  closeNav( e ) {
     $('.dialog--active').removeClass( 'dialog--active' );
     $('body').removeClass( 'nav-is-active  dialog-is-active' );
   },
 
 
   // Prevent nav closed when clicking this part
-  preventClose: function( e ) {
+  preventClose( e ) {
     e.stopPropagation();
   }
 };

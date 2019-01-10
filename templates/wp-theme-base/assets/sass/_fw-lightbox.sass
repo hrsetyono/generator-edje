@@ -1,0 +1,58 @@
+// hLightbox v1
+// Originally from https://hlightbox.electerious.com/
+
+.hLightbox
+  +h( d-flex ai-center jc-center fixed top0 left0 w100 h100vh )
+  +h( bg-black10 )
+  opacity: .01
+  z-index: 10000
+  will-change: opacity
+  transition: opacity .4s ease
+
+.hLightbox--visible
+  +h( o100 )
+
+.hLightbox__placeholder
+  +h( maxw100 )
+  +transform( scale(0.9) )
+  transition: transform .4s ease
+  z-index: 1
+  will-change: transform
+
+  .hLightbox--visible &
+    +transform( scale(1) )
+
+  .hLightbox--iframe &,
+  .hLightbox--img &,
+  .hLightbox--video &
+    +h( w100 h100 events-none )
+
+
+.hLightbox--iframe iframe:first-child,
+.hLightbox--img img:first-child,
+.hLightbox--video video:first-child
+  +h( d-block absolute-fill m-auto )
+  max-width: 95%
+  max-height: 95%
+
+.hLightbox--img img:first-child,
+.hLightbox--video video:first-child
+  +h( w-auto h-auto )
+
+/////
+
+.hLightbox-close
+  +h( cursor-pointer absolute events-all )
+  top: 3rem
+  right: 1rem
+  font-size: 0
+
+  &::before
+    content: "\f335"
+    +h( d-inline-block p05 lh-base c-white brad transition )
+    background-color: rgba($red, 0.3)
+    font-family: "dashicons"
+    font-size: 2rem
+    
+  &:hover::before
+    background-color: rgba($red, 0.6)

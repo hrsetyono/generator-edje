@@ -56,6 +56,19 @@ function my_after_setup_theme() {
 
   // Gutenberg support
   add_theme_support( 'align-wide' );
+  // add_theme_support( 'editor-color-palette', array(
+  //   array(
+  //     'name'  => 'Main',
+  //     'slug' => 'main',
+  //     'color' => '#2196f3',
+  //   ),
+  //   array(
+  //     'name'  => 'Sub',
+  //     'slug' => 'sub',
+  //     'color' => '#607d8b',
+  //   ),
+	// ) );
+
 
   // Edje support
   add_theme_support( 'h-woocommerce' );

@@ -30,8 +30,8 @@ function my_enqueue_scripts() {
   wp_enqueue_style( 'dashicons', get_stylesheet_uri(), 'dashicons' ); // WP native icons
 
   // JavaScript
-  wp_enqueue_script( 'my-lightbox', $js_dir . '-vendor/basic-lightbox.min.js', array('jquery'), false, true );
-  // wp_enqueue_script( 'my-slick', $js_dir . '-vendor/slick.min.js', array('jquery'), false, true );
+  wp_enqueue_script( 'h-lightbox', $js_dir . '-vendor/h-lightbox.js', array('jquery'), false, true );
+  wp_enqueue_script( 'h-slider', $js_dir . '-vendor/h-slider.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
 }
 
@@ -48,17 +48,17 @@ function my_after_setup_theme() {
   // Gutenberg support
   add_theme_support( 'align-wide' );
   // add_theme_support( 'editor-color-palette', array(
-  //   array(
-  //     'name'  => 'Main',
-  //     'slug' => 'main',
-  //     'color' => '#2196f3',
-  //   ),
-  //   array(
-  //     'name'  => 'Sub',
-  //     'slug' => 'sub',
-  //     'color' => '#607d8b',
-  //   ),
-	// ) );
+    //   array(
+    //     'name'  => 'Main',
+    //     'slug' => 'main',
+    //     'color' => '#2196f3',
+    //   ),
+    //   array(
+    //     'name'  => 'Sub',
+    //     'slug' => 'sub',
+    //     'color' => '#607d8b',
+    //   ),
+  // ) );
 
   // Create Nav assignment
   register_nav_menu( 'main-nav', 'Main Nav' );
