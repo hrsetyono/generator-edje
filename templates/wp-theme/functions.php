@@ -30,8 +30,8 @@ function my_enqueue_scripts() {
   wp_enqueue_style( 'dashicons', get_stylesheet_uri(), 'dashicons' ); // WP native icons
 
   // JavaScript
-  wp_enqueue_script( 'h-lightbox', $js_dir . '-vendor/h-lightbox.js', array('jquery'), false, true );
-  wp_enqueue_script( 'h-slider', $js_dir . '-vendor/h-slider.js', array('jquery'), false, true );
+  wp_enqueue_script( 'h-lightbox', $js_dir . '-vendor/h-lightbox.min.js', array('jquery'), false, true );
+  wp_enqueue_script( 'h-slider', $js_dir . '-vendor/h-slider.min.js', array('jquery'), false, true );
   wp_enqueue_script( 'my-app', $js_dir . '/app.js', array('jquery'), false, true );
 }
 

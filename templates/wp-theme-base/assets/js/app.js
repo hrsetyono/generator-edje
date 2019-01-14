@@ -20,38 +20,34 @@ function startOnLoad() {
 var myApp = {
   init() {
     var self = this;
-    self.slider();
+    // self.slider();
     // self.lightbox();
   },
 
   /*
-    hSLider Example
-    - Open the JS file to see the documentation.
+    hSlider Example
+    https://github.com/hrsetyono/hSlider
   */
   slider() {
-    var instance = $('.wp-block-gallery').hSlider({
+    var instance = $('.wp-gallery').hSlider({
       index: 0,
       arrows: true,
       dots: true,
-      itemsPerSlide: 2,
+      itemsPerSlide: 3,
+      responsive: {
+        767: 2,
+        480: 1
+      }
     });
-
-    // What "instance" object can do: https://github.com/electerious/basicSlider#instance-api
   },
 
   /*
     hLightbox Example
-    - Open the JS file to see the documentation.
+    https://github.com/hrsetyono/hLightbox
   */
   lightbox() {
-    $('.wp-block-gallery a').hLightbox({
-      closeButton: true,
-      onOpen: (i) => {
-        console.log('lightbox opened');
-      },
-      onClose: (i) => {
-        console.log('lightbox closed');
-      }
+    $('.wp-block-button a').hLightbox({
+      closeButton: true
     });
   }
 };

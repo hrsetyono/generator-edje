@@ -16,8 +16,8 @@
   ];
 
   var REQ_PLUGINS = {
-    wordpress: ['wp-edje', 'timber-library-170'],
-    woocommerce: ['wp-edje', 'timber-library-170', 'woocommerce', 'woocommerce-edje'],
+    wordpress: ['wp-edje', 'timber-library-180'],
+    woocommerce: ['wp-edje', 'timber-library-180', 'woocommerce', 'woocommerce-edje'],
   };
 
   module.exports = generators.Base.extend({
