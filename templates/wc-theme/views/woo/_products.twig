@@ -1,10 +1,10 @@
 <section class="shop-products">
 
-  <ul class="products-tile tile-{{ fn('wc_get_loop_prop', 'columns') }}">
+  <h-tile class="products-tile tile-{{ fn('wc_get_loop_prop', 'columns') }}">
     {% for p in products %}
       {% include "woo/_product-tease.twig" %}
     {% endfor %}
-  </ul>
+  </h-tile>
 
   {% if not products %}
     <h-grid>

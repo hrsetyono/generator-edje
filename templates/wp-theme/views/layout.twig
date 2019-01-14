@@ -10,11 +10,10 @@
   {{ wp_head }}
 </head>
 
-<body class="{{ body_class }}">
+<body class="has-fixed-nav {{ body_class }}">
 
-{# MAIN NAV #}
 <section class="main-nav">
-<h-grid> <div class="nav-col">
+<h-grid> <div class="large-12 nav-wrapper">
 
   <div class="nav-logo">
     {{ fn('the_custom_logo') }}
@@ -26,17 +25,16 @@
     </a>
   </div>
 
-  <nav class="nav-wrapper">
+  <nav class="nav-items">
   {% for item in nav.items %}
     <div class="nav-item {{ item.class }}">
       <a href="{{ item.url }}"> {{ item.title }} </a>
 
-      {# child menu #}
       {% if item.children %}
-        <div class="nav-dialog nav-dialog--children">
-          {% for child in item.children %}
-            <a href="{{ child.url }}">{{ child.title }}</a>
-          {% endfor %}
+        <div class="nav-children">
+        {% for child in item.children %}
+          <a href="{{ child.url }}">{{ child.title }}</a>
+        {% endfor %}
         </div>
       {% endif %}
     </div>
@@ -60,7 +58,6 @@
   </div>
 
 </div> </h-grid>
-
 </section>
 
 <main>
@@ -68,14 +65,12 @@
 </main>
 
 <footer class="main-footer">
-  {# widgets #}
   {% if footer_widgets %}
     <div class="footer-widgets">
       <h-grid> {{ footer_widgets }} </h-grid>
     </div>
   {% endif %}
 
-  {# copyright bar #}
   <div class="footer-bar">
     <h-grid>
       <div class="copyright large-6">
@@ -100,7 +95,6 @@
 
     </div> </h-grid>
   </div>
-
 </footer>
 
 {{ wp_footer }}

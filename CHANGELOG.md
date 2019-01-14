@@ -1,3 +1,19 @@
+## 2.0.0
+
+- [JS] Replaced Slick JS with our own library: hSlider.
+- [JS] Replaced Photoswipe JS with our own library: hLightbox.
+- [HTML] Updated HTML template to follow latest navigation and footer format.
+- [WP] [WC] Updated the class naming and markup for navigation to be cleaner.
+- [WP] Updated WordPress installation to 5.0.3.
+- [WP] Updated Timber plugin to 1.8.0
+
+CSS Changes:
+
+- Updated to Edje v2.0.
+- Changed Settings with new variables from Edje v2. 
+- Converted SCSS to Sass except for Settings file.
+- Converted style declaration into Functional Sass with `+h()`.
+
 ## 1.0.2
 
 - Removed main-wrapper because its only purpose is to stick footer to bottom. And we can use flexbox to easily achieve that.

@@ -18,16 +18,37 @@ function startOnLoad() {
 ///// GENERAL LISTENERS
 
 var myApp = {
-  init: function() {
-    this.lightbox();
+  init() {
+    var self = this;
+    // self.slider();
+    // self.lightbox();
   },
 
-  // Add lightbox on WP Gallery
-  lightbox: function() {
-    $('.gallery, .tiled-gallery').photoSwipe( 'a', {
-      shareEl: false,
-      fullscreenEl: false,
-    } );
+  /*
+    hSlider Example
+    https://github.com/hrsetyono/hSlider
+  */
+  slider() {
+    var instance = $('.wp-gallery').hSlider({
+      index: 0,
+      arrows: true,
+      dots: true,
+      itemsPerSlide: 3,
+      responsive: {
+        767: 2,
+        480: 1
+      }
+    });
+  },
+
+  /*
+    hLightbox Example
+    https://github.com/hrsetyono/hLightbox
+  */
+  lightbox() {
+    $('.wp-block-button a').hLightbox({
+      closeButton: true
+    });
   }
 };
 
@@ -35,7 +56,7 @@ var myApp = {
 ///// NAVIGATION
 
 var myNav = {
-  init: function() {
+  init() {
     var self = this;
     self.mobileNav();
     self.dialogNav();
@@ -46,15 +67,15 @@ var myNav = {
   /*
     Toggle mobile nav
   */
-  mobileNav: function() {
+  mobileNav() {
     var self = this;
     $('#nav-toggle').on( 'click', toggle );
-    $('.nav-wrapper').on( 'click', self.preventClose );
-
+    $('.nav-items').on( 'click', self.preventClose );
+    
 
     function toggle( e ) {
       e.stopPropagation();
-      $('body').removeClass( 'nav-dialog-is-active' ).toggleClass( 'nav-is-active' );
+      $('body').removeClass( 'dialog-is-active' ).toggleClass( 'nav-is-active' );
     }
   },
 
@@ -62,36 +83,37 @@ var myNav = {
   /*
     Toggle dialog nav
 
-    <a data-nav-toggle="my-dialog-id"> Click me </a>
-    <div id="my-dialog-id" class="nav-dialog">
+    <a data-dialog="my-dialog-id"> Click me </a>
+    <div id="my-dialog-id" class="dialog">
       ...
     </div>
   */
-  dialogNav: function() {
+  dialogNav() {
     var self = this;
-    $('.main-nav').on( 'click', '[data-nav-dialog]', toggle );
-    $( document.body ).on( 'click', '.nav-dialog', self.preventClose );
+    $( document.body ).on( 'click', '[data-dialog]', toggle );
+    $( document.body ).on( 'click', '.dialog', self.preventClose );
 
+    //
     function toggle( e ) {
       e.preventDefault();
       e.stopPropagation();
-      var $target = $( '#' + $(this).data( 'nav-dialog' ) );
+      var $target = $( '#' + $(this).data( 'dialog' ) );
 
-      $('.nav-dialog--active').not( $target ).removeClass( 'nav-dialog--active' ); // close other nav dialog
-      $('body').removeClass( 'nav-is-active' ).toggleClass( 'nav-dialog-is-active' ); // close main menu, toggle dialog menu
-      $target.toggleClass( 'nav-dialog--active' ); // toggle selected dialog menu
-     }
+      $('.dialog--active').not( $target ).removeClass( 'dialog--active' ); // close other nav dialog
+      $('body').removeClass( 'nav-is-active' ).toggleClass( 'dialog-is-active' ); // close main menu, toggle dialog menu
+      $target.toggleClass( 'dialog--active' ); // toggle selected dialog menu
+    }
   },
 
   // Close all nav when clicking outside
-  closeNav: function( e ) {
-    $('.nav-dialog--active').removeClass( 'nav-dialog--active' );
-    $('body').removeClass( 'nav-is-active nav-dialog-is-active' );
+  closeNav( e ) {
+    $('.dialog--active').removeClass( 'dialog--active' );
+    $('body').removeClass( 'nav-is-active  dialog-is-active' );
   },
 
 
   // Prevent nav closed when clicking this part
-  preventClose: function( e ) {
+  preventClose( e ) {
     e.stopPropagation();
   }
 };

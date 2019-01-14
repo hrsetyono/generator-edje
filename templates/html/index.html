@@ -12,7 +12,7 @@
 
   <!-- FAVICON -->
   <link rel="icon" href="assets/images/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-big.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/images/logo.png">
 
   <!-- STYLESHEET -->
   <link rel="stylesheet" href="assets/css/framework.css">
@@ -23,65 +23,99 @@
 <body>
 
 <!-- NAVIGATION -->
-<section class="main-nav">
-  <h-grid> <div class="nav-col">
-    <!-- Logo -->
-    <div class="nav-logo">
-      <a href="/" class="custom-logo-link">
-        <img src="assets/images/icon-144x144.png" class="custom-logo" itemprop="logo">
-      </a>
-    </div>
+<section class="main-nav"> <h-grid> <div class="large-12 nav-wrapper">
+  <!-- Logo -->
+  <div class="nav-logo">
+    <a href="/" class="custom-logo-link">
+      <img src="assets/images/logo.png" class="custom-logo" itemprop="logo">
+    </a>
+  </div>
 
-    <!-- Mobile toggle -->
-    <div id="nav-toggle" class="menu-item nav-toggle">
-      <a>
-        <i class="dashicons-before dashicons-menu"></i> Menu
-      </a>
-    </div>
+  <!-- Mobile toggle -->
+  <div id="nav-toggle" class="menu-item nav-toggle">
+    <a>
+      <i class="dashicons-before dashicons-menu"></i> Menu
+    </a>
+  </div>
 
-    <!-- Menu Item -->
-    <nav class="nav-wrapper">
-      <div class="menu-item current-menu-item">
-        <a href="/"> Home </a>
+  <!-- Nav Items -->
+  <nav class="nav-items">
+    <div class="nav-item current-menu-item">
+      <a href="/"> Home </a>
+    </div>
+    
+    <div class="nav-item">
+      <a href="/about"> About Us </a>
+
+      <div class="nav-children">
+        <a href="/company-profile">Company Profile</a>
+        <a href="/history">History</a>
       </div>
-      <div class="menu-item">
-        <a href="/about"> About </a>
-
-        <div class="nav-children">
-          <a href="/about#history"> History </a>
-          <a href="/about#location"> Location </a>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Menu Item aligned-right and still shown on mobile -->
-    <div class="nav-extra">
-      <form class="menu-item search-form" method="get" action="/search">
-        <input id="search" type="search" name="s" placeholder="Search">
-        <label for="search" class="search-toggle"> <i class="dashicons-before dashicons-search"></i> </label>
-      </form>
     </div>
 
-</div> </h-grid>
-</section>
+    <div class="nav-item">
+      <a href="/"> Contact Us </a>
+    </div>
+  </nav>
+
+  <!-- Nav Items aligned right -->
+  <div class="nav-extra">
+    <form class="nav-search" method="get" action="{{ home_url }}">
+      <input id="search" type="search" name="s" placeholder="Press Enter to search">
+
+      <label for="search" class="button button--passive">
+        <i class="dashicons-before dashicons-search"></i>
+        <span>Search</span>
+      </label>
+    </form>
+
+    <a href="tel:+1234567890" class="button">
+      <i class="dashicons-before dashicons-phone"></i>
+      <span>+12 3456 7890</span>
+    </a>
+  </div>
+
+</div> </h-grid> </section>
 
 <!-- MAIN CONTENT -->
-<div id="main-wrapper">
+<main>
 
-  <!-- Place content here -->
-  <h-grid>
-    <article class="large-12">
-      <h1>Hello World</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos quae, nostrum quo esse, repellendus deleniti eligendi impedit voluptas voluptatibus obcaecati.</p>
-    </article>
-  </h-grid>
+  <h-grid> <article class="large-12">
+    <h1>Hello World</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos quae, nostrum quo esse, repellendus deleniti eligendi impedit voluptas voluptatibus obcaecati.</p>
+  </article> </h-grid>
 
-  <div id="footer-push"></div>
-</div>
-<footer class="main-footer"></footer>
+</main>
+
+
+<!-- FOOTER -->
+<footer class="main-footer">
+  <div class="footer-bar">
+    <h-grid>
+      <div class="copyright large-6">
+        <header> Copyright &copy; 2019 My Website </header>
+      </div>
+
+      <div class="partners large-6">
+        <header>Created by:</header>
+        <a href="https://pixelstudio.id" target="_blank">
+          <img src="https://cdn.setyono.net/pixelstudio/partner-logo.png">
+
+          <div class="partner-caption">
+            <h5>Pixel Studio</h5>
+            <p>Web & App Design</p>
+          </div>
+        </a>
+      </div>
+
+    </div> </h-grid>
+  </div>
+</footer>
 
 <!-- JAVASCRIPT LIBRARY -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="assets/js-vendor/h-slider.min.js"></script>
+<script src="assets/js-vendor/h-lightbox.min.js"></script>
 <script src="assets/js/app.js"></script>
 
 </body>

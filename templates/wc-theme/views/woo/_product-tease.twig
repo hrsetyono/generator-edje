@@ -1,6 +1,6 @@
 {{ fn("timber_set_product", p) }} {# set context #}
 
-<li class="product-tease">
+<div class="product-tease">
   <figure>
     <a href="{{ p.link }}">
       <img src="{{ p.thumbnail ? p.thumbnail.src('medium') : fn('wc_placeholder_img_src') }}">
@@ -17,4 +17,4 @@
     {% do action("woocommerce_after_shop_loop_item_title") %}
     {% do action("woocommerce_after_shop_loop_item") %}
   </div>
-</li>
+</div>

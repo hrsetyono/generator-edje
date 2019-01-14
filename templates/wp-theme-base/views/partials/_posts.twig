@@ -3,14 +3,12 @@
   {# Featured Post #}
   {% if loop.first and post.thumbnail %}
     <article class="post-banner" style="background-image: url('{{ post.thumbnail.src('large') }}');">
-      <div class="post-banner-overlay">
-        {% include "partials/_post-meta.twig" %}
-        <a href="{{ post.link }}" class="banner-body">
-          <h2>{{ post.title }}</h2>
+      <a href="{{ post.link }}" class="post-banner-content">
+        <h2>{{ post.title }}</h2>
 
-          {{ post.get_preview(25, false, false) | wpautop }}
-        </a>
-      </div>
+        {{ post.get_preview(25, false, false) | wpautop }}
+      </a>
+      {% include "partials/_post-meta.twig" %}
     </article>
 
   {# Standard List #}

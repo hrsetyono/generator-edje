@@ -10,103 +10,97 @@
   {{ wp_head }}
 </head>
 
-<body class="{{ body_class }}">
+<body class="has-fixed-nav {{ body_class }}">
 
 <div id="main-wrapper">
 
-{# MAIN NAV #}
-{% block nav %}
 <section class="main-nav">
-<h-grid> <div class="nav-col">
-
-  <div class="main-logo">
+<h-grid> <div class="large-12 nav-wrapper">
+  
+  <div class="nav-logo">
     {{ fn('the_custom_logo') }}
-
-    {% if logo_mobile %}
-      <div class="mobile-logo">
-        <a href="{{ home_url }}"> <img src="{{ logo_mobile }}"> </a>
-      </div>
-    {% endif %}
   </div>
 
-  <div id="nav-toggle" class="nav-item nav-item--toggle">
+  <div id="nav-toggle" class="nav-toggle">
     <a>
       <i class="dashicons-before dashicons-menu"></i> <b>Menu</b>
     </a>
   </div>
 
-  <nav class="nav-item-wrapper">
+  <nav class="nav-items">
   {% for item in nav.items %}
     <div class="nav-item {{ item.class }}">
       <a href="{{ item.url }}"> {{ item.title }} </a>
 
-      {# child menu #}
       {% if item.children %}
-        <div class="nav-dialog nav-dialog--children">
-          {% for child in item.children %}
-            <a href="{{ child.url }}">{{ child.title }}</a>
-          {% endfor %}
+        <div class="nav-children">
+        {% for child in item.children %}
+          <a href="{{ child.url }}">{{ child.title }}</a>
+        {% endfor %}
         </div>
       {% endif %}
     </div>
   {% endfor %}
   </nav>
 
-
   <div class="nav-extra">
-    <a href="/my-account/" class="button-passive">
+    <a href="/my-account/" class="button button--passive">
       <i class="dashicons-before dashicons-admin-users"></i> Login
     </a>
 
     {% include "woo/_cart-nav.twig" %}
 
-    {# Search #}
-    <form class="menu-item search-form" method="get" action="{{ home_url }}">
-      <input id="search" type="search" name="s" placeholder="Search">
-      <label for="search" class="search-toggle"> <i class="dashicons-before dashicons-search"></i> </label>
+    <form class="nav-search" method="get" action="{{ home_url }}">
+      <input id="search" type="search" name="s" placeholder="Press Enter to search">
+
+      <label for="search" class="button button--passive">
+        <i class="dashicons-before dashicons-search"></i>
+        <span>Search</span>
+      </label>
     </form>
   </div>
 
 </div> </h-grid>
 </section>
 
-{% endblock %}
 
-  {# MAIN CONTENT #}
+<main>
   {% block content %}{% endblock %}
+</main>
 
-  {# Use mixin `@sticky-footer($height-px)` to push the footer when content is not high enough #}
-  <div id="footer-push"></div>
-</div>
 
-{# MAIN FOOTER #}
-{% block footer %}
 <footer class="main-footer">
-<h-grid>
-  <nav class="footer-nav large-12">
-    {% for item in nav.items %}
-      <a href="{{ item.link }}">{{ item.title }}</a>
-    {% endfor %}
-  </nav>
-</h-grid>
+  {% if footer_widgets %}
+    <div class="footer-widgets">
+      <h-grid> {{ footer_widgets }} </h-grid>
+    </div>
+  {% endif %}
 
-<h-grid>
-  <div class="footer-legal large-8">
-    &copy; {{ "now" | date("Y") }} {{ site.name }}
+  <div class="footer-bar">
+    <h-grid>
+      <div class="copyright large-6">
+        <header> Copyright &copy; {{ "now" | date("Y") }} {{ site.name }} </header>
 
-    <a href="/privacy-policy">Privacy Policy</a>
-    <a href="/sitemap.xml">Sitemap</a>
+        {% for i in social_nav.items %}
+          <a href="{{ i.url }}" target="_blank" class="social-logo social-logo__{{ i.title }}"> </a>
+        {% endfor %}
+      </div>
+
+      <div class="partners large-6">
+        <header>Created by:</header>
+        <a href="https://pixelstudio.id" target="_blank">
+          <img src="https://cdn.setyono.net/pixelstudio/partner-logo.png">
+
+          <div class="partner-caption">
+            <h5>Pixel Studio</h5>
+            <p>Web & App Design</p>
+          </div>
+        </a>
+      </div>
+
+    </div> </h-grid>
   </div>
-
-    {# https://github.com/hrsetyono/generator-edje/wiki/(Jetpack)-Social-Menu #}
-  <div class="footer-social large-4">
-    {% for item in social_nav.items %}
-      <a class="social-logo social-logo__{{ item.title }}" href="{{ item.link }}"></a>
-    {% endfor %}
-  </div>
-</h-grid>
 </footer>
-{% endblock %}
 
 {{ wp_footer }}
 

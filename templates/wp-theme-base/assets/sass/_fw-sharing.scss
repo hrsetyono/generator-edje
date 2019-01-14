@@ -29,7 +29,7 @@ $social-logos: (
 .sharedaddy {
   margin: 2em 0 2em;
   padding-top: 2em;
-  border-top: 1px solid $color-passive;
+  border-top: 1px solid $gray;
 
   .share-end {
     display: none;
@@ -38,7 +38,7 @@ $social-logos: (
   .sd-title {
     margin: 0 0 1em 0;
     letter-spacing: 0.5px;
-    font-size: em($font-size-small);
+    font-size: em($font-size-s);
     text-transform: uppercase;
     white-space: nowrap;
 
