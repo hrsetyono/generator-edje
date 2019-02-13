@@ -29,7 +29,7 @@ var myApp = {
     https://github.com/hrsetyono/hSlider
   */
   slider() {
-    var instance = $('.wp-gallery').hSlider({
+    $('.wp-gallery').hSlider({
       index: 0,
       arrows: true,
       dots: true,

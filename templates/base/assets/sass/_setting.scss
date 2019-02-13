@@ -89,6 +89,13 @@ $h5: (base: 20px,  s: 18px);
 $h6: (base: $font-size,  s: $font-size);
 
 
+// Shadow
+$shadow-z0: 0 0.5px 2px rgba(black, .18), 0 1.5px 6px rgba(black, .08);
+$shadow-z1: 0 1.5px 4px rgba(black, .24), 0 1.5px 6px rgba(black, .12);
+$shadow-z2: 0 3px 12px rgba(black, .23), 0 3px 12px rgba(black, .16);
+$shadow-z3: 0 6px 12px rgba(black, .23), 0 10px 40px rgba(black, .19);
+
+
 ///// CUSTOM MIXIN
 
 $spinner_path: '../../../../../wp-admin/images/spinner.gif';
@@ -108,6 +115,7 @@ $h-custom: (
 //   names: ( h: height ),
 //   values: (
 //     '-auto': auto,
+//     0: 0,
 //     25: 25%,
 //     33: calc(100% / 3),
 //     50: 50%,
@@ -119,11 +127,11 @@ $h-custom: (
 // );
 
 
-
 // $h-width: (
 //   names: ( w: width ),
 //   values: (
 //     '-auto': auto,
+//     0: 0,
 //     10: 10%,
 //     20: 20%,
 //     25: 25%,
@@ -143,8 +151,7 @@ $h-custom: (
 // );
 
 
-
-// $h-position-move: (
+// $h-position: (
 //   names: (
 //     top: top,
 //     right: right,
@@ -159,10 +166,12 @@ $h-custom: (
 //   )
 // );
 
+
 // $h-z-index: (
 //   names: ( z: z-index ),
 //   values: (
 //     '-1': -1,
+//     0: 0,
 //     2: 2,
 //     5: 5,
 //     10: 10,
@@ -199,6 +208,7 @@ $h-custom: (
 //   ),
 // );
 
+
 // $h-margin: (
 //   names: (
 //     m: margin,
@@ -225,6 +235,7 @@ $h-custom: (
 //   )
 // );
 
+
 // $h-border: (
 //   names: (
 //     b: border,
@@ -234,7 +245,7 @@ $h-custom: (
 //     bb: border-bottom,
 //   ),
 //   values: (
-//     '-none': none,
+//     '0': 0,
 //     '1-solid': 1px solid,
 //     '1-dashed': 1px dashed,
 //     '2-solid': 2px solid,
@@ -242,30 +253,33 @@ $h-custom: (
 //   )
 // );
 
+
 // $h-border-color: (
 //   names: ( bc-: border-color ),
 //   values: (
-//     transparent: transparent,
 //     main: $main,
 //     main-dark: $main-dark,
 //     main-light: $main-light,
-    
 //     sub: $sub,
 //     sub-dark: $sub-dark,
 //     sub-light: $sub-light,
-
+//
+//     'transparent': transparent,
 //     gray: $gray,
 //     gray-dark: $gray-dark,
 //     gray-light: $gray-light,
-
-//     black: black,
+//     'red': $red,
+//     'green': $green,
+//     'blue': $blue,
+//     'yellow': $yellow,
+//
+//     'black': black,
 //     black75: rgba(black, .75),
 //     black50: rgba(black, .50),
 //     black25: rgba(black, .25),
 //     black10: rgba(black, .10),
 //     black05: rgba(black, .05),
-
-//     white: white,
+//     'white': white,
 //     white75: rgba(white, .75),
 //     white50: rgba(white, .50),
 //     white25: rgba(white, .25),
@@ -274,11 +288,12 @@ $h-custom: (
 //   )
 // );
 
+
 // $h-border-radius: (
+//   brad0: ( border-radius: 0 ),
 //   brad: ( border-radius: $g-radius ),
 //   brad-circle: ( border-radius: 50% ),
 //   brad-pill: ( border-radius: 999px ),
-//   brad0: ( border-radius: 0 ),
 // );
 
 
@@ -293,7 +308,7 @@ $h-font-size: (
     h4: '%h4',
     h5: '%h5',
     h6: '%h6',
-    body: $font-size,
+    body: 1rem,
     s: 0.875em,
     m: 1.125em,
   ),
@@ -304,32 +319,33 @@ $h-font-size: (
 //   values: (
 //     body: $font-color,
 //     passive: $font-passive,
+//     link: $color-link,
 //     inherit: inherit,
+//     'transparent': transparent,
 
 //     main: $main,
 //     main75: rgba($main, .75),
 //     main50: rgba($main, .5),
 //     main-dark: $main-dark,
 //     main-light: $main-light,
-
 //     sub: $sub,
 //     sub-dark: $sub-dark,
 //     sub-light: $sub-light,
 
-//     red: $red,
-//     green: $green,
-//     blue: $blue,
-//     yellow: $yellow,
+//     'red': $red,
+//     'green': $green,
+//     'blue': $blue,
+//     'yellow': $yellow,
 
-//     black: black,
+//     'black': black,
 //     black75: rgba(black, .75),
 //     black50: rgba(black, .5),
-
-//     white: white,
+//     'white': white,
 //     white75: rgba(white, .75),
 //     white50: rgba(white, .5),
 //   ),
 // );
+
 
 // $h-letter-spacing: (
 //   names: ( ls: letter-spacing ),
@@ -346,13 +362,15 @@ $h-font-size: (
 //   )
 // );
 
-// $h-font-family: (
-//   names: ( ff-: font-family ),
-//   values: (
-//     body: $font-family,
-//     header: $font-family-header
-//   )
-// );
+
+$h-font-family: (
+  names: ( ff-: font-family ),
+  values: (
+    body: $font-family,
+    header: $font-family-header
+  )
+);
+
 
 // $h-line-height: (
 //   names: ( lh-: line-height ),
@@ -367,11 +385,13 @@ $h-font-size: (
 
 ///// THEME -----
 
+
 // $h-background-color: (
 //   names: ( bg-: background-color ),
 //   values: (
 //     body: $body-background,
-//     transparent: transparent,
+//     'transparent': transparent,
+//     'inherit': inherit,
     
 //     main: $main,
 //     main75: rgba($main, .75),
@@ -381,7 +401,6 @@ $h-font-size: (
 //     main05: rgba($main, .05),
 //     main-dark: $main-dark,
 //     main-light: $main-light,
-    
 //     sub: $sub,
 //     sub-dark: $sub-dark,
 //     sub-light: $sub-light,
@@ -390,19 +409,18 @@ $h-font-size: (
 //     gray-dark: $gray-dark,
 //     gray-light: $gray-light,
 
-//     red: $red,
-//     blue: $blue,
-//     yellow: $yellow,
-//     green: $green,
+//     'red': $red,
+//     'blue': $blue,
+//     'yellow': $yellow,
+//     'green': $green,
 
-//     black: black,
+//     'black': black,
 //     black75: rgba(black, .75),
 //     black50: rgba(black, .50),
 //     black25: rgba(black, .25),
 //     black10: rgba(black, .10),
 //     black05: rgba(black, .05),
-
-//     white: white,
+//     'white': white,
 //     white75: rgba(white, .75),
 //     white50: rgba(white, .50),
 //     white25: rgba(white, .25),
@@ -412,10 +430,12 @@ $h-font-size: (
 // );
 
 
-// $h-background-image: (
-//   names: ( bg-: background-image ),
-//   values: ()
-// );
+// Can contain url() and gradient. By default it's empty
+$h-background-image: (
+  names: ( bg-: background-image ),
+  values: ()
+);
+
 
 // $h-opacity: (
 //   names: ( o: opacity ),
@@ -426,9 +446,14 @@ $h-font-size: (
 //     70: .7,
 //     60: .6,
 //     50: .5,
+//     40: .4,
+//     30: .3,
+//     20: .2,
+//     10: .1,
 //     0: 0,
 //   )
 // );
+
 
 // $h-shadow: (
 //   names: ( shadow: box-shadow ),
@@ -440,6 +465,7 @@ $h-font-size: (
 //     '-none': none,
 //   )
 // );
+
 
 // $h-hover: (
 //   hover-dim: (
@@ -456,4 +482,5 @@ $h-font-size: (
 
 // $h-transition: (
 //   transition: ( transition: $g-transition ),
+//   transition-none: ( transition: none ),
 // );
