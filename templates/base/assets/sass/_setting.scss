@@ -69,7 +69,7 @@ $g-radius     : 4px;
 
 ///// TYPOGRAPHY
 $font-color : #222;
-$font-gray : #888;
+$font-passive : #888;
 
 // $font-weight : 400;
 // $font-line : 1.65;
@@ -363,13 +363,13 @@ $h-font-size: (
 // );
 
 
-$h-font-family: (
-  names: ( ff-: font-family ),
-  values: (
-    body: $font-family,
-    header: $font-family-header
-  )
-);
+// $h-font-family: (
+//   names: ( ff-: font-family ),
+//   values: (
+//     body: $font-family,
+//     header: $font-family-header
+//   )
+// );
 
 
 // $h-line-height: (

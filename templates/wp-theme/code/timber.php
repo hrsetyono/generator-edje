@@ -33,6 +33,7 @@ class MyTimber extends TimberSite {
     }
 
     // ACF Options Page, enable if you're using it
+    
     // if( function_exists( 'acf_add_options_page' )) {
     //   $context['options'] = get_fields( 'options' );
     // }

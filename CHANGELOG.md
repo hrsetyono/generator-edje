@@ -1,3 +1,8 @@
+## 2.0.1
+
+- [JS] Added hScroll library.
+- 
+
 ## 2.0.0
 
 - [JS] Replaced Slick JS with our own library: hSlider.

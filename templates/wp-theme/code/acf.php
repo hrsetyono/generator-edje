@@ -3,13 +3,32 @@
   Handle Advanced Custom Fields plugin
 */
 class MyACF {
-  public $_custom_blocks = array();
-
   function __construct() {
-    add_action( 'acf/init', array($this, 'create_blocks') );
     add_filter( 'acf/format_value/name=sample_field', array($this, 'format_sample_field'), 10, 3 );
   }
 
+  /*
+    Format Sample Field
+  */
+  function format_sample_field( $value, $post_id, $field ) {
+    return $value;
+  }
+
+}
+
+
+
+/*
+  Handle interaction with Gutenberg blocks
+*/
+class MyBlock {
+  function __construct() {
+    add_action( 'acf/init', array($this, 'create_blocks') );
+
+    add_action( 'enqueue_block_assets', array($this, 'enqueue_assets') );
+  }
+
+  
   /*
     Create gutenberg blocks
   */
@@ -21,15 +40,23 @@ class MyACF {
     ) );
   }
 
-   /*
-    Format Sample Field
+  /*
+    Enqueue assets required to modify Block Editor
   */
-  function format_sample_field( $value, $post_id, $field ) {
-    return $value;
+  function enqueue_assets() {
+    if ( !is_admin() ) { return false; }
+    
+    $css_dir = get_stylesheet_directory_uri() . '/assets/css';
+    $js_dir = get_stylesheet_directory_uri() . '/assets/js';
+
+    wp_enqueue_script( 'block-editor', $js_dir . '/block-editor.js', array( 'wp-blocks', 'wp-element' ), false, true );
+    wp_enqueue_style( 'block-editor', $css_dir . '/block-editor.css', array( 'wp-edit-blocks' ) );
   }
+
 
   /////
 
+  
   /*
     Create gutenberg block
     @param $name (string) - Block slug
@@ -59,25 +86,5 @@ class MyACF {
 
     Timber::render( "/blocks/_$slug.twig", $context );
   }
-}
-
-
-
-/*
-  Handle interaction with Gutenberg blocks
-*/
-class MyBlock {
-  function __construct() {
-    add_action( 'enqueue_block_assets', array($this, 'enqueue_assets') );
-  }
-
-  function enqueue_assets() {
-    if ( !is_admin() ) { return false; }
-    
-    $css_dir = get_stylesheet_directory_uri() . '/assets/css';
-    $js_dir = get_stylesheet_directory_uri() . '/assets/js';
-
-    wp_enqueue_script( 'block-editor', $js_dir . '/block-editor.js', array( 'wp-blocks', 'wp-element' ), false, true );
-    wp_enqueue_style( 'block-editor', $css_dir . '/block-editor.css', array( 'wp-edit-blocks' ) );
-  }
+  
 }
