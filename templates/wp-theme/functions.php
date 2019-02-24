@@ -1,9 +1,9 @@
 <?php
 
-require_once 'code/addon.php';
+require_once 'codes/addon.php';
 if( !MyHelper::has_required_plugins() ) { return false; }
-require_once 'code/timber.php';
-require_once 'code/acf.php';
+require_once 'codes/timber.php';
+require_once 'codes/acf.php';
 
 add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts', 100 );
 add_action( 'after_setup_theme', 'my_after_setup_theme' );

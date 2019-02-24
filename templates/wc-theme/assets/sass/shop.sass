@@ -22,19 +22,19 @@ $wc-panel-dark: darken($wc-panel, 5%)
   +h( fw-body fs-s )
 
 // Toast alert
-+animate( flipInX )
+@keyframes flipInX
   from
-    +transform(perspective(400px) rotate3d(1, 0, 0, 90deg))
-    +animation-timing-function(ease-in)
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg)
+    animation-timing-function: ease-in
   40%
-    +transform(perspective(400px) rotate3d(1, 0, 0, -20deg))
-    +animation-timing-function(ease-in)
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg)
+    animation-timing-function: ease-in
   60%
-    +transform(perspective(400px) rotate3d(1, 0, 0, 10deg))
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg)
   80%
-    +transform(perspective(400px) rotate3d(1, 0, 0, -5deg))
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg)
   to
-    +transform(perspective(400px))
+    transform: perspective(400px)
 
 
 .woocommerce-info,
@@ -45,9 +45,7 @@ $wc-panel-dark: darken($wc-panel, 5%)
   bottom: 1em
   right: 1em
 
-  +animation-name(flipInX)
-  +animation-duration(1s)
-  +animation-fill-mode(both)
+  animation: 1s flipInX both
 
   .button
     +h( events-all mt05 pv025 )
