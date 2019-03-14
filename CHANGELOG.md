@@ -1,7 +1,12 @@
+## 3.0.0
+
+- [WP] [WC] Combined these two themes under one name: "wordpress".
+- [CSS] Now using the new Edje 2.0.
+- [JS] Removed dependencies to jQuery.
+
 ## 2.0.1
 
 - [JS] Added hScroll library.
-- 
 
 ## 2.0.0
 

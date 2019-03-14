@@ -1,0 +1,233 @@
+.main-nav
+  +h( relative bg-white bb1-solid bc-gray z100 pv075 )
+
+  .has-fixed-nav &
+    +h( fixed w100 )
+
+
+.nav-wrapper
+  +h( d-flex ai-center )
+
+
+// make body clickable to close the NAV when it's active
+body.nav-is-active,
+body.dialog-is-active
+  +h( cursor-pointer )
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+
+
+// MAIN LOGO
+.nav-logo
+  img
+    +h( w-auto )
+    height: 2.5em
+
+  @media ($below-nav-s)
+    +h( order1 mv0 mh-auto )
+
+
+// NAV ITEMS WRAPPER
+.nav-items
+  +h( d-flex flex1 jc-start fw-wrap transition )
+
+  @media ($below-nav-s)
+    +h( fd-column v-hidden fixed o0 z100 top0 left0 bottom0 )
+    +h( pt3 pb2 ph0 bg-white transition shadow2 )
+    width: 180px
+    transform: translateX(-100%)
+
+  .nav-is-active &
+    +h( v-visible o100 )
+    transform: none
+
+
+// NAV ITEM
+.nav-item
+  +h( relative )
+
+  > a
+    +h( d-block pv075 ph1 c-body transition-none )
+
+    &:hover
+      +h( o70 )
+
+  // current page
+  &.current-menu-item,
+  &.current-page-ancestor,
+  &.current-menu-ancestor,
+  &.current-menu-parent,
+  &.current_page_parent
+    > a
+      +h( c-main )
+
+
+// NAV ITEM CHILDREN
+.nav-children
+  +h( absolute v-hidden o0 top100 left0 bg-gray-light nowrap )
+  +h( p025 shadow1 brad transition )
+  width: 200px
+
+  .nav-item:hover &
+    +h( v-visible o100 )
+
+  a
+    +h( d-block pv025 ph05 c-inherit brad )
+
+  a:hover
+    +h( bg-gray )
+
+  //
+  @media ($below-nav-s)
+    +h( top0 left100 )
+    transform: translateX(-10px)
+    
+    a
+      +h( pv05 ph075 )
+
+
+// NAV MOBILE TOGGLE
+.nav-toggle
+  i
+    +h( lh-base )
+
+  i, b
+    +h( d-inline-block va-middle )
+
+  .dashicons-before::before
+    +h( fs-m )
+    width: 18px
+    height: 18px
+
+  @media ($above-nav-s)
+    +h( d-none )
+
+
+// NAV EXTRA
+.nav-extra
+  +h( d-flex order2 ai-center relative )
+
+  .button
+    +h( lh-base ml025 )
+
+  span
+    line-height: 20px
+
+  //
+  @media ($below-s)
+    span
+      +h( d-none )
+
+
+// SEARCH FORM
+.nav-search
+  +h( d-flex relative )
+
+.nav-search [type="search"]
+  +h( absolute top50 left100 pv05 ph0 w0 o0 ) 
+  transform: translateX(-100%) translateY(-50%)
+
+  &:focus
+    +h( o100 pr25 pl05 )
+    width: 250px
+
+  &:focus ~ label
+    +h( d-none )
+
+
+// DIALOG
+.dialog
+  +h( absolute v-hidden o0 top100 right0 bg-body )
+  +h( p025 brad shadow1 transition )
+  width: 300px
+  transform: translateY(-1.5em)
+
+  @media ($below-nav-s)
+    top: calc(100% + 10px)
+
+  &.dialog--active
+    +h( v-visible o100 )
+    transform: none
+    
+
+///// MAIN FOOTER /////
+
+body
+  +h( d-flex fd-column ovx-hidden h100vh )
+
+.main-footer
+  +h( mt-auto bg-black75 c-white )
+
+// widgets
+.footer-widgets
+  +h( pv25 c-white50 fs-s )
+
+  h-grid
+    grid-row-gap: $grid-gap
+
+  .widget
+    +h( list-none )
+    +column(4)
+
+  .widgettitle
+    +h( mb025 c-white75 fs-h5 )
+
+  ul
+    +h( pl125 )
+
+///// FOOTER BAR
+
+.footer-bar
+  +h( pv05 bg-main10 c-white50 fs-s )
+
+.copyright,
+.partners
+  +h( d-flex fw-wrap ai-center )
+
+  header
+    +h( fw700 )
+    line-height: 1.4
+
+.copyright
+  a
+    +h( mr05 )
+
+  @media ($above-s)
+    header
+      +h( mr15 )
+
+// partners
+.partners
+  +h( jc-end )
+
+  img
+    +h( p025 )
+    width: 32px
+
+  a
+    +h( d-block relative mh025 bg-main25 brad-circle transition )
+    
+  a:hover
+    +h( bg-main50 c-white )
+
+.partner-caption
+  +h( v-hidden o0 absolute right0 pv05 ph1 bg-main )
+  +h( c-white ta-center brad transition )
+  bottom: calc(100% + 8px)
+  transform: translateY(20px)
+
+  &::after
+    content: ""
+    +h( absolute top100 )
+    right: 10px
+    +triangle(12px, bottom, $main, 5px)
+
+  a:hover &
+    +h( v-visible o100 )
+    transform: none
+
+  h5
+    +h( fs-s ff-body c-white nowrap )
+
+  p
+    +h( nowrap )
+    font-size: 12px

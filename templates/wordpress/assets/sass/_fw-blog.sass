@@ -1,0 +1,780 @@
+$blog-width: 650px
+$blog-font-size: 18px
+
+$below-related-s: "max-width:870px"
+
+$output-gallery: true
+$output-blog: true
+$output-related: true
+$output-comment: true
+$output-password-form: false
+$output-infinite-scroll: false
+
+///// ARTICLE
+
+article
+  letter-spacing: 0.01 * $font-size
+
+  h1, h2, h3, h4, h5, h6
+    +h( mb15 )
+    
+  a
+    +h( u )
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  pre,
+  table,
+  figure
+    +h( mb15 )
+
+  hr
+    +h( d-block b0 bt1-solid bc-gray mv25 p0 )
+    height: 1px
+
+  ul, ol
+    +h( pl15 )
+
+  ul ul,
+  ol ol
+    +h( mb0 )
+
+  img
+    +h( brad )
+
+///// BLOCKQUOTE
+
+blockquote
+  +h( p1 pl2 bg-gray-light )
+  border-left: 4px solid $main
+  
+  p
+    +h( mb0 )
+
+  cite
+    +h( d-block mt1 fs-s )
+
+  &.alignleft,
+  &.align-right
+    +h( ml0 )
+
+///// TABLE
+
+article table
+  +h( w100 )
+  border-top: 4px solid $main
+
+  tr
+    +h( bg-body )
+
+  th, td
+    +h( pv025 ph05 b1-solid bc-gray-light ta-left )
+
+  th,
+  tr:nth-child(odd) td
+    +h( bg-gray-light )
+
+  p, ul, ol
+    +h( mb0 )
+
+///// PREFORMATTED & CODE
+
+pre,
+code
+  +h( b1-solid bc-gray bg-gray-light brad )
+  font-size: 15px
+
+pre
+  +h( p1 )
+
+code
+  +h( pv0 ph05 )
+
+pre code
+  +h( p0 b0 bg-transparent )
+
+
+///// EDITOR STYLE
+
+h1, h2, h3, h4, h5, h6
+  +h( clear-both )
+
+.alignleft
+  +h( float-left mr1 )
+
+.alignright
+  +h( float-right ml1 )
+
+.alignleft,
+.alignright
+  +h( mb1 maxw50 )
+
+  @media ($below-s)
+    +h( float-none maxw-none )
+
+.aligncenter
+  +h( d-block mh0 mv-auto clear-both )
+
+
+
+///// GUTENBERG
+
+.alignfull,
+.alignwide
+  +h( w-auto )
+
+  @media ($above-s)
+    margin-right: -5em
+    margin-left: -5em
+
+.wp-block-pullquote
+  +h( fs-h4 pv1 ph0 bt2-solid bb2-solid bc-gray )
+  +h( bg-gray-light ta-center )
+
+  cite
+    +h( ta-center )
+
+
+///// CAPTION
+.wp-caption,
+.wp-block-image,
+.wp-block-embed
+  +h( relative mb15 ta-center )
+  width: auto !important
+
+.wp-caption-text
+  +h( d-inline-block mt05 mb0 mh-auto bb1-solid bc-gray )
+  +h( fs-s )
+
+
+///// EMBED
+.wp-embedded-content
+  +h( maxw100 )
+
+
+///// PAGINATION
+.pagination
+  +h( d-flex mv2 fs-s c-passive ta-center )
+
+  a,
+  select
+    +h( cursor-pointer w-auto no-appearance )
+
+  select:not(:hover)
+    +h( bc-transparent )
+
+  a
+    +h( as-center )
+  
+  a:first-child
+    +h( mr-auto )
+  
+  a:last-child
+    +h( ml-auto )
+  
+  // no href
+  a:not([href])
+    +h( v-hidden o0 )
+
+
+///// MEDIA & GALLERY
+@if $output-gallery
+  .gallery,
+  .tiled-gallery
+    +h( mb15 )
+
+    a
+      +h( d-block )
+
+    a img
+      +h( cursor-pointer transition )
+
+    a:hover img
+      +h( o70 )
+
+  .gallery[class*="gallery-columns-"]
+    +h( d-flex fw-wrap )
+
+  .gallery-item
+    padding: 0 1px
+    margin-top: 0 !important
+    margin-bottom: 2px
+
+    img
+      +h( brad )
+      border: none !important
+
+    .gallery-columns-2 &
+      width: percentage(1 / 2)
+    .gallery-columns-3 &
+      width: percentage(1 / 3)
+    .gallery-columns-4 &
+      width: percentage(1 / 4)
+    .gallery-columns-5 &
+      width: percentage(1 / 5)
+    .gallery-columns-6 &
+      width: percentage(1 / 6)
+    .gallery-columns-7 &
+      width: percentage(1 / 7)
+    .gallery-columns-8 &
+      width: percentage(1 / 8)
+    .gallery-columns-9 &
+      width: percentage(1 / 9)
+
+  ul.wp-block-gallery
+    +h( pl0 )
+
+// @if $output-gallery
+
+
+
+///// BLOG
+@if $output-blog
+  // Generic
+  .post-grid
+    +grid(4, $width: $blog-width)
+
+  .post-content
+    font-size: em($blog-font-size)
+  
+  .post-featured-image
+    +h( ta-center )
+    margin-bottom: 2em
+    
+    img
+      +h( brad )
+  
+  .post-header
+    +h( mv2 mh0 )
+
+  ///// POST META
+  // Appear in Tease, Tease banner, and Single header
+  .post-meta
+    +h( relative )
+
+    a
+      +h( c-inherit td-none )
+      &:hover
+        +h( u )
+        
+    .dashicons-before::before
+      +h( fs-body va-middle )
+      width: 1em
+      height: 1em
+
+    .post-banner &
+      +h( o80 z2 mb1 c-white )
+
+    .post-tease &
+      +h( c-passive )
+    
+    .post-header &
+      +h( mt05 pv05 )
+      border-top: 1px solid $gray
+      border-bottom: 2px solid $font-color
+
+  .meta-author
+    +h( pr05)
+
+  .meta-category
+    +h( tt-uppercase )
+    
+  .meta-date,
+  .meta-comments
+    +h( d-inline-block ph05 bl1-solid bc-gray )
+    
+    @media ($below-s)
+      +h( ph05 )
+    
+    @media ($below-xs)
+      +h( w100 )
+
+
+  ///// POST TEASE
+  .post-tease
+    +h( d-flex fd-row-reverse relative pb2 mv2 bb1-solid bc-gray )
+
+    a
+      +h( td-none c-inherit )
+    figure
+      +h( mb0 ml075 )
+    
+    //
+    @media ($below-s)
+      +h( d-block )
+      figure
+        +h( float-right )
+      img
+        width: 150px
+
+    @media ($below-m)
+      img
+        width: 100px
+
+  .tease-body
+    +h( flex1 )
+
+    > a:hover h3
+      +h( td-underline )
+    h3
+      +h( m0 mb05 )
+    p
+      +h( mb1 )
+
+    @media ($below-s)
+      h3
+        +h( clear-none )
+        
+
+  ///// POST BANNER
+  .post-banner
+    +h( d-flex fd-column jc-end relative ov-hidden )
+    +h( bgs-cover bgp-cc brad )
+    margin: 0 -50px 2em
+    padding: 1.5em 50px
+    height: 350px
+
+    //
+    @media ($below-m)
+      margin-right: -$grid-rim
+      margin-left: -$grid-rim
+
+    @media ($below-s)
+      height: 300px
+      padding: 1em 10px
+
+    &::before
+      content: ""
+      +h( absolute z2 top0 left0 w100 h100 bg-black50 )
+
+  .post-banner-content
+    +h( relative z10 td-none c-white )
+
+    *
+      +h( c-white )
+
+    &:hover h2
+      +h( td-underline )
+
+
+  ///// BLOG NAV
+  .blog-nav
+    +h( d-flex fw-wrap mv2 pv05 )
+    border-bottom: 2px solid $font-color
+    border-top: 1px solid $gray
+
+    a
+      +h( d-inline-block pv025 ph05 )
+      +h( c-body tt-uppercase fs-s ls25 brad transition )
+
+      &:hover
+        +h( c-main )
+      &.active
+        +h( bg-main c-white )
+
+
+  ///// AUTHOR
+  .post-author
+    +h( d-flex pv2 mt1 bt1-solid bc-gray )
+
+    h6
+      +h( mt0 mb05 )
+    //
+    @media ($below-xs)
+      +h( fd-column ta-center )
+
+  .banner-author
+    +h( pv2 ta-center )
+
+  // Author image
+  .author-image
+    img
+      +h( b1-solid bc-gray p025 brad )
+      height: 4em
+      width: 4em
+    .banner-author &
+      +h( mb1 )
+    //
+    @media ($below-xs)
+      +h( mb1 )
+
+  // Author text
+  .author-text
+    .post-author &
+      +h( flex1 pv0 ph075 )
+      p
+        +h( mb0 fs-s )
+
+    .banner-author &
+      +h( mb15 )
+    
+    * + p
+      +h( mt05 )
+
+    a
+      +h( c-inherit td-none )
+      &:hover
+        +h( c-inherit td-underline )
+
+    b
+      +h( tt-uppercase fw-body fs-s ls50 )
+      .post-author &
+        +h( d-none )
+
+    .author-url
+      +h( c-passive ) 
+      .banner-author &
+        +h( c-main )
+    
+    //
+    @media ($below-xs)
+      +h( mb1 )
+
+// @if $output-blog
+
+
+
+///// RELATED /////
+@if $output-related
+  .post-footer
+    +h( pt1 bg-black05 )
+
+  .post-footer-grid
+    +grid(4, $width: $blog-width * 0.9)
+  
+  // heading
+  div#jp-relatedposts h3.jp-relatedposts-headline,
+  .post-comments h4
+    +h( d-block float-none mv2 )
+    +h( fs-h5 ls50 tt-uppercase )
+    //
+    @media ($below-s)
+      +h( fs-m )
+
+  ///// RELATED POSTS (Jetpack)
+  div#jp-relatedposts
+    +h( d-block pt0 mb3 )
+
+    // list
+    div.jp-relatedposts-items
+      +h( d-flex clearfix )
+      margin: 0 -125px
+      //
+      @media ($below-related-s)
+        margin: 0 -5px
+      //
+      @media ($below-s)
+        +h( fd-column m0 )
+
+    // main title
+    h3.jp-relatedposts-headline
+      em
+        font-style: normal
+      em::before
+        +h( d-none )
+
+    // single item
+    div.jp-relatedposts-items .jp-relatedposts-post
+      +h( ov-hidden p1 mh075 w33 o100 bg-white )
+      +h( shadow0 brad )
+
+      // hide underline when hovering the whole box
+      &:hover .jp-relatedposts-post-title .jp-relatedposts-post-a
+        +h( td-none )
+      //
+      @media ($below-related-s)
+        +h( mh025 )
+      //
+      @media ($below-s)
+        +h( w100 m0 mb1 )
+
+    // single image
+    .jp-relatedposts-post > .jp-relatedposts-post-a
+      +h( ov-hidden d-block )
+      max-height: 160px
+      margin: -1em
+      margin-bottom: 1em
+
+      // underline title when hovering image
+      &:hover + .jp-relatedposts-post-title
+        +h( td-underline )
+
+    // single title
+    div.jp-relatedposts-items .jp-relatedposts-post .jp-relatedposts-post-title
+      +h( clear-none fs-m ls0 lh-header )
+      &:hover
+        +h( td-underline )
+      a
+        +h( d-block fw-header c-inherit )
+
+      @media ($below-xs)
+        +h( fs-body )
+
+    // meta
+    div.jp-relatedposts-items .jp-relatedposts-post
+      p, span
+        +h( ov-visible maxw100 fs-s )
+
+      .jp-relatedposts-post-excerpt,
+      .jp-relatedposts-post-context
+        +h( d-none )
+
+      .jp-relatedposts-post-date
+        +h( d-inline-block o60 )
+        //
+        @media ($below-xs)
+          +h( fs-s )
+
+    // visual layout
+    div.jp-relatedposts-items div.jp-relatedposts-post-thumbs
+      //
+      @media ($below-related-s)
+        +h( fs-s )
+      //
+      @media ($below-s)
+        +h( pb0 )
+
+        > .jp-relatedposts-post-a
+          +h( float-left mr075 mb0 )
+          max-width: 150px
+
+    // next prev
+    &.jp-next-prev
+      div.jp-relatedposts-items
+        +h( fd-row )
+        margin: 0 -10px
+
+      div.jp-relatedposts-items .jp-relatedposts-post
+        +h( w50 )
+        margin: 0 10px
+        //
+        @media ($below-s)
+          +h( p05 )
+      
+      //
+      @media ($below-s)
+        .jp-relatedposts-post > .jp-relatedposts-post-a
+          margin: -0.5em
+          margin-bottom: 0.5em
+
+      // next prev no thumbnail
+      div.jp-relatedposts-items .jp-relatedposts-nothumb
+        +h( d-flex fd-column jc-center ta-center )
+        
+        .jp-relatedposts-post-title
+          +h( fs-h4 )
+        .jp-relatedposts-nothumb-excerpt
+          +h( mt1 )
+          //
+          @media ($below-s)
+            +h( d-none )
+        .jp-relatedposts-nothumb-excerpt a
+          +h( d-block )
+// @if $output-related
+
+
+
+///// COMMENTS /////
+@if $output-comment
+  .post-comments
+    ul
+      +h( list-none )
+  
+  .comments-list
+    +h( mt2 )
+    > li
+      +h( p125 mb15 bg-body b1-solid bc-black10 brad )
+  
+  // Single Comment
+  .comment
+    +h( relative c-body )
+
+    &.bypostauthor .comment-avatar
+      padding: 1px
+      box-shadow: 0 0 0 1px $font-color
+
+    .avatar
+      +h( mr075 brad-circle transition )
+      width: 2.5em
+      height: 2.5em
+
+  .comment-header
+    +h( mb1 )
+
+    b, time
+      +h( d-inline-block lh-base va-middle )
+
+    b
+      +h( c-body )
+
+    time
+      +h( ml05 fs-s c-passive )
+
+  .comment-text
+    p
+      +h( mb1 )
+
+    p:last-of-type
+      +h( mb0 )
+
+  // Child comments
+  .replies-list
+    +h( mt15 pl125 )
+    border-left: 2px solid rgba($font-color, 0.1)
+    
+    .comment
+      +h( fs-s )
+
+    .comment-avatar
+      +h( d-none )
+
+    > li + li
+      +h( mt15 )
+
+    header
+      +h( mb05 )
+
+    p
+      +h( mb05 )
+
+  // Reply link
+  a.comment-reply-link
+    +h( v-hidden o0 absolute )
+    +h( fs-s fw-header c-main td-none tt-uppercase transition )
+    top: 5px
+    right: 0
+
+    .comment:hover &
+      +h( v-visible o100 )
+
+    &:hover
+      +h( c-link )
+
+  ///// COMMENT FORM /////
+  .comment-respond
+    +h( mb2 )
+
+    .comments-list &
+      width: 110%
+      margin: 0 -5%
+
+  .comment-reply-title
+    +h( d-none )
+
+  .comment-form
+    +h( p1 bg-body shadow0 brad )
+
+    .comments-list &
+      +h( mt125 shadow1 )
+
+    label
+      +h( mb05 tt-uppercase fs-s ls50 )
+
+    p
+      +h( mb1 )
+
+    p:last-of-type
+      +h( mb0 )
+
+    .comment-notes,
+    .logged-in-as
+      +h( d-block mb1 c-passive fs-s )
+
+      a
+        +h( c-inherit )
+
+  .comment-form:not(.active)
+    p
+      +h( mb0 )
+
+    .comment-notes,
+    .logged-in-as
+      +h( d-none )
+
+  // Field and Submit
+  .comment-form-comment
+    label
+      +h(d-none )
+
+    textarea
+      height: 9em
+
+      .comment-form:not(.active) &
+        +h( minh-auto pv05 b-none shadow-none )
+        height: 2.6em
+
+      .comment-form:not(.active):hover &
+        +placeholder
+          color: $main
+
+  .comment-form-author
+    +h( pr05 )
+
+  .comment-form-email
+    +h( pl05 )
+
+  .comment-form-author,
+  .comment-form-email
+    +h( d-none float-left w50 )
+
+    .active &
+      +h( d-block )
+    //
+    @media ($below-s)
+      +h( d-block w100 p0 )
+
+  .comment-form-url
+    +h( d-none )
+
+  .form-submit
+    +h( d-none clear-both )
+
+    .active &
+      +h( d-block )
+
+// @if $output-comment
+
+
+///// POST PASSWORD FORM
+@if $output-password-form
+  .post-password-form
+    +h( pv2 ph4 bg-black05 brad )
+
+    p:last-child
+      +h( d-flex bb1-solid bc-gray pb05 )
+
+    label
+      +h( flex1 c-passive )
+
+    input[type="password"]
+      +h( bg-transparent b-none mt1 p0 )
+      +h( fs-h3 c-body ls50 )
+      
+      &:hover,
+      &:focus
+        +h( b-none shadow-none )
+
+    input[type="submit"]
+      +h( as-end bg-white ph2 )
+
+// @if $output-password-form
+
+
+
+///// INFINITE SCROLL (Jetpack)
+
+@if $output-infinite-scroll
+  // if infinite-footer is turned on (in theme_support), hide it in paged list.
+  body[class^="paged-"] #infinite-footer
+    +h( d-none )
+
+  .infinite-loader
+    +h( mv2 )
+
+    .spinner
+      left: 50% !important
+      transform: translateX(-50%)
+
+// @if $output-infinite-scroll

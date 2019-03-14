@@ -1,0 +1,15 @@
+{
+  "name": "my-theme",
+  "private": true,
+  "edje": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/my-theme.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "sass": "node-sass -w assets/sass -o assets/css --output-style compressed",
+    "remote-debug": "browser-sync start --proxy \"mysite.dev\" --files 'css/*.css/js/*.js'"
+  }
+}

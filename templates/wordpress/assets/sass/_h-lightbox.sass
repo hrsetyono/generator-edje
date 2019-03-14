@@ -1,0 +1,60 @@
+// hLightbox v2
+// https://github.com/hrsetyono/hLightbox
+  
+.hLightbox
+  +h( fixed top0 left0 w100 h100vh )
+  +h( bg-black75 )
+  opacity: .01
+  z-index: 10000
+  will-change: opacity
+  transition: opacity .25s ease-in-out
+
+  &:not( .hLightbox--unclosable )
+    +h( cursor-pointer )
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+
+
+.hLightbox--visible
+  +h( o100 )
+
+.hLightbox-content
+  +h( absolute top50 left50 cursor-default events-all transition )
+  transform: scale(0.9) translateX(-50%) translateY(-50%)
+  z-index: 1
+  will-change: transform
+  max-width: 95%
+  max-height: 95vh
+
+  .hLightbox--visible &
+    transform: scale(1) translateX(-50%) translateY(-50%)
+
+  > *
+    +h( ovy-auto )
+    max-height: 95vh
+
+
+.hLightbox--iframe iframe:first-child,
+.hLightbox--img img:first-child,
+.hLightbox--video video:first-child
+  +h( d-block bg-white )
+
+
+.hLightbox-close
+  +h( d-flex ai-center jc-center cursor-pointer absolute )
+  +h( brad transition )
+  top: 0
+  right: -10px
+  height: 3rem
+  width: 3rem
+  background-color: rgba($red, 0.3)
+  font-size: 0
+
+  transform: translateX(100%)
+
+  &::before
+    content: "✕"
+    +h( d-inline-block c-white )
+    font-size: 1.5rem
+    
+  &:hover
+    background-color: rgba($red, 0.6)

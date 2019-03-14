@@ -1,0 +1,137 @@
+// Put styles that you might reuse in other projects here
+
+$output-framework: true // this will output the Normalizer, Grid, etc
+@import "settings"
+
+@import "fw-blog"
+@import "fw-sharing"
+@import "h-lightbox"
+@import "h-slider"
+
+
+///// BUTTON /////
+
+.button,
+[type="submit"],
+[type="reset"]
+  +h( cursor-pointer ov-hidden d-inline-block )
+  +h( bg-main b1-solid bb2-solid bc-main-dark pv025 ph075 )
+  +h( fw600 lh-normal va-top c-white brad transition-none )
+  outline: none
+  
+  &:hover
+    +h( c-white )
+    border-color: darken($main-dark, 10%)
+  
+  &:active
+    border-top-width: 2px
+    border-bottom-width: 1px
+
+  &[disabled],
+  &.disabled
+    +h( cursor-not-allowed o50 )
+
+// passive button
+.button--passive,
+.button--loading
+  +h( bc-gray bg-gray-light c-body )
+
+  &:hover
+    +h( c-body )
+    border-color: darken($gray, 10%)
+
+// loading button
+.button--loading
+  +h( cursor-not-allowed bgp-cc bgr-no )
+  background-image: url("../../../../../wp-admin/images/spinner.gif")
+  color: transparent !important
+
+
+///// INPUT /////
+
+[type="text"],
+[type="number"],
+[type="tel"],
+[type="password"],
+[type="email"],
+[type="search"],
+[type="url"],
+[type="date"],
+[type="time"],
+textarea,
+select
+  +h( d-block w100 pv075 ph05 b2-solid bc-gray brad )
+  +h( lh-normal transition )
+  
+  &:focus
+    +h( bc-main )
+    box-shadow: 0 0 0 2px #78dcfa
+
+select
+  border-width: 1px 1px 2px
+
+[type="radio"],
+[type="checkbox"]
+  +h( cursor-pointer b1-solid bc-black25 )
+  +h( va-bottom transition appearance-none )
+  width: 1rem
+  height: 1rem
+  
+  &:hover
+    +h( bc-main )
+  &:checked
+    +h( bc-main )
+    box-shadow: inset 0 0 0 4.5px $main
+
+[type="checkbox"]
+  +h( brad )
+
+[type="radio"]
+  +h( brad-circle )
+
+
+///// WORDPRESS General
+
+// Error page
+.content-error
+  +h( ta-center )
+  padding: 100px 0
+
+  @media ($below-s)
+    +h( pv2 )
+
+  h1
+    +h( mb1 tt-uppercase lh-base c-main )
+    
+  span
+    +h( d-block c-body )
+    font-size: em($h2, $h1)
+
+
+// Contact Form 7
+form.wpcf7-form
+  +h( p075 mh-auto bg-white shadow1 )
+  max-width: 570px
+  
+  br
+    +h( d-none )
+
+  label
+    +h( d-block fs-s fw600 ls50 tt-uppercase )
+
+div.wpcf7
+  span.wpcf7-not-valid-tip
+    +h( c-red fs-s )
+
+  div.wpcf7-response-output
+    +h( m0 mt1 ta-center brad )
+    border-width: 1px
+  
+  .wpcf7-validation-errors
+    +h( bc-red c-red )
+    background-color: rgba($red, 0.2)
+  
+  .wpcf7-mail-sent-ok,
+  .wpcf7-mail-sent-ng
+    +h( bc-green c-green )
+    background-color: rgba($green, 0.5)

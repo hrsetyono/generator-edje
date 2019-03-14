@@ -1,0 +1,426 @@
+$_h-all: (); // store all the Functional variables
+
+// --------
+// DISPLAY
+// --------
+
+$_h-display: (
+  d-inline-block: ( display: inline-block ),
+  d-iblock: ( display: inline-block ),
+  d-block: ( display: block ),
+  d-none: ( display: none ),
+  d-flex: ( '_display': '-webkit-flex', display: flex ),
+  d-grid: ( '_display': '-ms-grid', display: grid ),
+);
+
+// Flexbox
+$_h-flex: (
+  fd-row: ( flex-direction: row ),
+  fd-column: ( flex-direction: column ),
+  fd-column-reverse: ( flex-direction: column-reverse ),
+  fd-row-reverse: ( flex-direction: row-reverse ),
+  fw-wrap: ( flex-wrap: wrap ),
+);
+
+
+// Flex Wrapper - Align Items
+$_h-align-items: (
+  names: (
+    ai-: align-items,
+  ),
+  values: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    baseline: baseline,
+    stretch: stretch,
+  )
+);
+
+
+// Flex wrapper - Justify content
+$_h-justify-content: (
+  names: (
+    jc-: justify-content,
+  ),
+  values: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    around: space-around,
+    between: space-between
+  )  
+);
+
+
+// Flex portion
+$_h-flex-portion: (
+  names: (
+    flex: flex,
+  ),
+  values: (
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5
+  )
+);
+
+
+// Flex order
+$_h-flex-order: (
+  names: (
+    order: order,
+  ),
+  values: (
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    '-last': 999
+  ),
+);
+
+
+// Flex Align Self
+$_h-align-self: (
+  names: (
+    as-: align-self,
+  ),
+  values: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    baseline: baseline,
+    stretch: stretch,
+  )
+);
+
+
+// Overflow
+$_h-overflow: (
+  names: (
+    ov-: overflow,
+    ovx-: overflow-x,
+    ovy-: overflow-y,
+  ),
+  values: (
+    auto: auto,
+    hidden: hidden,
+    scroll: scroll,
+    visible: visible,
+  )
+);
+
+
+// Cursor
+$_h-cursor: (
+  names: (
+    cursor-: cursor,
+  ),
+  values: (
+    default: default,
+    pointer: pointer,
+    text: text,
+    move: move,
+    grab: grab,
+    progress: progress,
+    not-allowed: not-allowed,
+    zoom-in: zoom-in,
+    zoom-out: zoom-out,
+  )
+);
+
+// Other Display
+$_h-display-misc: (
+  v-visible: ( visibility: visible ),
+  v-hidden: ( visibility: hidden ),
+
+  select-none: (
+    '-webkit-touch-callout': none,
+    '-webkit-user-select': none,
+    '-moz-user-select': none,
+    'user-select': none
+  ),
+  
+  events-none: (
+    pointer-events: none,
+  ),
+  events-all: (
+    pointer-events: all,
+  ),
+
+  appearance-none: (
+    '-moz-appearance': none,
+    '-webkit-appearance': none,
+    'appearance': none
+  ),
+  backface-hidden: (
+    '-webkit-backface-visibility': hidden,
+    'backface-visibility': hidden
+  ),
+
+  no-select: ( // deprecated
+    '-webkit-touch-callout': none,
+    '-webkit-user-select': none,
+    '-moz-user-select': none,
+    'user-select': none
+  ),
+  no-appearance: ( // deprecated
+    '-moz-appearance': none,
+    '-webkit-appearance': none,
+    'appearance': none
+  ),
+  no-events: ( // deprecated
+    pointer-events: none,
+  ),
+);
+
+
+// -------
+// LAYOUT
+// -------
+
+$_h-max-height: (
+  names: ( maxh: max-height ),
+  values: (
+    '-none': none,
+    50: 50%,
+    100: 100%
+  )
+);
+
+$_h-min-height: (
+  names: ( minh: min-height ),
+  values: (
+    '-auto': auto,
+    50: 50%,
+    100: 100%
+  )
+);
+
+$_h-max-width: (
+  names: ( maxw: max-width ),
+  values: (
+    '-none': none,
+    50: 50%,
+    100: 100%
+  )
+);
+
+$_h-min-width: (
+  names: ( minw: min-width ),
+  values: (
+    '-auto': auto,
+    50: 50%,
+    100: 100%
+  )
+);
+
+
+// Position
+$_h-position: (
+  static: ( position: static ),
+  relative: ( position: relative ),
+  absolute: ( position: absolute ),
+  fixed: ( position: fixed ),
+  sticky: ( '_position': '-webkit-sticky', position: sticky ),
+
+  absolute-fill: ( position: absolute, top: 0, right: 0, left: 0, bottom: 0 ),
+);
+
+
+// Float
+$_h-float: (
+  float-left: ( float: left ),
+  float-right: ( float: right ),
+  float-none: ( float: none ),
+  clear-both: ( clear: both ),
+  clear-none: ( clear: none ),
+  clearfix: (
+    '::before': ( content: " ", display: table ),
+    '::after': ( content: " ", display: table, clear: both )
+  )
+);
+
+
+// ------
+// THEME
+// ------
+
+$_h-background-position: (
+  names: ( bgp-: background-position ),
+  values: (
+    cc: center center,
+    cr: center right,
+    cl: center left,
+    tc: top center,
+    tr: top right,
+    tl: top left,
+    bc: bottom center,
+    br: bottom right,
+    bl: bottom left,
+  )
+);
+
+
+// Background Misc
+$_h-background-misc: (
+  bgs-cover: ( background-size: cover ),
+  bgs-contain: ( background-size: contain ),
+  
+  bgr: ( background-repeat: repeat ),
+  bgr-no: ( background-repeat: no-repeat ),
+  bgr-x: ( background-repeat: repeat-x ),
+  bgr-y: ( background-repeat: repeat-y ),
+
+  // alias
+  bgr-repeat: ( background-repeat: repeat ),
+  bgr-no-repeat: ( background-repeat: no-repeat ),
+  bgr-repeat-x: ( background-repeat: repeat-x ),
+  bgr-repeat-y: ( background-repeat: repeat-y ),
+);
+
+
+// Theme Misc
+$_h-theme-misc: (
+);
+
+
+// -----------
+// TYPOGRAPHY
+// -----------
+
+// List style
+$_h-list-style: (
+  names: ( list-: list-style-type ),
+  values: (
+    none: none,
+    disc: disc,
+    circle: circle,
+    square: square,
+  
+    decimal: decimal,
+    decimal0: decimal-leading-zero,
+    alpha: lower-alpha,
+    roman: lower-roman,
+    upper-alpha: upper-alpha,
+    upper-roman: upper-roman,
+  )
+);
+
+
+// Font Misc
+$_h-font-misc: (
+  nowrap: ( white-space: nowrap ),
+  
+  tt-uppercase: ( text-transform: uppercase ),
+  tt-lowercase: ( text-transform: lowercase ),
+  tt-capitalize: ( text-transform: capitalize ),
+  tt-none: ( text-transform: none ),
+
+  ta-center: ( text-align: center ),
+  ta-right: ( text-align: right ),
+  ta-left: ( text-align: left ),
+  ta-justify: ( text-align: justify ),
+);
+
+
+// Font Weight
+$_h-font-weight: (
+  names: ( fw: font-weight ),
+  values: (
+    300: 300,
+    400: 400,
+    600: 600,
+    700: 700,
+    900: 900,
+    '-body': $font-weight,
+    '-header': $header-weight,
+  )
+);
+
+
+// Font Styles
+$_h-font-style: (
+  b: ( font-weight: 700 ),
+  i: ( font-style: italic ),
+  u: ( text-decoration: underline ),
+  td-underline: ( text-decoration: underline ),
+  strike: ( text-decoration: line-through ),
+  td-strike: ( text-decoration: line-through ),
+  td-none: ( text-decoration: none ),
+);
+
+
+// Vertical Align
+$_h-vertical-align: (
+  names: ( va-: vertical-align ),
+  values: (    
+    baseline: baseline,
+    top: top,
+    middle: middle,
+    bottom: bottom,
+    sub: sub,
+    super: super,
+    text-top: text-top
+  )
+);
+
+
+/////
+
+$_h-all: map-merge( $_h-all, _merge(
+  $h-custom,
+  
+  $_h-display,
+  $_h-flex,
+  $_h-align-items,
+  $_h-justify-content,
+  $_h-flex-order,
+  $_h-flex-portion,
+  $_h-align-self,
+  $_h-overflow,
+  $_h-cursor,
+  $_h-display-misc,
+
+  $h-width,
+  $_h-min-width,
+  $_h-max-width,
+  $h-height,
+  $_h-min-height,
+  $_h-max-height,
+  $_h-position,
+  $h-position,
+  $h-z-index,
+  $_h-float,
+
+  $h-padding,
+  $h-margin,
+  $h-border,
+  $h-border-color,
+  $h-border-radius,
+
+  $h-background-color,
+  $h-background-image,
+  $_h-background-position,
+  $_h-background-misc,
+  $h-shadow,
+  $h-opacity,
+  $h-hover,
+  $_h-theme-misc,
+  $h-transition,
+
+  $h-font-size,
+  $h-letter-spacing,
+  $h-color,
+  $h-font-family,
+  $h-line-height,
+  $_h-list-style,
+  $_h-font-misc,
+  $_h-font-weight,
+  $_h-font-style,
+  $_h-vertical-align,
+) );

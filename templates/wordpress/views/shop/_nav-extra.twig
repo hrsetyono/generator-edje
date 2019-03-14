@@ -1,0 +1,12 @@
+<a href="/my-account/" class="button button--passive">
+  <i class="dashicons-before dashicons-admin-users"></i> Login
+</a>
+
+<div class="nav-item-cart">
+  {% include 'shop/_cart-button.twig' %}
+
+  <aside class="dialog dialog--cart" id="cart-dialog">
+    <h3>{{ __('Your Cart', 'my') }}</h3>
+    {{ fn('the_widget', 'WC_Widget_Cart' ) }}
+  </aside>
+</div>

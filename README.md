@@ -6,7 +6,6 @@ Available templates are:
 
 - HTML
 - [WordPress](https://github.com/hrsetyono/generator-edje/wiki/WordPress) (comes with full WP installation)
-- [WooCommerce](https://github.com/hrsetyono/generator-edje/wiki/WooCommerce) (comes with full WP installation)
 - [Email](https://github.com/hrsetyono/generator-edje/wiki/Email)
 
 Visit our [WIKI](https://github.com/hrsetyono/generator-edje/wiki/) for full documentation.
